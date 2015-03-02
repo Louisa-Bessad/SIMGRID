@@ -1,0 +1,18 @@
+#+STARTUP: showall
+
+* Findings
+Yeah you find my beautiful reporting file
+** Introduction 
+** Related Work
+** Bibliography
+** Contribution 
+* Development
+** Data Provenance
+* Journal
+** 1rst week March
+*** Things done
+*** Blocking points and questions
+*** Planned work
+**** TODO
+* Conclusion
+Hello Next Guy
