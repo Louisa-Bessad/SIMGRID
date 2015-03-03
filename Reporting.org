@@ -11,8 +11,10 @@ Yeah you find my beautiful reporting file
 * Journal
 ** 1rst week March
 *** Things done
+- Lire les papiers de Chloé
 *** Blocking points and questions
 *** Planned work
-**** TODO
+*** TODO Lire les papiers de Marion, Guillaume et articles cités par Chloé
+*** TODO Lire code
 * Conclusion
-Hello Next Guy
+Hello Next Guy! At the end remote all the jokes :p
