@@ -1,0 +1,54 @@
+\documentclass{article} 
+
+\usepackage[french]{babel}
+\usepackage{color}
+
+\begin{document}
+
+\section{Chloé}
+\subsection{SimGrid et simterPose}
+\textbf{SimGrid} est un simulateur d'applications distribuées en environnement hétérogènes mais il implique de réécrire les applications pour les modéliser.
+
+\begin{itemize}
+\item appl réelles nécessitent des plateforme, complexes et pas forcément
+  reproductible (\textbf{Grid'5000})
+\item simulation: modelisation d'applications et d'environnements, intéractions
+  calculées via le simulateur, implique de reécrire l'application
+\item emulation: applications réelles sur environnements virtuels
+\begin{itemize}
+\item par dégradation \textbf{Distem}: ajoute une couche d'émulation au dessus de la plate-forme réelle mais diminue la capacité de l'hote car il a joute un délai. Il n'est donc pas possible d'émuler des machines plus puissantes
+\item par interception des actions (calcul, communications) de l'application \textbf{SimterPose}: exécution possible sur odinateur perso, ajout des délais de calcul via le simulateur et gestion du temps pour émuler des hotes plus puissants.
+\end{itemize}
+\end{itemize}
+
+\textbf{Simterpose} permet d'utiliser \textbf{SimGrid} avec des applications réelles, en faisant croire aux applications qu'elle s'exécutent sur des machines distribuées. Il intercepte les actions des applications réelles et les modifie:
+\begin{itemize}
+\item les calculs sont exécutés sur le PC réel et réinjectés les temps dans le simulateur
+\item les communications sont modifiées pour imiter un environnement distribué, les délais (temps de calcul et connexion) sont calculés par le simulateur
+\end{itemize}
+
+{\color{red} emulation = application réelle dans un environnement virtuel simulé}
+
+L'interception des actions des applications se fait en utilisant deux outils qui se complètent:
+\begin{itemize}
+\item ptrace: AS autorisant un processus à controler l'executiond 'un second (modification des registres d'un AS intercepté par exemple)
+\item LD\_PRELOAD (éditeur de lien dynamique): interception au niveau de l'appel des bibliothèques. On va précharger des bibliothèques écrasant les fonctions à surcharger. {\color{red} risque de contournement si on oublie des fonctions}
+\end{itemize}
+
+Les AS 'time', 'clock\_gettime', 'gettimeofday' avec \textbf{ptrace} n'est pas possible, d'où l'alliance avec LD\_PRELOAD.
+SimterPose modifie les actions des applications et les exécute en environnement virtuel, il simule des applications simples.
+
+{\color{green} au lieu d'avoir des VM on a un simulateur proposé par SimterPose qui intercepte les actions de l'application}
+
+SimterPose est une interface / API de SimGrid qui permet d'utiliser le simulateur avec des applications réelles (sans avoir à les réécrire). De plus on veut pouvoir tester les applications sans avoir accès au code source. On teste les applications réelles sur une plate-forme virtuelle simulée par SIMGRID. Les calculs sont réellement exécutés sur la machine, les temps d'exécution injectés dans le simulateur, les communications sont récupérées puis modifiées (permet de remanier l'environnement vu par les applications). Les réponses à ces deux points sont calculées par le simulateur.
+
+ptrace est appelé à chaque entrée et sortie d'AS (considéré comme point d'arret), cela permet aussi de pouvoir r/w directement en mémoire des processus via \textbf{PEEK\_DATA POKE\_DATA}.
+
+\subsection{Médiation}
+
+\section{Guillaume}
+
+\section{Marion}
+
+
+\end{document}

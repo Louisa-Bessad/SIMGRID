@@ -11,10 +11,16 @@ Yeah you find my beautiful reporting file
 * Journal
 ** 1rst week March
 *** Things done
-- Lire les papiers de Chloé
+- Lire les papiers de Chloé, Guillaume, un papier sur quatre cités par Chloé
 *** Blocking points and questions
+- Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent sur la machine hote,
+ seul les actions qui ont besoin d'interragir avec l'environnement (réseau car
+appl distribuées) sont envoyées dans le simulateur?
+- Si on exécute les appli sur la machine hote, dans ce cas en quoi ça permet d'exécuter sur différentes
+machine avec des puissances de calcul différentes?
 *** Planned work
-*** TODO Lire les papiers de Marion, Guillaume et articles cités par Chloé
+*** TODO Relire le premier rapport de Marion et lire les trois derniers articles cités par Chloé (20 pages et l'autre pas trouvé par google)
 *** TODO Lire code
+
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
