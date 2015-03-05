@@ -118,26 +118,52 @@ registre). ptrace stoppe l'exécution du processus pour chacune de ces parties
 afin de pouvoir récupérer toutes les informations qui l'intéressent.
 
 \subsection{Médiation}
-With full mediation, applications don't use socket to comunicate, there is no connexion either. The network address is the same that the simulated address because there is no connexion.
-In address translation, every connexion and communication go through the kernel to be routed but there is no traffic control from the OS. The simulated address of the simultaed network is translated to communicate in the local network. The is an array of the port used by the application in the simulated world and in the reality and there is bind between them. Because the same simulated port can be binded to different real port. 
+With full mediation, applications don't use socket to comunicate, there is no
+connexion either. The network address is the same that the simulated address
+because there is no connexion.  In address translation, every connexion and
+communication go through the kernel to be routed but there is no traffic control
+from the OS. The simulated address of the simultaed network is translated to
+communicate in the local network. The is an array of the port used by the
+application in the simulated world and in the reality and there is bind between
+them. Because the same simulated port can be binded to different real port.
 
-SimterPose simulates a real network on a local network. In the address translation, when we want to use some ports to have some connections, we need to know if there are not used by another process if not we look for two real ports to bind them and store those links in an array and we quit the syscall. When want to receive or send something, we check if there is something new to read before releasing the read. With unblocking send we check if we receive something new to send if not the application is not stopped, otherwise the send sends the return value to the kernel which sends it to the simulator and store it for reception mecanism and blocks the application which have made the send. The address translation is limited by the number of ports but extensions exist.
+SimterPose simulates a real network on a local network. In the address
+translation, when we want to use some ports to have some connections, we need to
+know if there are not used by another process if not we look for two real ports
+to bind them and store those links in an array and we quit the syscall. When
+want to receive or send something, we check if there is something new to read
+before releasing the read. With unblocking send we check if we receive something
+new to send if not the application is not stopped, otherwise the send sends the
+return value to the kernel which sends it to the simulator and store it for
+reception mecanism and blocks the application which have made the send. The
+address translation is limited by the number of ports but extensions exist.
 
-In full mediation the send is store in the memory so there is no syscall blocked, we run the simultation and then release the application. The receive check if there is something new or not to block or not the application. The simulator stops the application when the writting in the memory of the destination process is ended.
+In full mediation the send is store in the memory so there is no syscall
+blocked, we run the simultation and then release the application. The receive
+check if there is something new or not to block or not the application. The
+simulator stops the application when the writting in the memory of the
+destination process is ended.
 \begin{enumerate}
 \item w in memory
 \item is there something new?
-\item if there is something we stops the application and we run the simulation until the end of the simulation, otherwise the application continue.
-It allows to insure the consistency of the FD table of every process .The full mediation is bad with print memory.
+\item if there is something we stops the application and we run the simulation
+  until the end of the simulation, otherwise the application continue.  It
+  allows to insure the consistency of the FD table of every process .The full
+  mediation is bad with print memory.
 \end{enumerate}
 
-The address translation is more efficient for the exchange of big data (because memory access to read something is heavy). But in real world you don't have only it, in this way full mediation is more efficent for time problems (short data and many connections) 
+The address translation is more efficient for the exchange of big data (because
+memory access to read something is heavy). But in real world you don't have only
+it, in this way full mediation is more efficent for time problems (short data
+and many connections)
 
 \subsection{Time}
-The time for the application is the time of the simulator not the real time. For the computation time we ask to the kernel and after this time is given to the simulator.
+The time for the application is the time of the simulator not the real time. For
+the computation time we ask to the kernel and after this time is given to the
+simulator.
 
-\textit{On lance l'application sur l'hote réel et on simule le déploiement sur la plateforme réelle}
-{\color{red} revoir page 22 jusqu'à 27}
+\textit{On lance l'application sur l'hote réel et on simule le déploiement sur
+  la plateforme réelle} {\color{red} revoir page 22 jusqu'à 27}
 
 \section{Marion}
 \subsection{3 techniques}
@@ -428,7 +454,7 @@ chaque socket et de chercher quelle socket possède les 2 couples (IP,port)
 inverses. On en extrait alors le pid.
 \end{quotation}
 
-\section{Autre}
+\subsection{Autre}
 De plus, avec notre traceur actuel, l’émulation avec SimGrid se fera offline ,
 c’est-à dire, que l’on commence par exécuter l’application que l’on trace en
 même temps. Ensuite, une fois l’exécution terminée et notre trace obtenue, on la
@@ -437,4 +463,16 @@ en ajoutant éventuellement des modifications. L’idée serait donc d’envisag
 émulation online où on reporterait immédiatement les actions interceptées dans
 le simulateur, puis, on retarderait l’application du temps calculé par le
 simulateur.
+
+\section{Papier Distem}
+Distem est un logiciel permettant de construire des environnements expérimentaux
+distribués virtuels. À partir d'un ensemble de n\oe uds homogène il peut émuler
+un ensemble de n\oe uds hétérogènes connectés via un réseau virtuel décrit à
+partir d'un modèle de topologies réaliste. La virtualisation se fait grâce à
+LXC (Linux Container), Distem possède plusieurs interfaces utilisateurs pour s'adapter aux
+besoins. Distem peut changer les caractèristiques du réseau et la vitesse des
+CPU à la volée, utile pour les applications dont l'environnement varie avec le temps. Les Pnodes contiennent les Vnodes possédant chacun un certain nombre de c\oe urs (dans un Vnode tous les c\oe urs ont la même cadence et elle est forcément plus basse que la vitesse réelle du processeur), chaque Pnode à son propre deamon Distem. Il augmente aussi la taille du cache ARP afin de pouvoir simuler beaucoup plus de 1024 noeuds, les IP d'un même réseau possède la même adresse MAC, les Vnodes ont accès au réseau physique car ils peuvent communiquer avec le Pnode pas uniquement entre Vnode et donc sortir. La latence et la bande passante sont aussi limitées et gérées pour ne pas s'influencer.
+
+On dit environnement virtuels distribués car on en emule plusieurs n\oe uds sur différents n\oe uds réels.
+
 \end{document}
