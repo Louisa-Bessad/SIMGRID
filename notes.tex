@@ -71,8 +71,73 @@ d'arret), cela permet aussi de pouvoir r/w directement en mémoire des processus
 via \textbf{PEEK\_DATA POKE\_DATA}.
 
 \subsection{Médiation}
+Une action de l'application réelle appelle le simultaeur à calculer la réaction
+de la plateforme virtuelle, on peut retardé le temps de la phase de calcul ou de
+connexion et modifier la perceptioni de l'application en modifiant le
+temps. Simterpose doit lier les adresses et les ports reseaux simulés avec ceux
+du réseau local, pour gérer cela il existe deux solutions:
+\begin{itemize}
+\item Traduction d'adresse: le noyau gère les communications et modifie
+  uniquement le tableau de correspondance d'adresse. On modifie les arguments
+  que sont l'adresse et le port de connexion/communication.
+\item Totale: l'application n'établit aucune connexion via socket avec une autre
+  application, ptrace va directement écrire dans la mémoire du processus cible
+  (on prend les arguments dans la mémoire de l'émetteur et on les écrit
+  directement dans la mémoire du destinataire). On peut ainsi conserver les
+  adresses simulées utilisées par les applications et on neutralise les AS de
+  connexion.
+\end{itemize}
+
+\textit{LD\_PRELOAD permet de précharger des bibliothèques, on crée une
+  bibliothèque dans laquelle on surcharge toutes les fonctions de temps et on
+  exécute ces fonctions plutot que les originelles car ptrace ne permet pas de
+  bien gérer les AS liés aux temps... Mais dans ce cas il ne faut pas oublier de
+  fonction pour que le système ne passe pas au travers. SimterPose utilise l'API
+  MSG}
+
+La traduction d'adresse surpasse la médiation totale, ce qui est logique car les
+appels mémoires sont plus couteux. Les actions de l'application sont
+interceptées et modifiés puis exécutés dans un environnement virtuel simulé,
+c'est SimterPose qui fait cela et envoie tout dans le simulateur SIMGRID (SURF).
+
+\subsection{Reporting}
+On écrit dans \textit{/proc/pid/mem} plutpt que \_PEEK. LD\_PRELOAD s'applique
+directement sur write car tous les AS finissent par l'appeler. Pour le temps on
+utilise la meme technique de VDSO avec LD\_PRELOAD (on lit une page partagée où
+SimGrid écrit l'heure simulée et c'est ça qu'on renvoie à l'application
+notamment en le mettant dans l'espace d'adressage du processus ``child''.
 
 \section{Guillaume}
+\subsection{AS}
+Les AS sont constitués de 2 parties; la première consiste à initialiser l'appel
+via l'application et à placer les valeurs des arguments dans les registres du
+syscall. La seconde se fait après l'exécution du syscall quand l'OS rend le
+controle à l'application (les registres des arguments contiennent les anciennes
+valeurs recues en paramètre et on stocke la valeur du résultat dans le bon
+registre). ptrace stoppe l'exécution du processus pour chacune de ces parties
+afin de pouvoir récupérer toutes les informations qui l'intéressent.
+
+\subsection{Médiation}
+With full mediation, applications don't use socket to comunicate, there is no connexion either. The network address is the same that the simulated address because there is no connexion.
+In address translation, every connexion and communication go through the kernel to be routed but there is no traffic control from the OS. The simulated address of the simultaed network is translated to communicate in the local network. The is an array of the port used by the application in the simulated world and in the reality and there is bind between them. Because the same simulated port can be binded to different real port. 
+
+SimterPose simulates a real network on a local network. In the address translation, when we want to use some ports to have some connections, we need to know if there are not used by another process if not we look for two real ports to bind them and store those links in an array and we quit the syscall. When want to receive or send something, we check if there is something new to read before releasing the read. With unblocking send we check if we receive something new to send if not the application is not stopped, otherwise the send sends the return value to the kernel which sends it to the simulator and store it for reception mecanism and blocks the application which have made the send. The address translation is limited by the number of ports but extensions exist.
+
+In full mediation the send is store in the memory so there is no syscall blocked, we run the simultation and then release the application. The receive check if there is something new or not to block or not the application. The simulator stops the application when the writting in the memory of the destination process is ended.
+\begin{enumerate}
+\item w in memory
+\item is there something new?
+\item if there is something we stops the application and we run the simulation until the end of the simulation, otherwise the application continue.
+It allows to insure the consistency of the FD table of every process .The full mediation is bad with print memory.
+\end{enumerate}
+
+The address translation is more efficient for the exchange of big data (because memory access to read something is heavy). But in real world you don't have only it, in this way full mediation is more efficent for time problems (short data and many connections) 
+
+\subsection{Time}
+The time for the application is the time of the simulator not the real time. For the computation time we ask to the kernel and after this time is given to the simulator.
+
+\textit{On lance l'application sur l'hote réel et on simule le déploiement sur la plateforme réelle}
+{\color{red} revoir page 22 jusqu'à 27}
 
 \section{Marion}
 \subsection{3 techniques}
@@ -334,8 +399,8 @@ communiquent entre eux.
   (IP,port) inversement identiques.  Pour obtenir ces informations, nous avons
   besoin de connaître le numéro de la socket qui est unique sur l’ensemble du
   système contrairement au file descriptor. Pour cela, on utilise la commande ls
-  -l /proc/#pid/fd/#fd dans laquelle on indique le pid du processus (#pid)
-  auquel appartient la socket et le file descriptor (#fd) qui lui a été associé
+  -l /proc/\#pid/fd/\#fd dans laquelle on indique le pid du processus (\#pid)
+  auquel appartient la socket et le file descriptor (\#fd) qui lui a été associé
   lors de sa création. Une fois ce numéro de socket obtenu, selon le protocole
   utilisé par la socket, nous devons parcourir un fichier : /proc/net/protocol
   où protocol peut être tcp, udp, raw, netlink, etc ... , qui contient la table
