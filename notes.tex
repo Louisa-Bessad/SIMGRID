@@ -468,11 +468,51 @@ simulateur.
 Distem est un logiciel permettant de construire des environnements expérimentaux
 distribués virtuels. À partir d'un ensemble de n\oe uds homogène il peut émuler
 un ensemble de n\oe uds hétérogènes connectés via un réseau virtuel décrit à
-partir d'un modèle de topologies réaliste. La virtualisation se fait grâce à
-LXC (Linux Container), Distem possède plusieurs interfaces utilisateurs pour s'adapter aux
-besoins. Distem peut changer les caractèristiques du réseau et la vitesse des
-CPU à la volée, utile pour les applications dont l'environnement varie avec le temps. Les Pnodes contiennent les Vnodes possédant chacun un certain nombre de c\oe urs (dans un Vnode tous les c\oe urs ont la même cadence et elle est forcément plus basse que la vitesse réelle du processeur), chaque Pnode à son propre deamon Distem. Il augmente aussi la taille du cache ARP afin de pouvoir simuler beaucoup plus de 1024 noeuds, les IP d'un même réseau possède la même adresse MAC, les Vnodes ont accès au réseau physique car ils peuvent communiquer avec le Pnode pas uniquement entre Vnode et donc sortir. La latence et la bande passante sont aussi limitées et gérées pour ne pas s'influencer.
+partir d'un modèle de topologies réaliste. La virtualisation se fait grâce à LXC
+(Linux Container), Distem possède plusieurs interfaces utilisateurs pour
+s'adapter aux besoins. Distem peut changer les caractèristiques du réseau et la
+vitesse des CPU à la volée, utile pour les applications dont l'environnement
+varie avec le temps. Les Pnodes contiennent les Vnodes possédant chacun un
+certain nombre de c\oe urs (dans un Vnode tous les c\oe urs ont la même cadence
+et elle est forcément plus basse que la vitesse réelle du processeur), chaque
+Pnode à son propre deamon Distem. Il augmente aussi la taille du cache ARP afin
+de pouvoir simuler beaucoup plus de 1024 noeuds, les IP d'un même réseau possède
+la même adresse MAC, les Vnodes ont accès au réseau physique car ils peuvent
+communiquer avec le Pnode pas uniquement entre Vnode et donc sortir. La latence
+et la bande passante sont aussi limitées et gérées pour ne pas s'influencer.
 
-On dit environnement virtuels distribués car on en emule plusieurs n\oe uds sur différents n\oe uds réels.
+On dit environnement virtuels distribués car on en emule plusieurs n\oe uds sur
+différents n\oe uds réels.
 
+\section{Papier ptrace, utrace, uprobes}
+\subsection{ptrace}
+ptrace est une API AS limitée quand on a du multithread à tracer. utrace est une
+API noyau, un module d'instrumentation qui permet de tracer les évènements
+désirés d'un processus tracé. uprobes API noyau utilise utrace et l'étends pour
+fournir des points d'arrêt des applications utilisateurs en les instrumentant
+dynamiquement comme kprobes pour Linux. Ces trois outils permettent de surmonter
+certaintes limitations de ptrace.
+
+Aves ptrace de nombreux changement de contexte sont effectués ce qui diminue ses
+performances. On fait de ptrace et upbrobes des clients de utrace via utrace
+patchset pour ptrace qui fait le même travail que ptrace mais directement dans
+le noyau ce qui évite les changements de contexte.
+
+\textit{Events in the tracee turn into SIGCHLD signals that are delivered to the
+  tracing process. The associated siginfo_t specifies the type of event.}
+Gdb, strace et ltrace se basent sur ptrace et ont tous des limitent que ce soit en performance pour ltrace (qui ne gère pas le multithread) ou pour le multithreading pour gdb et strace. De plus ptrace n'est pas POSIX donc son exécution varie en fonction des machines, des versions et plus on augmente le nombre de processus, thread plus on surcharge.
+
+Tous les traceur noyau sont des modules évidemment pour alléger ce dernier. Leur avantages et la vitesse et l'accès à tous sans restrictions ce qui est aussi le plus grand danger.
+
+\subsection{kprobes}
+Il permet à l'utilisateur d'insérer dynamiquement des ``probes'' à des endroits spécidifiques du noyau, ainsi l'utilisateur peut spécifier un handler particulier à exécuter avant ou après l'exécution de l'instruction marquée. Quand un ``probe'' est touché kprobe prend la main et exécute le bon handler. Il utilise DProbes (crée par IBM)
+
+\subsection{utrace}
+Doit servir de couche d'abstraction pour les prochains traceurs et debuggeur d'applicataions. Il gère les thread individuellement (chacune possède sa propre \textit{task\_struc} dans le noyau et possède son propre ``engine'' qui peut reporter des évènements et permettre au client de les enregistrer, contrôler la thread en injectant notamment des signaux, permettre au client de modifier l'état de la thread. Ainsi on fait appel à lui pour gérer les thread quand on ne sait pas les gerer typiquement ptrace.
+
+\subsection{uprobes}
+Client aussi de utrace. Comme kprobes pour le noyau il place et gére des ``probepoints'' dans les applications utilisateurs, son infrastrcutre comme ptrace vit dans le noyau. Pour cela on écrit un module noyau pour chaque ``probepoint'' en spécifiant le processus et l'adresse virtuelle à vérifier ainsi que le handler à exécuter quand on arrive sur le ``probepoint''. Le module peut aussi utiliser utrace ou kprobes APIs et communiquer avec. Il minimise les limites sur le type d'application à vérifier et la façon dont elles peuvent l'être. Un module d'instrumentation basé sur uprobe peut analyser tous les processus quelque soit leur type (lié ou pas) et des applications multithreadées. Les ``probes'' peuvent-être placés et modifiés à n'importe quel moment de l'exécution du processus et plusieurs modules peuvent vérifier le même processus en même temps. Chaque processus a sa page de ``probepoints''. Le processus vérifie les points et exécute le handler pas un autre d'où l'absence de changement de contexte. Il est portable. \textit{D'autres infos sur fonctionnement mais pas forcément utile ici après p.6}
+
+\subsection{SystemTap}
+Script permettant de spécifier les points à vérifier et ce qu'il faut exécuter pour chacun, facile d'utilisation quand on le lance il fait appel à kprobes, c'est une sorte de wrapper qui veut se développer pour uprobe, utrace.
 \end{document}
