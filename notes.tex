@@ -1,13 +1,13 @@
-\documentclass{article} 
+\documentclass{article}
 
-\usepackage[french]{babel}
-\usepackage{color}
+\usepackage[french]{babel} \usepackage{color} \usepackage{array}
 
 \begin{document}
 
 \section{Chloé}
 \subsection{SimGrid et simterPose}
-\textbf{SimGrid} est un simulateur d'applications distribuées en environnement hétérogènes mais il implique de réécrire les applications pour les modéliser.
+\textbf{SimGrid} est un simulateur d'applications distribuées en environnement
+hétérogènes mais il implique de réécrire les applications pour les modéliser.
 
 \begin{itemize}
 \item appl réelles nécessitent des plateforme, complexes et pas forcément
@@ -16,39 +16,360 @@
   calculées via le simulateur, implique de reécrire l'application
 \item emulation: applications réelles sur environnements virtuels
 \begin{itemize}
-\item par dégradation \textbf{Distem}: ajoute une couche d'émulation au dessus de la plate-forme réelle mais diminue la capacité de l'hote car il a joute un délai. Il n'est donc pas possible d'émuler des machines plus puissantes
-\item par interception des actions (calcul, communications) de l'application \textbf{SimterPose}: exécution possible sur odinateur perso, ajout des délais de calcul via le simulateur et gestion du temps pour émuler des hotes plus puissants.
+\item par dégradation \textbf{Distem}: ajoute une couche d'émulation au dessus
+  de la plate-forme réelle mais diminue la capacité de l'hote car il a joute un
+  délai. Il n'est donc pas possible d'émuler des machines plus puissantes
+\item par interception des actions (calcul, communications) de l'application
+  \textbf{SimterPose}: exécution possible sur odinateur perso, ajout des délais
+  de calcul via le simulateur et gestion du temps pour émuler des hotes plus
+  puissants.
 \end{itemize}
 \end{itemize}
 
-\textbf{Simterpose} permet d'utiliser \textbf{SimGrid} avec des applications réelles, en faisant croire aux applications qu'elle s'exécutent sur des machines distribuées. Il intercepte les actions des applications réelles et les modifie:
+\textbf{Simterpose} permet d'utiliser \textbf{SimGrid} avec des applications
+réelles, en faisant croire aux applications qu'elle s'exécutent sur des machines
+distribuées. Il intercepte les actions des applications réelles et les modifie:
 \begin{itemize}
-\item les calculs sont exécutés sur le PC réel et réinjectés les temps dans le simulateur
-\item les communications sont modifiées pour imiter un environnement distribué, les délais (temps de calcul et connexion) sont calculés par le simulateur
+\item les calculs sont exécutés sur le PC réel et réinjectés les temps dans le
+  simulateur
+\item les communications sont modifiées pour imiter un environnement distribué,
+  les délais (temps de calcul et connexion) sont calculés par le simulateur
 \end{itemize}
 
-{\color{red} emulation = application réelle dans un environnement virtuel simulé}
+{\color{red} emulation = application réelle dans un environnement virtuel
+  simulé}
 
-L'interception des actions des applications se fait en utilisant deux outils qui se complètent:
+L'interception des actions des applications se fait en utilisant deux outils qui
+se complètent:
 \begin{itemize}
-\item ptrace: AS autorisant un processus à controler l'executiond 'un second (modification des registres d'un AS intercepté par exemple)
-\item LD\_PRELOAD (éditeur de lien dynamique): interception au niveau de l'appel des bibliothèques. On va précharger des bibliothèques écrasant les fonctions à surcharger. {\color{red} risque de contournement si on oublie des fonctions}
+\item ptrace: AS autorisant un processus à controler l'executiond 'un second
+  (modification des registres d'un AS intercepté par exemple)
+\item LD\_PRELOAD (éditeur de lien dynamique): interception au niveau de l'appel
+  des bibliothèques. On va précharger des bibliothèques écrasant les fonctions à
+  surcharger. {\color{red} risque de contournement si on oublie des fonctions}
 \end{itemize}
 
-Les AS 'time', 'clock\_gettime', 'gettimeofday' avec \textbf{ptrace} n'est pas possible, d'où l'alliance avec LD\_PRELOAD.
-SimterPose modifie les actions des applications et les exécute en environnement virtuel, il simule des applications simples.
+Les AS 'time', 'clock\_gettime', 'gettimeofday' avec \textbf{ptrace} n'est pas
+possible, d'où l'alliance avec LD\_PRELOAD.  SimterPose modifie les actions des
+applications et les exécute en environnement virtuel, il simule des applications
+simples.
 
-{\color{green} au lieu d'avoir des VM on a un simulateur proposé par SimterPose qui intercepte les actions de l'application}
+{\color{green} au lieu d'avoir des VM on a un simulateur proposé par SimterPose
+  qui intercepte les actions de l'application}
 
-SimterPose est une interface / API de SimGrid qui permet d'utiliser le simulateur avec des applications réelles (sans avoir à les réécrire). De plus on veut pouvoir tester les applications sans avoir accès au code source. On teste les applications réelles sur une plate-forme virtuelle simulée par SIMGRID. Les calculs sont réellement exécutés sur la machine, les temps d'exécution injectés dans le simulateur, les communications sont récupérées puis modifiées (permet de remanier l'environnement vu par les applications). Les réponses à ces deux points sont calculées par le simulateur.
+SimterPose est une interface / API de SimGrid qui permet d'utiliser le
+simulateur avec des applications réelles (sans avoir à les réécrire). De plus on
+veut pouvoir tester les applications sans avoir accès au code source. On teste
+les applications réelles sur une plate-forme virtuelle simulée par SIMGRID. Les
+calculs sont réellement exécutés sur la machine, les temps d'exécution injectés
+dans le simulateur, les communications sont récupérées puis modifiées (permet de
+remanier l'environnement vu par les applications). Les réponses à ces deux
+points sont calculées par le simulateur.
 
-ptrace est appelé à chaque entrée et sortie d'AS (considéré comme point d'arret), cela permet aussi de pouvoir r/w directement en mémoire des processus via \textbf{PEEK\_DATA POKE\_DATA}.
+ptrace est appelé à chaque entrée et sortie d'AS (considéré comme point
+d'arret), cela permet aussi de pouvoir r/w directement en mémoire des processus
+via \textbf{PEEK\_DATA POKE\_DATA}.
 
 \subsection{Médiation}
 
 \section{Guillaume}
 
 \section{Marion}
+\subsection{3 techniques}
+Pour déterminer le comportement exact d'une application sur un large éventail de
+conditions environnementales on peut faire de l'exécution sur plateforme réelle,
+de l'émulation ou de la simulation. La première est une expérience \textit{in
+  situ}, néanmomins cela oblige à avoir du matériel disponible et n'est pas
+forcément reproductible du fait du partage entre utilisateurs.
 
+La simulation consiste à modéliser un système et à représenter une application
+de façon théorique et mathématique pour l'exacuter dans le système
+modéliser. Néanmoins meme si elle est facile à mettre en \oe uvre et facilement
+reproductible elle ne permet de valider qu'un modèle de l'application et pas
+l'application réelle.
 
+\begin{quotation}
+L’émulation consiste à substituer un élément de l’environnement de l’application
+par un logiciel. L’émulateur reproduit le comportement d’un modèle dont toutes
+les variables sont connues.
+
+Dans l’évaluation des applications distribuées, l’émulation est une approche
+intermédiaire visant à résoudre les limitations de la simulation : {\color{red}
+  en émulant l’exécution de l’application sur une plate-forme virtuelle
+  (simulée), il est possible d’exécuter l’application réelle sur une large gamme
+  de conditions, dans un environnement entièrement contrôlé.} De plus, cela
+évite de devoir développer 2 versions de l’application , l’une étant adaptée à
+l’expérimentation sur si- mulateur tandis que la seconde est utilisée en
+production. L’émulation d’applications réparties consiste à intercepter les
+actions de l’application et à reporter ces actions dans le simulateur.  Dans le
+cas d’une émulation offline , on sauvegarde ces actions sur disque, puis on les
+rejoue après coup dans le simulateur. Tandis que dans une émulation online , on
+reporte immédia- tement ces actions dans le simulateur, puis on retarde
+l’application du temps calculé par le simulateur.
+
+{\color{green} Le projet SimGrid[7] a débuté en 1999 pour permettre l’étude
+  d’algorithmes d’ordonnan- cement sur des plateformes hétérogènes. Il s’agit
+  d’un outil qui fournit des fonctionnalités de base pour la simulation
+  d’applications distribuées hétérogènes en environnements distribués.
+  L’objectif spécifique du projet est de faciliter la recherche dans le domaine
+  de la program- mation d’applications distribuées et parallèles sur des
+  plates-formes de calcul distribué à partir d’un simple réseau allant du poste
+  de travail aux grilles de calcul.
+
+Le projet Simterpose s’insère dans un axe de recherche visant à permettre
+l’étude sur simu- lateur d’applications complètes. L’objectif est d’émuler en
+utilisant un simulateur, dans notre cas, SimGrid. On souhaite ainsi fournir un
+émulateur simple et accessible à tous les utilisateurs grâce à sa facilité de
+déploiement que ce soit sur un simple ordinateur portable personnel ou bien sur
+un petit cluster. Un tel émulateur doit permettre :
+\begin{itemize}
+\item l'exécution d’un grand nombre d’instances d’une application sur un même
+  système en vue d’un debuggage ;
+\item l’évaluation d’applications soumises à une large gamme de conditions
+  telles que des caractéristiques d’un simple noeud ou d’un réseau complet
+  différentes ;
+\item la collecte d’information concernant le comportement de l’application
+  pendant son éxe- cution
+\end{itemize}
+}
+\end{quotation}
+
+Les applications ne communiquent plus directement entre elles, lors des
+communications c'est le simulateur qui va gérer les envois vers les différentes
+stations en les analysant et effectuant parfois des actions avant de transmettre
+les communications aux autres stations.
+
+\begin{quotation}
+Les objectifs sont d’étudier les moyens d’intercepter les actions des
+applications et d’im- plémenter une méthode d’interception en interagissant avec
+le simulateur SimGrid. Pour at- teindre ce but, plusieurs étapes sont
+définies. La première consiste à déterminer combien de temps les actions d’une
+application mettent à se réaliser sur la plateforme logique. La seconde consiste
+à intercepter les actions de l’application ayant un impact sur son
+environnement.
+\end{quotation}
+On intercepte toutes les actions effectuées par chaque processus crée par
+l'application. A chaque interception on génère une trace avec les informations
+nécessaires pour le rejeu via le simulateur auquel on envoie la trace. Les
+interceptions peuvent avoir lieu à plusieurs niveaux:
+
+\begin{quotation}
+{\color{green} Un système d’exploitation est composé d’un ensemble de fonctions
+  (les appels systèmes), elles-mêmes faisant appel aux fonctions internes du
+  noyau.
+
+dans les systèmes UNIX, on retrouve les appels POSIX où les prototypes des
+fonctions sont normalisés ainsi que les structures de données du système
+auxquelles elles accèdent. En- fin, juste avant le noyau, il y a les fonctions
+directement appelées par le noyau via les appels systèmes et inaccessibles au
+programmeur }
+\end{quotation}
+
+\begin{itemize}
+\item application
+\item bibliothèques (fonctions système de la libC et autres)
+\item noyau
+\end{itemize}
+
+\subsection{Variable d'environnement: LD\_PRELOAD}
+Éditeur de liens dynamiques de Linux permettant d'insérer du code dans
+l'exécution d'un programme (interception au niveau de la couche
+\textit{Bibliothèqes} du système.
+
+\begin{quotation} 
+{\color{green} La dernière phase de construction d’un programme est de réaliser
+  l’édition de liens, ce qui consiste à assembler tous les morceaux du programme
+  et de chercher ceux qui sont manquants.  Les fonctions utilisées par
+  l’application sont fournies sous forme de bibliothèques. Lorsqu’on utilise une
+  bibliothèque statique, l’éditeur de liens cherche le code dont l’application a
+  besoin et en effectue une copie dans le programme physique généré. Pour les
+  bibliothèques parta- gées, c’est le contraire : l’éditeur de liens laisse du
+  code qui lors du lancement du programme chargera automatiquement la
+  bibliothèque. Linux effectue par défaut une édition de liens dy- namique s’il
+  peut trouver les bibliothèques de ce type sinon, il effectue une édition de
+  liens statique.  }
+\end{quotation}
+
+LD\_PRELOAD contient la liste des bibliothèques à précharger avant les autres,
+ainsi en insérant notre bibliothèque ici ce seront nos fonctions qui seront
+utilisées et pas les fonctions initiales du systèmes. Néanmoins il ne faut pas
+oublie de fonctions sinon l'application pourrait contourner notre système. Pour
+intercepter l'appel de fonction d'une bibliothèque il faut créer une nouvelle
+version portant le meme nom, comme dans notre cas nous ne souhaitons pas
+empecher l'AS mais juste l'intercepter nous ferons appel à la fonction
+originelle dans notre nouvelle fonction (en utilisant les fonctions de la
+famille dlopen). Ensuite on compile le fichier pour obtenir un .so contenant nos
+nouvelles fonction et on l'insère dans la vairable d'environnement avant
+l'exécution (notre bibliothèque sera donc prioritaire \textit{cf exemple}).
+
+\begin{quotation}
+{\color{green} Cette approche permet donc de modifier le comportement d’une
+  application de façon in- directe, sans avoir à recompiler ou rééditer les
+  liens à chaque fois. De plus, les applications distribuées étant généralement
+  multi-process, il faut garantir une interception pour les éven- tuels nouveaux
+  processus créés, ce que fait directement LD\_PRELOAD sans ajouter d’option
+  particulière. Cependant, cette approche s’avère vite incomplète dans notre cas
+  puisqu’elle ne permet que de surcharger les fonctions des bibliothèques mais
+  pas des appels systèmes. On n’obtient donc pas de réelle interception et nous
+  n’avons aucune garantie que le système ne va pas contourner la nouvelle
+  bibliothèque pour aller directement à la couche des appels sys- tèmes}
+\end{quotation}
+
+\subsection{AS ptrace (lié au noyau)}
+Cet AS permet d'accéder en r/w à tout l'espace d'adressage d'un processus
+(données, strcutres de controle: registre du processeur par exemple). Pour cela
+on crée un processus parent qui controle l'exécution d'un autre processus et
+peut modifier son image mémoire. Pour cela on fournit les requetes que l'on
+souhaite voir exécuter en paramètre de l'AS, les actions peuvent se faire sur
+les deux processus (le traceur et le tracé). Pour utiliser cette appel et suivre
+unea pplication il faut:
+\begin{enumerate}
+\item créer le processus à tracer (fils) et le traceur (père) en utilisant
+  fork()
+\item le fils indique qu'il veut etre tracé grace à la requete
+  \textbf{PTRACE\_TRACEME} puis ecécute l'application avec exec. Si le processus
+  fils existe déjà le père s'y attache directement avec la requete
+  \textbf{PTRACE\_ATTACH}.
+\item Pendant l'exécution de l'application le père peut soit laisser le fils
+  s'exécuter et prendre la main quand il reçoit un signal ou etre interrompu pas
+  à pas à chaque exécution d'instruciton ou d'un AS. Le processus fils
+  s'arretera donc à chaque fois qu'il délivrera un signal et le père sera
+  notifié lors de son prochain wait et pourra inspecter, modifier le fils arreté
+  puis reprendre l'exécution de son fils.
+\item Quand le père a terminé de tracé le fils, il peut choisir de le terminer
+  avec la requete \textbf{PTRACE\_KILL} ou le laisse continuer sans le suivre
+  avec la requete \textbf{PTRACE\_DETACH}.
+\end{enumerate}
+
+\begin{quotation}
+\textit{cf example} {\color{green} Du point de vue du niveau d’interception,
+  ptrace() est donc lié au noyau. Ceci implique un éventuel problème de
+  portabilité. En effet, il n’est pas assuré de pouvoir lancer une appli- cation
+  écrite pour une version (majeure) différente du noyau : la mémoire virtuelle
+  vue par un processus peut avoir été complètement remaniée, les alignements, la
+  taille d’un mot peut changer ou bien encore, la sémantique de certains signaux
+  peut avoir été modifiée, etc ... . De même, entre différentes architectures,
+  il est difficile d’assurer une quelconque compatibilité : les registres
+  changent, leurs tailles, la capacité du processeur à accéder à des adresses
+  mémoires non alignées, etc ...  }
+\end{quotation}
+Néanmoins ptrace implique de bloquer l'application contrairement à uprobes.
+
+\begin{tabular}{|c|c|c|}
+\hline & LD\_PRELOAD & ptrace\\ \hline Niveau d'interception & Bibliothèques &
+Noyau \\ \hline Cout & Faible & Moyen \\ \hline Facilité d'utilisation & Simple
+& Assez complexe \\ \hline
+\end{tabular}
+
+\begin{quotation}
+Avec un coût faible et une utilisation simple, LD\_PRELOAD semblait une bonne
+approche à approfondir. Cependant, comme expliqué précédemment, avec une
+interception effectuée au niveau de la couche Bibliothèques , il existe un
+risque non négligeable que l’application contourne notre nouvelle bibliothèque
+chargée en allant directement au niveau de la couche Appels systèmes .
+\end{quotation}
+
+/usr/include/asm/unistd\_64.h
+
+\subsection{ptrace et les registres}
+ptrace utilise les registres de données pour stocker les arguments des fonctions
+et leur résultat. Pour les manipuler il faut utiliser la requete
+\textbf{PTRACE\_GETREGS} qui recupère l'ensemble des registres et leur contenu
+dans une strcture \textit{user\_regs\_strcut}, si il ne s'agit pas de fonctions
+liées aux sockets on peut lire les arguments directement en lisant le contenu
+des registres. Dans le cas des fonctions gérant les sockets on utilise un AS
+particulier à 2 arguments \textbf{socketcall}. Le premier est le numéro de la
+sous-fonction de socket à exécuter et le deuxième est l'adresse du segment
+mémoire contenant les arguments pour cette sous fonction. Ainsi le second
+registre contient une adresse mémoire à lire et on parcourt ensuite les adresses
+mémoires suivantes pour récupérer tous les arguments, pour cela on a la requete
+\textbf{PTRACE\_PEEKDATA}, qui lit un mot à une adresse mémoire donnée dans
+l'espace d'adressage du processus fils, de ptrace.
+\begin{quotation}
+La difficulté avec cette opération est le déplacement dans la mémoire où chaque
+case est de taille sizeof(long)
+\end{quotation}
+
+\subsection{ptrace et les temps d'exécution}
+En plus des AS il faut fournir à SimGrid le temps d'exécution pour qu'il les
+prenne en compte dans son analyse.
+\begin{quotation}
+La difficulté dans ce calcul était de différencier les différents CPU time de
+chaque processus dans le cas de multithreading. Ainsi, pour chaque processus
+tracé, on a une structure contenant les derniers CPU time et Wall time calculés,
+les valeurs totales n’étant pas stockées car elles sont recalculées à chaque
+interruption.
+\end{quotation}
+
+\section{Communications entre processus}
+\subsection{Identification des entités communicantes}
+Pour identifier les processus qui communiquent entre eux on ne peut pas se
+contenter d'identifier le FD associé à la socket car chaque FD est unique pour
+UN processus, mais il peut-etre réutilisé par tous les autres puisqu'ils ont
+chacun leur propre espace mémoire et donc leurs FD. Ainsi il faut utiliser le
+FD, l'IP locale et distante et les ports locaux et distants utilisés, on lie
+ensuite le FD de la socket à ces informations pour savoir quels porcessus
+communiquent entre eux.
+\begin{quotation}
+{\color{green} Lorsqu’on crée une socket via la fonction socket , on commence
+  par indiquer le domaine de comunication (INET, UNIX, NETLINK, ...) et le
+  protocole (TCP, UDP, ICMP, IP, ...) qui doit être utilisé pour
+  communiquer. Ensuite, dans le cas d’un serveur, on fait appel à la fonction
+  bind qui fournit à une socket donnée une adresse IP locale et un port : on
+  parle “d’assignation d’un nom à une socket”. À ce moment, la socket se place
+  donc “en attente” grâce à la fonc- tion listen qui indique son désir
+  d’accepter des connexions entrantes. Du côté du client, une fois la socket
+  créée, on fait appel à la fonction connect qui permet de débuter une connexion
+  sur une socket donnée. Par cet appel, le client indique donc au serveur qu’il
+  souhaite entrer en communication avec lui. Le client fournit une adresse IP et
+  un port de connexion dans les paramètres de la fonction. Il s’agit donc pour
+  le client d’une adresse locale comme pour le ser- veur avec le bind . Enfin,
+  pour “sceller” cette liaison et commencer à échanger, le serveur fait un
+  accept qui, comme son nom l’indique, permet d’accepter une connexion
+  entrante. Suite à cet appel, un nouveau file descriptor est créé avec pour
+  adresse et port locaux ceux du serveur et pour adresse et port distants ceux
+  du client connecté. Et du côté du client, suite à la demande de connexion qui
+  a été acceptée, son file descriptor se voit attribuer pour adresse et port
+  distants ceux du serveur avec qui il communique. On obtient donc 2 couples
+  (IP,port) inversement identiques.  Pour obtenir ces informations, nous avons
+  besoin de connaître le numéro de la socket qui est unique sur l’ensemble du
+  système contrairement au file descriptor. Pour cela, on utilise la commande ls
+  -l /proc/#pid/fd/#fd dans laquelle on indique le pid du processus (#pid)
+  auquel appartient la socket et le file descriptor (#fd) qui lui a été associé
+  lors de sa création. Une fois ce numéro de socket obtenu, selon le protocole
+  utilisé par la socket, nous devons parcourir un fichier : /proc/net/protocol
+  où protocol peut être tcp, udp, raw, netlink, etc ... , qui contient la table
+  des connexions actuellement ouvertes pour le protocole donné. Pour chaque
+  connexion, nous avons, parmi d’autres informations, les deux couples (IP,port)
+  local et (IP,port) distant. Il suffit alors de trouver la connexion
+  correspondant à notre socket grâce à son numéro précé- demment obtenu et
+  d’extraire les informations qui nous intéressent. Cette opération se fait par
+  simple parcours et découpage du fichier.  Pour ne pas avoir à répéter ce
+  travail à chaque appel système, j’ai créé pour chaque so- cket une structure
+  contenant le pid, le file descriptor, le domaine et le protocol, ainsi que les
+  2 couples (IP,port). Ces informations sont enregistrées au fur et à mesure des
+  appels. En effet, lors de la création de la socket, on obtient le file
+  descriptor, le domaine et le protocol. Puis, après un bind on récupère le
+  couple (IP,port) local. Coté client, après un connect , on récu- père les 2
+  couples (IP,port). Enfin, suite à un accept , on enregistre le nouveau file
+  descriptor avec ses adresses et ports locaux et distants. }
+\end{quotation}
+
+\subsection{Identification des processus communicants}
+\begin{quotation}
+Pour identifier le processus destinataire lors de chaque communication ( send,
+recv, ...), il nous suffit de parcourir le tableau contenant les structures de
+chaque socket et de chercher quelle socket possède les 2 couples (IP,port)
+inverses. On en extrait alors le pid.
+\end{quotation}
+
+\section{Autre}
+De plus, avec notre traceur actuel, l’émulation avec SimGrid se fera offline ,
+c’est-à dire, que l’on commence par exécuter l’application que l’on trace en
+même temps. Ensuite, une fois l’exécution terminée et notre trace obtenue, on la
+transmet à SimGrid qui l’analysera et rejouera toutes les actions interceptées
+en ajoutant éventuellement des modifications. L’idée serait donc d’envisager une
+émulation online où on reporterait immédiatement les actions interceptées dans
+le simulateur, puis, on retarderait l’application du temps calculé par le
+simulateur.
 \end{document}
