@@ -5,6 +5,24 @@ Yeah you find my beautiful reporting file
 ** Introduction 
 ** Related Work
 ** Bibliography
+*** Articles
+Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas
+Nussbaum. Design and Eval- uation of a Virtual Experimental
+Environment for Distributed Systems. [Research Report]
+RR-8046, 2012. <hal-00724308v1> Martin Quinson. SimGrid: a Generic
+Framework for Large-Scale Distributed Experiments.  9th International
+conference on Peer-to-peer computing - IEEE P2P 2009, Sep 2009,
+Seattle, United States. IEEE. <inria-00435802> KENISTON, Jim,
+MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace,
+utrace, uprobes: Lightweight, dynamic tracing of user apps. In :
+Proceedings of the 2007 Linux Symposium. 2007. p. 215-224.
+*** Reports of internships
+http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-slides.pdf
+http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2013-master-simpad-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2012-master-simterpose-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 ** Contribution 
 * Development
 ** Data Provenance
@@ -14,10 +32,12 @@ Yeah you find my beautiful reporting file
 - Lire les papiers de Chloé, Guillaume, Marion et les papiers cités par Chloé.
 *** Blocking points and questions
 - Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent
- sur la machine hote, seul les actions qui ont besoin d'interragir avec
- l'environnement (réseau car appl distribuées) sont envoyées dans le simulateur?
+ sur la machine hote, seul les actions qui ont besoin d'interragir
+  avec l'environnement (réseau car appl distribuées) sont envoyées
+  dans le simulateur?
 - Si on exécute les appli sur la machine hote, dans ce cas en quoi ça permet
-d'exécuter sur différentes machine avec des puissances de calcul différentes?
+d'exécuter sur différentes machine avec des puissances de calcul
+différentes?
 *** Planned work 
 *** TODO Lire code
 
