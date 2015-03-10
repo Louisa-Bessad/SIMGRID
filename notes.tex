@@ -570,4 +570,80 @@ Script permettant de spécifier les points à vérifier et ce qu'il faut
 exécuter pour chacun, facile d'utilisation quand on le lance il fait
 appel à kprobes, c'est une sorte de wrapper qui veut se développer
 pour uprobe, utrace.
+
+\section{Mail Martin}
+\begin{itemize}
+\item Pour chaque processus à démarrer dans le fichier de déploiement, on
+  a une instance de la fonction simterpose\_process\_runner qui est
+  démarrée dans un thread par simgrid. C'est cette fonction qui fait
+  le fork et ptrace. La boucle principale d'un processus donné est
+  simterpose.c:234 à 244. Presque tout le travail est dans
+  process\_handle(), qui est appelé à chaque entrée dans un syscall et
+  à chaque sortie aussi.
+  
+\item Quand y'a un clone (ie, ce qui implémente fork), c'est
+  syscall\_clone() qui fait le boulot. Cet appel est parmis les plus
+  chiants à intercepter, car ptrace revient 3 fois pour un clone: 
+  
+\begin{itemize}
+  \item le pere fait les deux syscall-stop réglementaires à l'entrée et la
+    sortie de l'appel système.
+  \item le fils fait un PTRACE\_EVENT stop. Et c'est à ce moment là qu'on
+    crée un processus de plus dans simgrid et qu'on réarme la mécanique
+    ptrace pour le fils.
+\end{itemize}    
+  J'ai mis un temps de chien à comprendre ce qui se passe et comment
+  différencier les trois retours de ptrace. Mais je crois que ca
+  marche maintenant. Je testais sur un pthread\_create qui fait aussi
+  un clone, mais avec des arguments différents pour dire "ne dupplique
+  pas l'espace d'adressage". Ca doit être le seul cas géré par mon
+  "implem" de clone, pas sûr que fork passe.
+
+\item Le code de simterpose se coupe en trois parties :
+
+\begin{itemize}
+  \item la boucle principale (simterpose.c et la fonction process\_handle)
+    et les handlers de chaque syscall. Dans un monde parfait, ils sont
+    dans des fichiers syscall\_(type d'appel).c Dans un monde plus que
+    parfait, le découpage suit à peu près celui du code de strace.
+  
+  \item ptrace* interception des appels, récupération et modif des
+    parametres. Ce code est bien plus brutal dans strace (pas de
+    structures pour chaque syscall que l'on utilise une seule fois
+    mais des macros pragmatiques) mais c'est pas forcément plus mal. à
+    voir à l'usage.
+    
+  \item des metadata sur l'état du monde simulé (quel processus simulé a
+    quelle socket ouverte). Ce code est très moche et mal branlé. On
+    n'y a pas touché avec Chloé (ou presque) et c'est comme Guillaume
+    l'avait pensé. Un article éclairant sur le coup, c'est celui ci,
+    qui donne les idées fortes mises en oeuvre dans bash:
+    http://aosabook.org/en/bash.html
+    
+    Alors c'est un peu plus compliqué dans simterpose puisqu'on doit
+    aussi garder des metadata qui sont habituellement gardées par le
+    noyau directement, mais on peut faire plus simple que l'existant
+    dans simterpose.
+\end{itemize}
+\item pour exécuter le bousin, il devrait suffire d'exécuter le script
+  tests/msg\_clientserver.sh par exemple. Attention, le script fait un sudo 
+  
+  Pour vérifier si on a bon ou pas, je fais par exemple `make diff-send` 
+  qui lance l'expérience send dans simterpose puis en vrai
+  vie sous strace, puis fait un diff des affichages. Dans un monde
+  parfait, simterpose aurait exactement les mêmes sorties que strace
+  et le diff serait vide. Ou alors on ferait un script perl pour faire
+  un diff intéligent qui ignore les bouts du diff dont on se fout
+  (genre les IP). Mais le monde n'est pas encore parfait.
+  
+\item Je t'avais déjà dit de jeter un oeil sur les sources de strace,
+  aussi ? c'est un code plus complexe que simterpose car il est
+  portable à des milliers d'architecture là où nous on ne vise que le
+  amd64, mais lire ce code est super instructif (une fois que t'as
+  trouvé tes marques). Le code d'affichage de simterpose est celui de
+  strace, en grandes parties.
+  
+  Tu peux feuilleter l'AOSA book aussi, pas que le chapitre sur bash.
+  http://aosabook.org/en/index.html
+\end{itemize}
 \end{document}
