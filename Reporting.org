@@ -37,12 +37,17 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 *** Blocking points and questions
 - Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent
  sur la machine hote, seul les actions qui ont besoin d'interragir avec
-  l'environnement (réseau car appl distribuées) sont envoyées dans le
-  simulateur?
+ l'environnement (réseau car appl distribuées) sont envoyées dans le simulateur?
 - Si on exécute les appli sur la machine hote, dans ce cas en quoi ça permet
 d'exécuter sur différentes machine avec des puissances de calcul différentes?
---> Benchmark et rejeu pour ce qui est calcul d'application et envoie ce temps dans le simulateur qui ajuste en fonction de la plate-forme qu'il simule. Ce qui fait une émulation simulation.  
---> 4 choses: COMM (temps de communication), SEB (temps calcul), obtenir le temps,DNS (resolution de nom) Obtenir l'heure pas de transformation en AS (perte de perfo avec switch contexte), LD_PRELOAD (combien de temps depuis le dernier chronostrart/stop) cat /proc/self/maps pour voir les différents segments mémoire de processus (vsyscall: memoire kernel mappe pour avoir l'heure, emplacement des lib...)
+--> Benchmark et rejeu pour ce qui est calcul d'application et envoie ce temps
+dans le simulateur qui ajuste en fonction de la plate-forme qu'il simule. Ce qui
+fait une émulation simulation.  --> 4 choses: COMM (temps de communication), SEB
+(temps calcul), obtenir le temps,DNS (resolution de nom) Obtenir l'heure pas de
+transformation en AS (perte de perfo avec switch contexte), LD_PRELOAD (combien
+de temps depuis le dernier chronostrart/stop) cat /proc/self/maps pour voir les
+différents segments mémoire de processus (vsyscall: memoire kernel mappe pour
+avoir l'heure, emplacement des lib...)
 *** Planned work 
 *** DONE Lire code et le comprendre (relire le ld_preload_pthread)
 *** TODO Faire tourner le programme actuel
@@ -55,9 +60,15 @@ d'exécuter sur différentes machine avec des puissances de calcul différentes?
 - Fic server_poll et server_poll_multi fastidieux.
 *** Blocking points and question
 - un appel dans le fichier ldpreload_pthread/mdfpthread.c
-- quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le fils qui fait un PTRACE_ME???
- (revoir l'annexe de Guillaume)
-- c'est quoi "tesh"
+- quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le
+ fils qui fait un PTRACE_ME???  (revoir l'annexe de Guillaume)
+- c'est quoi "tesh"?
+--> tesh, c'est le testing shell, l'outil qu'on a écrit dans
+simgrid pour nos tests d'intégration. Je l'avais posé en sujet scolaire une
+fois. http://webloria.loria.fr/~quinson/Teaching/RS/projet-test.pdf La version
+dans simgrid est en perl de nos jours, mais y'a une version en C assez balèze
+qui demeure. Le principal défaut de la version C est de ne pas être porté à
+windows (forcément).
 *** Planned work
 - Laissé de côté le fichier apps/chess_adavanced.c
 - Relire send_client/server serverMultiClients.c
