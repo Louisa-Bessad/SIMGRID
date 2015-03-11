@@ -646,4 +646,24 @@ pour uprobe, utrace.
   Tu peux feuilleter l'AOSA book aussi, pas que le chapitre sur bash.
   http://aosabook.org/en/index.html
 \end{itemize}
+
+\section{src code}
+
+\begin{itemize}
+\item \textit{{\color{yellow}arg\_trace.h}} contient les prototypes des fonctions  qui vont récupérer les arguments des AS et les fonctions qui vont mettre les arguments que l'on souhaite dans les arguments des AS.
+\item \textit{communication.h} structure et fonction les gérer (send receive accepct connect)
+\item \textit{cputimer.h} prototype des fonctions permettant de récupérer le cputime d'un thread donné
+\item \textit{{\color{red} data\_utils.h}}
+\item \textit{print\_syscall.h} contient les prototypes des fonctions (printf, sptrintf)  pour faire des traces log d'AS
+\item \textit{{\color{yellow}process\_descriptor.h}} structure et prototype relatifs à un processus, flux et pipe
+\item \textit{simterpose.h} structure de simterpose (hote, port, traduction) et fonction de gestion \textit{process\_runner \& main\_loop}
+\item \textit{ptrace\_utils.h} prototype des fonctions permettant de ne pas appeler directement ptrace
+\item \textit{sockets.h} contient les struc relatives au sockets et les fonctions pour les gérer
+\item \textit{{\color{yellow}syscall\_data.h}} contient les strucutures qui contiendront les arguments des AS. On a la même structure pour l'AS connect et bind, la strcture {\color{red} syscall\_arg\_u} est ici. Pour avoir les différentes champs (type et nombre) on fait un grep sur les fichiers noyaux ( {\color{red} à essayer sur les sources de mon précédent stage})
+\item \textit{{\color{yellow} sysacll\_process.h }} gère les AS à leur E/S
+\item \textit{sysdep.h} contient juste les include nécessaires.
+\end{itemize}
+
+open avec flag F\_CLOEXEC pas géré
+
 \end{document}

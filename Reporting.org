@@ -8,15 +8,16 @@ Yeah you find my beautiful reporting file
 
 ** Bibliography
 *** Articles
-Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas Nussbaum. Design and
-Eval- uation of a Virtual Experimental Environment for Distributed
-Systems. [Research Report] RR-8046, 2012. <hal-00724308v1> Martin
-Quinson. SimGrid: a Generic Framework for Large-Scale Distributed Experiments.
-9th International conference on Peer-to-peer computing - IEEE P2P 2009, Sep
-2009, Seattle, United States. IEEE. <inria-00435802> KENISTON, Jim,
-MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace, utrace,
-uprobes: Lightweight, dynamic tracing of user apps. In : Proceedings of the 2007
-Linux Symposium. 2007. p. 215-224.
+Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas
+Nussbaum. Design and Eval- uation of a Virtual Experimental
+Environment for Distributed Systems. [Research Report]
+RR-8046, 2012. <hal-00724308v1> Martin Quinson. SimGrid: a Generic
+Framework for Large-Scale Distributed Experiments.  9th International
+conference on Peer-to-peer computing - IEEE P2P 2009, Sep 2009,
+Seattle, United States. IEEE. <inria-00435802> KENISTON, Jim,
+MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace,
+utrace, uprobes: Lightweight, dynamic tracing of user apps. In :
+Proceedings of the 2007 Linux Symposium. 2007. p. 215-224.
 *** Reports of internships
 http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-slides.pdf
 http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf
@@ -36,18 +37,21 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 - Lire les papiers de Chloé, Guillaume, Marion et les papiers cités par Chloé.
 *** Blocking points and questions
 - Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent
- sur la machine hote, seul les actions qui ont besoin d'interragir avec
- l'environnement (réseau car appl distribuées) sont envoyées dans le simulateur?
+ sur la machine hote, seul les actions qui ont besoin d'interragir
+  avec l'environnement (réseau car appl distribuées) sont envoyées
+  dans le simulateur?
 - Si on exécute les appli sur la machine hote, dans ce cas en quoi ça permet
-d'exécuter sur différentes machine avec des puissances de calcul différentes?
---> Benchmark et rejeu pour ce qui est calcul d'application et envoie ce temps
-dans le simulateur qui ajuste en fonction de la plate-forme qu'il simule. Ce qui
-fait une émulation simulation.  --> 4 choses: COMM (temps de communication), SEB
-(temps calcul), obtenir le temps,DNS (resolution de nom) Obtenir l'heure pas de
-transformation en AS (perte de perfo avec switch contexte), LD_PRELOAD (combien
-de temps depuis le dernier chronostrart/stop) cat /proc/self/maps pour voir les
-différents segments mémoire de processus (vsyscall: memoire kernel mappe pour
-avoir l'heure, emplacement des lib...)
+d'exécuter sur différentes machine avec des puissances de calcul
+différentes?  --> Benchmark et rejeu pour ce qui est calcul
+d'application et envoie ce temps dans le simulateur qui ajuste en
+fonction de la plate-forme qu'il simule. Ce qui fait une émulation
+simulation.  --> 4 choses: COMM (temps de communication), SEB (temps
+calcul), obtenir le temps,DNS (resolution de nom) Obtenir l'heure pas
+de transformation en AS (perte de perfo avec switch contexte),
+LD_PRELOAD (combien de temps depuis le dernier chronostrart/stop) cat
+/proc/self/maps pour voir les différents segments mémoire de processus
+(vsyscall: memoire kernel mappe pour avoir l'heure, emplacement des
+lib...)
 *** Planned work 
 *** DONE Lire code et le comprendre (relire le ld_preload_pthread)
 *** TODO Faire tourner le programme actuel
@@ -63,16 +67,30 @@ avoir l'heure, emplacement des lib...)
 - quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le
  fils qui fait un PTRACE_ME???  (revoir l'annexe de Guillaume)
 - c'est quoi "tesh"?
---> tesh, c'est le testing shell, l'outil qu'on a écrit dans
-simgrid pour nos tests d'intégration. Je l'avais posé en sujet scolaire une
-fois. http://webloria.loria.fr/~quinson/Teaching/RS/projet-test.pdf La version
-dans simgrid est en perl de nos jours, mais y'a une version en C assez balèze
-qui demeure. Le principal défaut de la version C est de ne pas être porté à
-windows (forcément).
+--> tesh, c'est le testing shell, l'outil qu'on a écrit dans simgrid
+pour nos tests d'intégration. Je l'avais posé en sujet scolaire une
+fois. http://webloria.loria.fr/~quinson/Teaching/RS/projet-test.pdf La
+version dans simgrid est en perl de nos jours, mais y'a une version en
+C assez balèze qui demeure. Le principal défaut de la version C est de
+ne pas être porté à windows (forcément).
 *** Planned work
 - Laissé de côté le fichier apps/chess_adavanced.c
 - Relire send_client/server serverMultiClients.c
 - Mettre au propre note et schéma
 *** TODO Lire le code dans src
+
+** 10-11.03.2015
+*** Things done
+- essayer de trouver par quel bout commencer à lire les fichiers contenu dans src
+--> .h lus
+- commencer à faire des liens entre les différents fichiers et structures
+*** Bloncking point
+*** Planned work
+- lire les .c notamment sys_* et syscall_process
+*** TODO Mettre les en-têtes de fichiers et commentaire en en, corriger le code si besoin
+- peupler les sys_* avec ctrl-X ctrl-V (suivre strace)
+- remplacer le switch du syscall_process par un tableau de pointeurs de fonctions
+- améliorer la testsuite avec un script diff entre les sorties simterpose et strace -->  algorithme de diff wikipédia --> longuest common subsequence
+
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
