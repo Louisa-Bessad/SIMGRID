@@ -672,4 +672,12 @@ open avec flag F\_CLOEXEC pas géré
 
 \end{tikzpicture}
 
+What is this: cputimer.h l14 {\color{purple} xbt\_cpu\_timer} syscall\_data.h l259 {\color{purple} typedef union}
+\begin{itemize}
+\item process\_descriptor.h définit {\color{purple} stream\_t pipe\_end\_\* pipe\_t process\_descriptor} utiise {\color{brown} msg\_sem\_t msg\_process\_t xbt\_dynar\_t process\_descriptor\_t stream\_t pipe\_t fd\_descriptor\_t syscall\_arg\_u}
+\item communication.h définit {\color{purple} comm\_info comm\_s task\_comm\_info} utilise {\color{brown} strcut infos\_socket recv\_information comm\_info xbt\_dynar\_t msg\_task\_t msg\_host\_t}
+\item syscall\_data.h définit {\color{purple} recv/send\_arg\_s/t recv/sendmsg\_arg\_s/t select\_arg\_s/t poll\_arg\_s/t pipe\_arg\_s/t sendto/recvfrom\_arg\_s/t connect\_bind\_arg\_s -> connect/bind\_arg\_s/t accept\_arg\_s/t socket\_arg\_s/t listen\_arg\_s/t get/setsockopt\_arg\_s/t fcntl\_arg\_s/t write/read\_arg\_s/t shutdown\_arg\_s/t getpeername\_arg\_s/t time\_arg\_s/t gettimeofday\_arg\_s/t clockgettime\_arg\_s/t clone\_arg\_s/t execve\_arg\_s/t open\_arg\_s/t syscall\_arg\_u} utilise {\color{brown} struct msghdr fd\_set struct pollfd socklen\_t}
+\item sockets.h défnit {\color{purple} recv\_information infos\_socket} utilise {\color{brown} xbt\_fifo\_t fd\_descriptor\_t comm\_t msg\_host\_t }
+\item simterpose.h définit {\color{purple} simterpose\_host/t port\_desc/\_t translate\_desc/\_t} utilise {\color{brown} struct infos\_socket xbt\_dict\_t}
+\end{itemize}
 \end{document}

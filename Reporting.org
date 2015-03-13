@@ -79,7 +79,7 @@ ne pas être porté à windows (forcément).
 - Mettre au propre note et schéma
 *** TODO Lire le code dans src
 
-** 10-11.03.2015
+** 10-13.03.2015
 *** Things done
 - essayer de trouver par quel bout commencer à lire les fichiers contenu dans src
 --> .h lus
