@@ -84,7 +84,7 @@ ne pas être porté à windows (forcément).
 - essayer de trouver par quel bout commencer à lire les fichiers contenu dans src
 --> .h lus
 - commencer à faire des liens entre les différents fichiers et structures
-*** Bloncking point
+*** Blocking point
 *** Planned work
 - lire les .c notamment sys_* et syscall_process
 *** TODO Mettre les en-têtes de fichiers et commentaire en en, corriger le code si besoin
@@ -92,5 +92,14 @@ ne pas être porté à windows (forcément).
 - remplacer le switch du syscall_process par un tableau de pointeurs de fonctions
 - améliorer la testsuite avec un script diff entre les sorties simterpose et strace -->  algorithme de diff wikipédia --> longuest common subsequence
 
+** 16.03.2015
+*** Things done
+- lire sys_*
+*** Blocking points
+- où sont définies les macro MSG_* et les xbt_dynar_*
+- à quoi sert le while de process_runner (simterpose.c)
+- à quoi servent les processus clonés et la fonction main_loop (simterpose.c)?
+*** Planned work
+- lire le fichier syscall_process.c et autres tools en .c
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
