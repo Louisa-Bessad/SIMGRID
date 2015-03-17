@@ -97,9 +97,20 @@ ne pas être porté à windows (forcément).
 - lire sys_*
 *** Blocking points
 - où sont définies les macro MSG_* et les xbt_dynar_*
+--> /opt/simgrid/include
 - à quoi sert le while de process_runner (simterpose.c)
+--> processus lancé via le ptrace on le bloque dès que quelque chose avec le resume (pendant le resume fait ses calculs) si on en sort = AS à gérer
 - à quoi servent les processus clonés et la fonction main_loop (simterpose.c)?
+--> main_loop = process_runner quand on est dans un clone
+--> quand fork ou create on fait un clone en fait du coup c'est l'AS clone qui gère ça.
 *** Planned work
 - lire le fichier syscall_process.c et autres tools en .c
+
+** 17.03.2015
+*** Things done
+- commence à lire syscall_process.c 
+*** Blocking points
+*** Planned work
+- lire le code de strace
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p

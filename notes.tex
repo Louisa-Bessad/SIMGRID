@@ -682,19 +682,41 @@ pour uprobe, utrace.
   ici. Pour avoir les différentes champs (type et nombre) on fait un
   grep sur les fichiers noyaux ( {\color{red} à essayer sur les
     sources de mon précédent stage})
-\item \textit{{\color{brown} sysacll\_process.h }} gère les AS à leur
-  E/S
+\item \textit{{\color{brown} sysacll\_process.h }} prototype des
+  fonctions gérant E/S AS et gestion de processus
 \item \textit{sysdep.h} contient juste les include nécessaires.
 \end{itemize}
 
+\begin{itemize}
+\item sys\_mem.c gère les AS touchant la mémoire, juste si in ou out et print la
+  sortie dans ce cas.
+\item sys\_net.c gère les AS liés au réseau, in ou out? si out save les infos de
+  retour de l'AS (dans les registres) dans la struct socket correspondant à l'AS
+  et strace affiche un log et enregistre la socket selon valeur retour des
+  registres.
+\item sys\_process.c fonction pour récupérer les arguments d'un processus cloné,
+  gestion de ``syscall clone'' et ``syscall execve'' on est pour chacun à la
+  sortie ou l'entrée de l'AS et on l'intercèpte pour faire notre petite sauce.
+\item syscall\_process.c gère les AS à leur entrée et à leur sortie:
+  \begin{itemize}
+    \item {\color{brown} process\_send\_call} l.73 on est dans le thread espion donc on crée la tâche de communication pour l'envoi après avoir récupéré les infos de l'autre côté si on n'est pas en netlink sinon on a rien à faire on laisse l'AS se faire ou retourner une erreur. La tâche de communication est gérée par le simulateur car là on est lié au réseau.{\color{red}Les ``send task'' gèrent les send receive???}
+  \end{itemize}
+\item simterpose.c redéfinit le sigint et segfault en ``kill'' de
+  l'application. Le main définit les options avec lesquels on lance simterpose,
+  initie les listes de communications sockets et les timers du simulateur. Il
+  récupére les fichiers d'applications à lancer et le fichier de conf de la
+  plateforme, {\color{red} un thread par application}. Appel aux fonctions
+  MSG\_\* et fonction strace apple xbt\_\* sortie. process\_runner lance le
+  processus fils qui exécutera l'application et le père qui va le tracer.
+\end{itemize}
 open avec flag F\_CLOEXEC pas géré
 
 \begin{tikzpicture}
 
 \end{tikzpicture}
 
-What is this: cputimer.h l14 {\color{purple} xbt\_cpu\_timer}
-syscall\_data.h l259 {\color{purple} typedef union}
+What is this: cputimer.h l14 {\color{purple} xbt\_cpu\_timer} syscall\_data.h
+l259 {\color{purple} typedef union}
 
 \begin{tabularx}{15cm}{|c|X|X|}
   \hline structures & définies & utilisées \\ \hline
@@ -731,24 +753,6 @@ syscall\_data.h l259 {\color{purple} typedef union}
     infos\_socket \newline xbt\_dict\_t} \\ \hline
 \end{tabularx}
 
-\begin{itemize}
 
-\item sys\_mem.c gère les AS touchant la mémoire, juste si in ou out
-  et print la sortie dans ce cas.
-\item sys\_net.c gère les AS liés au réseau, in ou out? si out save
-  les infos de retour de l'AS (dans les registres) dans la struct
-  socket correspondant à l'AS et strace affiche un log et enregistre
-  la socket selon valeur retour des registres.
-\item sys\_process.c fonction pour récupérer les arguments d'un processus cloné, gestion de ``syscall clone'' et ``syscall execve'' on est pour chacun à la sortie ou l'entrée de l'AS et on l'intercèpte pour faire notre petite sauce.
-
-\item simterpose.c redéfinit le sigint et segfault en ``kill'' de
-  l'application. Le main définit les options avec lesquels on lance
-  simterpose, initie les listes de communications sockets et les
-  timers du simulateur. Il récupére les fichiers d'applications à
-  lancer et le fichier de conf de la plateforme, {\color{red} un
-    thread par application}. Appel aux fonctions MSG\_\* et fonction
-  strace apple xbt\_\* sortie. process\_runner lance le processus fils
-  qui exécutera l'application et le père qui va le tracer.
-\end{itemize}
 \vspace{0.5cm} 
 \end{document}
