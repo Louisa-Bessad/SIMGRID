@@ -700,6 +700,8 @@ pour uprobe, utrace.
 \item syscall\_process.c gère les AS à leur entrée et à leur sortie:
   \begin{itemize}
     \item {\color{brown} process\_send\_call} l.73 on est dans le thread espion donc on crée la tâche de communication pour l'envoi après avoir récupéré les infos de l'autre côté si on n'est pas en netlink sinon on a rien à faire on laisse l'AS se faire ou retourner une erreur. La tâche de communication est gérée par le simulateur car là on est lié au réseau.{\color{red}Les ``send task'' gèrent les send receive???}
+    \item syscall\_read done
+    \item \textit{process\_read\_out\_call} done
   \end{itemize}
 \item simterpose.c redéfinit le sigint et segfault en ``kill'' de
   l'application. Le main définit les options avec lesquels on lance simterpose,
@@ -709,11 +711,9 @@ pour uprobe, utrace.
   MSG\_\* et fonction strace apple xbt\_\* sortie. process\_runner lance le
   processus fils qui exécutera l'application et le père qui va le tracer.
 \end{itemize}
-open avec flag F\_CLOEXEC pas géré
+open avec flag F\_CLOEXEC pas géré. 
 
-\begin{tikzpicture}
-
-\end{tikzpicture}
+On a process\_runner qui appelle process\_handle quand le tracker a fait un AS et apres resume. Le handle va `exécuter le bon pre-syscall et en fonction return ou pas (in\_syscall out\_syscall).
 
 What is this: cputimer.h l14 {\color{purple} xbt\_cpu\_timer} syscall\_data.h
 l259 {\color{purple} typedef union}

@@ -106,11 +106,14 @@ ne pas être porté à windows (forcément).
 *** Planned work
 - lire le fichier syscall_process.c et autres tools en .c
 
-** 17.03.2015
+** 17-18.03.2015
 *** Things done
 - commence à lire syscall_process.c 
 *** Blocking points
+- qu'est ce qu'une MSG task et à quoi ça sert
+- pourquoi à l'entrée du syscall_write on ne fait rien si on est en address_translation
 *** Planned work
 - lire le code de strace
+
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
