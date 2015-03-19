@@ -106,14 +106,22 @@ ne pas être porté à windows (forcément).
 *** Planned work
 - lire le fichier syscall_process.c et autres tools en .c
 
-** 17-18.03.2015
+** 17-18-19.03.2015
 *** Things done
 - commence à lire syscall_process.c 
 *** Blocking points
 - qu'est ce qu'une MSG task et à quoi ça sert
+--> voir 101 de SIMGRID
 - pourquoi à l'entrée du syscall_write on ne fait rien si on est en address_translation
+--> toute la petite sauce a été faite dans le open déjà
+- pourquoi incrémenter le compteur de référence à la sortie du syscall_write, entree du syscall_write alors qu'il est déjà incrémenté dans le open et qu'on le décrémente ensuite??? -- Est-ce pour éviter de fermer un fd à 0 si on l'utilise ailleurs...
+- traitement des pipe dans syscall_write et process_close_call = ????
+- pourquoi le syscall_poll_pre ne fonctionne pas?
 *** Planned work
 - lire le code de strace
+- read SIMGRID101
+*** TODO réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
+
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p

@@ -699,9 +699,57 @@ pour uprobe, utrace.
   sortie ou l'entrée de l'AS et on l'intercèpte pour faire notre petite sauce.
 \item syscall\_process.c gère les AS à leur entrée et à leur sortie:
   \begin{itemize}
-    \item {\color{brown} process\_send\_call} l.73 on est dans le thread espion donc on crée la tâche de communication pour l'envoi après avoir récupéré les infos de l'autre côté si on n'est pas en netlink sinon on a rien à faire on laisse l'AS se faire ou retourner une erreur. La tâche de communication est gérée par le simulateur car là on est lié au réseau.{\color{red}Les ``send task'' gèrent les send receive???}
-    \item syscall\_read done
-    \item \textit{process\_read\_out\_call} done
+  \item {\color{brown} process\_send\_call} l.73 on est dans le thread espion donc on crée la tâche de communication pour l'envoi après avoir récupéré les infos de l'autre côté si on n'est pas en netlink sinon on a rien à faire on laisse l'AS se faire ou retourner une erreur. La tâche de communication est gérée par le simulateur car là on est lié au réseau.{\color{red}Les ``send task'' gèrent les send receive???}
+  \item syscall\_read done
+  \item syscall\_write done
+  \item syscall\_open done devrait être en premier, il gère comme il faut les descripteurs (l'émulation / simulation)
+  \item syscall\_close done
+  \item syscall\_poll\_pre revoir
+  \item syscall\_poll\_post done
+  \item syscall\_inside
+  \item syscall\_pipe\_post
+  \item syscall\_select\_pre
+  \item syscall\_proc\_outside
+  \item syscall\_proc\_inside
+  \item syscall\_dup2\_post
+  \item syscall\_socket 
+  \item syscall\_connect\_pre
+  \item syscall\_connect\_post
+  \item syscall\_accept
+  \item syscall\_sendto\_pre
+  \item syscall\_sendto\_post
+  \item syscall\_recvfrom\_pre
+  \item syscall\_recvfrom\_post
+  \item syscall\_sendmsg
+  \item syscall\_reccvmsg\_pre
+  \item syscall\_recvmsg\_post 
+  \item syscall\_shutdown\_pre
+  \item syscall\_shutdown\_post
+  \item syscall\_bind\_pre
+  \item syscall\_bind\_post
+  \item syscall\_listen
+  \item syscall\_getpeername\_pre
+  \item syscall\_setsockopt\_pre
+  \item syscall\_setsockopt\_post
+  \item syscall\_getsockopt\_pre
+  \item syscall\_getsockopt\_post
+  \item syscall\_clone
+  \item syscall\_execve
+  \item syscall\_exit
+  \item syscall\_fcntl
+  \item syscall\_creat\_post
+  \item syscall\_brk
+  \item {\color{white} baba}
+  \item \textit{process\_read\_out\_call} done
+  \item \textit{process\_send\_call}
+  \item \textit{process\_recvfrom\_out\_call}
+  \item \textit{process\_read\_out\_call}
+  \item \textit{process\_close\_call} done
+  \item \textit{process\_fcntl\_call}
+  \item \textit{process\_listen\_call}
+  \item \textit{process\_accept\_out\_call}
+  \item \textit{process\_connect\_in\_call}
+  \item \textit{process\_handle}
   \end{itemize}
 \item simterpose.c redéfinit le sigint et segfault en ``kill'' de
   l'application. Le main définit les options avec lesquels on lance simterpose,
@@ -717,6 +765,8 @@ On a process\_runner qui appelle process\_handle quand le tracker a fait un AS e
 
 What is this: cputimer.h l14 {\color{purple} xbt\_cpu\_timer} syscall\_data.h
 l259 {\color{purple} typedef union}
+
+En parallèle des AS du noyau on a les SYS\_stem de SIMGRID qui sont lancés et seront bloquant ou pas (sortie de la boucle process\_handle) si il faut que du temps simulateur s'exécute ou pas. Pour le write on est bloquant donc on sort à la fin de AS noyau on rerentre on voit en SIMGRID pour le temps et on ressort. Chaque thread espion est isolé du coup peuvent tous s'exécuter en même temps. Temps en discret du coup à t après un timestamp on exécute tout le code qui peut l'être et on revient au prochain timestamp.
 
 \begin{tabularx}{15cm}{|c|X|X|}
   \hline structures & définies & utilisées \\ \hline
