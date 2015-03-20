@@ -654,7 +654,7 @@ pour uprobe, utrace.
 \end{itemize}
 
 \section{src code}
-
+\subsection{Contenu des .h et .c}
 \begin{itemize}
 \item \textit{{\color{brown}arg\_trace.h}} contient les prototypes des
   fonctions qui vont récupérer les arguments des AS et les fonctions
@@ -697,20 +697,27 @@ pour uprobe, utrace.
 \item sys\_process.c fonction pour récupérer les arguments d'un processus cloné,
   gestion de ``syscall clone'' et ``syscall execve'' on est pour chacun à la
   sortie ou l'entrée de l'AS et on l'intercèpte pour faire notre petite sauce.
-\item syscall\_process.c gère les AS à leur entrée et à leur sortie:
+\item syscall\_process.c gère les AS à leur entrée et à leur sortie
+\item simterpose.c redéfinit le sigint et segfault en ``kill'' de
+  l'application. Le main définit les options avec lesquels on lance simterpose,
+  initie les listes de communications sockets et les timers du simulateur. Il
+  récupére les fichiers d'applications à lancer et le fichier de conf de la
+  plateforme, {\color{red} un thread par application}. Appel aux fonctions
+  MSG\_\* et fonction strace apple xbt\_\* sortie. process\_runner lance le
+  processus fils qui exécutera l'application et le père qui va le tracer.
+\end{itemize}
+
+\subsection{Les AS de syscall\_process}
   \begin{itemize}
   \item {\color{brown} process\_send\_call} l.73 on est dans le thread espion donc on crée la tâche de communication pour l'envoi après avoir récupéré les infos de l'autre côté si on n'est pas en netlink sinon on a rien à faire on laisse l'AS se faire ou retourner une erreur. La tâche de communication est gérée par le simulateur car là on est lié au réseau.{\color{red}Les ``send task'' gèrent les send receive???}
   \item syscall\_read done
   \item syscall\_write done
-  \item syscall\_open done devrait être en premier, il gère comme il faut les descripteurs (l'émulation / simulation)
+  \item syscall\_open done devrait être en premier, il gère comme il faut les descripteurs (l'émulation / simulation) avec exit et read write
   \item syscall\_close done
   \item syscall\_poll\_pre revoir
   \item syscall\_poll\_post done
-  \item syscall\_inside
-  \item syscall\_pipe\_post
-  \item syscall\_select\_pre
-  \item syscall\_proc\_outside
-  \item syscall\_proc\_inside
+  \item syscall\_pipe\_post done
+  \item syscall\_select\_pre revoir devrait être avec les ``polls''
   \item syscall\_dup2\_post
   \item syscall\_socket 
   \item syscall\_connect\_pre
@@ -751,16 +758,8 @@ pour uprobe, utrace.
   \item \textit{process\_connect\_in\_call}
   \item \textit{process\_handle}
   \end{itemize}
-\item simterpose.c redéfinit le sigint et segfault en ``kill'' de
-  l'application. Le main définit les options avec lesquels on lance simterpose,
-  initie les listes de communications sockets et les timers du simulateur. Il
-  récupére les fichiers d'applications à lancer et le fichier de conf de la
-  plateforme, {\color{red} un thread par application}. Appel aux fonctions
-  MSG\_\* et fonction strace apple xbt\_\* sortie. process\_runner lance le
-  processus fils qui exécutera l'application et le père qui va le tracer.
-\end{itemize}
-open avec flag F\_CLOEXEC pas géré. 
 
+open avec flag F\_CLOEXEC pas géré. Comme pour le syscall\_open on ne fait rien dans à l'entrée du syscall\_pipe faudra que le noyau alloue toutes les structures nécessaires avant de pouvoir les récupérer et que Simterpose fasse sa sauce avec. 
 On a process\_runner qui appelle process\_handle quand le tracker a fait un AS et apres resume. Le handle va `exécuter le bon pre-syscall et en fonction return ou pas (in\_syscall out\_syscall).
 
 What is this: cputimer.h l14 {\color{purple} xbt\_cpu\_timer} syscall\_data.h
@@ -768,6 +767,7 @@ l259 {\color{purple} typedef union}
 
 En parallèle des AS du noyau on a les SYS\_stem de SIMGRID qui sont lancés et seront bloquant ou pas (sortie de la boucle process\_handle) si il faut que du temps simulateur s'exécute ou pas. Pour le write on est bloquant donc on sort à la fin de AS noyau on rerentre on voit en SIMGRID pour le temps et on ressort. Chaque thread espion est isolé du coup peuvent tous s'exécuter en même temps. Temps en discret du coup à t après un timestamp on exécute tout le code qui peut l'être et on revient au prochain timestamp.
 
+\subsection{Emplacement et définition des structures}
 \begin{tabularx}{15cm}{|c|X|X|}
   \hline structures & définies & utilisées \\ \hline
   process\_descriptor.h & {\color{purple}stream\_t \newline
