@@ -42,7 +42,8 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 d'exécuter sur différentes machine avec des puissances de calcul différentes?
 --> Benchmark et rejeu pour ce qui est calcul d'application et envoie ce temps
 dans le simulateur qui ajuste en fonction de la plate-forme qu'il simule. Ce qui
-fait une émulation simulation.  --> 4 choses: COMM (temps de communication), SEB
+fait une émulation simulation.  
+--> 4 choses: COMM (temps de communication), SEB
 (temps calcul), obtenir le temps,DNS (resolution de nom) Obtenir l'heure pas de
 transformation en AS (perte de perfo avec switch contexte), LD_PRELOAD (combien
 de temps depuis le dernier chronostrart/stop) cat /proc/self/maps pour voir les
@@ -62,7 +63,8 @@ avoir l'heure, emplacement des lib...)
 - un appel dans le fichier ldpreload_pthread/mdfpthread.c
 - quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le
  fils qui fait un PTRACE_ME???  (revoir l'annexe de Guillaume)
-- c'est quoi "tesh"?  --> tesh, c'est le testing shell, l'outil qu'on a écrit
+- c'est quoi "tesh"?  
+--> tesh, c'est le testing shell, l'outil qu'on a écrit
 dans simgrid pour nos tests d'intégration. Je l'avais posé en sujet scolaire une
 fois. http://webloria.loria.fr/~quinson/Teaching/RS/projet-test.pdf La version
 dans simgrid est en perl de nos jours, mais y'a une version en C assez balèze
@@ -82,7 +84,7 @@ src --> .h lus
 *** Blocking point
 *** Planned work
 - lire les .c notamment sys_* et syscall_process
-*** TODO Mettre les en-têtes de fichiers et commentaire en en, corriger le code si besoin
+*** TODO Mettre les en-têtes de fichiers et commentaire en en, corriger le code si besoin (erreur ctrl C/V et commentaires)
 - peupler les sys_* avec ctrl-X ctrl-V (suivre strace)
 - remplacer le switch du syscall_process par un tableau de pointeurs de
   fonctions
@@ -107,27 +109,39 @@ create on fait un clone en fait du coup c'est l'AS clone qui gère ça.
 *** Things done
 -lire syscall_process.c
 *** Blocking points
-- qu'est ce qu'une MSG task et à quoi ça sert --> voir 101 de SIMGRID
+- qu'est ce qu'une MSG task et à quoi ça sert 
+--> voir 101 de SIMGRID
 - pourquoi à l'entrée du syscall_write on ne fait rien si on est en
-address_translation --> toute la petite sauce a été faite dans le open déjà
+address_translation
+--> toute la petite sauce a été faite dans le open déjà
+- différence pipe_t et pipe_end_s
+--> l'un est la sortie (pipe_end_s) pour savoir de quel côté on est et
+    l'autre est le tube pour les données
+- pourquoi on n'a pas de return à la sortie de chaque syscall dans le
+  process_handle?
+--> Certains AS sont bloquants et du temps doit s'écouler au niveau du
+simulateur avant la sortie de l'AS (write ce qui n'est pas le cas du
+read)
+
 - pourquoi incrémenter le compteur de référence à la sortie du syscall_write,
   entree du syscall_write alors qu'il est déjà incrémenté dans le open et qu'on
-  le décrémente ensuite??? -- Est-ce pour éviter de fermer un fd à 0 si on
+  le décrémente ensuite??? Est-ce pour éviter de fermer un fd à 0 si on
   l'utilise ailleurs...
 - traitement des pipe dans syscall_write et process_close_call = ????
 - pourquoi le syscall_poll_pre ne fonctionne pas?
-- pourquoi on n'a pas de return à la sortie de chaque syscall dans le
-  process_handle?
 - que fait sys_build_select et pourquoi le syscall_select_pre renvoie une valeur
  de match alors que c'est l'AS noyau qui devrait renvoyer ça?
-
 *** Planned work
 - lire le code de strace
 - read SIMGRID101
 *** TODO réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
 - faire un syscall_select_post comme syscall_poll_post
 
-
+** 23.03.2015
+*** Things done
+*** Blcoking points
+- pourquoi à l'entrée de l'AS connect on fait appel à process_handle
+*** Planned work
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
