@@ -10,11 +10,11 @@ Yeah you find my beautiful reporting file
 *** Articles
 Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas Nussbaum. Design and
 Eval- uation of a Virtual Experimental Environment for Distributed
-Systems. [Research Report] RR-8046, 2012. <hal-00724308v1> Martin
-Quinson. SimGrid: a Generic Framework for Large-Scale Distributed Experiments.
+Systems. [Research Report] RR-8046, 2012. <hal-00724308v1>
+ Martin Quinson. SimGrid: a Generic Framework for Large-Scale Distributed Experiments.
 9th International conference on Peer-to-peer computing - IEEE P2P 2009, Sep
-2009, Seattle, United States. IEEE. <inria-00435802> KENISTON, Jim,
-MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace, utrace,
+2009, Seattle, United States. IEEE. <inria-00435802> 
+KENISTON, Jim, MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace, utrace,
 uprobes: Lightweight, dynamic tracing of user apps. In : Proceedings of the 2007
 Linux Symposium. 2007. p. 215-224.
 *** Reports of internships
@@ -51,7 +51,7 @@ différents segments mémoire de processus (vsyscall: memoire kernel mappe pour
 avoir l'heure, emplacement des lib...)
 *** Planned work 
 *** DONE Lire code et le comprendre (relire le ld_preload_pthread)
-*** TODO Faire tourner le programme actuel
+*** DONE Faire tourner le programme actuel
 *** TODO Les papiers dans /biblio/to_read
 
 ** 09.03.2015
@@ -74,7 +74,7 @@ windows (forcément).
 - Laissé de côté le fichier apps/chess_adavanced.c
 - Relire send_client/server serverMultiClients.c
 - Mettre au propre note et schéma
-*** TODO Lire le code dans src
+*** DONE Lire le code dans src
 
 ** 10-13.03.2015
 *** Things done
@@ -107,7 +107,7 @@ create on fait un clone en fait du coup c'est l'AS clone qui gère ça.
 
 ** 17-18-19.03.2015
 *** Things done
--lire syscall_process.c
+-lecture en cours de syscall_process.c
 *** Blocking points
 - qu'est ce qu'une MSG task et à quoi ça sert 
 --> voir 101 de SIMGRID
@@ -131,17 +131,24 @@ read)
 - pourquoi le syscall_poll_pre ne fonctionne pas?
 - que fait sys_build_select et pourquoi le syscall_select_pre renvoie une valeur
  de match alors que c'est l'AS noyau qui devrait renvoyer ça?
+- pourquoi à l'entrée du connect on appel process_handle
 *** Planned work
 - lire le code de strace
 - read SIMGRID101
 *** TODO réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
-- faire un syscall_select_post comme syscall_poll_post
 
-** 23.03.2015
+** 23-24.03.2015
 *** Things done
+- lire syscall_process.c (enfin)
+- compilation de simterpose / correction d'un bug à la compilation
+- exécution du code sur msg_clientserver.sh
 *** Blcoking points
 - pourquoi à l'entrée de l'AS connect on fait appel à process_handle
+--> WTF but it works...
+- WTF le sleep(4) dans syscall_fcntl
+- make diff-send erreur après exit
 *** Planned work
+*** TODO schéma du connect
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
