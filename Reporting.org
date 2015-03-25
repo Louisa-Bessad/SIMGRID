@@ -36,16 +36,17 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 - Lire les papiers de Chloé, Guillaume, Marion et les papiers cités par Chloé.
 *** Blocking points and questions
 - Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent
- sur la machine hote, seul les actions qui ont besoin d'interragir avec
- l'environnement (réseau car appl distribuées) sont envoyées dans le simulateur?
-- Si on exécute les appli sur la machine hote, dans ce cas en quoi ça permet
-d'exécuter sur différentes machine avec des puissances de calcul différentes?
+ sur la machine hôte, seules les actions qui ont besoin d'interagir avec
+  l'environnement (réseau car applications distribuées) sont envoyées dans le
+  simulateur?
+- Si on exécute les applications sur la machine hôte, dans ce cas en quoi ça permet
+d'exécuter sur différentes machines avec des puissances de calcul différentes?
 --> Benchmark et rejeu pour ce qui est calcul d'application et envoie ce temps
 dans le simulateur qui ajuste en fonction de la plate-forme qu'il simule. Ce qui
 fait une émulation simulation.  
---> 4 choses: COMM (temps de communication), SEB
-(temps calcul), obtenir le temps,DNS (resolution de nom) Obtenir l'heure pas de
-transformation en AS (perte de perfo avec switch contexte), LD_PRELOAD (combien
+--> 4 choses: COMM (temps de communication), SEB (temps calcul), obtenir le
+temps,DNS (resolution de nom). Obtenir l'heure pas de transformation en AS
+(perte de performance à cause des changements de contextes), LD_PRELOAD (combien
 de temps depuis le dernier chronostrart/stop) cat /proc/self/maps pour voir les
 différents segments mémoire de processus (vsyscall: memoire kernel mappe pour
 avoir l'heure, emplacement des lib...)
@@ -56,10 +57,10 @@ avoir l'heure, emplacement des lib...)
 
 ** 09.03.2015
 *** Things done
-- Lire les poc et les comprendre
+- Lire les "proof of concept" et les comprendre
 - Lire les codes de tests/apps (bon brain storming about socket functions)
-- Fic server_poll et server_poll_multi fastidieux.
-*** Blocking points and question
+- Fichiers server_poll et server_poll_multi fastidieux.
+*** Blocking points and questions
 - un appel dans le fichier ldpreload_pthread/mdfpthread.c
 - quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le
  fils qui fait un PTRACE_ME???  (revoir l'annexe de Guillaume)
@@ -81,10 +82,10 @@ windows (forcément).
 - essayer de trouver par quel bout commencer à lire les fichiers contenu dans
 src --> .h lus
 - commencer à faire des liens entre les différents fichiers et structures
-*** Blocking point
+*** Blocking points and questions
 *** Planned work
 - lire les .c notamment sys_* et syscall_process
-*** TODO Mettre les en-têtes de fichiers et commentaire en en, corriger le code si besoin (erreur ctrl C/V et commentaires)
+*** TODO Mettre les en-têtes de fichiers et commentaire, corriger le code si besoin (erreur ctrl C/V et commentaires)
 - peupler les sys_* avec ctrl-X ctrl-V (suivre strace)
 - remplacer le switch du syscall_process par un tableau de pointeurs de
   fonctions
@@ -95,13 +96,15 @@ src --> .h lus
 *** Things done
 - lire sys_*
 *** Blocking points
-- où sont définies les macro MSG_* et les xbt_dynar_* --> /opt/simgrid/include
-- à quoi sert le while de process_runner (simterpose.c) --> processus lancé via
-le ptrace on le bloque dès que quelque chose avec le resume (pendant le resume
-fait ses calculs) si on en sort = AS à gérer
+- où sont définies les macro MSG_* et les xbt_dynar_* 
+--> /opt/simgrid/include
+- à quoi sert le while de process_runner (simterpose.c) 
+--> processus lancé via le ptrace on le bloque dès que quelque chose se produit via le
+resume (pendant le resume fait ses calculs) si on en sort = AS à gérer
 - à quoi servent les processus clonés et la fonction main_loop (simterpose.c)?
---> main_loop = process_runner quand on est dans un clone --> quand fork ou
-create on fait un clone en fait du coup c'est l'AS clone qui gère ça.
+--> main_loop = process_runner quand on est dans un clone 
+--> quand fork ou create on fait un clone en fait du coup c'est l'AS clone qui
+    gère ça.
 *** Planned work
 - lire le fichier syscall_process.c et autres tools en .c
 
@@ -120,8 +123,7 @@ address_translation
 - pourquoi on n'a pas de return à la sortie de chaque syscall dans le
   process_handle?
 --> Certains AS sont bloquants et du temps doit s'écouler au niveau du
-simulateur avant la sortie de l'AS (write ce qui n'est pas le cas du
-read)
+simulateur avant la sortie de l'AS
 
 - pourquoi incrémenter le compteur de référence à la sortie du syscall_write,
   entree du syscall_write alors qu'il est déjà incrémenté dans le open et qu'on
@@ -131,7 +133,7 @@ read)
 - pourquoi le syscall_poll_pre ne fonctionne pas?
 - que fait sys_build_select et pourquoi le syscall_select_pre renvoie une valeur
  de match alors que c'est l'AS noyau qui devrait renvoyer ça?
-- pourquoi à l'entrée du connect on appel process_handle
+--> C'est tout du n'importe quoi
 *** Planned work
 - lire le code de strace
 - read SIMGRID101
@@ -149,6 +151,8 @@ read)
 - make diff-send erreur après exit
 *** Planned work
 *** TODO schéma du connect
+
+** 25.03.2015
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
