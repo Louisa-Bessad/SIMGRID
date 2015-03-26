@@ -1,0 +1,37 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[pdftex]{graphicx}
+\usepackage[inline]{enumitem}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{color}
+\ifCLASSOPTIONcaptionsoff
+\usepackage[nomarkers]{endfloat}
+\let\MYoriglatexcaption\caption
+\renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+\fi
+\linespread{0.9}
+\graphicspath{{include/img/}}
+\DeclareGraphicsExtensions{.jpeg,.jpg,.png}
+\title{Pré-rapport}
+\author{Louisa~Bessad,~\IEEEmembership{Étudiante,~UPMC}
+\texttt{first.last@etu.upmc.fr}}
+\begin{document}
+\maketitle
+% Abstract
+\begin{abstract}
+Ce papier est un résumé conçernant le CGRA DART et les mécanismes de
+détection/correction d'erreurs qu'il implémente. Nous verrons notamment
+comment les concepteurs de DART ont pu améliorer de façon significative ses
+performances grâce à un nouvelle technique de détection de type
+\emph{on-line error-detecting} appelée \emph{residue code modulo 3}.
+\end{abstract}
+% Keywords
+\begin{IEEEkeywords}
+\end{IEEEkeywords}
+% Content
+\input{src/content}
+% Bib
+\begin{thebibliography}{1}
+\end{thebibliography}
+\end{document}

@@ -60,6 +60,7 @@ avoir l'heure, emplacement des lib...)
 - Lire les "proof of concept" et les comprendre
 - Lire les codes de tests/apps (bon brain storming about socket functions)
 - Fichiers server_poll et server_poll_multi fastidieux.
+- Laissé de côté le fichier apps/chess_adavanced.c
 *** Blocking points and questions
 - un appel dans le fichier ldpreload_pthread/mdfpthread.c
 - quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le
@@ -72,7 +73,6 @@ dans simgrid est en perl de nos jours, mais y'a une version en C assez balèze
 qui demeure. Le principal défaut de la version C est de ne pas être porté à
 windows (forcément).
 *** Planned work
-- Laissé de côté le fichier apps/chess_adavanced.c
 - Relire send_client/server serverMultiClients.c
 - Mettre au propre note et schéma
 *** DONE Lire le code dans src
@@ -144,7 +144,7 @@ simulateur avant la sortie de l'AS
 - lire syscall_process.c (enfin)
 - compilation de simterpose / correction d'un bug à la compilation
 - exécution du code sur msg_clientserver.sh
-*** Blcoking points
+*** Blocking points
 - pourquoi à l'entrée de l'AS connect on fait appel à process_handle
 --> WTF but it works...
 - WTF le sleep(4) dans syscall_fcntl
@@ -153,6 +153,19 @@ simulateur avant la sortie de l'AS
 *** TODO schéma du connect
 
 ** 25.03.2015
+*** Things done
+- Biblio
+*** Blcoking points
+*** Planned work
+
+** 26.03.2015
+*** Things done
+- Rédaction "pré-rapport"
+*** Blocking points
+*** Planned work
+*** TODO ne pas parler de communications mais d'actions
+- java -jar plantuml.jar -tpng fichier.pu
+- CWRAP RR
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p

@@ -1,0 +1,86 @@
+\section{Comment fonctionne Simterpose}
+\subsection{Interception des actions}
+Simterpose est l'API qui permet d'intercepter les communications de
+l'application avec la machine sur laquelle elle s'exécute. Sans cela
+l'application se rendrait compte que l'environnement réel ne correspond pas à
+celui dans lequel elle pense être. Une applications distribuées peut vouloir
+communiquer avec l'hôte soit pour effectuer des calculs (SEB), soit pour
+communiquer avec d'autres applications sur le réseau. Quand Simterpose
+intercepte une communication venant de l'application, il modifie les
+caractéristiques de cette dernière pour qu'elle puisse s'exécuter sur la machine
+hôte. Quand la machine hôte renvoie une réponse à l'application, Simterpose
+l'intercepte également et la modifie pour que l'application ne voit pas le
+changement d'architecture. En même temps il envoie au simulateur des données
+concernant le temps d'exécution de l'action sur la machine hôte pour calculer le
+temps sur la machine simulé puis envoie ce temps à l'application en plus du
+résultat pour mettre à jour son horloge. Ainsi les calculs sont réellement
+exécuter sur la machine et le temps de réponse fournir par le simulateur qui va
+influencer l'horloge de l'application permet d'imiter un environnement
+distribué.
+
+{\color{red} MEttre un schéma de action interceptes, test modifie, renvoie,
+  attrape reponse, simulateur, retour application}
+
+Les délais calculés par le simulateur sont soit des temps de calculs soit des
+temps de connextion. Les actions éxécutées par l'application peuvent-être soit
+de simples calculs soit des requêtes de connexion ou communication réseau.
+
+Pour intercepter ces actions, il faut d'abord choisir ce qu'on intercepte
+exactement et avec quel outil. En effet une application peut communiquer avec
+une machine via différentes abstractions.
+
+{\color{red} schéma marion???} liste... tout seul tout seul puis le lien entre
+les deux
+
+Nous allons intercepter les actions que sont les AS fait par l'applciation ainsi
+nous sommes sûr d'intercepter tous les types de communications que
+l'applicatione est susceptible d'initier avec l'OS. Il existe de nombreux outils
+en matières d'interception d'AS. On trouve notamment {\color{green} a remplir
+  dire pourquoi abandonné}. Pour intercepter les éventuels AS d'une applciation
+nous allons donc utiliser \textbf{ptrace}{\color{red}citation}. Cet outil qui
+est lui-même un AS va permettre à un processus d'en contrôler un autre. Ainsi un
+processus va dire qu'il souhaite être contrôle ``espionnée'' et un autre
+processus le contrôlera ``processus espion''. Ce dernier va spécifier sur quels
+évènements du processus ``espionné'' il veut être notifié, dans notre cas ce
+sera les AS que l'on considérera comme point d'arrêt. \textit{Cet AS permet
+  L'avantage de l'AS ptrace c'est qu'il permet d'écrire et de lire directement
+  dans la mémoire des processus.} Ainsi quand l'application voudra faire un AS
+quelconque elle sera bloquée et l'AS ptrace sera lancé et notifiera le
+``processus espion'', ce dernier fera les modifications nécessaires dans les
+registres de l'applications pour conserver la virtualisation de l'environnement
+puis il rendra la main à l'application pour que l'AS ait lieu. Au retour de l'AS
+le ``processus espionné'' sera de noveau stopper et un ptrace sera envoye à
+l''espion'' qui remodifiera les informations nécessaires et rendra la main à
+l'application qui sortira de son AS avec un résultat exécuté sur la machine hôte
+et un temps d'exécution et une horloge fournie par le simulateur. Néanmoins il a
+été montré dans un précédent stage que l'AS ptrace est inefficace voir inutile
+en ce qui concerne tous les AS temporel que l'application voudrait
+faire. \textit{Les AS ``time'', ``clock\_gettime'', ``gettimeofday'' avec
+  \textbf{ptrace} ne sont pas possibles, d'où l'alliance avec LD\_PRELOAD} Par
+exemple lors d'un gettimeofday l'AS n'est pas lancé on répond directement au
+niveau de la bibliothèque ainsi on n'arrive même pas au niveau de l'AS, donc
+ptrace ne fait rien. 
+
+On pourrait alors se dire qu'une bonne solution serait
+d'intercepter les actions de l'application au niveau des bibliothèques pour cela
+il existe l'éditeur de lien dynamique \textbf{LD\_PRELOAD} {\color{red} rajouter des trucs sur VDSO}. Ainsi on va créer
+notre propre bibliothèque de fonction pour chaque fonction que l'application
+serait susceptible d'utiliser. Ainsi dans notre nouvelle fonction on ajoutera
+toutes les modifications nécessaires pour maintenir notre environnement simulé
+puis on fera appel à la vraie fonction celle de base et on préchargera cette
+bibliothèque avant les autres grâce à LD\_PRELOAD. Ainsi nos fonctions passeront
+avant les fonctions de base de l'OS. Le problème de cette solution est que si
+l'application fait un appel à une fonction que l'on n'a pas réécrit rien ne
+l'empchera de faire l'AS directement sans avoir modifier ses paramètres, de fait
+cette solution n'est pas complète. Ainsi on peut voir que LD\_PRELOAD résout les
+problèmes de ptrace et inversement, une solution choisie lors d'un précédent
+stage est donc d'allier les deux. Maintenant que nous savons ce que nous devons
+intercepter et comment l'intercepter nous allons voir ce que nous devons
+modifier pour pouvoir maintenit notre émulation simulation.
+
+\textit{Pour faire face à ce problème il a été choisi d'utiliser l'éditeur de
+  lien dynamique \textbf{LD\_PRELOAD}, ce dernier intercepte les appels de
+  l'application au niveau des bibliothèques. Pour cela on va créer une
+  bibliothèque.}
+
+\subsection{Modification à effectuer}
