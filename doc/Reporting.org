@@ -154,7 +154,7 @@ simulateur avant la sortie de l'AS
 
 ** 25.03.2015
 *** Things done
-- Biblio
+- Bibliographie
 *** Blcoking points
 *** Planned work
 
@@ -162,7 +162,8 @@ simulateur avant la sortie de l'AS
 *** Things done
 - Rédaction "pré-rapport"
 *** Blocking points
-- clarifier cet histoire de /proc/id/mem
+- clarifier cette histoire de /proc/id/mem
+- où va-t-on exactement 
 *** Planned work
 *** TODO ne pas parler de communications mais d'actions
 - compléter la partie émulation avec d'autres simulateur ou test invalidés

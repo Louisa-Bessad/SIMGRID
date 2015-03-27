@@ -1,9 +1,10 @@
-\section{Comment fonctionne Simterpose}
+\section{Simterpose et son fonctionnement}
+Petite phrase...
 \subsection{Interception des actions}
 Simterpose est l'API qui permet d'intercepter les communications de
 l'application avec la machine sur laquelle elle s'exécute. Sans cela
 l'application se rendrait compte que l'environnement réel ne correspond pas à
-celui dans lequel elle pense être. Une applications distribuées peut vouloir
+celui dans lequel elle pense s'exécuter. Une application distribuée peut vouloir
 communiquer avec l'hôte soit pour effectuer des calculs (SEB), soit pour
 communiquer avec d'autres applications sur le réseau. Quand Simterpose
 intercepte une communication venant de l'application, il modifie les
@@ -12,17 +13,15 @@ hôte. Quand la machine hôte renvoie une réponse à l'application, Simterpose
 l'intercepte également et la modifie pour que l'application ne voit pas le
 changement d'architecture. En même temps il envoie au simulateur des données
 concernant le temps d'exécution de l'action sur la machine hôte pour calculer le
-temps sur la machine simulé puis envoie ce temps à l'application en plus du
+temps sur la machine simulée puis envoie ce temps à l'application en plus du
 résultat pour mettre à jour son horloge. Ainsi les calculs sont réellement
-exécuter sur la machine et le temps de réponse fournir par le simulateur qui va
-influencer l'horloge de l'application permet d'imiter un environnement
-distribué. 
+exécuter sur la machine, les communications réellement émises sur le réseau et c'est le temps de réponse fourni par le simulateur qui va influencer l'horloge de l'application permettant ainsi d'imiter un environnement distribué. Finalement les applications ne communiquent plus directement entre elles puisque toute communication est interceptée par Simterpose puis gérée par le simulateur qui s'occupe du réseau. 
 
 {\color{red} MEttre un schéma de action interceptes, test modifie, renvoie,
   attrape reponse, simulateur, retour application}
 
 Les délais calculés par le simulateur sont soit des temps de calculs soit des
-temps de connextion. Les actions éxécutées par l'application peuvent-être soit
+temps de connexion. Les actions éxécutées par l'application peuvent-être soit
 de simples calculs soit des requêtes de connexion ou communication réseau.
 
 Pour intercepter ces actions, il faut d'abord choisir ce qu'on intercepte
@@ -88,6 +87,8 @@ maintenit notre émulation simulation.
 
 \subsection{Modification à effectuer}
 Lorsque ptrace est appelé en entrée ou sortie d'AS, les modifications à apporter ne sont pas forcément les mêmes selon qu'il s'agit d'une action nécessitant l'utilisation du réseau ou non. Dans le cas d'un simple calcul ce qu'il faut maintenir pour l'application c'est une vision du temps correspondant à celle qui s'écoulerait si elle était vraiment sur la machine simule. Ainsi en entrée d'appel système on n'a pas besoin de modifier quoique ce soit, par contre au retour il faut modifier le temps d'exécution du calcul en le remplaçant par celui calculé par le simulateur. Dans le cas d'une communication réseau il y a beaucoup plus de travail. En effet l'application a une vision d'un réseau qui ne correspond pas au réseau local ainsi quand elle veut faire une communication réseau la machine qu'elle cherche à joindre via une adresse et des ports possède en réalité une autre adresse et d'autres ports en local. Il faut donc en entrée de l'appel système remplacé l'adresse ``virtuelle'' par l'adresse réelle sur le réseau local pour que l'appel système puisse se faire vers sur la bonne destination. Au retour de l'appel système il faut remodifier les paramètres en remettant la fausse adresse virutlle à la place de la réelle pour que l'application pense toujours être dans son environnement simulé. Pour gérer ces modifications deux solutions ont été proposées lors d'un précédent stage: la  ``médiation par traduction d'adresse'' et la ``full mediation''.
-\paragraph{Traduction d'adresse} Avec ce type de médiation on considère que le noyau gère des communications ainsi en entrée et sortie d'appel système Simterpose va juste modifier les adresses et ports de connexion ou de communication via un tableau de correspondance qu'il gère. Pour lire et modifier les paramètres de l'appel système on peut soit modifier les registres du processus avant l'entrée et la sortie de l'appel via ptrace {\color{red}ou on peut directement écrire dans le /proc/pid/mem}
-\paragraph{Full mediation} Dans ce cas le noyau ne va plus gérer des communications car nous allons empêcher l'application d'établir des connexions avec une autre application via des sockets. Quand l'application voudra faire un appel système de type communication vers une autre applciation, le processus espion de Simterpose qui sera notifié via ptrace neutralisera l'appel système. Ensuite ce processus en utilisant ptrace récupérera en lisant dans la mémoire du processus espionné les ifnormations à envoyer ou récupérer et ira directement lire ou écrire ces informations dans la mémoire du destinataire. Ainsi on n'a pas besoin de gérer de tableau de correspondance d'adresse et de ports et les applications peuvent conserver les adresses simulées qu'elles considèrent comme réelles.
-Même si la ``full mediation'' permet d'éviter les communications réseaux et de conserver des tables de correspondances, dans le cas d'applications qui communiquent énormément elle s'avère moins efficace. En effet les coût d'appels mémoires sont plus élevés que ceux des communications réseaux.
+\paragraph{Traduction d'adresse} Avec ce type de médiation on considère que le noyau gère des communications ainsi en entrée et sortie d'appel système Simterpose va juste modifier les adresses et ports de connexion ou de communication via un tableau de correspondance qu'il gère. Ainsi chaque application a sa liste de port simulé et pour un même port sur des applications différentes quand on sortira du monde simulés ces mêmes ports n'auront pas la même correspondance dans la table. La limite de cette approche est lié au nombre de port disponibles sur l'hôte.
+
+{\color{green} Pour lire et modifier les paramètres de l'appel système on peut soit modifier les registres du processus avant l'entrée et la sortie de l'appel via ptrace \textit est-ce au bon endroit?} {\color{red}ou on peut directement écrire dans le /proc/pid/mem}
+\paragraph{Full mediation} Dans ce cas le noyau ne va plus gérer des communications car nous allons empêcher l'application d'établir des connexions avec une autre application via des sockets. Il n'y aura ni socket ni communication. Quand l'application voudra faire un appel système de type communication vers une autre applciation, le processus espion de Simterpose qui sera notifié via ptrace neutralisera l'appel système. Ensuite ce processus en utilisant ptrace récupérera en lisant dans la mémoire du processus espionné les ifnormations à envoyer ou récupérer et ira directement lire ou écrire ces informations dans la mémoire du destinataire. Ainsi on n'a pas besoin de gérer de tableau de correspondance d'adresse et de ports et les applications peuvent conserver les adresses simulées qu'elles considèrent comme réelles.
+Même si la ``full mediation'' permet d'éviter les communications réseaux et de conserver des tables de correspondances, dans le cas d'applications qui communiquent énormément et utilisent de grosses données elle s'avère moins efficace. En effet les appels à mémoires sont bien plus couteux que les communications réseaux.
