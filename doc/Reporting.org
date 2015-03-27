@@ -158,12 +158,14 @@ simulateur avant la sortie de l'AS
 *** Blcoking points
 *** Planned work
 
-** 26.03.2015
+** 26-27.03.2015
 *** Things done
 - Rédaction "pré-rapport"
 *** Blocking points
+- clarifier cet histoire de /proc/id/mem
 *** Planned work
 *** TODO ne pas parler de communications mais d'actions
+- compléter la partie émulation avec d'autres simulateur ou test invalidés
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
