@@ -138,7 +138,7 @@ simulateur avant la sortie de l'AS
 - lire le code de strace
 - read SIMGRID101
 *** TODO réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
-
+    
 ** 23-24.03.2015
 *** Things done
 - lire syscall_process.c (enfin)
@@ -155,7 +155,7 @@ simulateur avant la sortie de l'AS
 ** 25.03.2015
 *** Things done
 - Bibliographie
-*** Blcoking points
+*** Blocking points
 *** Planned work
 
 ** 26-27.03.2015
