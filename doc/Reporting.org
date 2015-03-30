@@ -176,7 +176,6 @@ simulateur avant la sortie de l'AS
 - Template rapport
 *** Blocking points
 *** Planned work
-- voir où Marion parle de Emulab dans ses travaux, idem MicroGrid
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
