@@ -1,39 +1,178 @@
-\documentclass{journal}%{IEEEtran}
-\usepackage[utf8]{inputenc}
-\usepackage[pdftex]{graphicx}
-\usepackage[inline]{enumitem}
-\usepackage{cite}
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{xltxtra}
+\usepackage[francais]{babel}
+\usepackage{fancyhdr}
+%\usepackage[latin1]{inputenc}
+\usepackage{epsfig}
+\usepackage{calc}
 \usepackage{url}
-\usepackage{color}
-%\ifCLASSOPTIONcaptionsoff
-%\usepackage[nomarkers]{endfloat}
-%\let\MYoriglatexcaption\caption
-%\renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
-%\fi
-\linespread{0.9}
-%\graphicspath{{include/img/}}
-%\DeclareGraphicsExtensions{.jpeg,.jpg,.png}
-\title{Pré-rapport}
-\author{Louisa~Bessad}%,~\IEEEmembership{Étudiante,~UPMC}
-%\texttt{first.last@etu.upmc.fr}
+\usepackage{boxedminipage}
+
+\usepackage{fontspec}
+\setmainfont{Adobe Garamond Pro}
+
+%\usepackage[language=french]{csquotes}
+
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Définitions à personnaliser 
+
+%% Pour les noms, utilisez la première lettre du prénom suivi du 
+%% nom de famille (première lettre majuscule, reste en minuscule).
+
+
+%%%% Indiquer le nom de l'encadrant ci-dessous:
+
+\def\nomEncad{Prénom1 \textsc{Nom1}, Prénom2 \textsc{Nom2}}
+
+%% Si le projet est co-encadré indiquer les deux noms à la suite dans 
+%% Le même champs
+
+
+%%%% Indiquer les noms des étudiants participant ci-dessous:
+
+\def\nomEtudA{Etudiant\_Prénom1 \textsc{Etudiant1\_Nom}}
+\def\nomEtudB{Etudiant\_Prénom2 \textsc{Etudiant2\_Nom}}
+
+%% Si le projet est encadré par moins de 4 étudiants laissez
+%% les variables inutiles vides
+
+
+%%%% Indiquer la référence (numero) et le nom du sujet ci-dessous:
+
+\def\refProjet{Numéro Projet} 
+\def\titreProjetCourt{Titre court}
+\def\titreProjetLong{Titre long}
+
+%% Le titre court ne doit pas faire plus d'une vingtaine de caractère
+%% résumez le à quelques mots essenciels
+
+
+%%%% Indiquer le type de document et sa version ci-dessous:
+
+\def\typeDoc{Type doc}
+ 
+%% - Rapport intermédaire
+%% - Rapport final
+
+%\let\origsec\section
+%\renewcommand{\section}[1]{\newpage\origsec{#1}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Définitions à ne pas modifier
+ 
+%%%% ||| Mise en page verticale ||| 
+\setlength{\voffset}{-1in} % a4:reste 297mm pour les 5 suivants:
+\setlength{\topmargin}{15mm}         % avant l'en-tête
+\setlength{\headheight}{20mm}        % hauteur de l'en-tête 
+\setlength{\headsep}{10mm}            % entre l'en-tête et le corps
+\setlength{\textheight}{220mm}       % hauteur du corps
+\setlength{\footskip}{12mm}          % pied de page par rapport au corps 
+%\setlength{\footlength}{2em}
+
+%%%%% --- Mise en page horizontale ---
+\setlength{\hoffset}{-1in} % a4:reste 210mm 
+\setlength{\oddsidemargin}{25mm}     % entre hoffset et le corps
+\setlength{\evensidemargin}{25mm}    % entre hoffset et le corps
+\setlength{\marginparwidth}{0mm}     % largeur de la marge
+\setlength{\marginparsep}{0mm}       % séparateur corps marge
+\setlength{\textwidth}{160mm}        % largeur du corps
+
+%\usepackage{fullpage}
+%\setlength{\headheight}{20mm}        % hauteur de l'en-tête 
+%\setlength{\headsep}{10mm}            % entre l'en-tête et le corps
+%\setlength{\textheight}{200mm}
+%\setlength{\footskip}{0mm}          % pied de page par rapport au corps 
+
+\def\annee{Année}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Début du document
+
 \begin{document}
-\maketitle
-% Abstract
+
+\selectlanguage{francais}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Définition des en-têtes et pied de pages
+\pagestyle{fancyplain}
+%\fancyhead{}
+%\fancyfoot{}
+%
+\fancyhead[L]{\textsc{Université Pierre et Marie Curie}\\
+          Master Informatique\\ UE \textbf{PSAR} \annee \\ \nomEncad}
+\fancyhead[C]{\textbf{Projet \refProjet\\\titreProjetCourt}}
+\fancyhead[R]{\nomEtudA\\\nomEtudB\vspace{1em}}
+
+\fancyfoot[L]{\includegraphics[width=3cm]{Pictures/UPMC_sorbonne}}
+\fancyfoot[C]{\textbf{\thepage/\pageref{fin}}}
+\fancyfoot[R]{\typeDoc}
+
+%\lhead[\fancyplain{}{\texttt{Université Pierre et Marie Curie}\\
+%          Master Informatique\\ UE \textbf{PSAR} fév. \annee \\ \nomEncad}]
+%      {\fancyplain{}{\textsc{Université Pierre et Marie Curie}\\
+%          Master Informatique\\ UE \textbf{PSAR} \annee \\ \nomEncad}}
+%\chead[\fancyplain{}{\textbf{Projet \refProjet\\\titreProjetCourt}}]
+%      {\fancyplain{}{\textbf{Projet \refProjet\\\titreProjetCourt}}}
+%\rhead[\fancyplain{}{\nomEtudA\\\nomEtudB}]
+%      {\fancyplain{}{\nomEtudA\\\nomEtudB}}
+%\lfoot[\fancyplain{}{\epsfig{figure=UPMC_sorbonne.eps,width=3cm}}]
+%      {\fancyplain{}{\epsfig{figure=UPMC_sorbonne.eps,width=3cm}}}
+%\cfoot[\fancyplain{}{\textbf{\thepage/\pageref{fin}}}]
+%      {\fancyplain{}{\textbf{\thepage/\pageref{fin}}}}
+%\rfoot[\fancyplain{}{\typeDoc}]
+%      {\fancyplain{}{\typeDoc}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+      \begin{center}
+        \begin{boxedminipage}{12cm}{
+            \begin{center}
+              ~\\\LARGE\textbf{\titreProjetLong}\\
+              ~\\\large Encadrant: \textbf{\nomEncad,}\\
+              ~\\\large Étudiants: \textbf{\nomEtudA, \nomEtudB}\\
+              ~
+            \end{center}
+            }
+        \end{boxedminipage}
+      \end{center}
+
+\vfill
+
+%\newpage
+
+\tableofcontents
+\vfill
+%\newpage
+
+%Abstract
 \begin{abstract}
-Ce papier est un résumé conçernant le CGRA DART et les mécanismes de
-détection/correction d'erreurs qu'il implémente. Nous verrons notamment
-comment les concepteurs de DART ont pu améliorer de façon significative ses
-performances grâce à un nouvelle technique de détection de type
-\emph{on-line error-detecting} appelée \emph{residue code modulo 3}.
 \end{abstract}
-% Keywords
-%\begin{IEEEkeywords}
-%\end{IEEEkeywords}
+
 % Content
 \input{src/1.Intro.tex}
 \input{src/2.Emulation.tex}
 \input{src/3.Fonctionnement.tex}
+
+\label{fin}
 % Bib
 \begin{thebibliography}{1}
 \end{thebibliography}
+
 \end{document}

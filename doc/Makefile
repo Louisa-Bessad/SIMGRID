@@ -1,11 +1,10 @@
-BIN=./bin
-SRC=./src
-TEX=pdflatex
-PROJECT=skeleton
-REPORT=BESSAD_Pre_Rapport
-all: dir
-	BUILDTEX= $(TEX) -output-directory $(BIN) -jobname $(REPORT) $(SRC)/$(PROJECT).tex
-dir:
-	@mkdir -p $(BIN)
+.PHONY: all clean
+
+all: clean Rapport_Stage.pdf
 clean:
-	rm -f $(BIN)/*
+	rm -f *.aux *.out *.toc *.nav *.log  Rapport_Stage.pdf
+
+Rapport_Stage.pdf: src/skeleton.tex
+	@xelatex $< 
+	@xelatex $<
+	mv skeleton.pdf Rapport_Stage.pdf

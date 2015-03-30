@@ -9,7 +9,7 @@ Yeah you find my beautiful reporting file
 ** Bibliography
 *** Articles
 Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas Nussbaum. Design and
-Eval- uation of a Virtual Experimental Environment for Distributed
+Evaluation of a Virtual Experimental Environment for Distributed
 Systems. [Research Report] RR-8046, 2012. <hal-00724308v1>
  Martin Quinson. SimGrid: a Generic Framework for Large-Scale Distributed Experiments.
 9th International conference on Peer-to-peer computing - IEEE P2P 2009, Sep
@@ -169,6 +169,14 @@ simulateur avant la sortie de l'AS
 - compléter la partie émulation avec d'autres simulateur ou test invalidés
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
+
+** 30.03.2015
+*** Things done
+- Bibliographie
+- Template rapport
+*** Blocking points
+*** Planned work
+- voir où Marion parle de Emulab dans ses travaux, idem MicroGrid
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
