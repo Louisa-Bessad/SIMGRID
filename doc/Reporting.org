@@ -170,12 +170,13 @@ simulateur avant la sortie de l'AS
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30.03.2015
+** 30-31.03.2015
 *** Things done
 - Bibliographie
 - Template rapport
 *** Blocking points
 *** Planned work
+- Réécrire une partie du 3.Fonctionnement
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
