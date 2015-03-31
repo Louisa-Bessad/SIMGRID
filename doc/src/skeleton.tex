@@ -11,15 +11,15 @@
 \usepackage{boxedminipage}
 
 \usepackage{fontspec}
-\setmainfont{Adobe Garamond Pro}
+%\setmainfont{Adobe Garamond Pro}
 
 %\usepackage[language=french]{csquotes}
 
 \usepackage{titlesec}
 \usepackage{graphicx}
-\usepackage{algorithmicx}
-\usepackage{algpseudocode}
-
+%\usepackage{algorithmicx}
+%\usepackage{algpseudocode}
+\usepackage{color}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -31,7 +31,7 @@
 
 %%%% Indiquer le nom de l'encadrant ci-dessous:
 
-\def\nomEncad{Prénom1 \textsc{Nom1}, Prénom2 \textsc{Nom2}}
+\def\nomEncad{Martin \textsc{Quinson}}
 
 %% Si le projet est co-encadré indiquer les deux noms à la suite dans 
 %% Le même champs
@@ -39,8 +39,7 @@
 
 %%%% Indiquer les noms des étudiants participant ci-dessous:
 
-\def\nomEtudA{Etudiant\_Prénom1 \textsc{Etudiant1\_Nom}}
-\def\nomEtudB{Etudiant\_Prénom2 \textsc{Etudiant2\_Nom}}
+\def\nomEtudA{Louisa \textsc{Bessad}}
 
 %% Si le projet est encadré par moins de 4 étudiants laissez
 %% les variables inutiles vides
@@ -58,7 +57,7 @@
 
 %%%% Indiquer le type de document et sa version ci-dessous:
 
-\def\typeDoc{Type doc}
+\def\typeDoc{Pré-rapport}
  
 %% - Rapport intermédaire
 %% - Rapport final
@@ -95,7 +94,7 @@
 %\setlength{\textheight}{200mm}
 %\setlength{\footskip}{0mm}          % pied de page par rapport au corps 
 
-\def\annee{Année}
+\def\annee{2015}
 
 
 
@@ -115,13 +114,13 @@
 %\fancyfoot{}
 %
 \fancyhead[L]{\textsc{Université Pierre et Marie Curie}\\
-          Master Informatique\\ UE \textbf{PSAR} \annee \\ \nomEncad}
-\fancyhead[C]{\textbf{Projet \refProjet\\\titreProjetCourt}}
-\fancyhead[R]{\nomEtudA\\\nomEtudB\vspace{1em}}
+          Master Informatique\\ Stage M2 \annee \\ \nomEtudA}
+\fancyhead[C]{\textbf{Pré-rapport}}%\\\titreProjetCourt}}
+\fancyhead[R]{\textsc{LORIA} \\ {\color{white} b} \\ {\color{white} b} \\ \nomEncad}
 
-\fancyfoot[L]{\includegraphics[width=3cm]{Pictures/UPMC_sorbonne}}
+\fancyfoot[L]{\includegraphics[width=4cm]{Pictures/UPMC_sorbonne}}
 \fancyfoot[C]{\textbf{\thepage/\pageref{fin}}}
-\fancyfoot[R]{\typeDoc}
+\fancyfoot[R]{\includegraphics[width=4cm]{Pictures/loria_logo.jpg}}
 
 %\lhead[\fancyplain{}{\texttt{Université Pierre et Marie Curie}\\
 %          Master Informatique\\ UE \textbf{PSAR} fév. \annee \\ \nomEncad}]
@@ -145,8 +144,8 @@
         \begin{boxedminipage}{12cm}{
             \begin{center}
               ~\\\LARGE\textbf{\titreProjetLong}\\
-              ~\\\large Encadrant: \textbf{\nomEncad,}\\
-              ~\\\large Étudiants: \textbf{\nomEtudA, \nomEtudB}\\
+              ~\\\large Étudiante: \textbf{\nomEtudA,}\\
+              ~\\\large Encadrant: \textbf{\nomEncad}\\
               ~
             \end{center}
             }
