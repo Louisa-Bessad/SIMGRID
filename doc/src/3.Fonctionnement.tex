@@ -7,20 +7,20 @@ l'application se rendrait compte que l'environnement réel ne correspond pas à
 celui dans lequel elle pense s'exécuter. Une application distribuée peut vouloir
 communiquer avec l'hôte soit pour effectuer des calculs (SEB), soit pour
 communiquer avec d'autres applications sur le réseau. Quand Simterpose
-intercepte une communication venant d'un des processus d'une application, il modifie les
-caractéristiques de cette dernière pour qu'elle puisse s'exécuter sur la machine
-hôte. Quand la machine hôte renvoie une réponse à l'application, Simterpose
-l'intercepte également et la modifie pour que l'application ne voit pas le
-changement d'architecture. En même temps il envoie au simulateur des données
-concernant le temps d'exécution de l'action sur la machine hôte pour calculer le
-temps sur la machine simulée puis envoie ce temps à l'application en plus du
-résultat pour mettre à jour son horloge. Ainsi les calculs sont réellement
-exécuter sur la machine, les communications réellement émises sur le réseau géré
-par le simulateur et c'est le temps de réponse fourni par le simulateur qui va
-influencer l'horloge de l'application permettant ainsi d'imiter un environnement
-distribué. Finalement les applications ne communiquent plus directement entre
-elles puisque toute communication est interceptée par Simterpose puis gérée par
-le simulateur qui s'occupe du réseau.
+intercepte une communication venant d'un des processus d'une application, il
+modifie les caractéristiques de cette dernière pour qu'elle puisse s'exécuter
+sur la machine hôte. Quand la machine hôte renvoie une réponse à l'application,
+Simterpose l'intercepte également et la modifie pour que l'application ne voit
+pas le changement d'architecture. En même temps il envoie au simulateur des
+données concernant le temps d'exécution de l'action sur la machine hôte pour
+calculer le temps sur la machine simulée puis envoie ce temps à l'application en
+plus du résultat pour mettre à jour son horloge. Ainsi les calculs sont
+réellement exécuter sur la machine, les communications réellement émises sur le
+réseau géré par le simulateur et c'est le temps de réponse fourni par le
+simulateur qui va influencer l'horloge de l'application permettant ainsi
+d'imiter un environnement distribué. Finalement les applications ne communiquent
+plus directement entre elles puisque toute communication est interceptée par
+Simterpose puis gérée par le simulateur qui s'occupe du réseau.
 
 {\color{red} MEttre un schéma de action interceptes, test modifie, renvoie,
   attrape reponse, simulateur, retour application}
@@ -30,71 +30,112 @@ temps de connexion. Les actions éxécutées par l'application peuvent-être soi
 de simples calculs soit des requêtes de connexion ou communication réseau.
 
 Pour intercepter ces actions, il faut d'abord choisir ce qu'on intercepte
-exactement et avec quel outil. En effet une application peut communiquer avec
-une machine via différentes abstractions.
+exactement et avec quel outil. En effet une application peut communiquer avec le
+noyau via différentes abstractions. Elle peut soit utiliser les fonctions
+d'interraction directe avec le noyau que sont les appels systèmes, soit utiliser
+les différentes abstractions fournies par le système d'exploitation:
+bibliothèques (fonctions systèmes de la libc par exemple) ou les fonctions POSIX
+dans le cas d'un système UNIX.
 
-{\color{red} schéma marion???} liste... tout seul tout seul puis le lien entre
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=0.20]{Pictures/Communication_application_noyau.png}
+ \caption{Communications possibles entre le noyau et une apllication}
+ \label{AS_Communication}
+\end{figure}
+
+
+%Dans la figure~\ref{étiquette} page~\pageref{étiquette}
+blabla sur pk plus logique prendre le plus bas donc on va voir ptrace
+ liste... tout seul tout seul puis le lien entre
 les deux
+\subsection{Appel système: ptrace}
+Nous allons intercepter les actions que sont les appels systèmes faits par
+l'applciation, ainsi nous sommes sûr d'intercepter tous les types de
+communications que l'application est susceptible d'initier avec le noyau. Les
+appels systèmes sont constitués de deux parties; la première, l'entrée,
+initialise l'appel via les registres de l'application qui contiennent les
+arguments de l'appel puis donne la main au noyau. La seconde, la sortie, inscrit
+le retour de l'appel système dans le registre de retour de l'application, les
+registres d'arguments contennant toujours les valeurs reçues à l'entrée de
+l'appel système, et rend la main à l'application. Nous devons donc intercepter
+les deux parties de l'appel système pour maintenir notre environnement simulé et
+donc stopper l'application à chaque fois pour récupérer ou modifier les
+informations nécéssaires avant de lui rendre la main pour entrer ou sortir de
+l'appel système. Il existe de nombreux outils en matières d'interception
+d'appels systèmes. On trouve notamment {\color{green} a remplir dire pourquoi
+  abandonné et pourquoi ptrace}.
 
-Nous allons intercepter les actions que sont les AS fait par l'applciation,
-ainsi nous sommes sûr d'intercepter tous les types de communications que
-l'applicatione est susceptible d'initier avec le noyau. Les appels systèmes sont
-constitués de deux parties; la première, l'entrée, initialise l'appel via les
-registres de l'application qui contiennent les arguments de l'appel et donne la
-main au noyau. La seconde, la sortie, inscrit le reotur de l'appel système dans
-le registre de retour de l'application, les registres d'arguments contiennent
-toujours les valeurs reçues à l'entrée, et rend la main à l'application. Nous
-devons donc intercepter les deux parties de l'appel système pour maintenir notre
-environnement simulé et donc stopper l'application à chaque fois pour récupérer
-ou modifier les informations nécéssaires avant de lui rendre la main pour entrer
-ou sortir de l'appel système. Il existe de nombreux outils en matières
-d'interception d'AS. On trouve notamment {\color{green} a remplir dire pourquoi
-  abandonné}. Pour intercepter les éventuels AS d'une applciation nous allons
-donc utiliser \textbf{ptrace}{\color{red}citation}. Cet outil qui est lui-même
-un AS va permettre à un processus d'en contrôler un autre. Ainsi un processus va
-dire qu'il souhaite être contrôle ``espionnée'' et un autre processus le
-contrôlera ``processus espion''. Ce dernier va spécifier sur quels évènements du
-processus ``espionné'' il veut être notifié, dans notre cas ce sera les AS que
-l'on considérera comme point d'arrêt. \textit{Cet AS permet L'avantage de l'AS
-  ptrace c'est qu'il permet d'écrire et de lire directement dans la mémoire des
-  processus.} Ainsi quand l'application voudra faire un AS quelconque elle sera
-bloquée et l'AS ptrace sera lancé et notifiera le ``processus espion'', ce
-dernier fera les modifications nécessaires dans les registres de l'applications
-pour conserver la virtualisation de l'environnement puis il rendra la main à
-l'application pour que l'AS ait lieu. Au retour de l'AS le ``processus
-espionné'' sera de noveau stopper et un ptrace sera envoye à l''espion'' qui
-remodifiera les informations nécessaires et rendra la main à l'application qui
-sortira de son AS avec un résultat exécuté sur la machine hôte et un temps
-d'exécution et une horloge fournie par le simulateur. Néanmoins il a été montré
-dans un précédent stage que l'AS ptrace est inefficace voir inutile en ce qui
-concerne tous les AS temporel que l'application voudrait faire. \textit{Les AS
-  ``time'', ``clock\_gettime'', ``gettimeofday'' avec \textbf{ptrace} ne sont
-  pas possibles, d'où l'alliance avec LD\_PRELOAD} Par exemple lors d'un
-gettimeofday l'AS n'est pas lancé on répond directement au niveau de la
-bibliothèque ainsi on n'arrive même pas au niveau de l'AS, donc ptrace ne fait
-rien.
+Pour intercepter les éventuels appels systèmes d'une applciation nous allons
+donc utiliser l'appel système \textbf{ptrace}{\color{red}citation}. Il permet de
+controler l'exécution de processus mais également d'écrire et de lire
+directement dans l'espace d'adressage d'un processus. Pour cela on créé deux
+processus; un qui exécutera l'application et qu'on souhaite contrôler, on
+l'appellera ``processus espionné'' et un autre qui le contrôlera appelé
+``processus espion''. Le processus espionnée indiquera au processus espion qu'il
+souhaite être ocntrôlé via un appel système ptrace. À la reception de cet appel
+le processus espion notifiera son attachement au processus espionné via un autre
+appel à ptrace. Il indiquera également sur quelles actions du processus espionné
+il veut être notifié, définissant ainsi les actions bloquantes pour le processus
+espionné. Dans notre cas, ce seront les appels systèmes que l'on considérera
+comme point d'arrêt pour le processus espionné. \textit{Cet appel système permet
+  L'avantage de l'appel système ptrace c'est qu'il permet d'écrire et de lire
+  directement dans la mémoire des processus.} Ainsi quand un des processus de
+l'application voudra faire un appel système quelconque il sera bloqué, l'appel
+système ptrace sera lancé et notifiera le processus espion. Ce dernier fera les
+modifications nécessaires dans les registres du processus espionné pour
+conserver la virtualisation de l'environnement, puis il rendra la main au
+processus espionné bloqué pour que l'appel système puisse avoir lieu. Au retour
+de l'appel système le processus espionné sera de noveau stoppé, un ptrace sera
+envoye au processus espion qui remodifiera les informations nécessaires. Puis il
+rendra la main au processus espionné bloqué qui sortira de son appel système
+avec un résultat exécuté sur la machine hôte et un temps d'exécution et une
+horloge fournie par le simulateur.
 
-On pourrait alors se dire qu'une bonne solution serait d'intercepter les actions
-de l'application au niveau des bibliothèques pour cela il existe l'éditeur de
-lien dynamique \textbf{LD\_PRELOAD} qui permet de précharger des
-bibliothèqeus{\color{red} rajouter des trucs sur VDSO}. Ainsi on va créer notre
-propre bibliothèque de fonction pour chaque fonction que l'application serait
-susceptible d'utiliser. Ainsi dans notre nouvelle fonction on ajoutera toutes
-les modifications nécessaires pour maintenir notre environnement simulé puis on
-fera appel à la vraie fonction celle de base et on préchargera cette
-bibliothèque avant les autres grâce à LD\_PRELOAD. Ainsi nos fonctions passeront
-avant les fonctions de base de l'OS. Le problème de cette solution est que si
-l'application fait un appel à une fonction que l'on n'a pas réécrit rien ne
-l'empchera de faire l'AS directement sans avoir modifier ses paramètres, de fait
-cette solution n'est pas complète.
+{\color{red} \textbf{gérer cette transition}} Néanmoins il a été montré dans un
+précédent stage que l'appel système ptrace est inefficace voir inutile en ce qui
+concerne tous les appels systèmes temporels qu'une application voudrait
+faire. \textit{les appels systèmes ``time'', ``clock\_gettime'',
+  ``gettimeofday'' avec \textbf{ptrace} ne sont pas possibles, d'où l'alliance
+  avec LD\_PRELOAD} Par exemple lors d'un gettimeofday l'appel système n'est pas
+lancé on répond directement au niveau de la bibliothèque ainsi on n'arrive même
+pas au niveau de l'appel système, donc ptrace ne fait rien.  Problème
+portabilité {\color{red} \textbf{gérer cette transition}}
 
-Ainsi on peut voir que LD\_PRELOAD résout les problèmes de ptrace et
-inversement, une solution choisie lors d'un précédent stage est donc d'allier
-les deux. On surchargera les fonctions temporelles dans notre bibliothèque
-préchargée avec LD\_PRELOAD pour pallier les lacunes temporelles de ptrace à ce
-sujet. Et pour toutes les autres fonctions ptrace s'en occupera ainsi on est
-certain de n'oublier aucune fonction. Maintenant que nous savons ce que nous
-devons intercepter et comment l'intercepter nous allons voir ce que nous devons
+\subsection{Variable d'environnement: LD\_PRELOAD}
+On pourrait alors penser qu'une bonne solution serait d'intercepter les actions
+de l'application au niveau des bibliothèques.{\color{red} rajouter des trucs sur
+  VDSO}. Pour cela il existe la variable d'environnement \textbf{LD\_PRELOAD}
+qui contient la liste des bibliothèques à précharger et qui est utilisée par le
+noyau lors du premier lancement d'un programme. En effet par défaut Linux
+effectue une édition de lien dynamiqe, l'édition de lien statique n'étant
+choisie qu'en l'absence de bibliothèques partagées définissant les fonctions
+utilisées par l'application. On va donc créer notre propre bibliothèque de
+fonctions surchargeant chaque fonction susceptible d'être utilisée par
+l'application. Une fonction surchargée contiendra alors toutes les modifications
+nécessaires pour maintenir notre environnement simulé suivi de l'appel à la
+fonction initiale puisqu'on souhaite juste intercepter l'appel et pas
+l'empêcher. On préchargera cette bibliothèque avant les autres en la plaçant
+dans la variable LD\_PRELOAD, ainsi nos fonctions passeront avant les fonctions
+des bibliothèques usuelles.
+
+Néanmoins si l'application fait un appel système directement sans passer par la
+couche \textit{Bibliothèques} Fig.~\ref{AS_Communication} notre mécanisme
+d'interception est countournée. En effet on ne peut surcharger que des fonctions
+avec cette solution, pas des appels sytèmes. De même si on oublie de réécrire
+une fonction d'une des bibliothèques utilisée par l'application. Cette solution
+n'est donc pas suffisante pour le modèle d'interception que nous souhaitons
+avoir.
+
+Cependant on peut voir que LD\_PRELOAD résout les problèmes de ptrace concernant
+les fonctions de temps, et inversement puisque ptrace permet d'intercepter les
+appels systèmes que le modèle d'interception avec LD\_PRELOAD ne permet pas de
+gérer. Une solution choisie lors d'un précédent stage est donc d'allier les
+deux. On surchargera les fonctions temporelles dans notre bibliothèque
+préchargée avec LD\_PRELOAD pour pallier les lacunes temporelles de ptrace. Et
+pour toutes les autres fonctions ptrace s'en occupera, ainsi on est certain de
+n'oublier aucune fonction. Maintenant que nous savons ce que nous devons
+intercepter et comment l'intercepter nous allons voir ce que nous devons
 modifier pour pouvoir maintenit notre émulation simulation.
 
 \textit{Pour faire face à ce problème il a été choisi d'utiliser l'éditeur de
@@ -103,28 +144,27 @@ modifier pour pouvoir maintenit notre émulation simulation.
   bibliothèque.}
 
 \subsection{Modification à effectuer}
-Lorsque ptrace est appelé en entrée ou sortie d'AS, les modifications
-à apporter ne sont pas forcément les mêmes selon qu'il s'agit d'une
-action nécessitant l'utilisation du réseau ou non. Dans le cas d'un
-simple calcul ce qu'il faut maintenir pour l'application c'est une
-vision du temps correspondant à celle qui s'écoulerait si elle était
-vraiment sur la machine simule. Ainsi en entrée d'appel système on n'a
-pas besoin de modifier quoique ce soit, par contre au retour il faut
-modifier le temps d'exécution du calcul en le remplaçant par celui
-calculé par le simulateur. Dans le cas d'une communication réseau il y
-a beaucoup plus de travail. En effet l'application a une vision d'un
-réseau qui ne correspond pas au réseau local ainsi quand elle veut
-faire une communication réseau la machine qu'elle cherche à joindre
-via une adresse et des ports possède en réalité une autre adresse et
-d'autres ports en local. Il faut donc en entrée de l'appel système
-remplacé l'adresse ``virtuelle'' par l'adresse réelle sur le réseau
-local pour que l'appel système puisse se faire vers sur la bonne
-destination. Au retour de l'appel système il faut remodifier les
-paramètres en remettant la fausse adresse virutlle à la place de la
-réelle pour que l'application pense toujours être dans son
-environnement simulé. Pour gérer ces modifications deux solutions ont
-été proposées lors d'un précédent stage: la ``médiation par traduction
-d'adresse'' et la ``full mediation''.
+Lorsque ptrace est appelé en entrée ou sortie d'appel système, les modifications
+à apporter ne sont pas forcément les mêmes selon qu'il s'agit d'une action
+nécessitant l'utilisation du réseau ou non. Dans le cas d'un simple calcul ce
+qu'il faut maintenir pour l'application, c'est une vision du temps correspondant
+à celle qui s'écoulerait si elle était vraiment sur la machine simulée. Ainsi en
+entrée d'appel système on n'a pas besoin de modifier quoique ce soit, par contre
+au retour il faut modifier le temps d'exécution du calcul en le remplaçant par
+celui calculé par le simulateur. Dans le cas d'une communication réseau il y a
+beaucoup plus de travail. En effet l'application a une vision d'un réseau qui ne
+correspond pas au réseau local. Ainsi quand un processus de l'application veut
+faire une communication réseau, la machine qu'il cherche à joindre via un numéro de socket, une
+adresse ou des ports possède en réalité un autre numéro de socket, une autre adresse et d'autres ports en
+local. Il faut donc en entrée de l'appel système remplacé l'adresse et les ports
+``virtuelle'' de l'application par l'adresse et les ports réels sur le réseau local pour que l'appel système
+puisse se faire vers la bonne destination. Au retour de l'appel système il
+faut remodifier les paramètres en remettant l'adresse et les ports virtuels pour que l'application pense toujours être dans son
+environnement simulé. Pour gérer ces modifications deux solutions ont été
+proposées lors d'un précédent stage: la ``médiation par traduction d'adresse''
+et la ``full mediation''.
+
+{\color{red}schéma}
 \paragraph{Traduction d'adresse} Avec ce type de médiation on considère que le noyau gère des communications ainsi en entrée et sortie d'appel système Simterpose va juste modifier les adresses et ports de connexion ou de communication via un tableau de correspondance qu'il gère. Ainsi chaque application a sa liste de port simulé et pour un même port sur des applications différentes quand on sortira du monde simulés ces mêmes ports n'auront pas la même correspondance dans la table. La limite de cette approche est lié au nombre de port disponibles sur l'hôte.
 
 {\color{green} Pour lire et modifier les paramètres de l'appel système on peut

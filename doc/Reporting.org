@@ -152,28 +152,22 @@ simulateur avant la sortie de l'AS
 *** Planned work
 *** TODO schéma du connect
 
-** 25.03.2015
-*** Things done
-- Bibliographie
-*** Blocking points
-*** Planned work
-
-** 26-27.03.2015
+** 25-26-27.03.2015
 *** Things done
 - Rédaction "pré-rapport"
 *** Blocking points
 - clarifier cette histoire de /proc/id/mem
-- où va-t-on exactement 
 *** Planned work
 *** TODO ne pas parler de communications mais d'actions
 - compléter la partie émulation avec d'autres simulateur ou test invalidés
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30-31.03.2015
+** 30.03.2015 ->01.04.2015
 *** Things done
 - Bibliographie
 - Template rapport
+- Partie 3
 *** Blocking points
 *** Planned work
 - Réécrire une partie du 3.Fonctionnement
