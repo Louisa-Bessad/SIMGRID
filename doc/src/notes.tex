@@ -7,6 +7,8 @@
 \usepackage[usenames, dvispnames]{xcolor} 
 \usepackage{tikz}
 \usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{lscape}
 
 \title{Notes des différents papiers lus}
 \author{Louisa Bessad}
@@ -724,42 +726,44 @@ l259 {\color{purple} typedef union}
 
 En parallèle des AS du noyau on a les SYS\_stem de SIMGRID qui sont lancés et seront bloquant ou pas (sortie de la boucle process\_handle) si il faut que du temps simulateur s'exécute ou pas. Pour le write on est bloquant donc on sort à la fin de AS noyau on rerentre on voit en SIMGRID pour le temps et on ressort. Chaque thread espion est isolé du coup peuvent tous s'exécuter en même temps. Temps en discret du coup à t après un timestamp on exécute tout le code qui peut l'être et on revient au prochain timestamp.
 
+%% \begin{tabularx}{15cm}{|c|X|X|}
+%%   \hline structures & définies & utilisées \\ \hline
+%%   process\_descriptor.h & {\color{purple}stream\_t \newline
+%%     pipe\_end\_\* \newline pipe\_t \newline process\_descriptor} &
+%%   {\color{brown} msg\_sem\_t \newline msg\_process\_t \newline
+%%     xbt\_dynar\_t \newline process\_descriptor\_t \newline stream\_t
+%%     pipe\_t \newline fd\_descriptor\_t \newline syscall\_arg\_u}\\ \hline
+%%  communication.h & {\color{purple}
+%%     comm\_info comm\_s \newline task\_comm\_info} & {\color{brown}
+%%     strcut infos\_socket \newline recv\_information \newline
+%%     comm\_info \newline xbt\_dynar\_t \newline msg\_task\_t \newline
+%%     msg\_host\_t}\\ \hline syscall\_data.h & {\color{purple}
+%%     recv/send\_arg\_s/t \newline recv/sendmsg\_arg\_s/t \newline
+%%     select\_arg\_s/t \newline poll\_arg\_s/t \newline
+%%     pipe\_arg\_s/t \newline sendto/recvfrom\_arg\_s/t \newline
+%%     connect\_bind\_arg\_s $\rightarrow$ connect/bind\_arg\_s/t
+%%     \newline accept\_arg\_s/t \newline
+%%     socket\_arg\_s/t
+%%     \newline listen\_arg\_s/t \newline
+%%     get/setsockopt\_arg\_s/t \newline fcntl\_arg\_s/t \newline
+%%     write/read\_arg\_s/t \newline shutdown\_arg\_s/t \newline
+%%     getpeername\_arg\_s/t \newline time\_arg\_s/t \newline
+%%     gettimeofday\_arg\_s/t \newline clockgettime\_arg\_s/t \newline
+%%     clone\_arg\_s/t \newline execve\_arg\_s/t \newline
+%%     open\_arg\_s/t \newline syscall\_arg\_u} & {\color{brown} struct
+%%     msghdr \newline fd\_set \newline struct pollfd \newline
+%%     socklen\_t}\\ \hline sockets.h & {\color{purple}
+%%     recv\_information \newline infos\_socket} & {\color{brown}
+%%     xbt\_fifo\_t \newline fd\_descriptor\_t \newline comm\_t
+%%     msg\_host\_t } \\ \hline simterpose.h & {\color{purple}
+%%     simterpose\_host/t \newline port\_desc/\_t \newline
+%%     translate\_desc/\_t} & {\color{brown} struct
+%%     infos\_socket \newline xbt\_dict\_t} \\ \hline
+%% \end{tabularx}
+
+\begin{landscape}
 \subsection{Emplacement et définition des structures}
-\begin{tabularx}{15cm}{|c|X|X|}
-  \hline structures & définies & utilisées \\ \hline
-  process\_descriptor.h & {\color{purple}stream\_t \newline
-    pipe\_end\_\* \newline pipe\_t \newline process\_descriptor} &
-  {\color{brown} msg\_sem\_t \newline msg\_process\_t \newline
-    xbt\_dynar\_t \newline process\_descriptor\_t \newline stream\_t
-    pipe\_t \newline fd\_descriptor\_t \newline syscall\_arg\_u}\\ \hline
- communication.h & {\color{purple}
-    comm\_info comm\_s \newline task\_comm\_info} & {\color{brown}
-    strcut infos\_socket \newline recv\_information \newline
-    comm\_info \newline xbt\_dynar\_t \newline msg\_task\_t \newline
-    msg\_host\_t}\\ \hline syscall\_data.h & {\color{purple}
-    recv/send\_arg\_s/t \newline recv/sendmsg\_arg\_s/t \newline
-    select\_arg\_s/t \newline poll\_arg\_s/t \newline
-    pipe\_arg\_s/t \newline sendto/recvfrom\_arg\_s/t \newline
-    connect\_bind\_arg\_s $\rightarrow$ connect/bind\_arg\_s/t
-    \newline accept\_arg\_s/t \newline
-    socket\_arg\_s/t
-    \newline listen\_arg\_s/t \newline
-    get/setsockopt\_arg\_s/t \newline fcntl\_arg\_s/t \newline
-    write/read\_arg\_s/t \newline shutdown\_arg\_s/t \newline
-    getpeername\_arg\_s/t \newline time\_arg\_s/t \newline
-    gettimeofday\_arg\_s/t \newline clockgettime\_arg\_s/t \newline
-    clone\_arg\_s/t \newline execve\_arg\_s/t \newline
-    open\_arg\_s/t \newline syscall\_arg\_u} & {\color{brown} struct
-    msghdr \newline fd\_set \newline struct pollfd \newline
-    socklen\_t}\\ \hline sockets.h & {\color{purple}
-    recv\_information \newline infos\_socket} & {\color{brown}
-    xbt\_fifo\_t \newline fd\_descriptor\_t \newline comm\_t
-    msg\_host\_t } \\ \hline simterpose.h & {\color{purple}
-    simterpose\_host/t \newline port\_desc/\_t \newline
-    translate\_desc/\_t} & {\color{brown} struct
-    infos\_socket \newline xbt\_dict\_t} \\ \hline
-\end{tabularx}
+\center{\includegraphics[scale=0.8]{Pictures/Linked_structures_Simteprose_V3.pdf}}
+\end{landscape}
 
-
-\vspace{0.5cm} 
 \end{document}
