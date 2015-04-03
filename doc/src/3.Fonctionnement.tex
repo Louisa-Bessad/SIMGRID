@@ -1,26 +1,27 @@
 \section{Simterpose et son fonctionnement}
-Petite phrase...
+Simterpose est l'API qui va nous permettre d'intercepter les communications de
+l'application avec la machine sur laquelle elle s'exécute. Sans cela,
+l'application se rendrait compte que l'environnement réel ne correspond pas
+celui dans lequel elle pense s'exécuter.
+
 \subsection{Interception des actions}
-Simterpose est l'API qui permet d'intercepter les communications de
-l'application avec la machine sur laquelle elle s'exécute. Sans cela
-l'application se rendrait compte que l'environnement réel ne correspond pas à
-celui dans lequel elle pense s'exécuter. Une application distribuée peut vouloir
-communiquer avec l'hôte soit pour effectuer des calculs (SEB), soit pour
-communiquer avec d'autres applications sur le réseau. Quand Simterpose
-intercepte une communication venant d'un des processus d'une application, il
-modifie les caractéristiques de cette dernière pour qu'elle puisse s'exécuter
-sur la machine hôte. Quand la machine hôte renvoie une réponse à l'application,
-Simterpose l'intercepte également et la modifie pour que l'application ne voit
-pas le changement d'architecture. En même temps il envoie au simulateur des
-données concernant le temps d'exécution de l'action sur la machine hôte pour
-calculer le temps sur la machine simulée puis envoie ce temps à l'application en
-plus du résultat pour mettre à jour son horloge. Ainsi les calculs sont
-réellement exécuter sur la machine, les communications réellement émises sur le
-réseau géré par le simulateur et c'est le temps de réponse fourni par le
-simulateur qui va influencer l'horloge de l'application permettant ainsi
-d'imiter un environnement distribué. Finalement les applications ne communiquent
-plus directement entre elles puisque toute communication est interceptée par
-Simterpose puis gérée par le simulateur qui s'occupe du réseau.
+ Une application distribuée peut vouloir communiquer avec l'hôte soit pour
+ effectuer des calculs (SEB), soit pour communiquer avec d'autres applications
+ sur le réseau. Quand Simterpose intercepte une communication venant d'un des
+ processus d'une application, il modifie les caractéristiques de cette dernière
+ pour qu'elle puisse s'exécuter sur la machine hôte. Quand la machine hôte
+ renvoie une réponse à l'application, Simterpose l'intercepte également et la
+ modifie pour que l'application ne voit pas le changement d'architecture. En
+ même temps, il envoie au simulateur des données concernant le temps d'exécution
+ de l'action sur la machine hôte pour calculer le temps sur la machine simulée
+ puis envoie ce temps à l'application en plus du résultat afin de mettre à jour
+ son horloge. Ainsi les calculs sont réellement exécuter sur la machine, les
+ communications réellement émises sur le réseau géré par le simulateur et c'est
+ le temps de réponse fourni par le simulateur qui va influencer l'horloge de
+ l'application permettant ainsi d'imiter un environnement distribué. Finalement
+ les applications ne communiquent plus directement entre elles puisque toute
+ communication est interceptée par Simterpose puis gérée par le simulateur qui
+ s'occupe du réseau.
 
 {\color{red} MEttre un schéma de action interceptes, test modifie, renvoie,
   attrape reponse, simulateur, retour application}
@@ -206,7 +207,7 @@ modifications deux solutions ont été proposées lors d'un précédent stage: l
  système il faudra remodifier les paramètres en remettant l'adresse et les ports
  ``virtuels'' pour que l'application pense toujours être dans son environnement
  simulé.  La limite de cette approche est lié au nombre de port disponibles sur
- l'hôte. \cite{goosen93}
+ l'hôte. 
 
 \paragraph{Full mediation} 
 Dans ce cas le noyau ne va plus gérer des communications car nous allons
