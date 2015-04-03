@@ -6,37 +6,36 @@ celui dans lequel elle pense s'exécuter.
 
 \subsection{Interception des actions}
  Une application distribuée peut vouloir communiquer avec l'hôte soit pour
- effectuer des calculs (SEB), soit pour communiquer avec d'autres applications
- sur le réseau. Quand Simterpose intercepte une communication venant d'un des
- processus d'une application, il modifie les caractéristiques de cette dernière
- pour qu'elle puisse s'exécuter sur la machine hôte. Quand la machine hôte
- renvoie une réponse à l'application, Simterpose l'intercepte également et la
- modifie pour que l'application ne voit pas le changement d'architecture. En
- même temps, il envoie au simulateur des données concernant le temps d'exécution
- de l'action sur la machine hôte pour calculer le temps sur la machine simulée
- puis envoie ce temps à l'application en plus du résultat afin de mettre à jour
- son horloge. Ainsi les calculs sont réellement exécuter sur la machine, les
- communications réellement émises sur le réseau géré par le simulateur et c'est
- le temps de réponse fourni par le simulateur qui va influencer l'horloge de
- l'application permettant ainsi d'imiter un environnement distribué. Finalement
- les applications ne communiquent plus directement entre elles puisque toute
- communication est interceptée par Simterpose puis gérée par le simulateur qui
- s'occupe du réseau.
+ effectuer de simples calculs (SEB), soit pour effectuer des requpetes de
+ connexion ou de communication avec d'autres applications sur le réseau. Quand
+ Simterpose intercepte une communication venant d'un des processus d'une
+ application, il modifie les caractéristiques de cette dernière pour qu'elle
+ puisse s'exécuter sur la machine hôte. Quand la machine hôte renvoie une
+ réponse à l'application, Simterpose l'intercepte également et la modifie pour
+ que l'application ne voit pas le changement d'architecture. En même temps, il
+ envoie au simulateur des données concernant le temps d'exécution de l'action
+ sur la machine hôte pour calculer le temps sur la machine simulée. Les délais
+ calculés par le simulateur sont soit des temps de calculs soit des temps de
+ connexion. Quand le simulateur à terminer le calcul du temps de réponse
+ nécessaire il l'envoie à l'application en plus du résultat afin de mettre à
+ jour l'horloge de l'appplication. Ainsi les calculs sont réellement exécuter
+ sur la machine, les communications réellement émises sur le réseau géré par le
+ simulateur et c'est le temps de réponse fourni par le simulateur qui va
+ influencer l'horloge de l'application permettant ainsi d'imiter un
+ environnement distribué. Finalement les applications ne communiquent plus
+ directement entre elles puisque toute communication est interceptée par
+ Simterpose puis gérée par le simulateur qui s'occupe du réseau.
 
-{\color{red} MEttre un schéma de action interceptes, test modifie, renvoie,
-  attrape reponse, simulateur, retour application}
-
-Les délais calculés par le simulateur sont soit des temps de calculs soit des
-temps de connexion. Les actions éxécutées par l'application peuvent-être soit
-de simples calculs soit des requêtes de connexion ou communication réseau.
+{\color{red} Mettre deux schémas de action interceptes, test modifie, renvoie,
+  attrape reponse, simulateur, retour application, un quand simple calcul l'autre quand conenxtion}
 
 Pour intercepter ces actions, il faut d'abord choisir ce qu'on intercepte
-exactement et avec quel outil. En effet une application peut communiquer avec le
-noyau via différentes abstractions. Elle peut soit utiliser les fonctions
-d'interraction directe avec le noyau que sont les appels systèmes, soit utiliser
-les différentes abstractions fournies par le système d'exploitation:
-bibliothèques (fonctions systèmes de la libc par exemple) ou les fonctions POSIX
-dans le cas d'un système UNIX.
+exactement comme type d'action et avec quel outil. En effet une application peut
+communiquer avec le noyau via différentes abstractions. Elle peut soit utiliser
+les fonctions d'interraction directe avec le noyau que sont les appels systèmes,
+soit utiliser les différentes abstractions fournies par le système
+d'exploitation: bibliothèques (fonctions systèmes de la libc par exemple) ou les
+fonctions POSIX dans le cas d'un système UNIX.
 
 \begin{figure}[H]
  \centering
@@ -45,14 +44,11 @@ dans le cas d'un système UNIX.
  \label{AS_Communication}
 \end{figure}
 
+En regardant la Fig.\ref{AS_Communication}, et les différents niveaux d'abstractions, le plus simple pour attraper les actions de l'application en gérant un minimum de choses serait d'intercepter directement les appels systèmes. Nous allons donc voir comment il est possible de faire cela et si cette solution se suffit à elle même.
 
-%Dans la figure~\ref{étiquette} page~\pageref{étiquette}
-blabla sur pk plus logique prendre le plus bas donc on va voir ptrace
- liste... tout seul tout seul puis le lien entre
-les deux
 \subsection{Appel système: ptrace}
 Nous allons intercepter les actions que sont les appels systèmes faits par
-l'applciation, ainsi nous sommes sûr d'intercepter tous les types de
+l'applciation, ainsi nous sommes sûrs d'intercepter tous les types de
 communications que l'application est susceptible d'initier avec le noyau. Les
 appels systèmes sont constitués de deux parties; la première, l'entrée,
 initialise l'appel via les registres de l'application qui contiennent les
@@ -118,6 +114,8 @@ stoppé, un ptrace sera envoye au processus espion qui remodifiera les
 informations nécessaires. Puis il rendra la main au processus espionné bloqué
 qui sortira de son appel système avec un résultat exécuté sur la machine hôte et
 un temps d'exécution et une horloge fournie par le simulateur.
+
+{\color{red} Mettre un schema attachement attente pere attrape signal modification main fils as retour pere...}
 
 {\color{red} \textbf{gérer cette transition}} Néanmoins il a été montré dans un
 précédent stage que l'appel système ptrace est inefficace voir inutile en ce qui

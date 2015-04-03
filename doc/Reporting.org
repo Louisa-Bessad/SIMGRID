@@ -167,13 +167,13 @@ simulateur avant la sortie de l'AS
 *** Things done
 - Bibliographie
 - Template rapport
-- Partie 3
+- Relecture -> 3.4
 *** Blocking points
 *** Planned work
-- Réécrire une partie du 3.Fonctionnement
 - Partie DISTEM à revoir (relire les papiers)
 - ne pas oublier strace dans la 3.1
 - voir SystemTap plus en détail
+- revoir la 3.4
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
