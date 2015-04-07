@@ -1,10 +1,10 @@
-\section{Simterpose et son fonctionnement}
+\subsection{Simterpose et son fonctionnement}
 Simterpose est l'API qui va nous permettre d'intercepter les communications de
 l'application avec la machine sur laquelle elle s'exécute. Sans cela,
 l'application se rendrait compte que l'environnement réel ne correspond pas
 celui dans lequel elle pense s'exécuter.
 
-\subsection{Interception des actions}
+\subsubsection{Interception des actions}
  Une application distribuée peut vouloir communiquer avec l'hôte soit pour
  effectuer de simples calculs (SEB), soit pour effectuer des requpetes de
  connexion ou de communication avec d'autres applications sur le réseau. Quand
@@ -46,7 +46,7 @@ fonctions POSIX dans le cas d'un système UNIX.
 
 En regardant la Fig.\ref{AS_Communication}, et les différents niveaux d'abstractions, le plus simple pour attraper les actions de l'application en gérant un minimum de choses serait d'intercepter directement les appels systèmes. Nous allons donc voir comment il est possible de faire cela et si cette solution se suffit à elle même.
 
-\subsection{Appel système: ptrace}
+\subsubsection{Appel système: ptrace}
 Nous allons intercepter les actions que sont les appels systèmes faits par
 l'applciation, ainsi nous sommes sûrs d'intercepter tous les types de
 communications que l'application est susceptible d'initier avec le noyau. Les
@@ -127,7 +127,7 @@ lancé on répond directement au niveau de la bibliothèque ainsi on n'arrive m�
 pas au niveau de l'appel système, donc ptrace ne fait rien.  Problème
 portabilité {\color{red} \textbf{gérer cette transition}}
 
-\subsection{Variable d'environnement: LD\_PRELOAD}
+\subsubsection{Variable d'environnement: LD\_PRELOAD}
 On pourrait alors penser qu'une bonne solution serait d'intercepter les actions
 de l'application au niveau des bibliothèques.{\color{red} rajouter des trucs sur
   VDSO}. Pour cela il existe la variable d'environnement \textbf{LD\_PRELOAD}
@@ -168,7 +168,7 @@ modifier pour pouvoir maintenit notre émulation simulation.
   l'application au niveau des bibliothèques. Pour cela on va créer une
   bibliothèque.}
 
-\subsection{Modification à effectuer}
+\subsubsection{Modification à effectuer}
 Lorsque ptrace est appelé en entrée ou sortie d'appel système, les modifications
 à apporter ne sont pas forcément les mêmes selon qu'il s'agit d'une action
 nécessitant l'utilisation du réseau ou non. Dans le cas d'un simple calcul ce
