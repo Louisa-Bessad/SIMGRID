@@ -1,0 +1,15 @@
+\section{Symbôles sur lesquels faire de la médiation}
+\subsection{Organisation générale}
+schéma tableau
+
+\subsection{Les communications réseaux}
+ -> syscall -> ptrace (full mediation, address translation)
+
+\subsection{Les thread}
+ syscall clone + libcalls
+
+\subsection{Le temps}
+ -> syscall (- system wide), VDSO-linker (cross process ou VDSO)
+
+\subsection{DNS}
+libcalls (ne rien rater), config fake (system wide), intercept 53 ( plus dur que nécessaire, port dns autre ou pas)

@@ -1,0 +1,35 @@
+\section{Méthodes possibles pour la virtualisation légère}
+\subsection{Emulation par limitation / Virtualisationi standard}
+\begin{itemize}
+\item principe: limiter l'accès aux ressources par exemple (cgroup, netstat, cpuburner), temps d'un SEB (bench avec netlink, limiter (cap))
+\item avantage plus simple
+\item désavantages: host>>target, modèle à vérifier, contrôle expérimental fin
+\end{itemize}
+
+\subsection{Emulation par interception}
+ principe: interception des actions et médiation (pas juste intereption et rejeu). Intercepter des symbôles pour en changer l'effet
+
+\subsubsection{Action sur le fichier source}
+reimplem SMPI ( trop spé) ,source to source/ pass LLVM( gcc+libc=consanguin) 
+
+\subsubsection{Action sur le binaire}
+Valgrind (perf pourrie)
+
+\subsubsection{Médiation directe des appels de fonctions}
+pourquoi: pthread, temps
+
+\paragraph{linker: LD\_PRELOAD}
+pas suid
+\paragraph{linker got injection}
+plus dur que nécessaire
+
+\subsubsection{Médiation des Appels Système}
+pourquoi: read/write, comm reseau
+
+\paragraph{ptrace}
+
+\paragraph{uprobe}
+Non module noyau
+
+\paragraph{seqcomp/bpf}
+Read only
