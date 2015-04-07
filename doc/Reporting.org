@@ -175,5 +175,14 @@ simulateur avant la sortie de l'AS
 - voir SystemTap plus en détail
 - revoir la 3.4
 
+** 07.04.2015
+*** Things done
+- Reprise "à 0" du rapport
+- Écriture d'une introduction structurée
+*** Blocking points
+*** Planned work
+- Continuer la biblio
+- Checker l'orthographe
+
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
