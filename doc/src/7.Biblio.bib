@@ -1,4 +1,15 @@
-@inproceedings{EMULATION:Distem,
+@article{GRID5000,
+  title={Grid'5000: a large scale and highly reconfigurable experimental grid testbed},
+  author={Bolze, Rapha{\"e}l and Cappello, Franck and Caron, Eddy and Dayd{\'e}, Michel and Desprez, Fr{\'e}d{\'e}ric and Jeannot, Emmanuel and J{\'e}gou, Yvon and Lanteri, Stephane and Leduc, Julien and Melab, Noredine and others},
+  journal={International Journal of High Performance Computing Applications},
+  volume={20},
+  number={4},
+  pages={481--494},
+  year={2006},
+  publisher={SAGE Publications}
+}
+
+@inproceedings{EMULATION:DISTEM,
   TITLE = {{Design and Evaluation of a Virtual Experimental Environment for Distributed Systems}},
   AUTHOR = {Sarzyniec, Luc and Buchert, Tomasz and Jeanvoine, Emmanuel and Nussbaum, Lucas},
   URL = {https://hal.inria.fr/hal-00724308},
@@ -16,7 +27,21 @@
   HAL_VERSION = {v3},
 }
 
-@inproceedings{MARTIN:SimGrid,
+@inproceedings{EMULATION:MARION,
+  TITLE = {{{\'E}mulation d'applications distribu{\'e}es sur des plates-formes virtuelles simul{\'e}es}},
+  AUTHOR = {Guthmuller, Marion and Nussbaum, Lucas and Quinson, Martin},
+  URL = {https://hal.inria.fr/inria-00565341},
+  TYPE = {Research Report},
+  BOOKTITLE = {{Rencontres francophones du Parall{\'e}lisme (RenPar'20)}},
+  ADDRESS = {Saint Malo, France},
+  YEAR = {2011},
+  MONTH = May,
+  PDF = {https://hal.inria.fr/inria-00565341/file/RR-7536.pdf},
+  HAL_ID = {inria-00565341},
+  HAL_VERSION = {v1},
+}
+
+@inproceedings{SIMULATION:MARTIN,
   TITLE = {{SimGrid: a Generic Framework for Large-Scale Distributed Experiments}},
   AUTHOR = {Quinson, Martin},
   URL = {https://hal.inria.fr/inria-00435802},
@@ -30,7 +55,16 @@
   HAL_VERSION = {v1},
 }
 
-@inproceedings{AS:Interception,
+@inproceedings{SIMULATION:CASANOVA,
+  title={Simgrid: A toolkit for the simulation of application scheduling},
+  author={Casanova, Henri},
+  booktitle={Cluster Computing and the Grid, 2001. Proceedings. First IEEE/ACM International Symposium on},
+  pages={430--437},
+  year={2001},
+  organization={IEEE}
+}
+
+@inproceedings{INTERCEPTION:AS,
   title={Ptrace, utrace, uprobes: Lightweight, dynamic tracing of user apps},
   author={Keniston, Jim and Mavinakayanahalli, Ananth and Panchamukhi, Prasanna and Prasad, Vara},
   booktitle={Proceedings of the 2007 Linux Symposium},
@@ -38,30 +72,87 @@
   year={2007},
 }
 
-@masterthesis{MARION:interception_systeme,
+@masterthesis{INTERCEPTION:MARION:interception_systeme,
 title={Interception système pour la capture et le rejeu de traces},
 author={Marion GUTHMULLER},
 school={Université Henri Poincaré - Nancy 1},
 year={2009--2010},
 }
 
-@misc{GUILLAUME:interception_syscall,
+@misc{INTERCEPTION:GUILLAUME:interception_syscall,
 title={Simulation of distributed application with usage of syscalls interception},
 author={Guillaume SERRIERE},
 school={ESIAL - TELECOM Nancy},
 year={2012},
 }
 
-@misc{GUILLAUME:parallel_distributed_simulation,
-title={Parallel and Distributed Simulation of Large-Scale Distributed Applications},
-author={Guillaume SERRIERE},
-school={ESIAL - TELECOM Nancy},
-year={2013},
-}
-
-@misc{CHLOE:emulation_application_distribuees,
-title={Émulation d'applications distribuées sur des plates-formes virtuelles simulées},
+@misc{INTERCEPTION:CHLOE:emulation_application_distribuees,
+title={Rapport de stage: Émulation d'applications distribuées sur des plates-formes virtuelles simulées},
 author={Chloé MACUR},
 school={École Polytechnique},
 year={2014},
 }
+
+@article{SOTA:MODELNET,
+  title={Scalability and accuracy in a large-scale network emulator},
+  author={Vahdat, Amin and Yocum, Ken and Walsh, Kevin and Mahadevan, Priya and Kosti{\'c}, Dejan and Chase, Jeff and Becker, David},
+  journal={ACM SIGOPS Operating Systems Review},
+  volume={36},
+  number={SI},
+  pages={271--284},
+  year={2002},
+  publisher={ACM}
+}
+
+@inproceedings{SOTA:MICROGRID:INIT,
+  title={The microgrid: a scientific tool for modeling computational grids},
+  author={Song, Hyo Jung and Liu, Xianan and Jakobsen, Dennis and Bhagwan, Ranjita and Zhang, Xingbin and Taura, Kenjiro and Chien, Andrew},
+  booktitle={Supercomputing, ACM/IEEE 2000 Conference},
+  pages={53--53},
+  year={2000},
+  organization={IEEE}
+}
+
+@inproceedings{SOTA:MICROGRID:CASANOVA,
+  title={The microgrid: Using emulation to predict application performance in diverse grid network environments},
+  author={Xia, Huaxia and Dail, Holly and Casanova, Henri and Chien, Andrew},
+  booktitle={Proc. the Workshop on Challenges of Large Applications in Distributed Environments (CLADE’04)},
+  year={2004},
+  organization={Citeseer}
+}
+
+@article{EMULATION:EMULAB:INIT,
+ author = {White, Brian and Lepreau, Jay and Stoller, Leigh and Ricci, Robert and Guruprasad, Shashi and Newbold, Mac and Hibler, Mike and Barb, Chad and Joglekar, Abhijeet},
+ title = {An Integrated Experimental Environment for Distributed Systems and Networks},
+ journal = {SIGOPS Oper. Syst. Rev.},
+ issue_date = {Winter 2002},
+ volume = {36},
+ number = {SI},
+ month = dec,
+ year = {2002},
+ issn = {0163-5980},
+ pages = {255--270},
+ numpages = {16},
+ url = {http://doi.acm.org/10.1145/844128.844152},
+ doi = {10.1145/844128.844152},
+ acmid = {844152},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+} 
+@inproceedings{EMULATION:EMULAB,
+  title={Large-scale Virtualization in the Emulab Network Testbed.},
+  author={Hibler, Mike and Ricci, Robert and Stoller, Leigh and Duerig, Jonathon and Guruprasad, Shashi and Stack, Tim and Webb, Kirk and Lepreau, Jay},
+  booktitle={USENIX Annual Technical Conference},
+  pages={113--128},
+  year={2008}
+}
+
+@inproceedings{EMULATION:TIME_DELATION,
+  title={Large-scale Virtualization in the Emulab Network Testbed.},
+  author={Hibler, Mike and Ricci, Robert and Stoller, Leigh and Duerig, Jonathon and Guruprasad, Shashi and Stack, Tim and Webb, Kirk and Lepreau, Jay},
+  booktitle={USENIX Annual Technical Conference},
+  pages={113--128},
+  year={2008}
+}
+
+

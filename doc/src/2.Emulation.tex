@@ -1,6 +1,14 @@
+%Pq émuler avant
+%% Il existe deux façons de faire de l'émulation: la dégradation et l'interception. Dans la première on rajoute la couche d'émulation au-dessus de la plateforme réelle (comme un hyperviseur pour une VM). Mais cela nous empêche d'émuler des machines plus puissantes que l'hôte. En effet, le délai de réponse géré par l'émulateur ne peut-être inférieur à celui de l'hôte sinon l'hôte n'a pas le temps de faire les calculs demandés par l'application. Cette solution choisie notamment par \textbf{Distem}\cite{EMULATION:Distem} est donc limitée à la capacité des plateformes à notre disposition. Dans le cas de l'émultaion par interception, pour faire croire à l'application qu'elle s'exécute sur une machine autre que l'hôte on va utiliser deux outils; un simulateur pour virtualiser l'environnement d'exécution et une API qui va attraper toutes les communications de l'application avec l'hôte et qui les transmettra ensuite au simulateur. Les calculs de l'applications seront effectués sur la machine hôte mais c'est le simulateur qui calculera le temps de réponse à l'application. Pour cela il fera un rapport entre le temps d'exécution du calcul sur la machine hôte (fourni par l'API), la puissance de l'hôte et celle des machines de l'environnement que l'on simule. Le temps de l'application sera donc celui du simulateur et non le temps réel. En effet, l'application quand elle fait un calcul pense être sur une autre machine avec des performances différentes, elle est donc capable de savoir combien de temps prends une certain calcul sur son architecture. Hors sur l'hôte ce calcul ne prendra pas le même temps et l'application se retrouvera avec un temps prévu et un temps qui ne correspondent pas ce qui est problématique. Cette solution d'interception est implémentée dans \textbf{Simterpose}{\color{red}mettre citation}.
+
+
+
 \section{Méthodes possibles pour la virtualisation légère}
 \label{section:emulation}
-\subsection{Emulation par limitation / Virtualisationi standard}
+
+Il existe actuellement deux méthodes pour faire de la virtualisation légère. La première est une émulation par limitation ou dégradation également appelée virtualisation standard et la secondeest une émulation par interception.
+
+\subsection{Emulation par limitation / Virtualisation standard}
 \begin{itemize}
 \item principe: limiter l'accès aux ressources par exemple (cgroup, netstat, cpuburner), temps d'un SEB (bench avec netlink, limiter (cap))
 \item avantage plus simple
@@ -12,7 +20,7 @@
 
 \subsubsection{Action sur le fichier source}
 reimplem SMPI ( trop spé) ,source to source/ pass LLVM( gcc+libc=consanguin) 
-
+, Coccinelle
 \subsubsection{Action sur le binaire}
 Valgrind (perf pourrie)
 

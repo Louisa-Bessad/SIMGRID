@@ -158,7 +158,7 @@ simulateur avant la sortie de l'AS
 *** Blocking points
 - clarifier cette histoire de /proc/id/mem
 *** Planned work
-*** TODO ne pas parler de communications mais d'actions
+*** DONE ne pas parler de communications mais d'actions
 - compléter la partie émulation avec d'autres simulateur ou test invalidés
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
@@ -175,14 +175,13 @@ simulateur avant la sortie de l'AS
 - voir SystemTap plus en détail
 - revoir la 3.4
 
-** 07.04.2015
+** 07.04.2015 -> 08.04.2015
 *** Things done
-- Reprise "à 0" du rapport
-- Écriture d'une introduction structurée
+- Écriture d'une intro structurée
 *** Blocking points
 *** Planned work
 - Continuer la biblio
-- Checker l'orthographe
+*** TODO Écrire la partie loria projet SIMGRID Simterpose et remerciements
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p

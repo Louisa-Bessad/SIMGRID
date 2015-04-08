@@ -1,3 +1,5 @@
+%% Pour ce qui est du type d'émulation utilisé, c'est l'émulation par interception qui a été choisi. Le but final du projet étant de pouvoir évaluer n'importe quelle application distribuée sur n'importe quel type d'architecture, on pourrait se retrouver à devoir émuler des machines plus puissantes que l'hôte, ce que l'émulation par dégradation ne permet pas. Pour faire cette émulation on va utiliser SIMGRID comme simulateur et Simterpose comme API de ce simulateur. Simterpose jouera donc le rôle d'émulateur et nous permettra d'utiliser SIMGRID avec des applications réelles tout en leur faisant croire qu'elles s'exécutent sur des machines distinctes. 
+
 \section{Symbôles sur lesquels faire de la médiation}
 \label{section:simterpose}
 Simterpose est l'API qui va nous permettre d'intercepter les communications de
@@ -70,7 +72,7 @@ pour des sockets de communicatiosn différentes puisque chacune à son propre
 espace mémoire. Pour pallier à ce probème on va utiliser en plus du numéro de
 socket, les adresses IP et les ports locaux et distants des deux entités qui
 souhaitent communiquer comme moyen d'identification. Pour gérer toutes ces
-modifications deux solutions ont été proposées lors d'un précédent stage \cite{GUILLAUME:interception_syscall}: la
+modifications deux solutions ont été proposées lors d'un précédent stage \cite{interception:GUILLAUME:interception_syscall}: la
 ``médiation par traduction d'adresse'' et la ``full mediation''.
 
 {\color{red}schéma}
