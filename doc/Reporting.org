@@ -177,11 +177,14 @@ simulateur avant la sortie de l'AS
 
 ** 07.04.2015 -> 08.04.2015
 *** Things done
-- Écriture d'une intro structurée
+- Écriture d'une intro structurée, 2.1 et début 2.2
 *** Blocking points
-*** Planned work
+- place de "temps d'un SEB (netlink et cap)" dans le 2.1
+*** Planned work 
 - Continuer la biblio
 *** TODO Écrire la partie loria projet SIMGRID Simterpose et remerciements
+*** TODO outil du 2.1 à détailler
+*** TODO reprendre les images
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p

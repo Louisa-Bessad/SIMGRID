@@ -1,11 +1,13 @@
 \section{État de l'art}
 \label{section:sota}
 \subsection{CWRAP}
- pourquoi (tester samba), comment (LD\_PRELOAD comm, suid)
+ %% pourquoi (tester samba), comment (LD\_PRELOAD comm, suid)
 
 \subsection{RR}
- pourquoi (tester firefox), comment (ordre des threads -> perf API dans le CPU)
+ %% pourquoi (tester firefox), comment (ordre des threads -> perf API dans le CPU)
 \subsection{Distem}
+ 
+%% Il existe deux façons de faire de l'émulation: la dégradation et l'interception. Dans la première on rajoute la couche d'émulation au-dessus de la plateforme réelle (comme un hyperviseur pour une VM). Mais cela nous empêche d'émuler des machines plus puissantes que l'hôte. En effet, le délai de réponse géré par l'émulateur ne peut-être inférieur à celui de l'hôte sinon l'hôte n'a pas le temps de faire les calculs demandés par l'application. Cette solution choisie notamment par \textbf{Distem}\cite{EMULATION:Distem} est donc limitée à la capacité des plateformes à notre disposition.
 \subsection{MicroGrid}
 \subsection{DETER}
 \subsection{ROBOT}
