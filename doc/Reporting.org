@@ -175,16 +175,19 @@ simulateur avant la sortie de l'AS
 - voir SystemTap plus en détail
 - revoir la 3.4
 
-** 07.04.2015 -> 08.04.2015
+** 07.04.2015 -> 09.04.2015
 *** Things done
-- Écriture d'une intro structurée, 2.1 et début 2.2
+- Écriture Pré-rapport
 *** Blocking points
 - place de "temps d'un SEB (netlink et cap)" dans le 2.1
 *** Planned work 
 - Continuer la biblio
 *** TODO Écrire la partie loria projet SIMGRID Simterpose et remerciements
 *** TODO outil du 2.1 à détailler
-*** TODO reprendre les images
+*** DONE reprendre les images
+*** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
+*** TODO ne pas oublier de place le pq les syscalls
+*** TODO gérer intro 4 transition 3...
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
