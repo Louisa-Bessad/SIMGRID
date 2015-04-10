@@ -175,7 +175,7 @@ simulateur avant la sortie de l'AS
 - voir SystemTap plus en détail
 - revoir la 3.4
 
-** 07.04.2015 -> 09.04.2015
+** 07.04.2015 -> 10.04.2015
 *** Things done
 - Écriture Pré-rapport
 *** Blocking points
