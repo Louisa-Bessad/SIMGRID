@@ -186,7 +186,7 @@ simulateur avant la sortie de l'AS
 *** TODO outil du 2.1 à détailler
 *** DONE reprendre les images
 *** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
-*** TODO ne pas oublier de place le pq les syscalls
+*** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
 *** TODO gérer intro 4 transition 3...
 
 * Conclusion
