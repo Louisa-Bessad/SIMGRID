@@ -180,6 +180,7 @@ simulateur avant la sortie de l'AS
 - Écriture Pré-rapport
 *** Blocking points
 - place de "temps d'un SEB (netlink et cap)" dans le 2.1
+- intégrer uprobe sans utrace?
 *** Planned work 
 - Continuer la biblio
 *** TODO Écrire la partie loria projet SIMGRID Simterpose et remerciements
