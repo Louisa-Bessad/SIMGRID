@@ -7,10 +7,9 @@ choisi. En effet le but final étant de pouvoir évaluer n'importe quelle
 application distribuée sur n'importe quel type d'architecture, on pourrait se
 retrouver à devoir émuler des machines plus puissantes que l'hôte, ce que
 l'émulation par dégradation ne permet pas. Pour cela on va utiliser SIMGRID
-comme simulateur et Simterpose comme API pour ce simulateur. Il jouera donc le
-rôle d'émulateur en nous permettant d'utiliser SIMGRID avec des applications
+comme simulateur et Simterpose comme émulateur. Simterpose qui est une API de SIMGRID nous permettra donc d'utiliser le simulateur avec des applications
 réelles tout en leur faisant croire qu'elles s'exécutent sur des machines
-distinctes. Simterpose étant l'API qui va nous permettre d'intercepter les
+distinctes. Simterpose étant l'émulateur qui va nous permettre d'intercepter les
 communications de l'application avec la machine sur laquelle elle s'exécute et
 de faire de la médiation nous allons étudier son fonctionnement et voir quels
 outils présentés en section \ref{section:emulation} ont été choisis.

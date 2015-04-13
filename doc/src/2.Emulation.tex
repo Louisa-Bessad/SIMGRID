@@ -120,10 +120,10 @@ différents symboles: appels de fonctions et appels systèmes.
 En regardant la Fig.\ref{AS_Communication}, et les différents niveaux
 d'abstractions, le moyen plus simple pour attraper les actions de l'application
 en gérant un minimum de choses serait d'intercepter directement les appels
-systèmes.  Ces derniers sont constitués de deux parties; la première,
-l'entrée, initialise l'appel via les registres de l'application qui contiennent
-les arguments de l'appel puis donne la main au noyau. La seconde, la sortie,
-inscrit la valeur de retour de l'appel système dans le registre de retour de
+systèmes.  Ces derniers sont constitués de deux parties; la première, l'entrée,
+initialise l'appel via les registres de l'application qui contiennent les
+arguments de l'appel puis donne la main au noyau. La seconde, la sortie, inscrit
+la valeur de retour de l'appel système dans le registre de retour de
 l'application, les registres d'arguments contenant toujours les valeurs reçues à
 l'entrée de l'appel système, et rend la main à l'application. Nous devons donc
 intercepter les deux parties de l'appel système pour maintenir notre
@@ -132,43 +132,45 @@ ou modifier les informations nécessaires avant de lui rendre la main pour entre
 ou sortir de l'appel système.
 
  Nous allons donc voir comment il est possible de faire cela, puisque de
- nombreux outils existent {\color{red}et si cette solution se suffit à elle
-   même.}
+ nombreux outils existent.
  
  \paragraph{L'appel système ptrace}\cite{INTERCEPTION:AS, INTERCEPTION:MARION}
  permet de tracer tous les événement désirés d'un processus, mais aussi d'écrire
  et de lire directement dans l'espace d'adressage de ce dernier, à n'importe
- quel moment ou lorsque un événement particulier se produit. De cette façon on peut contrôler l'exécution d'un processus. C'est
- un appel système unique dont chaque action à effectuer est passée sous forme de
- requêtes en paramètre de l'appel système.
+ quel moment ou lorsque un événement particulier se produit. De cette façon on
+ peut contrôler l'exécution d'un processus. C'est un appel système unique dont
+ chaque action à effectuer est passée sous forme de requêtes en paramètre de
+ l'appel système.
 
-Pour pouvoir contrôler un processus via ptrace on va créer deux processus parents
-via un \textit{fork()}; un processus appelé ``processus espionné'' qui exécutera l'application et qu'on souhaite
-contrôler, et un autre qui contrôlera le processus espionné, appelé ``processus espion''. Le processus espionné indiquera au
-processus espion qu'il souhaite être contrôlé via un appel système ptrace et une
-requête PTRACE\_TRACEME puis il exécutera l'application via un
+Pour pouvoir contrôler un processus via ptrace on va créer deux processus
+parents via un \textit{fork()}; un processus appelé ``processus espionné'' qui
+exécutera l'application et qu'on souhaite contrôler, et un autre qui contrôlera
+le processus espionné, appelé ``processus espion''. Le processus espionné
+indiquera au processus espion qu'il souhaite être contrôlé via un appel système
+ptrace et une requête PTRACE\_TRACEME puis il exécutera l'application via un
 \textit{exec()}. À la réception de cet appel le processus espion notifiera son
 attachement au processus espionné via un autre appel à ptrace et une requête
 PTRACE\_ATTACH. Il indiquera également sur quelles actions du processus espionné
 il veut être notifié (chaque instruction, signal, sémaphore...), définissant
 ainsi les actions bloquantes pour le processus espionné. Dans notre cas, ce
 seront les appels systèmes que l'on considérera comme points d'arrêts pour le
-processus espionné (requête PTRACE\_SYSCALL). Ainsi, le processus espion sera donc appelé deux fois: à l'entrée
-et à la sortie de l'appel système. De fait, quand un des processus de l'application
-voudra faire un appel système quelconque il sera bloqué avant de l'exécuter,
-un appel système ptrace sera lancé et notifiera le processus espion lié au processus espionné. L'espion
-fera les modifications nécessaires dans les registres du processus espionné pour
+processus espionné (requête PTRACE\_SYSCALL). Ainsi, le processus espion sera
+donc appelé deux fois: à l'entrée et à la sortie de l'appel système. De fait,
+quand un des processus de l'application voudra faire un appel système quelconque
+il sera bloqué avant de l'exécuter, un appel système ptrace sera lancé et
+notifiera le processus espion lié au processus espionné. L'espion fera les
+modifications nécessaires dans les registres du processus espionné pour
 conserver la virtualisation de l'environnement grâce aux requêtes PEEK\_DATA et
-POKE\_DATA passées en argument de l'appel système {\color{red}ou en modifiant directement le contenu du /proc/id/mem}. Puis, il rendra la main au
-processus espionné bloqué pour que l'appel système puisse avoir lieu. Au retour
-de l'appel système le processus espionné sera de nouveau stoppé, un ptrace sera
-envoyé au processus espion qui remodifiera les informations nécessaires. Puis il
-rendra la main au processus espionné bloqué qui sortira de son appel système
-avec un résultat exécuté sur la machine hôte et un temps d'exécution et une
-horloge fournie par le simulateur. Quand un processus espion a fini un suivi, il
-peut envoyer deux types de requêtes au processus espionné: PTRACE\_KILL qui
-termine le processus espionné ou PTRACE\_DETACH qui le laisse continuer son
-exécution.
+POKE\_DATA passées en argument de l'appel système {\color{red}ou en modifiant
+  directement le contenu du /proc/id/mem}. Puis, il rendra la main au processus
+espionné bloqué pour que l'appel système puisse avoir lieu. Au retour de l'appel
+système le processus espionné sera de nouveau stoppé, un ptrace sera envoyé au
+processus espion qui remodifiera les informations nécessaires. Puis il rendra la
+main au processus espionné bloqué qui sortira de son appel système avec un
+résultat exécuté sur la machine hôte et un temps d'exécution et une horloge
+fournie par le simulateur. Quand un processus espion a fini un suivi, il peut
+envoyer deux types de requêtes au processus espionné: PTRACE\_KILL qui termine
+le processus espionné ou PTRACE\_DETACH qui le laisse continuer son exécution.
 
 {\color{red} Mettre un schéma attachement attente père attrape signal
   modification main fils as retour père et vérification noyau...}
@@ -211,11 +213,23 @@ processus sera arrêté avec un signal \textit{SIGKILL}. Comme cela est assez
 contraignant, le nombre d'applications que l'on peut utiliser avec seccomp est
 donc très limité. Pour plus de flexibilité, on peut utiliser une extension de
 cet appel système appelée seccomp/BPF, pour \textit{seccomp Berkeley Packet
-  Filter}. Cette dernière permet de définir dans un programme BPF \footnote{Le programme fonctionne comme pour les sockets, mais dans notre cas les données sur lesquelles on applique les filtres ne sont plus les paquets réseaux mais les appels systèmes} \cite{INTERCEPTION:bpf} les appels systèmes autorisés à s'exécuter. Les filtres sont créés sous forme d'arborescence, quand on rajoute un filtre on rajoute un noeud. Pour chaque filtre ajouté il faut resynchronyser les processus utilisant cette arborescence pour filtrer leurs appels systèmes. Pour pouvoir s'exécuter un appel système doit pouvoir passer à travers toutes les règles. Dans le cas où les appels systèmes \textit{fork()} ou \textit{clone()} peuvent s'exécuter l'arborescence de filtre est transmise aux enfants de même pour les processus faisant des appels \textit{execve()} quand ils sont autorisés. Les règles des filtres BPF portent sur le type de l'appel système et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel système, ne faisant pas
-parti des quatre autorisés par seccomp, seccomp/BPF est appelé et
-reçoit en entrée le numéro de l'appel système, ses arguments et le pointeur de
-l'instruction concernée et en fonction des règles qu'il possède laisse l'appel
-système s'exécuter ou pas.
+  Filter}. Cette dernière permet de définir dans un programme BPF \footnote{Le
+  programme fonctionne comme pour les sockets, mais dans notre cas les données
+  sur lesquelles on applique les filtres ne sont plus les paquets réseaux mais
+  les appels systèmes} \cite{INTERCEPTION:bpf} les appels systèmes autorisés à
+s'exécuter. Les filtres sont créés sous forme d'arborescence, quand on rajoute
+un filtre on rajoute un noeud. Pour chaque filtre ajouté il faut resynchronyser
+les processus utilisant cette arborescence pour filtrer leurs appels
+systèmes. Pour pouvoir s'exécuter un appel système doit pouvoir passer à travers
+toutes les règles. Dans le cas où les appels systèmes \textit{fork()} ou
+\textit{clone()} peuvent s'exécuter l'arborescence de filtre est transmise aux
+enfants de même pour les processus faisant des appels \textit{execve()} quand
+ils sont autorisés. Les règles des filtres BPF portent sur le type de l'appel
+système et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel
+système, ne faisant pas parti des quatre autorisés par seccomp, seccomp/BPF est
+appelé et reçoit en entrée le numéro de l'appel système, ses arguments et le
+pointeur de l'instruction concernée et en fonction des règles qu'il possède
+laisse l'appel système s'exécuter ou pas.
 
 De plus, seccomp/BPF possède une option qui lui permet de générer un appel
 système ptrace() qu'il envoie au processus espion lié au processus faisant
@@ -223,16 +237,36 @@ l'appel, s'il existe. Ce qui permet au processus espion de ne plus attendre sur
 chaque appel système du processus espionné, mais uniquement sur les appels
 systèmes qu'il souhaite intercepter.
 
-Néanmoins, l'appel système seccomp et son extension seccomp/BPF ne sont disponibles que si le noyau est configuré avec l'option CONFIG\_SECCOMP pour la première et CONFIG\_SECCOMP\_FILTER pour la deuxième. Pour pouvoir créer des filtres il faut également avoir des droits particuliers notamment l'exécution de certaines commandes root. Ainsi, l'utilisation de cet appel système et de son extension demande une certaine configuration noyau et des privilèges pour les utilisateurs, ce qui n'est pas très conseillé.
+Néanmoins, l'appel système seccomp et son extension seccomp/BPF ne sont
+disponibles que si le noyau est configuré avec l'option CONFIG\_SECCOMP pour la
+première et CONFIG\_SECCOMP\_FILTER pour la deuxième. Pour pouvoir créer des
+filtres il faut également avoir des droits particuliers notamment l'exécution de
+certaines commandes root. Ainsi, l'utilisation de cet appel système et de son
+extension demande une certaine configuration noyau et des privilèges pour les
+utilisateurs, ce qui n'est pas très conseillé.
 
-De plus, si on l'utilise sans l'option d'appel à ptrace on ne peut que lire le contenu de l'appel système et pas le modifier, on ne peut donc pas faire de médiation avec cet outil sans faire appel à ptrace. Le seul avantage en l'utilisant en parallèle de ptrace est que cela réduit le nombre d'événement sur lequel attendra le processus espion.
+De plus, si on l'utilise sans l'option d'appel à ptrace on ne peut que lire le
+contenu de l'appel système et pas le modifier, on ne peut donc pas faire de
+médiation avec cet outil sans faire appel à ptrace. Le seul avantage en
+l'utilisant en parallèle de ptrace est que cela réduit le nombre d'événement sur
+lequel attendra le processus espion.
 
-%%Malgré ses défauts c'est donc l'appel système ptrace qui a été choisi.
-%% {\color{red} \textbf{gérer cette transition}} Néanmoins il a été montré dans un
-%% précédent stage que l'appel système ptrace est inefficace voir inutile en ce qui
-%% concerne tous les appels systèmes temporels qu'une application voudrait
-%% faire. \textit{les appels systèmes ``time'', ``clock\_gettime'',
-%%   ``gettimeofday'' avec \textbf{ptrace} ne sont pas possibles, d'où l'alliance
+Malgré ses défauts l'appel système ptrace semble être le meilleur outil pour
+faire de l'interception d'appels système. Néanmoins il a été montré dans un
+précédent stage \cite{INTERCEPTION:MARION} que l'appel système ptrace est
+inefficace voir inutile en ce qui concerne tous les appels systèmes temporels
+qu'une application souhaiterait exécuter (\textit{time(), clock\_gettime(),
+  gettimeofday()}). Lors de ce genre d'appel système le noyau ne lance pas
+l'appel. Cela est du à l'existence de la bibliothèque \textit{Virtual Dybamic
+  Shared Object} (VDSO). Cette dernière vise à minimiser les coûts dûs aux deux
+changements de contexte effectués lors de l'exécution d'un appel système. VDSO
+va retrouver l'heure {\color{red}dans le contexte noyau} lisible par tous les
+processus sans changer de mode. Il est possible de désactiver cette bibliothèque
+au démarrage du noyau mais cela réduit les performances (plus de changements de
+contexte) et oblige l'utilisateur à modifier les paramètres de son noyau. On
+peut donc dire que cette solution d'interception n'est donc pas complète.
+
+%%avec \textbf{ptrace} ne sont pas possibles, d'où l'alliance
 %%   avec LD\_PRELOAD} Par exemple lors d'un gettimeofday l'appel système n'est pas
 %% lancé on répond directement au niveau de la bibliothèque ainsi on n'arrive même
 %% pas au niveau de l'appel système, donc ptrace ne fait rien.  Problème
@@ -240,49 +274,49 @@ De plus, si on l'utilise sans l'option d'appel à ptrace on ne peut que lire le 
 
 \subsubsection{Médiation directe des appels de fonctions}
 %%pourquoi: pthread, temps
-\paragraph{linker: LD\_PRELOAD}
+
+Puisque l'interception des actions d'une application au plus bas niveau ne
+suffit pas, on pourrait alors penser qu'une bonne solution serait d'intercepter
+les actions de l'application au plus haut niveau que sont les
+bibliothèques. Pour cela nous allons étudier deux approches basées sur l'éditeur
+de liens dynamiques de Linux (ldd) qui permet d'insérer du code dans l'exécution
+d'un programme.
+
+\paragraph{LD\_PRELOAD:}
 %pas suid
-%% On pourrait alors penser qu'une bonne solution serait d'intercepter les actions
-%% de l'application au niveau des bibliothèques.{\color{red} rajouter des trucs sur
-%%   VDSO}. Pour cela il existe la variable d'environnement \textbf{LD\_PRELOAD}
-%% qui contient la liste des bibliothèques à précharger et qui est utilisée par le
-%% noyau lors du premier lancement d'un programme. En effet par défaut Linux
-%% effectue une édition de lien dynamique, l'édition de lien statique n'étant
-%% choisie qu'en l'absence de bibliothèques partagées définissant les fonctions
-%% utilisées par l'application. On va donc créer notre propre bibliothèque de
-%% fonctions surchargeant chaque fonction susceptible d'être utilisée par
-%% l'application. Une fonction surchargée contiendra alors toutes les modifications
-%% nécessaires pour maintenir notre environnement simulé suivi de l'appel à la
-%% fonction initiale puisqu'on souhaite juste intercepter l'appel et pas
-%% l'empêcher. On préchargera cette bibliothèque avant les autres en la plaçant
-%% dans la variable LD\_PRELOAD, ainsi nos fonctions passeront avant les fonctions
-%% des bibliothèques usuelles.
+La variable d'environnement \textbf{LD\_PRELOAD}\cite{INTERCEPTION:LD_PRELOAD}
+contient la liste des bibliothèques à précharger avant les autres et est
+utilisée par l'éditeur de lien à chaque lancement d'un programme. Cette variable
+modifie donc le comportement de l'éditeur de lien puisqu'elle modifie les
+bibliothèques préchargées par ce dernier. On va donc créer notre propre
+bibliothèque de fonctions surchargeant chaque fonction susceptible d'être
+utilisée par l'application. Une fonction surchargée contiendra alors toutes les
+modifications nécessaires pour maintenir notre environnement simulé suivi de
+l'appel à la fonction initiale puisque dans notre cas, on souhaite juste
+intercepter l'appel et pas l'empêcher. On préchargera cette bibliothèque avant
+les autres en la plaçant dans la variable LD\_PRELOAD, ainsi nos fonctions
+passeront avant les fonctions des bibliothèques usuelles et les fonctions de ces
+bibliothèques appelées par l'application seront interceptées.
 
-%% Néanmoins si l'application fait un appel système directement sans passer par la
-%% couche \textit{Bibliothèques} Fig.~\ref{AS_Communication} notre mécanisme
-%% d'interception est contournée. En effet on ne peut surcharger que des fonctions
-%% avec cette solution, pas des appels systèmes. De même si on oublie de réécrire
-%% une fonction d'une des bibliothèques utilisée par l'application. Cette solution
-%% n'est donc pas suffisante pour le modèle d'interception que nous souhaitons
-%% avoir.
+Néanmoins, si l'application fait un appel système directement sans passer par la
+couche \textit{Bibliothèques} Fig.~\ref{AS_Communication} notre mécanisme
+d'interception est contourné. En effet on ne peut surcharger que des fonctions
+avec cette solution, pas des appels systèmes. De même si on oublie de réécrire
+une fonction d'une des bibliothèques utilisée par l'application. Cette solution
+n'est donc pas suffisante pour le modèle d'interception que nous souhaitons
+avoir.
 
-%% Cependant on peut voir que LD\_PRELOAD résout les problèmes de ptrace concernant
-%% les fonctions de temps, et inversement puisque ptrace permet d'intercepter les
-%% appels systèmes que le modèle d'interception avec LD\_PRELOAD ne permet pas de
-%% gérer. Une solution choisie lors d'un précédent stage est donc d'allier les
-%% deux. On surchargera les fonctions temporelles dans notre bibliothèque
-%% préchargée avec LD\_PRELOAD pour pallier les lacunes temporelles de ptrace. Et
-%% pour toutes les autres fonctions ptrace s'en occupera, ainsi on est certain de
-%% n'oublier aucune fonction. Maintenant que nous savons ce que nous devons
-%% intercepter et comment l'intercepter nous allons voir ce que nous devons
-%% modifier pour pouvoir maintenir notre émulation simulation.
+\textit{Cependant, on peut voir que LD\_PRELOAD résout les lacuns de ptrace
+  concernant: les fonctions de temps et le multithreading. À l'inverse, puisque
+  ptrace permet d'intercepter les appels systèmes que le modèle d'interception
+  avec LD\_PRELOAD ne permet pas de gérer on peut dire que ptrace résout les
+  problèmes de LD\_PRELOAD. Une solution choisie lors d'un précédent stage est
+  donc d'allier les deux. On surchargera les fonctions temporelles dans notre
+  bibliothèque préchargée avec LD\_PRELOAD pour pallier les lacunes temporelles
+  de ptrace. Et pour toutes les autres fonctions ptrace s'en occupera, ainsi on
+  est certain de n'oublier aucune fonction.}
 
-%% \textit{Pour faire face à ce problème il a été choisi d'utiliser l'éditeur de
-%%   lien dynamique \textbf{LD\_PRELOAD}, ce dernier intercepte les appels de
-%%   l'application au niveau des bibliothèques. Pour cela on va créer une
-%%   bibliothèque.}
-
-\paragraph{linker got injection}
+\paragraph{Got injection:}
 %% plus dur que nécessaire   
 
 {\color{red} \textit{petit tableau comparatif}}
