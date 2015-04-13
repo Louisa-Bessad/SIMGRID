@@ -154,41 +154,30 @@ simulateur avant la sortie de l'AS
 
 ** 25-26-27.03.2015
 *** Things done
-- Rédaction "pré-rapport"
+- Rédaction "pré-rapport" (template)
+- Bibliographie
 *** Blocking points
 - clarifier cette histoire de /proc/id/mem
 *** Planned work
 *** DONE ne pas parler de communications mais d'actions
-- compléter la partie émulation avec d'autres simulateur ou test invalidés
+- compléter la partie émulation avec d'autres simulateurs ou test invalidés
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30.03.2015 ->03.04.2015
-*** Things done
-- Bibliographie
-- Template rapport
-- Relecture -> 3.4
-*** Blocking points
-*** Planned work
-- Partie DISTEM à revoir (relire les papiers)
-- ne pas oublier strace dans la 3.1
-- voir SystemTap plus en détail
-- revoir la 3.4
-
-** 07.04.2015 -> 10.04.2015
+** 30.03.2015 -> 10.04.2015
 *** Things done
 - Écriture Pré-rapport
 *** Blocking points
 - place de "temps d'un SEB (netlink et cap)" dans le 2.1
-- intégrer uprobe sans utrace?
 *** Planned work 
 - Continuer la biblio
-*** TODO Écrire la partie loria projet SIMGRID Simterpose et remerciements
+*** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose et remerciements
 *** TODO outil du 2.1 à détailler
 *** DONE reprendre les images
 *** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
 *** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
 *** TODO gérer intro 4 transition 3...
-
+*** TODO schéma différences entre les virtualisations
+*** TODO typo pour les citation, AS...
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p

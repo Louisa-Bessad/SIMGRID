@@ -108,10 +108,14 @@ différents symboles: appels de fonctions et appels systèmes.
 \subsubsection{Action sur le fichier source}
 %% reimplem SMPI (trop spé) ,source to source/ pass LLVM( gcc+libc=consanguin) 
 %% , Coccinelle
+
 \subsubsection{Action sur le binaire}
 %%Valgrind (perf pourrie)
-  
+Pour agir sur le binaire d'une application, c'est l'outil de compilation à la volée\footnote{Technique basée sur la compilation de byte-code et la compilation dynamique. Elle vise à améliorer la performance de systèmes bytecode-compilés par la traduction de bytecode en code machine natif au moment de l'exécution} Valgrind\cite{INTERCEPTION:Valgrind, INTERCEPTION:Valgrind_web} que nous allons étudier. En utilisant la compilation dynamique, ce dernier permet de faire appel au compilateur lors de l'exécution de l'application et donc d'ajouter de nouvelles fonctions au code de l'application en cours d'exécution. Il est notamment utilisé pour déboguer, faire du profilage de code\footnote{Méthode visant à analyser le code d'une application pour connapitre la liste des focntions appelées et le temps passé dans chacune d'elles}, et mettre en évidence des fuites mémoires.
 
+Dans notre cas, on pourrait l'utiliser pour mesurer le temps passé à faire un calcul, qui serait ensuite envoyé au simulateur pour calculer le temps de réponse dans l'environnement simulé nécessaire à l'émulateur. On pourrait également l'utiliser pour réécrire à la volée le code des fonctions que l'émulateur doit modifier pour maintenir la virtualisation.
+
+Pour utiliser Valgrind il faut créer un ``wrapper'' pour chaque fonction qui nous interésse. Un wrapper est une fonction de type identique à celle que l'on souhaite intercepter, mais ayant un nom différent (généré par les MACRO de Valgrind) pour la différencier de l'originale. Pour générer le nom du wrapper avec les macro de Valgrind on doit préciser la bibliothèque qui contient la fonction originale et utiliser un encodage spécifique à Valgrind. Cette opération est lourde et complexe. De plus, elle nécessite de connaître le nom de la bibliothèque qui contient la fonction qui nous intéresse. Cette solution est donc assez contraignante et ses performances sont assez médiocres d'après l'étude faite par M. Guthmuller lors de son stage \cite{INTERCEPTION:MARION}: facteur de 7.5 pour le temps d'exécution d'une application avec cet outil.
     
 
 \subsubsection{Médiation des Appels Système}
@@ -250,7 +254,7 @@ contenu de l'appel système et pas le modifier, on ne peut donc pas faire de
 médiation avec cet outil sans faire appel à ptrace. Le seul avantage en
 l'utilisant en parallèle de ptrace est que cela réduit le nombre d'événement sur
 lequel attendra le processus espion.
-
+\newline
 Malgré ses défauts l'appel système ptrace semble être le meilleur outil pour
 faire de l'interception d'appels système. Néanmoins il a été montré dans un
 précédent stage \cite{INTERCEPTION:MARION} que l'appel système ptrace est
