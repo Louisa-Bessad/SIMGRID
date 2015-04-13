@@ -27,7 +27,7 @@ sur la machine hôte. Les requêtes des applications distribuées seront arrêt�
 par l'émulateur. C'est lui qui s'occupera de récupérer les ressources demandées
 par les applications. Il existe différent outils permettant de faire de mettre
 en place cette virtualisation, on trouve notamment \textbf{cgroup},
-\textbf{netstat} et \textbf{cpuburner}.  Cette solution à l'avantage d'être
+\textbf{netstat} et \textbf{cpuburner}.  Cette solution a l'avantage d'être
 simple à mettre en \oe uvre puisque l'on se basse sur la machine hôte. Néanmoins
 elle est assez contraignante du fait qu'on ne puisse pas émuler des
 architectures plus performantes que l'hôte. De plus {\color{red} à écrire deux
@@ -38,23 +38,24 @@ architectures plus performantes que l'hôte. De plus {\color{red} à écrire deu
 
 Dans le cas de l'émulation par interception, pour faire croire à l'application
 qu'elle s'exécute sur une machine autre que l'hôte on va utiliser deux outils;
-un simulateur pour virtualiser l'environnement d'exécution et une API qui va
-attraper toutes les communications de l'application avec l'hôte et qui les
+un simulateur pour virtualiser l'environnement d'exécution et un émulateur qui
+va attraper toutes les communications de l'application avec l'hôte et qui les
 transmettra ensuite au simulateur. Les calculs de l'application seront effectués
 sur la machine hôte mais c'est le simulateur qui calculera le temps de réponse à
 l'application. Pour cela il fera un rapport entre le temps d'exécution du calcul
-sur la machine hôte (fourni par l'API), la puissance de l'hôte et celle des
-machines de l'environnement que l'on simule. Le temps de l'application sera donc
-celui du simulateur et non le temps réel. En effet, l'application quand elle
-fait un calcul pense être sur une autre machine avec des performances
-différentes, elle est donc capable de savoir combien de temps prends une certain
-calcul sur son architecture. Hors sur l'hôte ce calcul ne prendra pas le même
-temps et l'application se retrouvera avec un temps prévu et un temps qui ne
-correspondent pas ce qui est problématique.  Avec cette solution on ne se
-contente pas de faire de l'interception d'action et du rejeu par l'émulateur
-comme c'est le cas avec l'émulation par limitation. On va intercepter les
-actions des applications et faire de la médiation, autrement dit on va modifier
-les actions avant de les laisser s'exécuter sous le contrôle de l'émulateur.
+sur la machine hôte (fourni par l'émulateur qui le mesure lors de l'exécution du
+calcul), la puissance de l'hôte et celle des machines de l'environnement que
+l'on simule. Le temps de l'application sera donc celui du simulateur et non le
+temps réel. En effet, l'application quand elle fait un calcul pense être sur une
+autre machine avec des performances différentes, elle est donc capable de savoir
+combien de temps prends une certain calcul sur son architecture. Hors sur l'hôte
+ce calcul ne prendra pas le même temps et l'application se retrouvera avec un
+temps prévu et un temps qui ne correspondent pas ce qui est problématique.  Avec
+cette solution on ne se contente pas de faire de l'interception d'action et du
+rejeu par l'émulateur comme c'est le cas avec l'émulation par limitation. On va
+intercepter les actions des applications et faire de la médiation, autrement dit
+on va modifier les actions avant de les laisser s'exécuter sous le contrôle de
+l'émulateur.
 
  Une application distribuée peut vouloir communiquer avec l'hôte soit pour
  effectuer de simples calculs (SEB), soit pour effectuer des requêtes de
@@ -69,14 +70,14 @@ les actions avant de les laisser s'exécuter sous le contrôle de l'émulateur.
  machine simulée. Les délais calculés par le simulateur sont soit des temps de
  calculs soit des temps de connexion. \textit{Quand le simulateur a terminé le
    calcul du temps de réponse nécessaire il l'envoie à l'émulateur qui l'envoie
-   à l'application en plus du résultat afin de mettre à jour l'horloge de
-   l'application.} Ainsi les calculs sont réellement exécuter sur la machine,
- les communications réellement émises sur le réseau géré par le simulateur et
- c'est le temps de réponse fourni par le simulateur qui va influencer l'horloge
- de l'application permettant ainsi d'imiter un environnement
- distribué. Finalement les applications ne communiquent plus directement entre
- elles puisque toute communication est interceptée par l'émulateur, puis gérée
- par le simulateur qui s'occupe du réseau.
+   à l'application en plus du résultat du calcul demandé afin de mettre à jour
+   l'horloge de l'application.} Ainsi les calculs sont réellement exécutés sur
+ la machine, les communications réellement émises sur le réseau géré par le
+ simulateur et c'est le temps de réponse fourni par le simulateur qui va
+ influencer l'horloge de l'application permettant ainsi d'imiter un
+ environnement distribué. Finalement les applications ne communiquent plus
+ directement entre elles puisque toute communication est interceptée par
+ l'émulateur, puis gérée par le simulateur qui s'occupe du réseau.
 
 {\color{red} Mettre deux schémas de action interceptes, test modifie, renvoie,
   attrape réponse, simulateur, retour application, un quand simple calcul
@@ -119,10 +120,10 @@ différents symboles: appels de fonctions et appels systèmes.
 En regardant la Fig.\ref{AS_Communication}, et les différents niveaux
 d'abstractions, le moyen plus simple pour attraper les actions de l'application
 en gérant un minimum de choses serait d'intercepter directement les appels
-systèmes.  Les appels systèmes sont constitués de deux parties; la première,
+systèmes.  Ces derniers sont constitués de deux parties; la première,
 l'entrée, initialise l'appel via les registres de l'application qui contiennent
 les arguments de l'appel puis donne la main au noyau. La seconde, la sortie,
-inscrit le retour de l'appel système dans le registre de retour de
+inscrit la valeur de retour de l'appel système dans le registre de retour de
 l'application, les registres d'arguments contenant toujours les valeurs reçues à
 l'entrée de l'appel système, et rend la main à l'application. Nous devons donc
 intercepter les deux parties de l'appel système pour maintenir notre
@@ -134,19 +135,16 @@ ou sortir de l'appel système.
  nombreux outils existent {\color{red}et si cette solution se suffit à elle
    même.}
  
- \paragraph{L'API ptrace}\cite{INTERCEPTION:AS, INTERCEPTION:MARION},
- qui est lui même un appel système permet de tracer tous les événement désirés
- d'un processus, mais aussi d'écrire et de lire directement dans l'espace
- d'adressage de ce dernier, à n'importe quel moment ou lorsque un événement
- particulier se produit selon le choix du processus. De cette façon il peut
- contrôler l'exécution d'un processus. C'est un appel système unique dont chaque
- action à effectuer est passée sous forme de requêtes en paramètre de l'appel
- système.
+ \paragraph{L'appel système ptrace}\cite{INTERCEPTION:AS, INTERCEPTION:MARION}
+ permet de tracer tous les événement désirés d'un processus, mais aussi d'écrire
+ et de lire directement dans l'espace d'adressage de ce dernier, à n'importe
+ quel moment ou lorsque un événement particulier se produit. De cette façon on peut contrôler l'exécution d'un processus. C'est
+ un appel système unique dont chaque action à effectuer est passée sous forme de
+ requêtes en paramètre de l'appel système.
 
-Pour pouvoir contrôler un processus via ptrace on va créer deux processus parent
-via un \textit{fork()}; un processus exécutera l'application et qu'on souhaite
-contrôler, appelé ``processus espionné'' et l'autre processus le contrôlera, il
-se sera appelé ``processus espion''. Le processus espionné indiquera au
+Pour pouvoir contrôler un processus via ptrace on va créer deux processus parents
+via un \textit{fork()}; un processus appelé ``processus espionné'' qui exécutera l'application et qu'on souhaite
+contrôler, et un autre qui contrôlera le processus espionné, appelé ``processus espion''. Le processus espionné indiquera au
 processus espion qu'il souhaite être contrôlé via un appel système ptrace et une
 requête PTRACE\_TRACEME puis il exécutera l'application via un
 \textit{exec()}. À la réception de cet appel le processus espion notifiera son
@@ -154,14 +152,14 @@ attachement au processus espionné via un autre appel à ptrace et une requête
 PTRACE\_ATTACH. Il indiquera également sur quelles actions du processus espionné
 il veut être notifié (chaque instruction, signal, sémaphore...), définissant
 ainsi les actions bloquantes pour le processus espionné. Dans notre cas, ce
-seront les appels systèmes que l'on considérera comme point d'arrêt pour le
-processus espionné, ainsi le processus espion sera appelé deux fois: à l'entrée
-et à la sortie de l'appel système. Ainsi quand un des processus de l'application
+seront les appels systèmes que l'on considérera comme points d'arrêts pour le
+processus espionné (requête PTRACE\_SYSCALL). Ainsi, le processus espion sera donc appelé deux fois: à l'entrée
+et à la sortie de l'appel système. De fait, quand un des processus de l'application
 voudra faire un appel système quelconque il sera bloqué avant de l'exécuter,
-l'appel système ptrace sera lancé et notifiera le processus espion. Ce dernier
+un appel système ptrace sera lancé et notifiera le processus espion lié au processus espionné. L'espion
 fera les modifications nécessaires dans les registres du processus espionné pour
 conserver la virtualisation de l'environnement grâce aux requêtes PEEK\_DATA et
-POKE\_DATA passées en argument de l'appel système. Puis il rendra la main au
+POKE\_DATA passées en argument de l'appel système {\color{red}ou en modifiant directement le contenu du /proc/id/mem}. Puis, il rendra la main au
 processus espionné bloqué pour que l'appel système puisse avoir lieu. Au retour
 de l'appel système le processus espionné sera de nouveau stoppé, un ptrace sera
 envoyé au processus espion qui remodifiera les informations nécessaires. Puis il
@@ -173,7 +171,7 @@ termine le processus espionné ou PTRACE\_DETACH qui le laisse continuer son
 exécution.
 
 {\color{red} Mettre un schéma attachement attente père attrape signal
-  modification main fils as retour père...}
+  modification main fils as retour père et vérification noyau...}
 
 Néanmoins, pour contrôler un processus ptrace fait de nombreux changements de
 contexte pour pouvoir intercepter et gérer les événements. De plus il supporte
@@ -203,26 +201,31 @@ aussi son plus gros défaut de par sa dangerosité. De plus, dans notre cas il n
 semble pas judicieux de faire de la programmation noyau via des modules dont il
 faudra également gérer le bon chargement.
 
-\paragraph{Seccomp/BPF}\cite{INTERCEPTION:seccomp_bpf}
+\paragraph{Seccomp/BPF:}
 %% Read only
-Seccomp est un mécanisme qui permet d'isoler un processus en lui donnant le
-droit d'appeler et d'exécuter qu'un certain nombre d'appels systèmes:
-\textit{read}, \textit{write}, \textit{exit} et \textit{sigreturn}. Si le
-processus fait un autre appel système, tout le processus sera arrêté avec un
-signal \textit{SIGKILL}. Comme cela est assez contraignant, le nombre
-d'applications que l'on peut utiliser avec seccomp est donc très limitée. Pour
-plus de flexibilité on peut utiliser avec seccomp l'outil BPF, pour
-\textit{Berkeley Packet Filter}. Ce dernier permet de spécifier pour chaque
-appel système une règle qui définit si on laisse l'appel système s'exécuter ou
-non \textit{en analysant l'appel système, ses paramètres et le risque qu'il
-  représente}. Ainsi à chaque entrée ou sortie d'un appel système que seccomp
-autorise, BPF est appelé et reçoit en entrée le numéro de l'appel système, ses
-arguments et le pointeur de l'instruction concernée. De plus BPF possède une
-option qui lui permet de générer un appel système ptrace() qu'il envoie au
-processus espion lié au processus faisant l'appel, s'il existe. Ce qui permet au
-processus espion de ne plus attendre sur chaque appel système du processus
-espionné, il ne sera donc plus appelé sur tous les appels systèmes mais
-uniquement sur les appels systèmes qu'il souhaite intercepter.
+Seccomp \cite{INTERCEPTION:seccomp_bpf} est un appel système qui permet d'isoler
+un processus en lui donnant le droit d'appeler et d'exécuter qu'un certain
+nombre d'appels systèmes: \textit{read}, \textit{write}, \textit{exit} et
+\textit{sigreturn}. Si le processus fait un autre appel système, tout le
+processus sera arrêté avec un signal \textit{SIGKILL}. Comme cela est assez
+contraignant, le nombre d'applications que l'on peut utiliser avec seccomp est
+donc très limité. Pour plus de flexibilité, on peut utiliser une extension de
+cet appel système appelée seccomp/BPF, pour \textit{seccomp Berkeley Packet
+  Filter}. Cette dernière permet de définir dans un programme BPF \footnote{Le programme fonctionne comme pour les sockets, mais dans notre cas les données sur lesquelles on applique les filtres ne sont plus les paquets réseaux mais les appels systèmes} \cite{INTERCEPTION:bpf} les appels systèmes autorisés à s'exécuter. Les filtres sont créés sous forme d'arborescence, quand on rajoute un filtre on rajoute un noeud. Pour chaque filtre ajouté il faut resynchronyser les processus utilisant cette arborescence pour filtrer leurs appels systèmes. Pour pouvoir s'exécuter un appel système doit pouvoir passer à travers toutes les règles. Dans le cas où les appels systèmes \textit{fork()} ou \textit{clone()} peuvent s'exécuter l'arborescence de filtre est transmise aux enfants de même pour les processus faisant des appels \textit{execve()} quand ils sont autorisés. Les règles des filtres BPF portent sur le type de l'appel système et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel système, ne faisant pas
+parti des quatre autorisés par seccomp, seccomp/BPF est appelé et
+reçoit en entrée le numéro de l'appel système, ses arguments et le pointeur de
+l'instruction concernée et en fonction des règles qu'il possède laisse l'appel
+système s'exécuter ou pas.
+
+De plus, seccomp/BPF possède une option qui lui permet de générer un appel
+système ptrace() qu'il envoie au processus espion lié au processus faisant
+l'appel, s'il existe. Ce qui permet au processus espion de ne plus attendre sur
+chaque appel système du processus espionné, mais uniquement sur les appels
+systèmes qu'il souhaite intercepter.
+
+Néanmoins, l'appel système seccomp et son extension seccomp/BPF ne sont disponibles que si le noyau est configuré avec l'option CONFIG\_SECCOMP pour la première et CONFIG\_SECCOMP\_FILTER pour la deuxième. Pour pouvoir créer des filtres il faut également avoir des droits particuliers notamment l'exécution de certaines commandes root. Ainsi, l'utilisation de cet appel système et de son extension demande une certaine configuration noyau et des privilèges pour les utilisateurs, ce qui n'est pas très conseillé.
+
+De plus, si on l'utilise sans l'option d'appel à ptrace on ne peut que lire le contenu de l'appel système et pas le modifier, on ne peut donc pas faire de médiation avec cet outil sans faire appel à ptrace. Le seul avantage en l'utilisant en parallèle de ptrace est que cela réduit le nombre d'événement sur lequel attendra le processus espion.
 
 %%Malgré ses défauts c'est donc l'appel système ptrace qui a été choisi.
 %% {\color{red} \textbf{gérer cette transition}} Néanmoins il a été montré dans un
