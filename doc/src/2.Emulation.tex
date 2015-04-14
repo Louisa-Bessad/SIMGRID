@@ -285,19 +285,43 @@ d'un programme.
 
 \paragraph{LD\_PRELOAD:}
 %pas suid
-La variable d'environnement \textbf{LD\_PRELOAD}\cite{INTERCEPTION:LD_PRELOAD}
-contient la liste des bibliothèques à précharger avant les autres et est
-utilisée par l'éditeur de lien à chaque lancement d'un programme. Cette variable
-modifie donc le comportement de l'éditeur de lien puisqu'elle modifie les
-bibliothèques préchargées par ce dernier. On va donc créer notre propre
-bibliothèque de fonctions surchargeant chaque fonction susceptible d'être
-utilisée par l'application. Une fonction surchargée contiendra alors toutes les
-modifications nécessaires pour maintenir notre environnement simulé suivi de
-l'appel à la fonction initiale puisque dans notre cas, on souhaite juste
-intercepter l'appel et pas l'empêcher. On préchargera cette bibliothèque avant
-les autres en la plaçant dans la variable LD\_PRELOAD, ainsi nos fonctions
-passeront avant les fonctions des bibliothèques usuelles et les fonctions de ces
-bibliothèques appelées par l'application seront interceptées.
+L'utilisation de la variable d'environnement
+\textbf{LD\_PRELOAD}\cite{INTERCEPTION:LD_PRELOAD}, contenant une liste de
+bibliothèqes partagées, va nous permettre d'intercepter les appels aux fonctions
+qui nous intéressent et d'en modifier le comportement. Cette variable est
+utilisée à chaque lancement d'un programme par l'éditeur de liens pour charger
+les bibliothèqes partagées qui doivent être chargées avant toute autre
+bibliothèque (même celles utilisées par le programme). Ainsi, si une fonction
+est définie dans plusieurs bibliothèqes différentes, celle utilisée par le
+programme sera celle qui est contenue dans la bibliothèque partagée qui apparaît
+en premier dans la liste des bibliothèques préchargées et pas forcément celle de
+la bibliothèque attendu par le programme. Par exemple, on créé une
+bibliothèque partagée qui implémente une fonction open() de même type que la
+fonction open() de la libc et on place cette bibliothèque dans la variable
+LD\_PRELOAD. Quand on exécute un programme faisant un appel à open(), l'éditeur
+de lien va d'abord charger les bibliothèques contenues dans la variable
+d'environnement LD\_PRELOAD puis la libc, la nouvelle bibliothèque apparaîtra
+donc avant la libc dans la liste des bibliothèques préchargées. Ainsi, c'est la
+nouvelle fonction open() qui sera exécutée par le programme et non l'orginale
+puisque la nouvelle bibliothèque apparaît avant la libc pour l'éditeur de
+lien. De cette façon, on peut intercepter n'importe quelle fonction.
+
+Dans notre cas, on va donc créer notre propre bibliothèque de fonctions. Pour
+chaque fonction susceptible d'être utilisée par l'application on crééra une
+fonction de même nom et de même type dans notre bibliothèqe. Chacune de nos
+fonctions contiendra alors toutes les modifications nécessaires pour maintenir
+notre environnement simulé suivi d'un appel à la fonction initiale puisque dans
+notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. Pour faire
+appel à la fonction initiale on ne peut pas simplement l'appeler par son nom
+puisque ce serait la nouvelle fonction qui serait appelée. On va donc utiliser
+dans notre nouvelle fonction les fonctions de la famille dlopen, notamment
+dlopen et dlsym. La première permette de charger une bibliothèque dynamique dont
+le nom est passé en paramètre et de récupérer un ``handle''\footnote{http://pubs.opengroup.org/onlinepubs/009695399/functions/dlopen.html \\ A successful dlopen() shall return a handle which the caller may use on subsequent calls to dlsym() and dlclose(). The value of this handle should not be interpreted in any way by the caller.} utilisé par dlsym
+pour trouver l'adresse de la fonction originale qui nous intéresse en mémoire,
+nous permettant ainsi d'y faire appel. Notre nouvelle bibliothèque sera
+préchargée avant les autres en la plaçant dans la variable LD\_PRELOAD, ainsi
+nos fonctions passeront avant les fonctions des bibliothèques usuelles et les
+fonctions de ces bibliothèques appelées par l'application seront interceptées.
 
 Néanmoins, si l'application fait un appel système directement sans passer par la
 couche \textit{Bibliothèques} Fig.~\ref{AS_Communication} notre mécanisme
