@@ -164,7 +164,7 @@ simulateur avant la sortie de l'AS
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30.03.2015 -> 10.04.2015
+** 30.03.2015 -> 14.04.2015
 *** Things done
 - Écriture Pré-rapport
 *** Blocking points
@@ -179,5 +179,7 @@ simulateur avant la sortie de l'AS
 *** TODO gérer intro 4 transition 3...
 *** TODO schéma différences entre les virtualisations
 *** TODO typo pour les citation, AS...
+- problème marge foot
+
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
