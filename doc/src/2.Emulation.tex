@@ -6,6 +6,31 @@ légère. La première est une émulation par limitation ou dégradation égalem
 appelée virtualisation standard et la seconde est une émulation par
 interception.
 
+%% \begin{figure}[H]
+%%  \begin{minipage}[b]{.46\linewidth}
+%%   \centering\epsfig{figure=Pictures/png/Virtualisation_limitation, scale=0.25}
+%%   \caption{Virtualisation standard \label{V_LIMITATION}}
+%%  \end{minipage} \hfill
+%%  \begin{minipage}[b]{.46\linewidth}
+%%   \centering\epsfig{figure=Pictures/png/Virtualisation_interception, scale=0.22}
+%%   \caption{Virtualisation par interception \label{V_INTERCEPTION}}
+%%  \end{minipage}
+%% \end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[b]{.46\linewidth}
+    \centering
+    \includegraphics[scale=0.25]{Pictures/png/Virtualisation_limitation}
+  \end{minipage} \hfill
+  \begin{minipage}[b]{.46\linewidth}
+    \centering
+    \includegraphics[scale=0.25]{Pictures/png/Virtualisation_interception}
+  \end{minipage} 
+  \caption{Virtualisation par limitation (à gauche) et par interception (à droite)}
+  \label{TYPE_VIRTUALISATION}
+\end{figure}
+
 \subsection{Virtualisation standard}
 %% \begin{itemize}
 %% \item principe: limiter l'accès aux ressources par exemple (cgroup, netstat, cpuburner), temps d'un SEB (bench avec netlink, limiter (cap))
@@ -26,7 +51,7 @@ dépasser les capacités de cette dernière. \textit{En effet, des machines ému
   émulées et l'application pourrait alors se rendre compte que l'architecture
   sur laquelle elle pense être n'est pas l'architecture réelle.}. De plus, en
 choisissant de placer l'émulation comme une sur-couche, cela permet de limiter
-l'accès aux ressources pour les applications. En effet les applications ne
+l'accès aux ressources pour les applications. En effet, les applications ne
 pourront pas passer la couche d'émulation pour accéder aux ressources localisées
 sur la machine hôte. Les requêtes des applications distribuées seront arrêtées
 par l'émulateur. C'est lui qui s'occupera de récupérer les ressources demandées
@@ -41,8 +66,8 @@ architectures plus performantes que l'hôte. De plus {\color{red} \textit{à
 \subsection{Émulation par interception}
 %% principe: interception des actions et médiation (pas juste interception et rejeu). Intercepter des symboles pour en changer l'effet
 
-Dans le cas de l'émulation par interception, \textit{pour mettre en place notre
-  environnement distribué émulée sur lequel les applications penseront
+Dans le cas de l'émulation par interception, \textit{pour mettre en place un
+  environnement distribué émulé sur lequel les applications penseront
   s'exécuter deux outils vont être utilisés;} un simulateur pour virtualiser
 l'environnement d'exécution et un émulateur qui va attraper toutes les
 communications de l'application avec l'hôte et qui les transmettra ensuite au
@@ -76,7 +101,7 @@ effet, \textit{si on se base sur l'horologe de la machine hôte pour gérer le
    sur la machine simulée, {\color{red} (pas changé à faire)}}. Les délais
  calculés par le simulateur sont soit des temps de calculs soit des temps de
  connexion. \textit{Quand le simulateur a terminé le calcul du temps de réponse
-   nécessaire il l'envoie à l'émulateur qui l'envoie à l'application en plus du
+   nécessaire, il l'envoie à l'émulateur qui l'envoie à l'application en plus du
    résultat du calcul demandé afin de mettre à jour l'horloge de l'application.}
  Ainsi les calculs sont réellement exécutés sur la machine, les communications
  réellement émises sur le réseau géré par le simulateur et c'est le temps de
@@ -89,8 +114,7 @@ effet, \textit{si on se base sur l'horologe de la machine hôte pour gérer le
   attrape réponse, simulateur, retour application, un quand simple calcul
   l'autre quand connexion}
 
-Pour intercepter ces actions, il faut d'abord choisir à quel niveau se place
-l'interception: code source ou binaire. Mais il faut également choisir sur quel
+Pour intercepter ces actions, il faut d'abord choisir à quel niveau se placer: code source ou binaire. Mais il faut également choisir sur quel
 type de symbole (appel système, appel de fonction...) utilisé par l'application
 pour exécuter ses actions se fera la \textit{médiation {\color{red} (c mieux
     mtnt que c expliaué plus haut?)}} qui suit l'interception et avec quel
@@ -103,7 +127,7 @@ UNIX.
 
 \begin{figure}[H]
  \centering
- \includegraphics[scale=0.5]{Pictures/Communication_application_noyau_v1.png}
+ \includegraphics[scale=0.5]{Pictures/png/Communication_application_noyau_v1.png}
  \caption{Communications possibles entre le noyau et une application}
  \label{AS_Communication}
 \end{figure}
@@ -124,8 +148,8 @@ Valgrind\cite{INTERCEPTION:Valgrind, INTERCEPTION:Valgrind_web} que nous allons
 étudier. À l'origine c'est un outil de programmation pour le débuguage mémoire,
 puis il a évolué pour devenir l'instrument de base à la création d'outils
 d'analyse dynamique de code, tels que la mise en évidence de fuites mémoires et
-le profilage de code\footnote{Méthode visant à analyser le code d'une
-  application pour connaître la liste des focntions appelées et le temps passé
+ou profilage\footnote{Méthode visant à analyser le code d'une
+  application pour connaître la liste des fonctions appelées et le temps passé
   dans chacune d'elles}. Valgrind fonctionne à la manière d'une machine
 virtuelle faisant de la compilation à volée\footnote{Technique basée sur la
   compilation de byte-code et la compilation dynamique. Elle vise à améliorer la
@@ -149,7 +173,7 @@ réponse dans l'environnement simulé nécessaire à l'émulateur. On pourrait
 l'émulateur doit modifier pour maintenir la virtualisation. Pour faire cela, il
 faut créer un ``wrapper'' pour chaque fonction qui nous intéresse. Un wrapper
 dans Valgrind est une fonction de type identique à celle que l'on souhaite
-intercepter, mais ayant un nom différent (généré par les MACRO de Valgrind) pour
+intercepter, mais ayant un nom différent (généré par les macro de Valgrind) pour
 la différencier de l'originale. Pour générer le nom du wrapper avec les macro de
 Valgrind on doit préciser la bibliothèque qui contient la fonction originale et
 utiliser un encodage spécifique à Valgrind. Cette opération est lourde et
@@ -235,22 +259,26 @@ autre.
 
 \paragraph{Uprobes}\cite{INTERCEPTION:AS, INTERCEPTION:MARION}
 %% Non module noyau
+%% kernel API (IBM) patch noyau = uprobes (LWN)
+%% coeur = uprobe_register(exec file, offset de placement du probe depuis le début du fic, struct contenant handler et filtre qui est optionnel permet de dire que faire a chaque touche differente du meme point) permet de trier les processus puisque exectubla et plus pid en param
+%% une version sans utrace (roland's tracehooks) et unee avec utrace pour gérer les points d'arrêt \textit{This file defines hook entry points called by core code where
+%%  11  * user tracing/debugging support might need to do something. }
 pour \textit{user-space probes}, quant à lui permet d'insérer dynamiquement des
 points d'arrêts à n'importe quel endroit dans le code d'une application, dans
-notre cas les appels systèmes. Pour chaque point d'arrêt l’utilisateur fournit
+notre cas les appels systèmes. Pour chaque point d'arrêt, l’utilisateur fournit
 un handler particulier à exécuter avant ou après l’instruction marquée. Uprobes
-étant un outil s'exécutant dans le noyau les handlers doivent être des
+étant un outil s'exécutant dans le noyau, les handlers doivent être des
 modules. Pour chaque point d'arrêt géré par Uprobes, on a donc un module noyau
 qui contient le handler à exécuter, ainsi que le processus et l'adresse
 virtuelle du point d'arrêt. Lorsqu'un point d'arrêt est atteint Uprobes prend la
 main et exécute le bon handler. Pour savoir qu'un point d'arrêt a été touché,
 Uprobes utilise Utrace, équivalent de ptrace en mode noyau. Ce dernier permet
-d'éviter les nombreux changements de contexte et qui est capable de gérer le
+d'éviter les nombreux changements de contexte et est capable de gérer le
 multithreading. Utrace peut également être utilisé dans le module gérant un
 point d'arrêt pour récupérer des informations sur l'application et les données
 qu'elle utilise.
 
-Les deux avantages de \textit{cette solution} est qu'elle est rapide et qu'elle a accès à
+Les deux avantages de \textit{cette solution} sont qu'elle est rapide et qu'elle a accès à
 toutes les ressources sans aucune restriction. Mais ce dernier point représente
 aussi son plus gros défaut de par sa dangerosité. De plus, dans notre cas il ne
 semble pas judicieux de faire de la programmation noyau via des modules dont il
@@ -261,8 +289,7 @@ faudra également gérer le bon chargement.
 Seccomp \cite{INTERCEPTION:seccomp_bpf} est un appel système qui permet d'isoler
 un processus en lui donnant le droit d'appeler et d'exécuter qu'un certain
 nombre d'appels systèmes: \textit{read}, \textit{write}, \textit{exit} et
-\textit{sigreturn}. Si le processus fait un autre appel système, tout le
-processus sera arrêté avec un signal \textit{SIGKILL}. Comme cela est assez
+\textit{sigreturn}. Si le processus fait un autre appel système, il sera arrêté avec un signal \textit{SIGKILL}. Comme cela est assez
 contraignant, le nombre d'applications que l'on peut utiliser avec seccomp est
 donc très limité. Pour plus de flexibilité, on peut utiliser une extension de
 cet appel système appelée seccomp/BPF, pour \textit{seccomp Berkeley Packet
@@ -305,12 +332,12 @@ l'utilisant en parallèle de ptrace est que cela réduit le nombre d'événement
 lequel attendra le processus espion.
 \newline
 Malgré ses défauts l'appel système ptrace semble être le meilleur outil pour
-faire de l'interception d'appels système. Néanmoins il a été montré dans un
-précédent stage \cite{INTERCEPTION:MARION} que l'appel système ptrace est
+faire de l'interception d'appels système. Néanmoins, il a été montré dans un
+précédent stage \cite{INTERCEPTION:MARION} qu'il est
 inefficace voir inutile en ce qui concerne tous les appels systèmes temporels
 qu'une application souhaiterait exécuter (\textit{time(), clock\_gettime(),
   gettimeofday()}). Lors de ce genre d'appel système le noyau ne lance pas
-l'appel. Cela est du à l'existence de la bibliothèque \textit{Virtual Dybamic
+l'appel. Cela est du à l'existence de la bibliothèque \textit{Virtual Dynamic
   Shared Object} (VDSO). Cette dernière vise à minimiser les coûts dûs aux deux
 changements de contexte effectués lors de l'exécution d'un appel système. VDSO
 va retrouver l'heure \textit{{\color{red}dans le contexte noyau}} lisible par tous les
@@ -359,8 +386,8 @@ bibliothèque apparaît avant la libc pour l'éditeur de lien. De cette façon, 
 peut intercepter n'importe quelle fonction.
 
 Dans notre cas, on va donc créer notre propre bibliothèque de fonctions. Pour
-chaque fonction susceptible d'être utilisée par l'application on crééra une
-fonction de même nom et de même type dans notre bibliothèqe. Chacune de nos
+chaque fonction susceptible d'être utilisée par l'application, on crééra une
+fonction de même nom et de même type dans notre bibliothèque. Chacune de nos
 fonctions contiendra alors toutes les modifications nécessaires pour maintenir
 notre environnement simulé suivi d'un appel à la fonction initiale puisque dans
 notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. Pour faire
@@ -382,12 +409,12 @@ bibliothèques appelées par l'application seront interceptées.
 Néanmoins, si l'application fait un appel système directement sans passer par la
 couche \textit{Bibliothèques} Fig.~\ref{AS_Communication} notre mécanisme
 d'interception est contourné. En effet on ne peut surcharger que des fonctions
-avec cette solution, pas des appels systèmes. De même si on oublie de réécrire
+avec cette solution, pas des appels systèmes. De même, si on oublie de réécrire
 une fonction d'une des bibliothèques utilisée par l'application. Cette solution
 n'est donc pas suffisante pour le modèle d'interception que nous souhaitons
 avoir.
 
-\textit{Cependant, on peut voir que LD\_PRELOAD résout les lacuns de ptrace
+\textit{Cependant, on peut voir que LD\_PRELOAD résout les lacunes de ptrace
   concernant: les fonctions de temps et le multithreading. À l'inverse, puisque
   ptrace permet d'intercepter les appels systèmes que le modèle d'interception
   avec LD\_PRELOAD ne permet pas de gérer on peut dire que ptrace résout les
@@ -398,6 +425,30 @@ avoir.
   est certain de n'oublier aucune fonction.}
 
 \paragraph{Got injection:}
-%% plus dur que nécessaire   
+%% plus dur que nécessaire
 
-{\color{red} \textit{petit tableau comparatif}}
+\begin{table}[H]
+\begin{tabular}{c|c|c|c|c|}
+\cline{2-5}
+                                                                                       & Source to Source & \begin{tabular}[c]{@{}c@{}}Réimpplémentation \\ SMPI\end{tabular} & Coccinelle & Valgrind  \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau \\ d'interception\end{tabular}} & Source           & Source                                                            & Source     & Binaire   \\ \hline
+\multicolumn{1}{|c|}{Coût}                                                             & ?                & ?                                                                 & ?          & Important \\ \hline
+\multicolumn{1}{|c|}{Utilisation}                                                      & ?                & ?                                                                 & ?          & Complèxe  \\ \hline
+\end{tabular}
+  \caption{Comparaison des différentes solutions d'interception au niveau de l'application}
+  \label{TAB_COMP_APPLI}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+  \begin{tabular}{c|c|c|c|c|c|}
+    \cline{2-6}
+    & ptrace                                                    & Uprobes                                                  & seccomp/BPF                                              & LD\_PRELOAD  & Got Injection \\ \hline
+    \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau\\ d'interception\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}   & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} & Bibliothèque & Bibliothèque  \\ \hline
+          \multicolumn{1}{|c|}{Coût}                                                            & Moyen                                                     & Faible(?)                                                & ?                                                        & Faible       & ?             \\ \hline
+          \multicolumn{1}{|c|}{Utilisation}                                                     & \begin{tabular}[c]{@{}c@{}}Assez \\ complèxe\end{tabular} & ?                                                        & ?                                                        & Simple       & ?             \\ \hline
+  \end{tabular}
+    \caption{Comparaison des différentes solutions d'interception entre l'application et le noyau}
+  \label{TAB_COMP_OTHER}
+\end{table}

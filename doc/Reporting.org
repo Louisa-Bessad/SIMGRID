@@ -164,11 +164,12 @@ simulateur avant la sortie de l'AS
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30.03.2015 -> 14.04.2015
+** 30.03.2015 -> 16.04.2015
 *** Things done
 - Écriture Pré-rapport
 *** Blocking points
 - place de "temps d'un SEB (netlink et cap)" dans le 2.1
+- pq pas systemtap, uprobes raison suffisante pour éviter ce choix
 *** Planned work 
 - Continuer la biblio
 *** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose et remerciements
@@ -177,7 +178,7 @@ simulateur avant la sortie de l'AS
 *** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
 *** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
 *** TODO gérer intro 4 transition 3...
-*** TODO schéma différences entre les virtualisations
+*** DONE schéma différences entre les virtualisations
 *** TODO typo pour les citation, AS...
 - problème marge foot
 
