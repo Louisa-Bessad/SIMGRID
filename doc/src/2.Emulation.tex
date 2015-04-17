@@ -243,30 +243,85 @@ exécution, si elle est disponible, peut varier d'une machine à une autre.
 \paragraph{Uprobes}\citet{INTERCEPTION:AS, INTERCEPTION:MARION}
 %% Non module noyau
 
-%% kernel API (IBM) patch noyau = uprobes (LWN)
-%% coeur = uprobe_register(exec file, offset de placement du probe depuis le début du fic, struct contenant handler et filtre qui est optionnel permet de dire que faire a chaque touche differente du meme point) permet de trier les processus puisque exectubla et plus pid en param
-%% une version sans utrace (roland's tracehooks) et unee avec utrace pour gérer les points d'arrêt \textit{This file defines hook entry points called by core code where
-%%  11  * user tracing/debugging support might need to do something. }
-pour \textit{user-space probes}, quant à lui permet d'insérer dynamiquement des
-points d'arrêts à n'importe quel endroit dans le code d'une application, dans
-notre cas les appels systèmes. Pour chaque point d'arrêt, l’utilisateur fournit
-un handler particulier à exécuter avant ou après l’instruction marquée. Uprobes
-étant un outil s'exécutant dans le noyau, les handlers doivent être des
-modules. Pour chaque point d'arrêt géré par Uprobes, on a donc un module noyau
-qui contient le handler à exécuter, ainsi que le processus et l'adresse
-virtuelle du point d'arrêt. Lorsqu'un point d'arrêt est atteint Uprobes prend la
-main et exécute le bon handler. Pour savoir qu'un point d'arrêt a été touché,
-Uprobes utilise Utrace, équivalent de ptrace en mode noyau. Ce dernier permet
-d'éviter les nombreux changements de contexte et est capable de gérer le
-multithreading. Utrace peut également être utilisé dans le module gérant un
-point d'arrêt pour récupérer des informations sur l'application et les données
-qu'elle utilise.
+%% pour \textit{user-space probes}, quant à lui permet d'insérer dynamiquement des
+%% points d'arrêts à n'importe quel endroit dans le code d'une application, dans
+%% notre cas les appels systèmes. Pour chaque point d'arrêt, l’utilisateur fournit
+%% un handler particulier à exécuter avant ou après l’instruction marquée. Uprobes
+%% étant un outil s'exécutant dans le noyau, les handlers doivent être placé dans
+%% un module. Pour chaque point d'arrêt géré par Uprobes, le module noyau contient
+%% le handler à exécuter, ainsi que le processus et l'adresse virtuelle du point
+%% d'arrêt. Lorsqu'un point d'arrêt est atteint Uprobes prend la main et exécute le
+%% bon handler. Pour savoir qu'un point d'arrêt a été touché, Uprobes utilise
+%% Utrace, équivalent de ptrace en mode noyau. Ce dernier permet d'éviter les
+%% nombreux changements de contexte et est capable de gérer le
+%% multithreading. Utrace peut également être utilisé dans le module gérant un
+%% point d'arrêt pour récupérer des informations sur l'application et les données
+%% qu'elle utilise.
+
+%% Les deux avantages de cette solution sont qu'elle est rapide et qu'elle a accès
+%% à toutes les ressources sans aucune restriction. Mais ce dernier point
+%% représente aussi son plus gros défaut de par sa dangerosité. De plus, dans notre
+%% cas il ne semble pas judicieux de faire de la programmation noyau via un
+%% module dont l'utilisateur devra également gérer le bon chargement.
+
+pour \textit{user-space probes}, quant à lui est une API noyau permettant
+d'insérer dynamiquement des points d'arrêts à n'importe quel endroit dans le
+code d'une application, dans notre cas les appels systèmes, et à n'importe quel
+moment de son exécution.
+
+Il existe deux versions de Uprobes la première est basée sur les ``trace
+hook\footnote{\url{http://fr.wikipedia.org/wiki/Hook\_\%28informatique\%29}}''\textbf{{\color{red}citation}}. Cette
+solution ne sera pas développée ici car elle est très peu utilisée
+\textbf{{\color{red} à vérifier}}.
+
+La seconde, la plus connue, se base sur Utrace, équivalent de ptrace en mode
+noyau. Ce dernier permet d'éviter les nombreux changements de contexte, qui
+dégradent les performances, et est capable de gérer le multithreading. Dans
+cette version l'utilisateur fournit pour chaque point d'arrêt un handler
+particulier à exécuter avant ou après l’instruction marquée. Uprobes étant un
+outil s'exécutant dans le noyau, les handlers doivent être placé dans un module
+noyau. Ce dernier contient pour chaque point d'arrêt géré par Uprobes le handler
+à exécuter, ainsi que le pid du processus concerné et l'adresse virtuelle du
+point d'arrêt. Pour gérer un point d'arrêt Uprobes utilise trois structures de
+données \textit{i)} uprobe\_process (une par processus controlé), \textit{ii)}
+uprobe\_task (autant que le processus contrôlé a de thread), \textit{iii)}
+uprobe\_kimg (un pour chaque point d'arrêt affectant un procesus). Chaque
+structure uprobe\_task et uprobe\_kimg est propre à une structure
+uprobe\_process. La fonciton \textit{init()} du module va poser les points
+d'arrêt et la fonciton \textit{exit()} les enlevera, pour cela on utilise
+respectivement la fonction \textit{register\_uprobe} et
+\textit{unregister\_uprobe}. Ces deux fonctions ont pour argument le pid du
+processus à contrôler ainsi que l'adresse virtuelle du point d'arrêt dans le
+code et le handler à exécuter quand le point d'arrêt est atteint. La fonction
+register\_uprobes va trouver le processus passé en paramètres en parcourant la
+liste des structures uprobes\_process ou la crééra si cette dernière n'existe
+pas. Ensuite, elle crée la structure uprobe\_kimg, puis fait appel à Utrace pour
+bloquer l'application, le temps de placer le point d'arrêt dans le code de
+celle-ci. Pour cela, on copie l'instruction sondée et on remplace les permiers
+octets de cette dernière par l'adresse du module contenant le handler à
+invoquer, puis on rend la main à l'application en utilisant de nouveau Utrace.
+Unregister\_uprobe fait de même mais supprime la structure uprobe\_kimg passée
+en paramètre au lieu de l'ajouter. De plus, s'il s'agit de la dernière structure
+de ce type pour un processus contrôlé, il supprimera alors la structure
+uprobe\_process et toutes les uprobe\_task associées.
+
+Lorsqu'un point d'arrêt est atteint Uprobes prend la main et exécute le bon
+handler. Pour savoir qu'un point d'arrêt a été touché, Uprobes utilise de
+nouveau appel à Utrace, ce dernier lui envoyant un signal à chaque fois que le
+processus qu'il contrôle atteint un point d'arrêt.
+
+Utrace envoie également un signal à Uprobes quand un des processus contrôlé fait
+un appel à \textit{fork()/clone()}, \textit{exec()}, \textit{exit} pour que ce
+dernier créé ou supprime les structures uprobe\_process concernées. Utrace peut
+également être utilisé dans le handler gérant un point d'arrêt pour récupérer
+des informations sur l'application et les données qu'elle utilise. De plus, un
+handler peut également ajouter ou enlever des points d'arrêts.
 
 Les deux avantages de cette solution sont qu'elle est rapide et qu'elle a accès
 à toutes les ressources sans aucune restriction. Mais ce dernier point
 représente aussi son plus gros défaut de par sa dangerosité. De plus, dans notre
-cas il ne semble pas judicieux de faire de la programmation noyau via des
-modules dont il faudra également gérer le bon chargement.
+cas il ne semble pas judicieux de faire de la programmation noyau via un module
+dont l'utilisateur devra également gérer le bon chargement.
 
 \paragraph{Seccomp/BPF:}
 %% Read only
