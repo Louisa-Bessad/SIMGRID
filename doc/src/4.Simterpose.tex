@@ -60,26 +60,25 @@ problème on va utiliser en plus du numéro de socket, les adresses IP et les
 ports locaux et distants des deux entités qui souhaitent communiquer comme moyen
 d'identification. Pour gérer toutes ces modifications deux solutions ont été
 proposées lors d'un précédent stage
-\cite{interception:GUILLAUME:interception_syscall}: la \textit{médiation par
+\citet{interception:GUILLAUME:interception_syscall}: la \textit{médiation par
   traduction d'adresse} et la \textit{full médiation}.
 
 {\color{red}schéma}
 \paragraph{Traduction d'adresse}
  Avec ce type de médiation on considère que le noyau gère des
  communications. Ainsi en entrée et sortie d'appel système Simterpose va juste
- s'occuper de la transition entre \textit{le réseau virtuel simulé par SIMGRID
-   et le réseau local}, en utilisant les informations de communications
- contenues dans la socket. Pour cela, Simterpose gère un tableau de
- correspondances, dans lequel pour chaque couple adresse IP et des ports
- virtuels, on a un couple adresse IP et ports réels sur le réseau associé.  De
- fait, en entrée d'un appel système de type réseau (bind, connect, accept ...),
- Simterpose doit remplacer l'adresse et les ports virtuels de l'application par
- l'adresse et les ports réels sur le réseau local, \textit{pour que la source de
-   l'appel système corresponde à une machine existante sur le réseau local}. Au
- retour de l'appel système il faudra remodifier les paramètres en remettant
- l'adresse et les ports virtuels pour que l'application pense toujours être dans
- son environnement simulé.  La limite de cette approche est liée au nombre de
- ports disponibles sur l'hôte.
+ s'occuper de la transition entre le réseau virtuel simulé par SIMGRID et le
+ réseau local, en utilisant les informations de communications contenues dans la
+ socket. Pour cela, Simterpose gère un tableau de correspondances, dans lequel
+ pour chaque couple adresse IP et des ports virtuels, on a un couple adresse IP
+ et ports réels sur le réseau associé.  De fait, en entrée d'un appel système de
+ type réseau (bind, connect, accept ...), Simterpose doit remplacer l'adresse et
+ les ports virtuels de l'application par l'adresse et les ports réels sur le
+ réseau local, afin que la source de l'appel système corresponde à une machine
+ existante sur le réseau local. Au retour de l'appel système il faudra
+ remodifier les paramètres en remettant l'adresse et les ports virtuels pour que
+ l'application pense toujours être \textit{dans un environnement distribué.}  La
+ limite de cette approche est liée au nombre de ports disponibles sur l'hôte.
 
 \paragraph{Full médiation} 
 Dans ce cas, le noyau ne va plus gérer des communications car nous allons
@@ -89,14 +88,14 @@ n'a pas besoin de gérer de tableau de correspondance d'adresse et de ports et
 les applications peuvent conserver les adresses et les ports simulées qu'elles
 considèrent comme réels. Quand l'application voudra faire un appel système de
 type communication ou connexion vers une autre application, le processus espion
-de Simterpose qui sera notifié via ptrace neutralisera l'appel système. Ensuite
-ce processus en utilisant ptrace récupérera en lisant dans la mémoire du
-processus espionné les informations à envoyer ou récupérer et ira directement
-lire ou écrire ces informations dans la mémoire du destinataire.  Même si la
-\textit{full médiation} permet d'éviter les communications réseaux et de
-conserver des tables de correspondances, \textit{elle s'avère moins efficace
+de Simterpose qui sera notifié via ptrace neutralisera l'appel
+système. \textit{Ensuite, ce processus en utilisant ptrace récupérera, en lisant
+  dans la mémoire du processus espionné, les informations à envoyer ou récupérer
+  et ira directement les lire ou les écrire dans la mémoire du destinataire.}
+Même si la \textit{full médiation} permet d'éviter les communications réseaux et
+de conserver des tables de correspondances, elle s'avère moins efficace
   dans le cas d'applications qui communiquent énormément et utilisent de grosses
-  données}. En effet, les appels à la mémoire sont bien plus coûteux que les
+  données. En effet, les appels à la mémoire sont bien plus coûteux que les
 communications réseau.
 
 \subsection{Les thread}
