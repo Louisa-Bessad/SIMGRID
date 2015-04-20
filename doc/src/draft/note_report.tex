@@ -1,0 +1,60 @@
+-------------------------------------------------------------
+UPROBES
+utrace monitor individuellement les thread Linux
+- une version sans utrace (roland's tracehooks) et unee avec utrace pour gérer les points d'arrêt 
+
+kernel API (IBM) patch noyau = uprobes (LWN)
+crée et gère probepoints ds appli utilisateur
+
+uprobes c'est:
+- fonction init du module qui pose les points etfonction clean les enlève
+%% %% - points d'arrêt dans noyau via kprobes
+- ~~~~ handler peut dynamiquement ajouter, enlever probes
+%% - pas limitation du nb process et thread, points d'arrêt mis quand on veut ds exec prog, et plusieurs module different peuvent taper les meme points de meme proc
+%% - chaque processus possède sa copie de la page de point d'arret maj à chaque
+%% modification des pints
+%% -handler x dans le contexte du processus donc pas changement contexte pour aller dans le parent co ptrace
+- struct de donnees pr chaque tache uprobe_task et pour chaque processus uprobe_process etpour chaque opoin d'arret uprobe_kimg (Kernel IMaGe) 1 et 3 contenu dans 2
+%% %- probe point commun à tous les thread puisque partage zone code
+- coeur = uprobe_register(pid, offset de placement du probe depuis le début du fic, struct contenant handler et filtre qui est optionnel permet de dire que faire a chaque touche differente du meme point)
+- register_uprobe() et unregister_uprobe() chacun prend un pointeur sur un point d'arrê décrit dans le module noyau uprobe object ( pid @V handler)
+- registr trouve le proc specifie en parcourant uprobe_process ou le crée sinon ainsi que la tâche. Puis crée le point d'arrêt et appel uutrace pour placer le point d'arrêt  et bloque le proc et tous ses thread pendant ce temps puis retour
+- de meme pr unregister, par contre si dernier kimg supprime toutes les tructures uprobe_process et uprobe_tasks
+- qd point arret save, uprobes copie l'instruction sondée, stop appli, remplace 1ers o de l'inst par le module ocntenant le handler à invoquer puis rend la main a l'appli
+
+%% - rapide permet eviter  la multiplication des changements de contexte qui nuit aux perf
+
+
+-------------------------------------------------------------
+DISTEM
+C quoi:
+- logiciel pour construire des environnements de test distribués virtuels grâvce ens d'outils de Linux (LXC, CPU frequence et traffic ctrl)
+- a partir d'un ensemble de noeuds homogènes on peut émuler une plateforme de noeud hétérogènes (nb et perf de coeurs de CPU connecré à un réseau virtuel
+- solution de virtualisation légère utilisée = LXC (LinuX Container) pour permettre le passage à l'echelle (40000 noeuds virtuels)
+- différentes interfaces selon les besoins des utilisateurs et e lengage de prog qu'ils veulent utiliser pour leur expériences (Script shell, ruby programs), user-griendly, logiciel libre.
+
+Archi:
+- simple, combine plusieurs outils libres et technologies efficaces dans leur domaine pour atteindre son objectif
+- config automatique des tables de routage en fonction de la topologie réseau fournie
+
+émulation de l'hétérogénéité:
+- inversement possible
+- changement à la volée des paramètres du réseau et de la vitesse du processeur (émulation de ressources CPU Distem est l'unique logiciel à utiliser cet outil)
+- les coeurs physique de la machine peuvent  être alloué à un VN particulier et la vitesse de chaque coeur peut etre controllé pour être plus faible que la vitesse normal
+=> ces 2 points permettent d'approcher à maximum de la réalité.
+
+Comment:
+- 1 specifier un res virtuel avec ltaence et bp ctrl sur chaque lien en in et out
+- 2 emuler cap CPU degradees
+- 3 pls Vnodes sur un PN
+- Pnodes = noeuds physique non virtualisé pour la base de son infrastructure. Chaque pnode peut contenir plusieurs Vnodes. Les Vnodes sont séparé et n'ont pas conscience de la présence des autres Vnodes sur le Pnodes
+- tous les Vnodes sont connectés sur un réseau Ethernet virtualisé
+- chaque Pnodes possède son démon Distem qui controle les vnodres qu'il héberge. Le ctrl des liaisons et autres ressources sont pour Vnodes.
+- un des Pnodes est le coordinator il est responsable du controle de l'infrastructure dans sa globalité en comuniquand ave les autres Pnodes.
+- Vnode = LXC (conteneur possède un espace @ speare pour les ressources sytèmes: taches interfaces res, mémoire, DD..., mais partage version du noyau et le processuer => pb pour l'heterogeneite des perfs cpu des VM => utilisation de Linux Control Groups pour pouvoir assigner des coeurs à des conteurs. pour ctrl la vitesse des coeur assigné on utilise CPU-Hogs \textbf{citation et explciation}
+- chaque vnode peut avoir pls interface res virtuelles. toutes les veth interfaces sont regroupées avec le reseau physique pr que chacun puisse accéder au réseau => partage du reseau Ethernet entre les differents res IP si aps séparés => pb ARP poisoning => modif taille et duree tables arp dans le noyau mais aps scalable => utilisation de VXLAN pour ajouter une couche d'abstraction dans le res quand on sort du Pnodes on route en direction du Pnodes contenant le Vnode destinataire et pas l'à du dest direct c arrive dans le Pnode que la couche VXLAN renverra au bon Vnode
+- BP controlé par algo TBF, latence par netem file en entrée et en sortie indépendant
+gère injection de faute sur res et sur les noeud
+
+ccl:
+res emule et infra detailles et realistes, simple et robuste mais limité à la reduction de perf pas emulation de ammchines plus rapides.

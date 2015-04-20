@@ -164,7 +164,7 @@ simulateur avant la sortie de l'AS
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30.03.2015 -> 17.04.2015
+** 30.03.2015 -> 20.04.2015
 *** Things done
 - Écriture Pré-rapport
 *** Blocking points
@@ -173,6 +173,7 @@ simulateur avant la sortie de l'AS
 *** Planned work 
 - Continuer la biblio
 *** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose et remerciements
+*** TODO revoir uprobes
 *** TODO outil du 2.1 à détailler
 *** DONE reprendre les images
 *** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
@@ -180,6 +181,10 @@ simulateur avant la sortie de l'AS
 *** TODO gérer intro 4 transition 3...
 *** DONE schéma différences entre les virtualisations
 *** TODO typo pour les citation, AS...
+*** TODO Simgrid is not a simulator
+*** TODO placer:
+On parle de n\oe uds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
+- parler des solutions qui n'existent plus?
 - problème marge foot
 
 * Conclusion

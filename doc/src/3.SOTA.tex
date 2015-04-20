@@ -9,6 +9,37 @@
 \subsection{Distem}
 %Partie virtualisation standard
 
+Distem \citep{DISTEM} est un outil libre de virtualisation par limitation tel que nous l'avons défini dans la section\ref{section:limitation}. À partir d'un ensemble de n\oe uds homogènes, il peut émuler une plateforme de n\oe uds hétérogènes connectés via un réseau lui-même virtuel. Cet émulateur supporte parfaitement le passage à l'échelle puisqu'en 2014 40000 n\oe uds ont été émulés en utilisant moins de 170 machines physiques \citep{DISTEMbuchert2014emulation}. De plus, cet outil qui se veut simple d'utilisation propose différentes interfaces selon les besoins et la ???\textit{c quoi le mot que je cherche!!!} de l'utilisateur.
+
+Pour mettre en place l'émulation via Distem on commence par spécifier la latence et la bande passante en entrée et en sortie de chaque lien du réseau virtuel. Ensuite, on définit les performances de chaque n\oe ud émulé. Autrement dit et c'est ce que montre la Figure\ref{Distem_core}, on va allouer à chaque n\oe ud virtuel un certain nombre de c\oe urs du processeur de la machine physique dont on pourra controller la fréquence indivuellement.
+
+  \begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.70]{Pictures/png/Distem_repartion_coeurs_v1}
+  \caption{Répartition des c\oe urs d'un processeur d'une machine hôte entre les différents noeuds virtuels qu'elle héberge et émulation de leur puissance en utilisant qu'une partie de leur puissance.}
+  \label{Distem_core}
+  \end{figure}
+  
+On finit par construire l'environnement de test en plaçant les n\oe uds virtuels sur une machine physique. Pour que son environnement de test se rapproche au plus près de la réalité Distem est capable de changer à la volée les paramètres du réseau et la vitesse de chaque c\oe ur alloué à un n\oe ud virtuel.
+
+\begin{figure}
+  \centering
+  \includegraphics{Pictures/png/Distem_architecture}
+  \caption{Architecture de communication de Distem. On a 3 n\oe uds physique (``Pnodes'') contenant chacun 3 n\oe uds virtuels (``Vnodes'')}
+  \label{Distem_archi}
+\end{figure}
+
+Comme le présente la Figure\ref{Distem_archi}, Distem repose sur une architecture simple pour construire un environnement de test distribué virtuel : les ``Pnodes'' et les ``Vnodes''. Les premiers sont des n\oe uds physiques non virtualisés alors que les seconds représentent les n\oe ds que l'on souhaite émuler. Un des ``Pnodes'' appelé ``coordinator'' gère le contrôle de l'infrastructure dans sa globalité en communiquant avec l'ensemble des ``Pnodes''. Ces derniers peuvent héberger plusieurs ``Vnodes'', chaque ``Pnode'' possèdant son démon Distem qui contrôle les ``Vnodes'' qu'il héberge. Les ``Vnodes'' sont séparés et n'ont pas conscience de la présence d'autres ``Vnodes'' sur le ``Pnode'' qui les héberge. Pour permettre cela, Distem utilise un containeur LXC pour émuler un ``Vnode''. Ainsi, chaque ``Vnode'' possède un espace d'adressage séparé pour les ressources sytème (tâches, interfaces réseau, mémoire...). Néanmoins les containeurs LXC partagent l'utilisation du processeur, ainsi on ne peut pas attribuer un certain nombre de c\oe urs de CPU à ``Vnode'' et il n'y a donc pas d'émulation de performance CPU. Pour pallier ce problème, Distem utilise en parallèle le \textit{Linux Control Group{\color{red} todo définir}} pour assigner des c\oe urs à un ``Vnode'' et pour controler leur puissance, il utilise l'algorithme \textit{CPU-Hogs{\color{red} todo définir}} \citep{DISTEMbuchert2011methods}. Ainsi les ``Vnodes'' ont conscience les uns des autres uniquement via le réseau virtuel. Chaque ``Vnodes'' possède une ou plusieurs interfaces réseau virtuelles reliées au réseau physique de l'hôte afin que les ``Vnodes'' puissent communiquer avec l'extérieur. Du fait du grand nombre de n\oe uds qu'on souhaite émuler et qui vont communiquer entre eux cet accès au réseau extérieur pose problème. En effet, pour se reconnaître les n\oe uds vont faire des requêtes ARP et s'ils sont trop nombreux à envoyer ces requêtes en même temps on va se retrouver face à un problème d'ARP flooding. La première solution mise en place par Distem a été d'augmenter la taille des tables ARP pour les ``Pnodes'' et les ``Vnodes'' ainsi que l'augmentation du \textit{timeout} d'une entrée dans la table. Néanmoins, le but de Distem étant de pouvoir émuler de plus en plus de n\oe uds cette solution ne peut s'appliquer indéfiniment. Une autre solution, qui est celle utilisée actuellement, est de rajouter une couche d'abstraction réseau à l'intérieur du ``Pnode'' en utilisant VXLAN\citep{DISTEMbuchert2014emulation} comme le montre la figure\ref{Distem_VXLAN}. Ainsi, les paquets seront échangés entre ``Pnodes'' sur le réseau et c'est la couche VXLAN qui s'occupera d'envoyer au bon ``Vnodes'' le paquet reçu sur le ``Pnodes''. Ces derniers étant très peu nombreux on est sûrs de ne pas surcharger les tables ARP.
+
+\begin{figure}%[H]
+  \centering
+  \includegraphics[scale=0.5]{Pictures/png/Distem_VXLAN}
+  \caption{Abstractions des communications réseaux de Distem via VXLAN. Les paquets en gras sont ceux envoyés en présence de VXLAN et ceux en italiques sont ceux qui seraient envoyés sur un réseau n'utilisant pas VXLAN}
+  \label{Distem_VXLAN}
+\end{figure}
+
+On peut donc voir que Distem possède une infrastructure et un réseau émulés bien détaillés et assez réalistes. De plus il est capable de gérer les fautes injectées au niveau des n\oe uds ou sur le réseau. Son seul problème est donc de limiter l'émulation empêchant ainsi l'émulation de machines plus rapides. 
+
 \subsection{MicroGrid}
 \subsection{DETER}
 \subsection{ROBOT}
