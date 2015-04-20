@@ -8,14 +8,18 @@ interception.
 
 \begin{figure}[H]
   \centering
-  \begin{minipage}[b]{.46\linewidth}
-    \centering
-    \includegraphics[scale=0.25]{Pictures/png/Virtualisation_limitation}
-  \end{minipage} \hfill
-  \begin{minipage}[b]{.46\linewidth}
-    \centering
-    \includegraphics[scale=0.25]{Pictures/png/Virtualisation_interception}
-  \end{minipage} 
+  %\begin{minipage}[b]{.46\linewidth}
+  \begin{subfigure}{0.3\textwidth}
+  %\centering
+    \includegraphics[scale=0.35]{Pictures/png/Virtualisation_limitation}
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    %\end{minipage} \hfill
+  %\begin{minipage}[b]{.46\linewidth}
+    %  \centering
+    \includegraphics[scale=0.3]{Pictures/png/Virtualisation_interception}
+    %  \end{minipage} 
+  \end{subfigure}
   \caption{Virtualisation par limitation (à gauche) et par interception (à droite)}
   \label{TYPE_VIRTUALISATION}
 \end{figure}
@@ -126,8 +130,8 @@ Nous allons donc voir comment on peut intercepter et modifier des actions au niv
 \subsubsection{Action sur le binaire}
 %%Valgrind (perf pourrie)
 Pour agir sur le binaire d'une application, c'est l'outil d'instrumentation
-d'analyse dynamique Valgrind\citet{INTERCEPTION:Valgrind,
-  INTERCEPTION:Valgrind_web} que nous allons étudier. À l'origine il est utilisé
+d'analyse dynamique Valgrind\citet{INTERCEPTIONValgrind,
+  INTERCEPTIONValgrindweb} que nous allons étudier. À l'origine il est utilisé
 pour le débuguage mémoire, puis il a évolué pour devenir l'instrument de base à
 la création d'outils d'analyse dynamique de code, tels que la mise en évidence
 de fuites mémoires et ou profilage\footnote{Méthode visant à analyser le code
@@ -163,7 +167,7 @@ utiliser un Z-encodage\footnote{ Permet de rendre des caractères valides pour
 est lourde et complexe. De plus, elle nécessite de connaître le nom de la
 bibliothèque qui contient la fonction qui nous intéresse. Cette solution est
 donc assez contraignante et ses performances sont assez médiocres d'après
-l'étude faite par M. Guthmuller lors de son stage \citet{INTERCEPTION:MARION}:
+l'étude faite par M. Guthmuller lors de son stage \citep{INTERCEPTIONMARION}:
 facteur de 7.5 pour le temps d'exécution d'une application avec cet outil. Cette
 perte de performance est due à la compilation faite en deux phases ainsi qu'au
 temps nécessaire aux outils de Valgrind pour modifier ou rajouter du code à
@@ -192,7 +196,7 @@ ou sortir de l'appel système.
  Nous allons donc voir comment il est possible de faire cela, puisque de
  nombreux outils existent.
  
- \paragraph{L'appel système ptrace}\citet{INTERCEPTION:AS, INTERCEPTION:MARION}
+ \paragraph{L'appel système ptrace}\citet{INTERCEPTIONAS, INTERCEPTIONMARION}
  permet de tracer tous les événement désirés d'un processus, mais aussi d'écrire
  et de lire directement dans l'espace d'adressage de ce dernier, à n'importe
  quel moment ou lorsque un événement particulier se produit. De cette façon on
@@ -240,7 +244,7 @@ plusieurs centaines de cycle CPU. De plus, il supporte mal les processus
 utilisant du multithreading, et ne fait pas parti de la norme POSIX donc son
 exécution, si elle est disponible, peut varier d'une machine à une autre.
 
-\paragraph{Uprobes}\citet{INTERCEPTION:AS, INTERCEPTION:MARION}
+\paragraph{Uprobes}\citet{INTERCEPTIONAS, INTERCEPTIONMARION}
 %% Non module noyau
 
 %% pour \textit{user-space probes}, quant à lui permet d'insérer dynamiquement des
@@ -277,9 +281,9 @@ solution ne sera pas développée ici car elle est très peu utilisée
 La seconde, la plus connue, se base sur Utrace, équivalent de ptrace en mode
 noyau. Ce dernier permet d'éviter les nombreux changements de contexte, qui
 dégradent les performances, et est capable de gérer le multithreading. Dans
-cette version l'utilisateur fournit pour chaque point d'arrêt un handler
+cette version, l'utilisateur fournit pour chaque point d'arrêt un handler
 particulier à exécuter avant ou après l’instruction marquée. Uprobes étant un
-outil s'exécutant dans le noyau, les handlers doivent être placé dans un module
+outil s'exécutant dans le noyau, les handlers doivent être placés dans un module
 noyau. Ce dernier contient pour chaque point d'arrêt géré par Uprobes le handler
 à exécuter, ainsi que le pid du processus concerné et l'adresse virtuelle du
 point d'arrêt. Pour gérer un point d'arrêt Uprobes utilise trois structures de
@@ -326,7 +330,7 @@ dont l'utilisateur devra également gérer le bon chargement.
 \paragraph{Seccomp/BPF:}
 %% Read only
 
-Seccomp \citet{INTERCEPTION:seccomp_bpf} est un appel système qui permet d'isoler
+Seccomp \citet{INTERCEPTIONseccompbpf} est un appel système qui permet d'isoler
 un processus en lui donnant le droit d'appeler et d'exécuter qu'un certain
 nombre d'appels systèmes: \textit{read}, \textit{write}, \textit{exit} et
 \textit{sigreturn}. Si le processus fait un autre appel système, il sera arrêté
@@ -334,7 +338,7 @@ avec un signal \textit{SIGKILL}. Comme cela est assez contraignant, le nombre
 d'applications que l'on peut utiliser avec seccomp est donc très limité. Pour
 plus de flexibilité, on peut utiliser une extension de cet appel système appelée
 seccomp/BPF, pour \textit{seccomp Berkeley Packet Filter}, \textit{permettant de définir
-dans un programme BPF \citet{INTERCEPTION:bpf} les appels systèmes autorisés à
+dans un programme BPF \citet{INTERCEPTIONbpf} les appels systèmes autorisés à
 s'exécuter. Cette dernière fonctionne sur le même principe que le filtrage de
 paquet réseau où on établit une suite de règle. À la différence que les données
 sur lesquelles on applique les filtres ne sont plus des paquets réseaux mais des
@@ -371,7 +375,7 @@ médiation avec cet outil sans faire appel à ptrace. \textit{Néanmoins,
 \newline
 Malgré ses défauts l'appel système ptrace semble être le meilleur outil pour
 faire de l'interception d'appels système. Néanmoins, il a été montré dans un
-précédent stage \citet{INTERCEPTION:MARION} qu'il est
+précédent stage \citet{INTERCEPTIONMARION} qu'il est
 inefficace voir inutile en ce qui concerne tous les appels systèmes temporels
 qu'une application souhaiterait exécuter (\textit{time(), clock\_gettime(),
   gettimeofday()}). Lors de ce genre d'appel système le noyau ne lance pas
@@ -404,7 +408,7 @@ d'un programme.
 %pas suid
 
 L'utilisation de la variable d'environnement
-\textbf{LD\_PRELOAD}\citet{INTERCEPTION:LD_PRELOAD}, contenant une liste de
+\textbf{LD\_PRELOAD}\citet{INTERCEPTIONLDPRELOAD}, contenant une liste de
 bibliothèqes partagées, va nous permettre d'intercepter les appels aux fonctions
 qui nous intéressent et d'en modifier le comportement. Cette variable est
 utilisée à chaque lancement d'un programme par l'éditeur de liens pour charger
