@@ -58,3 +58,28 @@ gère injection de faute sur res et sur les noeud
 
 ccl:
 res emule et infra detailles et realistes, simple et robuste mais limité à la reduction de perf pas emulation de ammchines plus rapides.
+
+
+-------------------------------------------------------------
+CWRAP outil d'émulation par interception
+- cwrap's mission is to enable developers to test complex network-based and privileged software stacks on UNIX machines with limited network access and without root privileges by providing preloadable libraries to wrap standard libc functions.
+- pour tester des appli réseaux (2005 tester proto dev par SAMBA) NSS modules
+- pour lancer pls instances C/S sur la même machine et simuler configurations res complexe localement et router sur reseau local
+- Daemons often require privilege separation and local user and group accounts, separate from the hosting system. The cwrap project does not require virtualization or root credentials and can be used on different operating systems.
+- projet libre                  
+
+- 4 bibliothèques principales
+- socket\_wrapper (tous les appels => communiquer là-dessus pr router sur)
+includes its version of most of the standard API used to communicate over sockets that routes the communication over local sockets.
+redirige ttes les comm pr arriver sur des sockets unix
+You are also able to simulate binding to privileged ports below port 1024, which normally requires root privileges.
+en émulant le réseau on peut aussi communiquer sur les ports <1024
+capture reseaux
+-nss\_wrapper pour les projets où le demon doit pouvoir gérer des utilisateurs
+il change le file passwd et group utiliser pendant la phase de test par le logiciel
+pour tester des appli reseaux qui font de la gestion d'utilisateur ainsi que fichier de resolution de nom pour les adresses utilsiées avec les socket file host
+- uid\_wrapper pour faire croire aux applications (peremt de simuler des droits utilisateur) qu'elles s'exécutent en root:
+intercepte touts les appels de type setuid & getuid et réécrit le mapping entre les idfonctionneront meme pour user normal 
+- ressolv\_wrapper
+Redirects name queries to the nameservers specified in your resolv.conf
+Can fake DNS queries using a simple formatted DNS hosts file.

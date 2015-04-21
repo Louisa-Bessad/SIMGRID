@@ -7,20 +7,17 @@ appelée virtualisation standard et la seconde est une émulation par
 interception.
 
 \begin{figure}[H]
-  \centering
-  %\begin{minipage}[b]{.46\linewidth}
+  \centering %\begin{minipage}[b]{.46\linewidth}
   \begin{subfigure}{0.3\textwidth}
   %\centering
     \includegraphics[scale=0.35]{Pictures/png/Virtualisation_limitation}
   \end{subfigure}
   \begin{subfigure}{0.3\textwidth}
-    %\end{minipage} \hfill
-  %\begin{minipage}[b]{.46\linewidth}
-    %  \centering
-    \includegraphics[scale=0.3]{Pictures/png/Virtualisation_interception}
-    %  \end{minipage} 
+    %\end{minipage} \hfill \begin{minipage}[b]{.46\linewidth} \centering
+  %\includegraphics[scale=0.3]{Pictures/png/Virtualisation_interception} \end{minipage}
   \end{subfigure}
-  \caption{Virtualisation par limitation (à gauche) et par interception (à droite)}
+  \caption{Virtualisation par limitation (à gauche) et par interception (à
+    droite)}
   \label{TYPE_VIRTUALISATION}
 \end{figure}
 
@@ -35,29 +32,28 @@ interception.
 Avec cette première méthode on place la couche d'émulation au-dessus de la
 plateforme réelle (comme un hyperviseur pour une VM). De fait, la puissance de
 l'émulateur dépend de la puissance de la machine hôte et ne peux donc pas
-dépasser les capacités de cette dernière. De plus, en
-choisissant de placer l'émulation comme une surcouche, cela permet de limiter
-l'accès aux ressources pour les applications. En effet, les applications ne
-pourront pas passer la couche d'émulation pour accéder aux ressources localisées
-sur la machine hôte. Les requêtes des applications distribuées seront arrêtées
-par l'émulateur. C'est lui qui s'occupera de récupérer les ressources demandées
-par les applications. Il existe différent outils permettant de faire de mettre
-en place cette virtualisation, on trouve notamment \textbf{cgroup},
-\textbf{netstat} et \textbf{cpuburner}.  Cette solution a l'avantage d'être
-simple à mettre en \oe uvre puisque l'on se base sur la machine hôte. Néanmoins
-elle est assez contraignante du fait qu'on ne puisse pas émuler des
-architectures plus performantes que l'hôte. De plus {\color{red} \textit{à
-    écrire deux derniers points négatifs à éclaircir}}.
+dépasser les capacités de cette dernière. De plus, en choisissant de placer
+l'émulation comme une surcouche, cela permet de limiter l'accès aux ressources
+pour les applications. En effet, les applications ne pourront pas passer la
+couche d'émulation pour accéder aux ressources localisées sur la machine
+hôte. Les requêtes des applications distribuées seront arrêtées par
+l'émulateur. C'est lui qui s'occupera de récupérer les ressources demandées par
+les applications. Il existe différent outils permettant de mettre en place cette
+virtualisation, on trouve notamment \textbf{cgroup}, \textbf{netstat} et
+\textbf{cpuburner}.  Cette solution a l'avantage d'être simple à mettre en \oe
+uvre puisque l'on se base sur la machine hôte. Néanmoins elle est assez
+contraignante du fait qu'on ne puisse pas émuler des architectures plus
+performantes que l'hôte. De plus {\color{red} \textit{à écrire deux derniers
+    points négatifs à éclaircir}}.
 
 \subsection{Émulation par interception}
 %% principe: interception des actions et médiation (pas juste interception et rejeu). Intercepter des symboles pour en changer l'effet
 
 Dans le cas de l'émulation par interception, pour mettre en place un
-  environnement distribué émulé sur lequel les applications penseront
-  s'exécuter deux outils vont être utilisés; un simulateur pour virtualiser
-l'environnement d'exécution et un émulateur qui va attraper toutes les
-communications de l'application avec l'hôte et qui les transmettra ensuite au
-simulateur.
+environnement distribué émulé sur lequel les applications penseront s'exécuter
+deux outils vont être utilisés; un simulateur pour virtualiser l'environnement
+d'exécution, et un émulateur qui va attraper toutes les communications de
+l'application avec l'hôte et qui les transmettra ensuite au simulateur.
 %%  Les calculs de l'application seront effectués sur la machine hôte
 %% mais c'est le simulateur qui calculera le temps de réponse à l'application. Pour
 %% cela il fera un rapport entre le temps d'exécution du calcul sur la machine hôte
@@ -89,13 +85,11 @@ simulateur.
  sont soit des temps de calculs soit des temps de connexion ou de
  communication. Lorsque le simulateur a terminé le calcul du temps de réponse,
  il le transmet à l'émulateur qui l'envoie à l'application en plus du résultat
- du calcul demandé pour mettre à jour son horloge.  Ainsi les calculs sont
+ du calcul demandé pour mettre à jour son horloge. Ainsi, les calculs sont
  réellement exécutés sur la machine, les communications réellement émises sur le
  réseau géré par le simulateur et c'est le temps de réponse qu'il fourni qui va
  influencer l'horloge de l'application. Finalement, les applications ne
- communiquent plus directement entre elles puisque toute communication est
- interceptée par l'émulateur, puis gérée par le simulateur qui s'occupe du
- réseau.
+ communiquent plus directement entre elles.
 
 {\color{red} Mettre deux schémas de action interceptes, test modifie, renvoie,
   attrape réponse, simulateur, retour application, un quand simple calcul
@@ -108,11 +102,10 @@ Pour intercepter ces actions, il faut d'abord choisir à quel niveau se placer.
 %%     qui suit l'interception et avec quel
 %% outil.
  En effet, une application peut communiquer avec le noyau via différentes
-abstractions. Elle peut soit utiliser les fonctions d'interaction directe avec
-le noyau que sont les appels systèmes, soit utiliser les différentes
-abstractions fournies par le système d'exploitation: bibliothèques (fonctions
-systèmes de la libc par exemple) ou les fonctions POSIX dans le cas d'un système
-UNIX.
+ abstractions. Elle peut soit utiliser les fonctions d'interaction directe avec
+ le noyau que sont les appels systèmes, soit utiliser les différentes
+ abstractions fournies par le système d'exploitation: bibliothèques (fonctions
+ de la libc par exemple) ou les fonctions POSIX dans le cas d'un système UNIX.
 
 \begin{figure}[H]
  \centering
@@ -121,7 +114,10 @@ UNIX.
  \label{AS_Communication}
 \end{figure}
 
-Nous allons donc voir comment on peut intercepter et modifier des actions au niveau de l'application (fichier source puis binaire), des appels systèmes et des appels de fonctions. Par la suite nous appelerons médiation l'ensemble des modifications effectuées par l'émulateur sur les actions interceptées.
+Nous allons donc voir comment on peut intercepter et modifier des actions au
+niveau de l'application (fichier source puis binaire), des appels systèmes et
+des appels de fonctions. Par la suite nous appelerons médiation l'ensemble des
+modifications effectuées par l'émulateur sur les actions interceptées.
 %% {\color{red} L'interception des actions d'une application peut se faire à deux niveaux: sur le fichier source et sur le binaire. La médiation qui suit l'interception des actions peut également se faire sur différent type de symboles: les appels de focntions et les appels systèmes.  \textit{mettre partie ce qu'on intercepte pourquoi et le schéma}}
 
 \subsubsection{Action sur le fichier source}
@@ -131,11 +127,10 @@ Nous allons donc voir comment on peut intercepter et modifier des actions au niv
 \subsubsection{Action sur le binaire}
 %%Valgrind (perf pourrie)
 Pour agir sur le binaire d'une application, c'est l'outil d'instrumentation
-d'analyse dynamique Valgrind \citep{INTERCEPTION:Valgrind,
-  INTERCEPTION:Valgrindweb} que nous allons étudier. À l'origine il est utilisé
+d'analyse dynamique Valgrind \citep{Valgrind, Valgrindweb} que nous allons étudier. À l'origine, il est utilisé
 pour le débuguage mémoire, puis il a évolué pour devenir l'instrument de base à
 la création d'outils d'analyse dynamique de code, tels que la mise en évidence
-de fuites mémoires et ou profilage\footnote{Méthode visant à analyser le code
+de fuites mémoires et/ou profilage\footnote{Méthode visant à analyser le code
   d'une application pour connaître la liste des fonctions appelées et le temps
   passé dans chacune d'elles}. Valgrind fonctionne à la manière d'une machine
 virtuelle faisant de la compilation à volée\footnote{Technique basée sur la
@@ -164,11 +159,13 @@ intercepter, mais ayant un nom différent (généré par les macro de Valgrind) 
 la différencier de l'originale. Pour générer le nom du wrapper avec les macro de
 Valgrind on doit préciser la bibliothèque qui contient la fonction originale et
 utiliser un Z-encodage\footnote{ Permet de rendre des caractères valides pour
-  des noms de fonction en C, Z est le caractère d'échappement pour. Par exemple : Za pour *, Zp pour +, Zc = :, ... \\ \url{http://valgrind.org/docs/manual/manual-core-adv.html}}. Cette opération
-est lourde et complexe. De plus, elle nécessite de connaître le nom de la
-bibliothèque qui contient la fonction qui nous intéresse. Cette solution est
+  des noms de fonction en C, Z est le caractère d'échappement pour. Par exemple
+  : Za pour *, Zp pour +, Zc = :,
+  ... \\ \url{http://valgrind.org/docs/manual/manual-core-adv.html}}. Cette
+opération est lourde et complexe. De plus, elle nécessite de connaître le nom de
+la bibliothèque qui contient la fonction qui nous intéresse. Cette solution est
 donc assez contraignante et ses performances sont assez médiocres d'après
-l'étude faite par M. Guthmuller lors de son stage \citep{INTERCEPTION:MARION}:
+l'étude faite par M. Guthmuller lors de son stage \citep{MARION:Interception}:
 facteur de 7.5 pour le temps d'exécution d'une application avec cet outil. Cette
 perte de performance est due à la compilation faite en deux phases ainsi qu'au
 temps nécessaire aux outils de Valgrind pour modifier ou rajouter du code à
@@ -181,23 +178,23 @@ mais ce n'est pas le cas.
 %% pourquoi: read/write, comm reseau 
 
 En regardant la Fig.\ref{AS_Communication}, et les différents niveaux
-d'abstractions, le moyen plus simple pour attraper les actions de l'application
-en gérant un minimum de choses serait d'intercepter directement les appels
-systèmes.  Ces derniers sont constitués de deux parties; la première, l'entrée,
-initialise l'appel via les registres de l'application qui contiennent les
-arguments de l'appel puis donne la main au noyau. La seconde, la sortie, inscrit
-la valeur de retour de l'appel système dans le registre de retour de
+d'abstractions, le moyen le plus simple pour attraper les actions de
+l'application en gérant un minimum de choses serait d'intercepter directement
+les appels systèmes.  Ces derniers sont constitués de deux parties; la première,
+l'entrée, initialise l'appel via les registres de l'application qui contiennent
+les arguments de l'appel puis donne la main au noyau. La seconde, la sortie,
+inscrit la valeur de retour de l'appel système dans le registre de retour de
 l'application, les registres d'arguments contenant toujours les valeurs reçues à
-l'entrée de l'appel système, et rend la main à l'application. Nous devons donc
-intercepter les deux parties de l'appel système pour maintenir notre
-environnement simulé et donc stopper l'application à chaque fois pour récupérer
-ou modifier les informations nécessaires avant de lui rendre la main pour entrer
-ou sortir de l'appel système.
+l'entrée de l'appel système, et rend la main à l'application. \textit{Nous
+  devons donc bloquer l'application à chaque interception d'une deux parties de
+  l'appel système. Nous permettant ainsi de récupérer et modifier les
+  informations permettant de maintenir l'environnement simulé avant de lui
+  rendre la main, pour pouvoir entrer ou sortir de l'appel système.}
 
  Nous allons donc voir comment il est possible de faire cela, puisque de
  nombreux outils existent.
  
- \paragraph{L'appel système ptrace}\citet{INTERCEPTION:AS, INTERCEPTION:MARION}
+ \paragraph{L'appel système ptrace}\citet{AS:Interception, MARION:Interception}
  permet de tracer tous les événement désirés d'un processus, mais aussi d'écrire
  et de lire directement dans l'espace d'adressage de ce dernier, à n'importe
  quel moment ou lorsque un événement particulier se produit. De cette façon on
@@ -222,30 +219,32 @@ donc appelé deux fois: à l'entrée et à la sortie de l'appel système.
 
 Quand un des processus de l'application voudra faire un appel système, il sera
 bloqué avant de l'exécuter et le processus espion qui lui est associé sera
-notifié via un appel système ptrace. Ce dernier fera alors les modifications
+notifié via un appel système ptrace. \textit{Ce dernier fera alors les modifications
 nécessaires dans les registres du processus espionné pour conserver la
-virtualisation de l'environnement grâce aux requêtes PEEK\_DATA et POKE\_DATA
-passées en argument de l'appel système {\color{red}ou en modifiant directement
-  le contenu du /proc/id/mem}. Puis, il rendra la main au processus espionné
-bloqué pour que l'appel système puisse avoir lieu. Au retour de l'appel système
-le processus espionné sera de nouveau stoppé, un ptrace sera envoyé au processus
-espion qui remodifiera les informations nécessaires. Puis il rendra la main au
-processus espionné bloqué qui sortira de son appel système avec un résultat
-exécuté sur la machine hôte et un temps d'exécution et une horloge fournie par
-le simulateur. Quand un processus espion a fini un suivi, il peut envoyer deux
-types de requêtes au processus espionné: PTRACE\_KILL qui termine le processus
-espionné ou PTRACE\_DETACH qui le laisse continuer son exécution.
+virtualisation de l'environnement. Pour cela il pourra utiliser les requêtes
+PEEK\_DATA et POKE\_DATA passées en argument de l'appel système {\color{red} (à éclaircir)\textbf{ou
+  modifier directement le contenu du /proc/id/mem}}}. Puis, il rendra la main
+au processus espionné pour que l'appel système puisse avoir lieu. Au retour de
+l'appel système le processus espionné sera de nouveau stoppé et un ptrace sera
+envoyé au processus espion qui remodifiera les informations nécessaires. Puis il
+rendra la main au processus espionné bloqué qui sortira de son appel système
+avec un résultat exécuté sur la machine hôte et un temps d'exécution et une
+horloge fournie par le simulateur. Quand un processus espion a fini un suivi, il
+peut envoyer deux types de requêtes au processus espionné: PTRACE\_KILL qui
+termine le processus espionné ou PTRACE\_DETACH qui le laisse continuer son
+exécution.
 
 {\color{red} Mettre un schéma attachement attente père attrape signal
   modification main fils as retour père et vérification noyau...}
 
 Néanmoins, pour contrôler un processus, ptrace fait de nombreux changements de
 contexte pour pouvoir intercepter et gérer les événements, or cela coûte
-plusieurs centaines de cycle CPU. De plus, il supporte mal les processus
-utilisant du multithreading, et ne fait pas parti de la norme POSIX donc son
-exécution, si elle est disponible, peut varier d'une machine à une autre.
+plusieurs centaines de cycle CPU. \textit{De plus, il supporte mal les processus
+utilisant du multithreading, et ne fait pas parti de la norme POSIX. Ainsi il
+peut ne pas être disponible sur certaines architectures et son exécution peut
+varier d'une machine à une autre.}
 
-\paragraph{Uprobes}\citet{INTERCEPTION:AS, INTERCEPTION:MARION}
+\paragraph{Uprobes}\citet{AS:Interception, MARION:Interception}
 %% Non module noyau
 
 %% pour \textit{user-space probes}, quant à lui permet d'insérer dynamiquement des
@@ -291,18 +290,18 @@ point d'arrêt. Pour gérer un point d'arrêt Uprobes utilise trois structures d
 données \textit{i)} uprobe\_process (une par processus controlé), \textit{ii)}
 uprobe\_task (autant que le processus contrôlé a de thread), \textit{iii)}
 uprobe\_kimg (un pour chaque point d'arrêt affectant un procesus). Chaque
-structure uprobe\_task et uprobe\_kimg est propre à une structure
-uprobe\_process. La fonciton \textit{init()} du module va poser les points
-d'arrêt et la fonciton \textit{exit()} les enlevera, pour cela on utilise
+structure uprobe\_task et uprobe\_kimg sont propres à une structure
+uprobe\_process. La fonction \textit{init()} du module va poser les points
+d'arrêt et la fonction \textit{exit()} les enlevera. Pour cela on utilise
 respectivement la fonction \textit{register\_uprobe} et
 \textit{unregister\_uprobe}. Ces deux fonctions ont pour argument le pid du
-processus à contrôler ainsi que l'adresse virtuelle du point d'arrêt dans le
+processus à contrôler, l'adresse virtuelle du point d'arrêt dans le
 code et le handler à exécuter quand le point d'arrêt est atteint. La fonction
 register\_uprobes va trouver le processus passé en paramètres en parcourant la
 liste des structures uprobes\_process ou la crééra si cette dernière n'existe
 pas. Ensuite, elle crée la structure uprobe\_kimg, puis fait appel à Utrace pour
 bloquer l'application, le temps de placer le point d'arrêt dans le code de
-celle-ci. Pour cela, on copie l'instruction sondée et on remplace les permiers
+celle-ci. Pour cela, on copie l'instruction sondée et on remplace les premiers
 octets de cette dernière par l'adresse du module contenant le handler à
 invoquer, puis on rend la main à l'application en utilisant de nouveau Utrace.
 Unregister\_uprobe fait de même mais supprime la structure uprobe\_kimg passée
@@ -310,10 +309,10 @@ en paramètre au lieu de l'ajouter. De plus, s'il s'agit de la dernière structu
 de ce type pour un processus contrôlé, il supprimera alors la structure
 uprobe\_process et toutes les uprobe\_task associées.
 
-Lorsqu'un point d'arrêt est atteint Uprobes prend la main et exécute le bon
+\textit{Lorsqu'un point d'arrêt est atteint Uprobes prend la main et exécute le bon
 handler. Pour savoir qu'un point d'arrêt a été touché, Uprobes utilise de
-nouveau appel à Utrace, ce dernier lui envoyant un signal à chaque fois que le
-processus qu'il contrôle atteint un point d'arrêt.
+nouveau appel à Utrace, ce dernier envoyant un signal à Uprobes à chaque fois que le
+processus qu'il contrôle atteint un point d'arrêt.}
 
 Utrace envoie également un signal à Uprobes quand un des processus contrôlé fait
 un appel à \textit{fork()/clone()}, \textit{exec()}, \textit{exit} pour que ce
@@ -331,28 +330,26 @@ dont l'utilisateur devra également gérer le bon chargement.
 \paragraph{Seccomp/BPF:}
 %% Read only
 
-Seccomp \citet{INTERCEPTION:seccompbpf} est un appel système qui permet d'isoler
+Seccomp \citet{seccompbpf} est un appel système qui permet d'isoler
 un processus en lui donnant le droit d'appeler et d'exécuter qu'un certain
 nombre d'appels systèmes: \textit{read}, \textit{write}, \textit{exit} et
 \textit{sigreturn}. Si le processus fait un autre appel système, il sera arrêté
 avec un signal \textit{SIGKILL}. Comme cela est assez contraignant, le nombre
 d'applications que l'on peut utiliser avec seccomp est donc très limité. Pour
 plus de flexibilité, on peut utiliser une extension de cet appel système appelée
-seccomp/BPF, pour \textit{seccomp Berkeley Packet Filter}, \textit{permettant de définir
-dans un programme BPF \citet{INTERCEPTION:bpf} les appels systèmes autorisés à
-s'exécuter. Cette dernière fonctionne sur le même principe que le filtrage de
-paquet réseau où on établit une suite de règle. À la différence que les données
-sur lesquelles on applique les filtres ne sont plus des paquets réseaux mais des
-appels systèmes.} Pour pouvoir s'exécuter un appel système doit pouvoir passer à
-travers toutes les règles. Dans le cas où les appels systèmes \textit{fork()} ou
-\textit{clone()} peuvent s'exécuter l'arborescence de filtre est transmise aux
-enfants de même pour les processus faisant des appels \textit{execve()} quand
-ils sont autorisés. Les règles des filtres BPF portent sur le type de l'appel
-système et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel
-système, ne faisant pas parti des quatre autorisés par seccomp, seccomp/BPF est
-appelé et reçoit en entrée le numéro de l'appel système, ses arguments et le
-pointeur de l'instruction concernée et en fonction des règles qu'il possède
-laisse l'appel système s'exécuter ou pas.
+seccomp/BPF, pour \textit{seccomp Berkeley Packet Filter}, \textit{permettant de
+  définir dans un programme BPF \citet{bpf} les appels systèmes
+  autorisés à s'exécuter, en plus de ceux cités précédemment. Cette dernière fonctionne sur le même principe que le
+  filtrage de paquet réseau où on établit une suite de règles.} Pour pouvoir s'exécuter, un appel
+système doit pouvoir passer à travers toutes les règles. Dans le cas où les
+appels systèmes \textit{fork()} ou \textit{clone()} peuvent s'exécuter,
+l'arborescence de filtre est transmise aux enfants de même pour les processus
+faisant des appels \textit{execve()} quand ils sont autorisés. Les règles des
+filtres BPF portent sur le type de l'appel système et/ou ses arguments. Ainsi, à
+chaque entrée ou sortie d'un appel système, ne faisant pas partie des quatre
+autorisés par seccomp, seccomp/BPF est appelé et reçoit en entrée le numéro de
+l'appel système, ses arguments et le pointeur de l'instruction concernée et en
+fonction des règles qu'il possède, laisse l'appel système s'exécuter ou pas.
 
 \textit{ De plus, seccomp/BPF possède une option qui lui permet de générer un
   appel système ptrace(). Cela permet au processus espion lié à l'appelant, s'il
@@ -362,28 +359,28 @@ laisse l'appel système s'exécuter ou pas.
 Néanmoins, l'appel système seccomp et son extension seccomp/BPF ne sont
 disponibles que si le noyau est configuré avec l'option CONFIG\_SECCOMP pour la
 première et CONFIG\_SECCOMP\_FILTER pour la deuxième. Pour pouvoir créer des
-filtres il faut également avoir des droits particuliers notamment l'exécution de
+filtres il faut également avoir des droits particuliers, notamment l'exécution de
 certaines commandes root. Ainsi, l'utilisation de cet appel système et de son
 extension demande une certaine configuration noyau et des privilèges pour les
 utilisateurs, ce qui n'est pas très conseillé.
 
 De plus, si on l'utilise sans l'option d'appel à ptrace on ne peut que lire le
 contenu de l'appel système et pas le modifier, on ne peut donc pas faire de
-médiation avec cet outil sans faire appel à ptrace. \textit{Néanmoins,
+médiation avec cet outil sans faire appel à ptrace. Néanmoins,
   l'utilissatione de seccomp/BPF avec ptrace permet de réduire
   signifiquativement le nombre d'événement sur lequel attendra le processus
-  espion.}
+  espion.
 \newline
 Malgré ses défauts l'appel système ptrace semble être le meilleur outil pour
 faire de l'interception d'appels système. Néanmoins, il a été montré dans un
-précédent stage \citet{INTERCEPTION:MARION} qu'il est
-inefficace voir inutile en ce qui concerne tous les appels systèmes temporels
-qu'une application souhaiterait exécuter (\textit{time(), clock\_gettime(),
-  gettimeofday()}). Lors de ce genre d'appel système le noyau ne lance pas
-l'appel. Cela est du à l'existence de la bibliothèque \textit{Virtual Dynamic
-  Shared Object} (VDSO). Cette dernière vise à minimiser les coûts dûs aux deux
-changements de contexte effectués lors de l'exécution d'un appel système. VDSO
-va retrouver l'heure \textit{{\color{red}dans le contexte noyau}} lisible par tous les
+précédent stage \citet{MARION:Interception} qu'il est inefficace voir inutile en
+ce qui concerne tous les appels systèmes temporels qu'une application
+souhaiterait exécuter (\textit{time(), clock\_gettime(), gettimeofday()}). Lors
+de ce genre d'appel système le noyau ne lance pas l'appel. Cela est du à
+l'existence de la bibliothèque \textit{Virtual Dynamic Shared Object}
+(VDSO). Cette dernière vise à minimiser les coûts dûs aux deux changements de
+contexte effectués lors de l'exécution d'un appel système. VDSO va retrouver
+l'heure \textit{{\color{red}dans le contexte noyau}} lisible par tous les
 processus sans changer de mode. Il est possible de désactiver cette bibliothèque
 au démarrage du noyau mais cela réduit les performances (plus de changements de
 contexte) et oblige l'utilisateur à modifier les paramètres de son noyau. On
@@ -399,42 +396,43 @@ peut donc dire que cette solution d'interception n'est donc pas complète.
 %%pourquoi: pthread, temps
 
 Puisque l'interception des actions d'une application au plus bas niveau ne
-suffit pas, on pourrait alors penser qu'une bonne solution serait d'intercepter
+suffit pas, on peut penser qu'une bonne solution est d'intercepter
 les actions de l'application au plus haut niveau que sont les
 bibliothèques. Pour cela nous allons étudier deux approches basées sur l'éditeur
-de liens dynamiques de Linux qui permet d'insérer du code dans l'exécution
-d'un programme.
+de liens dynamiques de Linux qui permet d'insérer du code dans l'exécution d'un
+programme.
 
 \paragraph{LD\_PRELOAD:}
+\label{paragraphe:LDPreload}
 %pas suid
 
 L'utilisation de la variable d'environnement
-\textbf{LD\_PRELOAD}\citet{INTERCEPTION:LD_PRELOAD}, contenant une liste de
+\textbf{LD\_PRELOAD}\citet{LDPreload}, contenant une liste de
 bibliothèqes partagées, va nous permettre d'intercepter les appels aux fonctions
 qui nous intéressent et d'en modifier le comportement. Cette variable est
 utilisée à chaque lancement d'un programme par l'éditeur de liens pour charger
 les bibliothèqes partagées qui doivent être chargées avant toute autre
-bibliothèque (même celles utilisées par le programme). Ainsi, si une fonction
+bibliothèque (même celles utilisées par le programme). \textit{Ainsi, si une fonction
 est définie dans plusieurs bibliothèqes différentes, celle utilisée par le
-programme sera celle qui est contenue dans la bibliothèque partagée qui apparaît
-en premier dans la liste des bibliothèques préchargées et pas forcément celle de
-la bibliothèque attendu par le programme. Par exemple, on créé une bibliothèque
+programme sera celle qui est contenue dans la bibliothèque partagée apparaîssant
+en premier dans la liste des bibliothèques préchargées. ce ne sera donc pas forcément celle de
+la bibliothèque attendu par le programme.} Par exemple, on créé une bibliothèque
 partagée qui implémente une fonction open() de même type que la fonction open()
 de la libc et on place cette bibliothèque dans la variable LD\_PRELOAD. Quand on
 exécute un programme faisant un appel à open(), l'éditeur de lien va d'abord
 charger les bibliothèques contenues dans la variable d'environnement LD\_PRELOAD
 puis la libc, la nouvelle bibliothèque apparaîtra donc avant la libc dans la
 liste des bibliothèques préchargées. Ainsi, c'est la nouvelle fonction open()
-qui sera exécutée par le programme et non l'orginale puisque la nouvelle
-bibliothèque apparaît avant la libc pour l'éditeur de lien. De cette façon, on
+qui sera exécutée par le programme et non l'orginale. De cette façon, on
 peut intercepter n'importe quelle fonction.
 
 Dans notre cas, on va donc créer notre propre bibliothèque de fonctions. Pour
 chaque fonction susceptible d'être utilisée par l'application, on crééra une
 fonction de même nom et de même type dans notre bibliothèque. Chacune de nos
 fonctions contiendra alors toutes les modifications nécessaires pour maintenir
-notre environnement simulé suivi d'un appel à la fonction initiale. On rappelle que  dans
-notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. %% Pour faire
+notre environnement simulé suivi d'un appel à la fonction initiale. On rappelle
+que dans notre cas, on souhaite juste intercepter l'appel et pas l'empêcher.
+%%Pour faire
 %% appel à la fonction initiale on ne peut pas simplement l'appeler par son nom
 %% puisque ce serait notre nouvelle fonction qui serait appelée. On va donc utiliser
 %% dans notre nouvelle fonction les fonctions de la famille dlopen, notamment
@@ -446,27 +444,25 @@ notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. %% Pour fai
 %%   be interpreted in any way by the caller.} utilisé par dlsym pour trouver
 %% l'adresse de la fonction originale qui nous intéresse en mémoire, nous
 %% permettant ainsi d'y faire appel.
-Notre nouvelle bibliothèque sera préchargée
-avant les autres en la plaçant dans la variable LD\_PRELOAD, ainsi nos fonctions
-passeront avant les fonctions des bibliothèques usuelles et les fonctions de ces
-bibliothèques appelées par l'application seront interceptées.
+Notre nouvelle bibliothèque sera préchargée avant les autres en la plaçant dans
+la variable LD\_PRELOAD, ainsi nos fonctions passeront avant les fonctions des
+bibliothèques usuelles.
 
 Néanmoins, si l'application fait un appel système directement sans passer par la
-couche \textit{Bibliothèques} Fig.~\ref{AS_Communication} notre mécanisme
+couche \textit{Bibliothèques} (Fig.~\ref{AS_Communication}) notre mécanisme
 d'interception est contourné. En effet on ne peut surcharger que des fonctions
 avec cette solution, pas des appels systèmes. De même, si on oublie de réécrire
 une fonction d'une des bibliothèques utilisée par l'application. Cette solution
 n'est donc pas suffisante pour le modèle d'interception que nous souhaitons
 avoir.
 
-Cependant, on peut voir que LD\_PRELOAD résout les lacunes de ptrace concernant:
+Cependant, on peut voir que LD\_PRELOAD résout les lacunes de ptrace concernant
 les fonctions de temps et le multithreading. À l'inverse, puisque ptrace permet
 d'intercepter les appels systèmes que le modèle d'interception avec LD\_PRELOAD
-ne permet pas de gérer on peut dire que ptrace résout les problèmes de
+ne permet pas de gérer, on peut dire que ptrace résout les problèmes de
 LD\_PRELOAD. Une solution choisie lors d'un précédent stage est donc d'allier
 les deux. On surchargera les fonctions temporelles dans notre bibliothèque
-préchargée avec LD\_PRELOAD pour pallier les lacunes temporelles de ptrace. Et
-pour toutes les autres fonctions ptrace s'en occupera, ainsi on est certain de
+préchargée avec LD\_PRELOAD pour pallier les lacunes temporelles de ptrace. \textit{Et ce dernier s'occupera de toutes les autres fonctions}, ainsi on est certain de
 n'oublier aucune fonction.
 
 \paragraph{Got injection:}
@@ -474,13 +470,15 @@ n'oublier aucune fonction.
 
 \begin{table}[H]
 \begin{tabular}{c|c|c|c|c|}
-\cline{2-5}
-                                                                                       & Source to Source & \begin{tabular}[c]{@{}c@{}}Réimpplémentation \\ SMPI\end{tabular} & Coccinelle & Valgrind  \\ \hline
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Fichier \\ intercepté\end{tabular}} & Source           & Source                                                            & Source     & Binaire   \\ \hline
-\multicolumn{1}{|c|}{Coût}                                                             & ?                & ?                                                                 & ?          & Important \\ \hline
-\multicolumn{1}{|c|}{Utilisation}                                                      & ?                & ?                                                                 & ?          & Complèxe  \\ \hline
+\cline{2-5} & Source to Source & \begin{tabular}[c]{@{}c@{}}Réimpplémentation
+  \\ SMPI\end{tabular} & Coccinelle & Valgrind \\ \hline
+  \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Fichier
+      \\ intercepté\end{tabular}} & Source & Source & Source & Binaire \\ \hline
+  \multicolumn{1}{|c|}{Coût} & ?  & ?  & ?  & Important \\ \hline
+  \multicolumn{1}{|c|}{Utilisation} & ?  & ?  & ?  & Complèxe \\ \hline
 \end{tabular}
-  \caption{Comparaison des différentes solutions d'interception au niveau de l'application}
+  \caption{Comparaison des différentes solutions d'interception au niveau de
+    l'application}
   \label{TAB_COMP_APPLI}
 \end{table}
 
@@ -488,12 +486,19 @@ n'oublier aucune fonction.
 \begin{table}[H]
 \centering
   \begin{tabular}{c|c|c|c|c|c|}
-    \cline{2-6}
-    & ptrace                                                    & Uprobes                                                  & seccomp/BPF                                              & LD\_PRELOAD  & Got Injection \\ \hline
-    \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau\\ d'interception\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}   & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} & Bibliothèque & Bibliothèque  \\ \hline
-          \multicolumn{1}{|c|}{Coût}                                                            & Moyen                                                     & Faible(?)                                                & ?                                                        & Faible       & ?             \\ \hline
-          \multicolumn{1}{|c|}{Utilisation}                                                     & \begin{tabular}[c]{@{}c@{}}Assez \\ complèxe\end{tabular} & ?                                                        & ?                                                        & Simple       & ?             \\ \hline
+    \cline{2-6} & ptrace & Uprobes & seccomp/BPF & LD\_PRELOAD & Got Injection
+    \\ \hline
+    \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau\\ d'interception\end{tabular}}
+    & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}
+        & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular}
+            & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} &
+                Bibliothèque & Bibliothèque \\ \hline \multicolumn{1}{|c|}{Coût}
+                & Moyen & Faible(?)  & ?  & Faible & ?  \\ \hline
+                \multicolumn{1}{|c|}{Utilisation}
+                & \begin{tabular}[c]{@{}c@{}}Assez \\ complèxe\end{tabular} & ?
+                    & ?  & Simple & ?  \\ \hline
   \end{tabular}
-    \caption{Comparaison des différentes solutions d'interception entre l'application et le noyau}
+    \caption{Comparaison des différentes solutions d'interception entre
+      l'application et le noyau}
   \label{TAB_COMP_OTHER}
 \end{table}
