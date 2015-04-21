@@ -1,3 +1,14 @@
+@article{gustedt2009experimental,
+  title={Experimental methodologies for large-scale systems: a survey},
+  author={Gustedt, Jens and Jeannot, Emmanuel and Quinson, Martin},
+  journal={Parallel Processing Letters},
+  volume={19},
+  number={03},
+  pages={399--418},
+  year={2009},
+  publisher={World Scientific}
+}
+
 @article{GRID5000,
   title={Grid'5000: a large scale and highly reconfigurable experimental grid testbed},
   author={Bolze, Rapha{\"e}l and Cappello, Franck and Caron, Eddy and Dayd{\'e}, Michel and Desprez, Fr{\'e}d{\'e}ric and Jeannot, Emmanuel and J{\'e}gou, Yvon and Lanteri, Stephane and Leduc, Julien and Melab, Noredine and others},
@@ -27,7 +38,7 @@
   HAL_VERSION = {v3},
 }
 
-@inproceedings{DISTEMbuchert2014emulation,
+@inproceedings{DISTEM_buchert2014emulation,
   title={Emulation at Very Large Scale with Distem},
   author={Buchert, Tomasz and Jeanvoine, Emmanuel and Nussbaum, Lucas},
   booktitle={Cluster, Cloud and Grid Computing (CCGrid), 2014 14th IEEE/ACM International Symposium on},
@@ -36,7 +47,7 @@
   organization={IEEE}
 }
 
-@inproceedings{DISTEMbuchert2011methods,
+@inproceedings{DISTEM_buchert2011methods,
   title={Methods for Emulation of Multi-Core CPU Performance},
   author={Buchert, Tomasz and Nussbaum, Lucas and Gustedt, Jens},
   booktitle={High Performance Computing and Communications (HPCC), 2011 IEEE 13th International Conference on},
@@ -45,7 +56,14 @@
   organization={IEEE}
 }
 
-@inproceedings{EMULATIONMARION,
+@article{VXLAN_mahalingam2014virtual,
+  title={Virtual extensible local area network (VXLAN): A framework for overlaying virtualized layer 2 networks over layer 3 networks},
+  author={Mahalingam, M and Dutt, D and Duda, K and Agarwal, P and Kreeger, L and Sridhar, T and Bursell, M and Wright, C},
+  journal={Internet Req. Comments},
+  year={2014}
+}
+
+@inproceedings{EMULATION:MARION,
   TITLE = {{{\'E}mulation d'applications distribu{\'e}es sur des plates-formes virtuelles simul{\'e}es}},
   AUTHOR = {Guthmuller, Marion and Nussbaum, Lucas and Quinson, Martin},
   URL = {https://hal.inria.fr/inria-00565341},
@@ -59,7 +77,7 @@
   HAL_VERSION = {v1},
 }
 
-@inproceedings{SIMULATIONMARTIN,
+@inproceedings{SIMULATION:MARTIN,
   TITLE = {{SimGrid: a Generic Framework for Large-Scale Distributed Experiments}},
   AUTHOR = {Quinson, Martin},
   URL = {https://hal.inria.fr/inria-00435802},
@@ -73,7 +91,7 @@
   HAL_VERSION = {v1},
 }
 
-@inproceedings{SIMULATIONCASANOVA,
+@inproceedings{SIMULATION:CASANOVA,
   title={Simgrid: A toolkit for the simulation of application scheduling},
   author={Casanova, Henri},
   booktitle={Cluster Computing and the Grid, 2001. Proceedings. First IEEE/ACM International Symposium on},
@@ -82,7 +100,7 @@
   organization={IEEE},
 }
 
-@inproceedings{INTERCEPTIONAS,
+@inproceedings{INTERCEPTION:AS,
   title={Ptrace, utrace, uprobes: Lightweight, dynamic tracing of user apps},
   author={Keniston, Jim and Mavinakayanahalli, Ananth and Panchamukhi, Prasanna and Prasad, Vara},
   booktitle={Proceedings of the 2007 Linux Symposium},
@@ -90,28 +108,28 @@
   year={2007},
 }
 
-@masterthesis{INTERCEPTIONMARION,
+@masterthesis{INTERCEPTION:MARION,
 title={\href{http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf}{Interception système pour la capture et le rejeu de traces}},
 author={Marion GUTHMULLER},
 school={Université Henri Poincaré - Nancy 1},
 year={2009--2010},
 }
 
-@misc{INTERCEPTIONGUILLAUMEinterceptionsyscall,
+@misc{INTERCEPTION:GUILLAUME:interceptionsyscall,
 title={\href{http://www.loria.fr/~quinson/Research/Students/2012-master-simterpose-rapport.pdf}{Simulation of distributed application with usage of syscalls interception}},
 author={Guillaume SERRIERE},
 school={ESIAL - TELECOM Nancy},
 year={2012},
 }
 
-@misc{INTERCEPTIONCHLOEemulationapplicationdistribuees,
+@misc{INTERCEPTION:CHLOE:emulationapplicationdistribuees,
 title={\href{http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf}{Rapport de stage: Émulation d'applications distribuées sur des plates-formes virtuelles simulées}},
 author={Chloé MACUR},
 school={École Polytechnique},
 year={2014},
 }
 
-@inproceedings{INTERCEPTIONValgrind,
+@inproceedings{INTERCEPTION:Valgrind,
  author = {Nethercote, Nicholas and Seward, Julian},
  title = {Valgrind: A Framework for Heavyweight Dynamic Binary Instrumentation},
  booktitle = {Proceedings of the 2007 ACM SIGPLAN Conference on Programming Language Design and Implementation},
@@ -129,33 +147,33 @@ year={2014},
  keywords = {Memcheck, Valgrind, dynamic binary analysis, dynamic binary instrumentation, shadow values},
 }
 
-@misc{INTERCEPTIONValgrindweb,
+@misc{INTERCEPTION:Valgrindweb,
 title={Valgrind},
 note={\url{http://valgrind.org/}},
 year={2000},
 }
 
-@misc{INTERCEPTIONseccompbpf,
+@misc{INTERCEPTION:seccompbpf,
 title={Seccomp man},
 note={\url{http://man7.org/linux/man-pages/man2/seccomp.2.html}},
 }
 
-@misc{INTERCEPTIONbpf,
+@misc{INTERCEPTION:bpf,
 title={Berkeley Packet Filter},
 note={\url{http://en.wikipedia.org/wiki/Berkeley\_Packet\_Filter}},
 }
 -
-@misc{INTERCEPTIONLDPRELOAD,
+@misc{INTERCEPTION:LD_PRELOAD,
 title={\textsc{LD\_PRELOAD}},
 note={\url{https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld\_preload-to-cheat-inject-features-and-investigate-programs/}},
 }
 
-@misc{INTERCEPTIONsharedlibrairies,
+@misc{INTERCEPTION:sharedlibrairies,
 title={How to create shared libraries},
 note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
 }
 
-@article{SOTAMODELNET,
+@article{SOTA:MODELNET,
   title={Scalability and accuracy in a large-scale network emulator},
   author={Vahdat, Amin and Yocum, Ken and Walsh, Kevin and Mahadevan, Priya and Kosti{\'c}, Dejan and Chase, Jeff and Becker, David},
   journal={ACM SIGOPS Operating Systems Review},
@@ -166,7 +184,7 @@ note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
   publisher={ACM},
 }
 
-@inproceedings{SOTAMICROGRIDINIT,
+@inproceedings{SOTA:MICROGRID_INIT,
   title={The microgrid: a scientific tool for modeling computational grids},
   author={Song, Hyo Jung and Liu, Xianan and Jakobsen, Dennis and Bhagwan, Ranjita and Zhang, Xingbin and Taura, Kenjiro and Chien, Andrew},
   booktitle={Supercomputing, ACM/IEEE 2000 Conference},
@@ -175,7 +193,7 @@ note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
   organization={IEEE},
 }
 
-@inproceedings{SOTAMICROGRIDCASANOVA,
+@inproceedings{SOTA:MICROGRID_CASANOVA,
   title={The microgrid: Using emulation to predict application performance in diverse grid network environments},
   author={Xia, Huaxia and Dail, Holly and Casanova, Henri and Chien, Andrew},
   booktitle={Proc. the Workshop on Challenges of Large Applications in Distributed Environments (CLADE’04)},
@@ -183,7 +201,7 @@ note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
   organization={Citeseer},
 }
 
-@article{EMULATIONEMULABINIT,
+@article{EMULATION:EMULAB_INIT,
  author = {White, Brian and Lepreau, Jay and Stoller, Leigh and Ricci, Robert and Guruprasad, Shashi and Newbold, Mac and Hibler, Mike and Barb, Chad and Joglekar, Abhijeet},
  title = {An Integrated Experimental Environment for Distributed Systems and Networks},
  journal = {SIGOPS Oper. Syst. Rev.},
@@ -201,7 +219,7 @@ note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
  publisher = {ACM},
  address = {New York, NY, USA},
 } 
-@inproceedings{EMULATIONEMULAB,
+@inproceedings{EMULATIO_NEMULAB,
   title={Large-scale Virtualization in the Emulab Network Testbed.},
   author={Hibler, Mike and Ricci, Robert and Stoller, Leigh and Duerig, Jonathon and Guruprasad, Shashi and Stack, Tim and Webb, Kirk and Lepreau, Jay},
   booktitle={USENIX Annual Technical Conference},
@@ -209,7 +227,7 @@ note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
   year={2008},
 }
 
-@inproceedings{EMULATIONTIMEDELATION,
+@inproceedings{EMULATION:TIME_DILATATION,
   title={Large-scale Virtualization in the Emulab Network Testbed.},
   author={Hibler, Mike and Ricci, Robert and Stoller, Leigh and Duerig, Jonathon and Guruprasad, Shashi and Stack, Tim and Webb, Kirk and Lepreau, Jay},
   booktitle={USENIX Annual Technical Conference},
