@@ -342,30 +342,30 @@ dont l'utilisateur devra également gérer le bon chargement.
 \paragraph{Seccomp/BPF:}
 %% Read only
 
-Seccomp \citet{seccompbpf} est un appel système qui permet d'isoler un processus
+Seccomp \citep{seccompbpf} est un appel système qui permet d'isoler un processus
 en lui donnant le droit d'appeler et d'exécuter qu'un certain nombre d'appels
 systèmes: \textit{read}, \textit{write}, \textit{exit} et \textit{sigreturn}. Si
 le processus fait un autre appel système, il sera arrêté avec un signal
 \texttt{SIGKILL}. Comme cela est assez contraignant, le nombre d'applications
 que l'on peut utiliser avec seccomp est donc très limité. Pour plus de
 flexibilité, on peut utiliser une extension de cet appel système appelée
-seccomp/BPF, pour \textit{seccomp Berkeley Packet Filter}, permettant de définir
-dans un programme BPF \citet{bpf} les appels systèmes autorisés à s'exécuter, en
-plus de ceux cités précédemment. Cette dernière fonctionne sur le même principe
-que le filtrage de paquet réseau où on établit une suite de règles. Pour pouvoir
-s'exécuter, un appel système doit pouvoir passer à travers toutes les
-règles. Dans le cas où les appels systèmes \texttt{fork}() ou \texttt{clone}()
-peuvent s'exécuter, l'arborescence de filtres est transmise aux enfants, de même
-que pour les processus faisant des appels \texttt{execve}() quand ils sont
-autorisés. Les règles des filtres BPF portent sur le type de l'appel système
-et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel système, ne
-faisant pas partie des quatre autorisés par seccomp, l'extension utilisant BPF
-est appelée. Elle reçoit en entrée le numéro de l'appel système, ses arguments
-et le pointeur de l'instruction concernée. En fonction des règles, elle laisse
-l'appel système s'exécuter ou pas.  De plus, seccomp/BPF possède une option qui
-lui permet de générer un appel système \texttt{ptrace}(). Cela permet au
-processus espion, s'il existe, de ne plus attendre sur chaque appel système du
-processus espionné, mais uniquement sur les appels systèmes qu'il souhaite
+seccomp/BPF, pour \textit{seccomp BSD Packet Filter}, permettant de définir dans
+un programme BPF \citep{BPF_mccanne1993bsd} les appels systèmes autorisés à
+s'exécuter, en plus de ceux cités précédemment. Cette dernière fonctionne sur le
+même principe que le filtrage de paquet réseau où on établit une suite de
+règles. Pour pouvoir s'exécuter, un appel système doit pouvoir passer à travers
+toutes les règles. Dans le cas où les appels systèmes \texttt{fork}() ou
+\texttt{clone}() peuvent s'exécuter, l'arborescence de filtres est transmise aux
+enfants, de même que pour les processus faisant des appels \texttt{execve}()
+quand ils sont autorisés. Les règles des filtres BPF portent sur le type de
+l'appel système et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel
+système, ne faisant pas partie des quatre autorisés par seccomp, l'extension
+utilisant BPF est appelée. Elle reçoit en entrée le numéro de l'appel système,
+ses arguments et le pointeur de l'instruction concernée. En fonction des règles,
+elle laisse l'appel système s'exécuter ou pas.  De plus, seccomp/BPF possède une
+option qui lui permet de générer un appel système \texttt{ptrace}(). Cela permet
+au processus espion, s'il existe, de ne plus attendre sur chaque appel système
+du processus espionné, mais uniquement sur les appels systèmes qu'il souhaite
 intercepter.
 
 Néanmoins, l'appel système seccomp et son extension seccomp/BPF ne sont
