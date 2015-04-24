@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="Deter_fonctionnement_v2.svg"
+   inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+   inkscape:export-xdpi="0.12095238"
+   inkscape:export-ydpi="0.12095238">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true">
+      <path
+         id="path4348"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-1"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4348-9"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4348-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4348-6-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5-8"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4348-6-26"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-5-8-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4348-6-26-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="302.59471"
+     inkscape:cy="437.43361"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1600"
+     inkscape:window-height="844"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g8666"
+       inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+       inkscape:export-xdpi="0.12095238"
+       inkscape:export-ydpi="0.12095238">
+      <path
+         inkscape:connection-start="#rect7942-3"
+         inkscape:connection-end="#rect7942-3"
+         inkscape:connector-curvature="0"
+         inkscape:connector-type="polyline"
+         id="path8098"
+         d="M 0,0 0,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <rect
+         y="551.0545"
+         x="414.26694"
+         height="25.612669"
+         width="25.612669"
+         id="rect7942"
+         style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="609.46362"
+         x="413.5271"
+         height="25.612669"
+         width="25.612669"
+         id="rect7942-81"
+         style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="594.74939"
+         x="456.38425"
+         height="25.612669"
+         width="25.612669"
+         id="rect7942-3"
+         style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="541.3208"
+         x="481.81281"
+         height="25.612669"
+         width="25.612669"
+         id="rect7942-0"
+         style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         inkscape:connector-type="orthogonal"
+         id="path8174"
+         d="m 493.78869,567.28355 0,38.75313 -12.32457,0"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         inkscape:connector-type="orthogonal"
+         id="path8176"
+         d="m 439.89993,563.83924 24.35487,0 0,30.93246"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1" />
+      <g
+         id="g8246"
+         style="stroke-width:1;stroke-miterlimit:6.66666651;stroke-dasharray:none">
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1"
+           d="m 429.06906,647.87653 41.31428,0 0,-27.02858"
+           id="path8240"
+           inkscape:connector-type="orthogonal"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1"
+           d="m 428.38505,635.07226 0.0433,13.72255"
+           id="path8244"
+           inkscape:connector-type="polyline"
+           inkscape:connector-curvature="0" />
+      </g>
+    </g>
+    <g
+       id="g4319"
+       inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+       inkscape:export-xdpi="89"
+       inkscape:export-ydpi="89">
+      <g
+         inkscape:export-ydpi="0.12095238"
+         inkscape:export-xdpi="0.12095238"
+         inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+         id="g8829">
+        <g
+           id="g8800">
+          <ellipse
+             ry="30.548832"
+             rx="54.477406"
+             cy="429.64792"
+             cx="139.35715"
+             id="path4138"
+             style="fill:#ffd5f6;fill-opacity:1;stroke:#000000;stroke-width:1.33090687;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             sodipodi:linespacing="125%"
+             id="text4142"
+             y="419.79077"
+             x="137.71429"
+             style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-size:10px"
+               y="419.79077"
+               x="137.71429"
+               id="tspan4144"
+               sodipodi:role="line">Topologie</tspan><tspan
+               style="font-size:10px"
+               id="tspan4146"
+               y="432.29077"
+               x="139.30609"
+               sodipodi:role="line">de </tspan><tspan
+               style="font-size:10px"
+               id="tspan4148"
+               y="444.79077"
+               x="137.71429"
+               sodipodi:role="line">l'expérience</tspan></text>
+        </g>
+        <g
+           id="g8564">
+          <rect
+             y="399.44598"
+             x="248.79803"
+             height="63.832493"
+             width="89.546783"
+             id="rect4136"
+             style="fill:#99ff55;fill-opacity:1;stroke:#000000;stroke-width:1.28171265;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             sodipodi:linespacing="125%"
+             id="text4179"
+             y="426.93362"
+             x="292.14288"
+             style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-size:10px"
+               id="tspan4183"
+               y="426.93362"
+               x="293.73468"
+               sodipodi:role="line">Allocation des </tspan><tspan
+               style="font-size:10px"
+               id="tspan4185"
+               y="439.43362"
+               x="292.14288"
+               sodipodi:role="line">&quot;Containers&quot;</tspan></text>
+        </g>
+        <g
+           id="g4277"
+           transform="translate(198.71429,79.71429)">
+          <path
+             inkscape:connector-curvature="0"
+             id="path4249"
+             d="m 266.5,316.07617 a 15.357142,16.071428 0 0 0 -10.75195,4.60156 17.857143,18.214285 0 0 0 -11.17578,-4.02929 17.857143,18.214285 0 0 0 -17.75586,16.30468 17.142857,17.142857 0 0 0 -4.38868,-0.59179 17.142857,17.142857 0 0 0 -17.14257,17.14453 17.142857,17.142857 0 0 0 16.4414,17.10742 11.428572,10.357142 0 0 0 10.6543,10 15.714286,15.714286 0 0 0 14.33398,9.32031 15.714286,15.714286 0 0 0 11.6875,-5.23437 15,13.571428 0 0 0 9.88282,3.37695 15,13.571428 0 0 0 14.42578,-9.89648 20,16.071428 0 0 0 4.0039,0.32617 20,16.071428 0 0 0 20,-16.07227 20,16.071428 0 0 0 -2.29492,-7.45703 16.785715,10.357142 0 0 0 10.86524,-9.68554 16.785715,10.357142 0 0 0 -14.33204,-10.23243 13.214286,12.142858 0 0 0 0.0469,-0.83984 13.214286,12.142858 0 0 0 -13.21484,-12.14258 13.214286,12.142858 0 0 0 -9.53125,3.75391 A 15.357142,16.071428 0 0 0 266.5,316.07617 Z"
+             style="fill:#ff0000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+          <text
+             sodipodi:linespacing="125%"
+             id="text4197"
+             y="339.79077"
+             x="260"
+             style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             xml:space="preserve"><tspan
+               style="font-size:10px"
+               y="339.79077"
+               x="260"
+               id="tspan4199"
+               sodipodi:role="line">DETER</tspan><tspan
+               style="font-size:10px"
+               id="tspan4201"
+               y="352.29077"
+               x="260"
+               sodipodi:role="line">Allocation</tspan><tspan
+               style="font-size:10px"
+               id="tspan4203"
+               y="364.79077"
+               x="260"
+               sodipodi:role="line">des ressources</tspan></text>
+        </g>
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+           d="m 199.27434,425.79453 c 15.42022,0.69051 29.99228,-0.005 43.59484,-0.008"
+           id="path4339"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-1)"
+           d="m 348.16089,426.65245 c 15.42022,0.69051 29.99228,-0.005 43.59484,-0.008"
+           id="path4339-6"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         inkscape:export-ydpi="0.12095238"
+         inkscape:export-xdpi="0.12095238"
+         inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+         inkscape:connector-curvature="0"
+         id="path4339-0"
+         d="m 294.85163,472.00481 c -0.81447,22.85988 -0.38132,44.5543 -0.55361,64.7613"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.15167272px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-5)" />
+      <g
+         inkscape:export-ydpi="0.12095238"
+         inkscape:export-xdpi="0.12095238"
+         inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+         id="g8776">
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.15167272px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-5-9)"
+           d="m 459.25642,472.37238 c -0.81447,22.85988 -0.38132,44.5543 -0.55361,64.7613"
+           id="path4339-0-8"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.96051705px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-5-8)"
+           d="m 459.30399,662.87694 c -0.9115,14.20841 -0.42675,27.69243 -0.61957,40.25195"
+           id="path4339-0-86"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         inkscape:export-ydpi="0.12095238"
+         inkscape:export-xdpi="0.12095238"
+         inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+         inkscape:connector-curvature="0"
+         id="path4339-0-86-3"
+         d="m 355.58378,579.35687 c 14.21789,0.74921 27.6955,0.11053 40.2564,0.15994"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.96051705px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend-5-8-4)" />
+      <text
+         inkscape:export-ydpi="0.12095238"
+         inkscape:export-xdpi="0.12095238"
+         inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+         sodipodi:linespacing="125%"
+         id="text4205"
+         y="580.50507"
+         x="581.42859"
+         style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:10px"
+           y="580.50507"
+           x="581.42859"
+           id="tspan4207"
+           sodipodi:role="line">Ressources physiques:</tspan><tspan
+           style="font-size:10px"
+           id="tspan4209"
+           y="593.00507"
+           x="581.42859"
+           sodipodi:role="line">- Machines</tspan><tspan
+           style="font-size:10px"
+           id="tspan4211"
+           y="605.50507"
+           x="581.42859"
+           sodipodi:role="line">- Réseau</tspan></text>
+      <g
+         id="g4312">
+        <rect
+           style="fill:#99ff55;fill-opacity:1;stroke:#000000;stroke-width:1.28171265;stroke-linejoin:round;stroke-miterlimit:8;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect4136-1"
+           width="89.546783"
+           height="63.832493"
+           x="248.65518"
+           y="545.58881" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="293"
+           y="568.93365"
+           id="text4187"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4189"
+             x="293"
+             y="568.93365"
+             style="font-size:10px">Configuration</tspan><tspan
+             sodipodi:role="line"
+             x="293"
+             y="581.43365"
+             id="tspan4191"
+             style="font-size:10px">des</tspan><tspan
+             sodipodi:role="line"
+             x="293"
+             y="593.93365"
+             id="tspan4193"
+             style="font-size:10px">&quot;Containers&quot;</tspan></text>
+      </g>
+      <g
+         inkscape:export-ydpi="0.12095238"
+         inkscape:export-xdpi="0.12095238"
+         inkscape:export-filename="/home/cross-l/Informatique/SIMGRID/doc/Pictures/png/Deter_fonctionnement_v2.png"
+         id="g8741">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:10px;line-height:125%;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           x="583.99994"
+           y="733.93365"
+           id="text4217"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan4219"
+             x="583.99994"
+             y="733.93365"
+             style="font-size:10px">Environnement</tspan><tspan
+             sodipodi:role="line"
+             x="583.99994"
+             y="746.43365"
+             id="tspan4221"
+             style="font-size:10px">de test</tspan><tspan
+             sodipodi:role="line"
+             x="583.99994"
+             y="758.93365"
+             id="tspan4223"
+             style="font-size:10px">large échelle</tspan><tspan
+             sodipodi:role="line"
+             x="583.99994"
+             y="771.43365"
+             id="tspan4225"
+             style="font-size:10px">avec</tspan><tspan
+             sodipodi:role="line"
+             x="583.99994"
+             y="783.93365"
+             id="tspan4227"
+             style="font-size:10px">&quot;Containers&quot;</tspan></text>
+        <rect
+           style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect7942-8"
+           width="25.612669"
+           height="25.612669"
+           x="414.79065"
+           y="710.89386" />
+        <rect
+           style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect7942-81-5"
+           width="25.612669"
+           height="25.612669"
+           x="414.05081"
+           y="769.30298" />
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect7942-3-4"
+           width="25.612669"
+           height="25.612669"
+           x="456.90796"
+           y="754.58875" />
+        <rect
+           style="fill:#c87137;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect7942-0-7"
+           width="25.612669"
+           height="25.612669"
+           x="482.33652"
+           y="701.16016" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1"
+           d="m 494.3124,727.12288 0,38.75313 -12.32457,0"
+           id="path8174-3"
+           inkscape:connector-type="orthogonal"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1"
+           d="m 440.42364,723.67857 24.35487,0 0,30.93246"
+           id="path8176-9"
+           inkscape:connector-type="orthogonal"
+           inkscape:connector-curvature="0" />
+        <g
+           style="stroke-width:1;stroke-miterlimit:6.66666651;stroke-dasharray:none"
+           id="g8246-5"
+           transform="translate(0.5237139,159.83933)">
+          <path
+             inkscape:connector-curvature="0"
+             inkscape:connector-type="orthogonal"
+             id="path8240-2"
+             d="m 429.06906,647.87653 41.31428,0 0,-27.02858"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1" />
+          <path
+             inkscape:connector-curvature="0"
+             inkscape:connector-type="polyline"
+             id="path8244-0"
+             d="m 428.38505,635.07226 0.0433,13.72255"
+             style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-opacity:1" />
+        </g>
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect8394"
+           width="7.0866141"
+           height="7.0866141"
+           x="420.71429"
+           y="723.79077" />
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect8394-9"
+           width="7.0866141"
+           height="7.0866141"
+           x="419.31384"
+           y="714.5332" />
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect8394-0-0"
+           width="7.0866141"
+           height="7.0866141"
+           x="425.45496"
+           y="776.55273" />
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect8394-0-1"
+           width="7.0866141"
+           height="7.0866141"
+           x="492.02814"
+           y="705.89032" />
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect8394-0-0-3"
+           width="7.0866141"
+           height="7.0866141"
+           x="492.02811"
+           y="713.17603" />
+        <rect
+           style="fill:#7fff2a;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:6.66666651;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="rect8394-9-3"
+           width="7.0866141"
+           height="7.0866141"
+           x="429.20554"
+           y="717.95331" />
+      </g>
+    </g>
+  </g>
+</svg>
