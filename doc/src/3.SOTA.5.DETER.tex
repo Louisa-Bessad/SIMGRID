@@ -31,7 +31,7 @@ l'émulateur DeterLab. Pour fonctionner ce laboratoire viruel a développé 7
 outils complémentaires.
 
 Le premier, qui constitue le c\oe ur logiciel et hardware de DeterLab, se base sur
-Emulab\textbf{todo citation footnote...}, il l'a étendu pour permettre de faire
+Emulab\footnote{\textbf{todo footnote}} \citep{EMULAB_INIT}, il l'a étendu pour permettre de faire
 des tests large échelle spécialisées dans le domaine de la cyber-sécurité et
 dont la complexité est représentative des réseaux d'aujourd'hui. Il fournit
 également une interface web pour gérer à distance ses expériences, les projets
@@ -71,7 +71,13 @@ difuse et à qui, ainsi que son degré de visibilité sur le réseau.
 Afin, construire un environnement de test utilisant des ressources hétérogènes
 controllées par leur propriètaire et dont l'usage et les règles de sécurité
 d'accès sont différentes le projet DETER a créé la
-``Federation''\citep{DETER_faber2007deter}\textbf{to develop?}.
+``Federation''\citep{DETER_faber2007deter}\textbf{to develop?}(Fig.\ref{Federation}).
+
+\begin{figure}
+  \centering \includegraphics[scale=0.75]{Pictures/png/Deter_federation}
+  \caption{Fédération d'une experience réparties sur 3 plateformes de tests différentes}
+  \label{Federation}
+\end{figure}
 
 MAGI\footnote{Montage AGent Infrastructure} fournit un systèmee de gestion de
 flux entre les différentes entités d'une expérience, permettant ainsi d'avoir un

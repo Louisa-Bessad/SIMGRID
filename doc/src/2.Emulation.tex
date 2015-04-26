@@ -246,7 +246,7 @@ pour que l'appel système puisse avoir lieu.%% Au retour de
    \caption{Attachement d'un processus et contrôle via un espion}
    \label{PTRACE_FONCTIONNEMENT}
  \end{figure}
- 
+
 Néanmoins, pour contrôler un processus, \texttt{ptrace} fait de nombreux
 changements de contexte pour pouvoir intercepter et gérer les événements, or
 cela coûte plusieurs centaines de cycle CPU. \textit{De plus, il supporte mal
@@ -482,6 +482,7 @@ surchargera les fonctions temporelles dans notre bibliothèque préchargée avec
 %% plus dur que nécessaire
 
 \begin{table}[H]
+  \centering
 \begin{tabular}{c|c|c|c|c|}
 \cline{2-5} & Source to Source & \begin{tabular}[c]{@{}c@{}}Réimpplémentation
   \\ SMPI\end{tabular} & Coccinelle & Valgrind \\ \hline

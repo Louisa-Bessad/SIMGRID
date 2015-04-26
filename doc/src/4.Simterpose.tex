@@ -27,6 +27,7 @@ en section \ref{section:emulation} ont été choisis.
 
 \subsection{Organisation générale}
 %schéma tableau
+
 \begin{figure}[H]
   \centering \includegraphics[scale=0.5]{Pictures/png/Simterpose_orga_code_v3}
   \caption{{\color{red} \textbf{TODO}}}
@@ -50,25 +51,26 @@ Dans le cas d'une communication réseau, le but de Simterpose étant de réussir
 simuler un réseau \textit{virtuel} sur un réseau local, il faut gérer la
 transition entre réseau local et réseau simulé. En effet l'application possède
 une adresse IP et des numéros de ports virtuels qui ne correspondent pas
-forcément à ceux attribués dans le réseau local. De plus on ne peut pas se baser
-uniquement sur le numéro de \textit{file descriptor} associé à une socket pour
-identifier deux entités qui communiquent entre elles. En effet ce \textit{file
-  descriptor} est unique pour chaque socket d'un processus, mais plusieurs
-processus peuvent avoir un même numéro de \textit{file descriptor} pour des
-sockets de communications différentes puisque chacune à son propre espace
-mémoire. Pour pallier à ce problème on va utiliser en plus du numéro de socket,
-les adresses IP et les ports locaux et distants des deux entités qui souhaitent
-communiquer comme moyen d'identification. Pour gérer toutes ces modifications
-deux solutions ont été proposées lors d'un précédent stage
-\citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation par traduction
-  d'adresse} et la \textit{full médiation}.
+forcément à ceux attribués dans le réseau local.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{Pictures/png/Mediation_realite}
-  \caption{{\color{red} \textbf{TODO}}}
+  \caption{{\color{red} \textbf{TODO + rajotuer la réalité}}}
   \label{COMM_REALITE}
 \end{figure}
+
+De plus on ne peut pas se baser uniquement sur le numéro de \textit{file
+  descriptor} associé à une socket pour identifier deux entités qui communiquent
+entre elles. En effet ce \textit{file descriptor} est unique pour chaque socket
+d'un processus, mais plusieurs processus peuvent avoir un même numéro de
+\textit{file descriptor} pour des sockets de communications différentes puisque
+chacune à son propre espace mémoire. Pour pallier à ce problème on va utiliser
+en plus du numéro de socket, les adresses IP et les ports locaux et distants des
+deux entités qui souhaitent communiquer comme moyen d'identification. Pour gérer
+toutes ces modifications deux solutions ont été proposées lors d'un précédent
+stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation par traduction
+  d'adresse} et la \textit{full médiation}.
 
  \begin{figure}[H]
    \centering
@@ -85,7 +87,7 @@ deux solutions ont été proposées lors d'un précédent stage
    \caption{Les différents types de médiation}
    \label{MEDIATION}
  \end{figure}
-
+ 
 \paragraph{Traduction d'adresse}
  Avec ce type de médiation, illustrée Fig.\ref{ADDRESS_TRANSLATION}, on considère
  que le noyau gère les communications. Ainsi en entrée et sortie d'appel système
