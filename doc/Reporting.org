@@ -180,12 +180,14 @@ simulateur avant la sortie de l'AS
 *** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
 *** TODO gérer intro 4 transition 3...
 *** DONE schéma différences entre les virtualisations
-*** TODO typo pour les citation, AS...
+*** DONE typo pour les citation, AS...
 *** TODO Simgrid is not a simulator
 *** TODO placer:
 On parle de n\oe uds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
 - parler des solutions qui n'existent plus?
-- problème marge foot
+
+** 27.04.2015 -> 01.05.2015
+- Écriture Pré-rapport
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
