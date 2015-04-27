@@ -1,2 +1,29 @@
 \subsection{RR}
  %% pourquoi (tester firefox), comment (ordre des threads -> perf API dans le CPU)
+
+\citep{RR}
+RR outil de debug utilisant les cmd gdb utilisé au depart pour debug firefox
+les appli sont non deterministes execution tjs diff et bug peut arriver apres x execution c difficile de debug de maniere traditionnelle => temps a debugger de meme pr les bug transitoire (pas reproductible) pr les groses applis n'importe quel bug est important et doit être résolu d'ou rr
+ENREGISTRE EXEC NONDETERMINISTE ET DEBUG DETERMINISTE
+on enregistre une execution qui a échoué et on fait du debug sur l'enregistrement en le rejouant aussi souvent qu'on veut car la même éxécution est relancé.
+
+RR = deterministe debug = sv nondeterministic failure une fois et la debug de facon deterministe poru tjs
+
+on enregistr l'application du cout c toute l'execution et l'echec qui sont sv sur le disque.  du coup on peut debug la panne
+ainsi on debug une trace de façon deterministe pas une execution non deterministe puisque a chaque execution rejouée toutes les ressources et actions sont les mêmes (espace d'adressage, contenu des registres, AS)
+
+RR solve the problem en effectuant ke debug en 2 phases: recording (sv execution de appli) + debug deterministe de la sv en utilisant gdb pour controler le rejeu autant de fois que desiré
+
+capture tous les evenements non deterministes
+en rejouant ds bon ordre rr garantit que chaque session debu est deterministe: adresse, registre... ne changent pas
+du coup on meme rejouer les fautes faites par des outils de fuzzing ou d'injection de fautes et les debbuguer
+
+advantage:
+diminue le cout de debbug et permet de résoudre de nv bug
+fonctionne avec bcp d'appli puisque fonctionne firefox
+faible sur-cout de temps puisque veut que rr remplace gdb doit pouvoir resoudre pb aussi vite :D overhead depend du type de test faits
+
+neg:
+emule une machine mono coeur donc prog parallele ralentis
+ne peut pas enregistrer mem dont proc partage => thread pb
+tout les AS pas encore implem donc risque de voir apparaître selon appliaction et AS que son processus fait
