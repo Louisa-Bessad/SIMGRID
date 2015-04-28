@@ -26,41 +26,6 @@ uprobes c'est:
 
 
 -------------------------------------------------------------
-DISTEM
-C quoi:
-- logiciel pour construire des environnements de test distribués virtuels grâvce ens d'outils de Linux (LXC, CPU frequence et traffic ctrl)
-- a partir d'un ensemble de noeuds homogènes on peut émuler une plateforme de noeud hétérogènes (nb et perf de coeurs de CPU connecré à un réseau virtuel
-- solution de virtualisation légère utilisée = LXC (LinuX Container) pour permettre le passage à l'echelle (40000 noeuds virtuels)
-- différentes interfaces selon les besoins des utilisateurs et e lengage de prog qu'ils veulent utiliser pour leur expériences (Script shell, ruby programs), user-griendly, logiciel libre.
-
-Archi:
-- simple, combine plusieurs outils libres et technologies efficaces dans leur domaine pour atteindre son objectif
-- config automatique des tables de routage en fonction de la topologie réseau fournie
-
-émulation de l'hétérogénéité:
-- inversement possible
-- changement à la volée des paramètres du réseau et de la vitesse du processeur (émulation de ressources CPU Distem est l'unique logiciel à utiliser cet outil)
-- les coeurs physique de la machine peuvent  être alloué à un VN particulier et la vitesse de chaque coeur peut etre controllé pour être plus faible que la vitesse normal
-=> ces 2 points permettent d'approcher à maximum de la réalité.
-
-Comment:
-- 1 specifier un res virtuel avec ltaence et bp ctrl sur chaque lien en in et out
-- 2 emuler cap CPU degradees
-- 3 pls Vnodes sur un PN
-- Pnodes = noeuds physique non virtualisé pour la base de son infrastructure. Chaque pnode peut contenir plusieurs Vnodes. Les Vnodes sont séparé et n'ont pas conscience de la présence des autres Vnodes sur le Pnodes
-- tous les Vnodes sont connectés sur un réseau Ethernet virtualisé
-- chaque Pnodes possède son démon Distem qui controle les vnodres qu'il héberge. Le ctrl des liaisons et autres ressources sont pour Vnodes.
-- un des Pnodes est le coordinator il est responsable du controle de l'infrastructure dans sa globalité en comuniquand ave les autres Pnodes.
-- Vnode = LXC (conteneur possède un espace @ speare pour les ressources sytèmes: taches interfaces res, mémoire, DD..., mais partage version du noyau et le processuer => pb pour l'heterogeneite des perfs cpu des VM => utilisation de Linux Control Groups pour pouvoir assigner des coeurs à des conteurs. pour ctrl la vitesse des coeur assigné on utilise CPU-Hogs \textbf{citation et explciation}
-- chaque vnode peut avoir pls interface res virtuelles. toutes les veth interfaces sont regroupées avec le reseau physique pr que chacun puisse accéder au réseau => partage du reseau Ethernet entre les differents res IP si aps séparés => pb ARP poisoning => modif taille et duree tables arp dans le noyau mais aps scalable => utilisation de VXLAN pour ajouter une couche d'abstraction dans le res quand on sort du Pnodes on route en direction du Pnodes contenant le Vnode destinataire et pas l'à du dest direct c arrive dans le Pnode que la couche VXLAN renverra au bon Vnode
-- BP controlé par algo TBF, latence par netem file en entrée et en sortie indépendant
-gère injection de faute sur res et sur les noeud
-
-ccl:
-res emule et infra detailles et realistes, simple et robuste mais limité à la reduction de perf pas emulation de ammchines plus rapides.
-
-
--------------------------------------------------------------
 CWRAP outil d'émulation par interception
 - cwrap's mission is to enable developers to test complex network-based and privileged software stacks on UNIX machines with limited network access and without root privileges by providing preloadable libraries to wrap standard libc functions.
 - pour tester des appli réseaux (2005 tester proto dev par SAMBA) NSS modules
@@ -83,40 +48,6 @@ intercepte touts les appels de type setuid & getuid et réécrit le mapping entr
 - ressolv\_wrapper
 Redirects name queries to the nameservers specified in your resolv.conf
 Can fake DNS queries using a simple formatted DNS hosts file.
-
-
--------------------------------------------------------------
-DETER:
-website:
-- DETER projet de recherche et utilisateur DeterLab, banc de tests avancée emeule la complexité du monde réel pour tester les solutions de cybersécurié (pour protéger de cyber attaques et des failles reseau)
-- DETER = projet de recherche + outil pour mener des tests de cybersecu
-- The gap between threat and defense continues to widen
-- mission: is to readily enable the research community to conduct advanced research in cyber security through use of DeterLab's innovative methods and advanced tools -- that allow for repeatable, scalable and scientifically verifiable experimentation -- for homeland security and critical infrastructure protection
-- accelerer le dev solution de cybersecu efficace
-- utilise DETERLab (plateforme d'experimentation pour les nouvelles tech) open, outils
-DeterLab (cyber DEfense Technology Experimental Research Laboratory) is a state-of-the-art scientific computing facility for cyber-security researchers engaged in research, development, discovery, experimentation, and testing of innovative cyber-security technology. DeterLab is a shared testbed providing a platform for research in cyber security and serving a broad user community, including academia, industry, and government. To date, DeterLab-based projects have included behavior analysis and defensive technologies including DDoS attacks, worm and botnet attacks, encryption, pattern detection, and intrusion-tolerant storage protocols.
-Innovations that work well in a predictable, controlled environment often turn out to be much less effective, reliable or manageable in a critical government or enterprise IT environment. Without realistic, large-scale resources and research environments, results are unpredictable. As a world-class facility used and shared by cyber security researchers from hundreds of institutions worldwide, our stress is on rigorous, repeatable testing in a realistic, large-scale test environment. We enable researchers to observe and interact with real malicious software, operating in realistic network environments at scales found in the real world. These experiments in turn lead to cyber-defense innovations and systems that are inherently more robust.
-capable de partage des ressources entre différents test concurrents + outil et interface et datasets pour test secu
-DeterLab base sur Emulab, etend le code pour permettre des tests de gde echelle et dont la complexite est representative des reseaux d'ojd et specialisee dans le domaine cyber
-DETERLab =  Containers, for multi-resolution virtualization of experiment resources + DASH, for predictive modeling of human behavior supporting definition of mental models, reactive goal-driven behavior, and combinations of deliberative/instinctive behaviors + Federation and its ABAC authorization library, for connection of heterogeneous resources from different owners with varying usage and access policies + Multi-party experiments technology that provides controlled but co-joined experiments, creating different views of the experiment environment for multiple experimenters or groups of experimenters within one unified experiment + MAGI, for orchestrating networking experiments providing deterministic control over the various components in an experiment.
-Multi-resolution virtualization of expreriment resources + federation to connect hetero resources from diff owners with varying usage and access policies + multi-party experiments (tech that provides controlled but co-joined experiments, creating different views within one unified experiment) + experiment orchestration (providing deterministic control over the various components in an experiment) + predictive + risky experiment management to allow controlled expe interaction with the real internet
-
-Today, DeterLab is one of the largest facilities devoted to providing experimental resources and scientific expertise for the development, experimentation, and testing of innovative cyber-defense technology
-- Experiments =  Observation of cyber-attack and cyber-defense technologies + Test-driven development of innovative cyber-defenses + Scientific test and measurement of the effectiveness of cyber-security innovations + Experimentation with multiple approaches to using a cyber-defense technology + Scientific assessment of hypotheses about cyber-attack and cyber-defense technology in action.
-- new fields     ur range of cyber-security scientific work now covers several areas that include not only core cyber-security areas – such as DDoS defense, intrusion detection, and network defense for critical infrastructure control systems – but also new or cross-disciplinary research areas such as control-plane network security, provenance of network trace datasets, anonymity network robustness, and routing security and multicast security for smart power grids.
-- DETER allows for cybersecurity researchers from around the globe to run their cyber experiments – test, evaluate response, and discover ‘best solutions’ – in a self-contained virtual Internet lab that is representative of the complexity and scale of the actual Internet.
-
-plaquette
--DETER = recherche de methodes experimentales pour innovations dans recherche cybersecu (2003) + dev DeterLab (2004) + education cybersecu avec exo dispos
-- virtual Lab free + auth control acces pour user + plateforme de test pr creer hote virtuel et reseau du Lab's hard reel + tools pr deisgn  virtual test network + automatisaiton tool pr test repeatable et proc exeprimentales + federationi avec autre tests lab pr augmenter la taille
-
-2007
-- supports experimentation on next-generation cyber security technologies, and
-uses the Emulab cluster testbed software to control and manage a pool of PCs
-- DETER testbeds[1] are a class of Emulab- based[2] testbed that provide a
-secure experimental environment through configuration and management.  The DETER
-project[3] at ISI runs a DETER testbed with segments located at USC/ISI and the
-University of California at Berkeley consisting of more than 250 nodes.
 
 
 -------------------------------------------------------------
@@ -159,4 +90,116 @@ neg:
 emule une machine mono coeur donc prog parallele ralentis
 ne peut pas enregistrer mem dont proc partage => thread pb
 tout les AS pas encore implem donc risque de voir apparaître selon appliaction et AS que son processus fait
+
+
+-------------------------------------------------------------
+DISTEM
+C quoi:
+- logiciel pour construire des environnements de test distribués virtuels grâvce ens d'outils de Linux (LXC, CPU frequence et traffic ctrl)
+- a partir d'un ensemble de noeuds homogènes on peut émuler une plateforme de noeud hétérogènes (nb et perf de coeurs de CPU connecré à un réseau virtuel
+- solution de virtualisation légère utilisée = LXC (LinuX Container) pour permettre le passage à l'echelle (40000 noeuds virtuels)
+- différentes interfaces selon les besoins des utilisateurs et e lengage de prog qu'ils veulent utiliser pour leur expériences (Script shell, ruby programs), user-griendly, logiciel libre.
+
+Archi:
+- simple, combine plusieurs outils libres et technologies efficaces dans leur domaine pour atteindre son objectif
+- config automatique des tables de routage en fonction de la topologie réseau fournie
+
+émulation de l'hétérogénéité:
+- inversement possible
+- changement à la volée des paramètres du réseau et de la vitesse du processeur (émulation de ressources CPU Distem est l'unique logiciel à utiliser cet outil)
+- les coeurs physique de la machine peuvent  être alloué à un VN particulier et la vitesse de chaque coeur peut etre controllé pour être plus faible que la vitesse normal
+=> ces 2 points permettent d'approcher à maximum de la réalité.
+
+Comment:
+- 1 specifier un res virtuel avec ltaence et bp ctrl sur chaque lien en in et out
+- 2 emuler cap CPU degradees
+- 3 pls Vnodes sur un PN
+- Pnodes = noeuds physique non virtualisé pour la base de son infrastructure. Chaque pnode peut contenir plusieurs Vnodes. Les Vnodes sont séparé et n'ont pas conscience de la présence des autres Vnodes sur le Pnodes
+- tous les Vnodes sont connectés sur un réseau Ethernet virtualisé
+- chaque Pnodes possède son démon Distem qui controle les vnodres qu'il héberge. Le ctrl des liaisons et autres ressources sont pour Vnodes.
+- un des Pnodes est le coordinator il est responsable du controle de l'infrastructure dans sa globalité en comuniquand ave les autres Pnodes.
+- Vnode = LXC (conteneur possède un espace @ speare pour les ressources sytèmes: taches interfaces res, mémoire, DD..., mais partage version du noyau et le processuer => pb pour l'heterogeneite des perfs cpu des VM => utilisation de Linux Control Groups pour pouvoir assigner des coeurs à des conteurs. pour ctrl la vitesse des coeur assigné on utilise CPU-Hogs \textbf{citation et explciation}
+- chaque vnode peut avoir pls interface res virtuelles. toutes les veth interfaces sont regroupées avec le reseau physique pr que chacun puisse accéder au réseau => partage du reseau Ethernet entre les differents res IP si aps séparés => pb ARP poisoning => modif taille et duree tables arp dans le noyau mais aps scalable => utilisation de VXLAN pour ajouter une couche d'abstraction dans le res quand on sort du Pnodes on route en direction du Pnodes contenant le Vnode destinataire et pas l'à du dest direct c arrive dans le Pnode que la couche VXLAN renverra au bon Vnode
+- BP controlé par algo TBF, latence par netem file en entrée et en sortie indépendant
+gère injection de faute sur res et sur les noeud
+
+ccl:
+res emule et infra detailles et realistes, simple et robuste mais limité à la reduction de perf pas emulation de ammchines plus rapides.
+
+
+-------------------------------------------------------------
+DETER:
+website:
+- DETER projet de recherche et utilisateur DeterLab, banc de tests avancée emeule la complexité du monde réel pour tester les solutions de cybersécurié (pour protéger de cyber attaques et des failles reseau)
+- DETER = projet de recherche + outil pour mener des tests de cybersecu
+- The gap between threat and defense continues to widen
+- mission: is to readily enable the research community to conduct advanced research in cyber security through use of DeterLab's innovative methods and advanced tools -- that allow for repeatable, scalable and scientifically verifiable experimentation -- for homeland security and critical infrastructure protection
+- accelerer le dev solution de cybersecu efficace
+- utilise DETERLab (plateforme d'experimentation pour les nouvelles tech) open, outils
+DeterLab (cyber DEfense Technology Experimental Research Laboratory) is a state-of-the-art scientific computing facility for cyber-security researchers engaged in research, development, discovery, experimentation, and testing of innovative cyber-security technology. DeterLab is a shared testbed providing a platform for research in cyber security and serving a broad user community, including academia, industry, and government. To date, DeterLab-based projects have included behavior analysis and defensive technologies including DDoS attacks, worm and botnet attacks, encryption, pattern detection, and intrusion-tolerant storage protocols.
+Innovations that work well in a predictable, controlled environment often turn out to be much less effective, reliable or manageable in a critical government or enterprise IT environment. Without realistic, large-scale resources and research environments, results are unpredictable. As a world-class facility used and shared by cyber security researchers from hundreds of institutions worldwide, our stress is on rigorous, repeatable testing in a realistic, large-scale test environment. We enable researchers to observe and interact with real malicious software, operating in realistic network environments at scales found in the real world. These experiments in turn lead to cyber-defense innovations and systems that are inherently more robust.
+capable de partage des ressources entre différents test concurrents + outil et interface et datasets pour test secu
+DeterLab base sur Emulab, etend le code pour permettre des tests de gde echelle et dont la complexite est representative des reseaux d'ojd et specialisee dans le domaine cyber
+DETERLab =  Containers, for multi-resolution virtualization of experiment resources + DASH, for predictive modeling of human behavior supporting definition of mental models, reactive goal-driven behavior, and combinations of deliberative/instinctive behaviors + Federation and its ABAC authorization library, for connection of heterogeneous resources from different owners with varying usage and access policies + Multi-party experiments technology that provides controlled but co-joined experiments, creating different views of the experiment environment for multiple experimenters or groups of experimenters within one unified experiment + MAGI, for orchestrating networking experiments providing deterministic control over the various components in an experiment.
+Multi-resolution virtualization of expreriment resources + federation to connect hetero resources from diff owners with varying usage and access policies + multi-party experiments (tech that provides controlled but co-joined experiments, creating different views within one unified experiment) + experiment orchestration (providing deterministic control over the various components in an experiment) + predictive + risky experiment management to allow controlled expe interaction with the real internet
+
+Today, DeterLab is one of the largest facilities devoted to providing experimental resources and scientific expertise for the development, experimentation, and testing of innovative cyber-defense technology
+- Experiments =  Observation of cyber-attack and cyber-defense technologies + Test-driven development of innovative cyber-defenses + Scientific test and measurement of the effectiveness of cyber-security innovations + Experimentation with multiple approaches to using a cyber-defense technology + Scientific assessment of hypotheses about cyber-attack and cyber-defense technology in action.
+- new fields     ur range of cyber-security scientific work now covers several areas that include not only core cyber-security areas – such as DDoS defense, intrusion detection, and network defense for critical infrastructure control systems – but also new or cross-disciplinary research areas such as control-plane network security, provenance of network trace datasets, anonymity network robustness, and routing security and multicast security for smart power grids.
+- DETER allows for cybersecurity researchers from around the globe to run their cyber experiments – test, evaluate response, and discover ‘best solutions’ – in a self-contained virtual Internet lab that is representative of the complexity and scale of the actual Internet.
+
+plaquette
+-DETER = recherche de methodes experimentales pour innovations dans recherche cybersecu (2003) + dev DeterLab (2004) + education cybersecu avec exo dispos
+- virtual Lab free + auth control acces pour user + plateforme de test pr creer hote virtuel et reseau du Lab's hard reel + tools pr deisgn  virtual test network + automatisaiton tool pr test repeatable et proc exeprimentales + federationi avec autre tests lab pr augmenter la taille
+
+2007
+- supports experimentation on next-generation cyber security technologies, and
+uses the Emulab cluster testbed software to control and manage a pool of PCs
+- DETER testbeds[1] are a class of Emulab- based[2] testbed that provide a
+secure experimental environment through configuration and management.  The DETER
+project[3] at ISI runs a DETER testbed with segments located at USC/ISI and the
+University of California at Berkeley consisting of more than 250 nodes.
+
+
+-------------------------------------------------------------
+ROBOT
+
+plateforme tests automatisés pilotés par mots-clés créé en 2005 par Pekka Klärck(libre et majeure partie de ses outiles et librairies aussi)
+utilise fomat tabulaire pour décrire les exempls qui devientdront des exécutables par implémentation d'u n  bout de code d'interface appelé librairie de test
+automatisation de validation test normaux et de ATDD (acceptance test-driven development)
+tester en utilisant des exemples/ tests pour clarifier et documenter les exigences aussi connu sous le nom Agile acceptance testing ou Story test-driven delevopment.
+frameworks de tests pilotés par clés utilisent des mots -clés dans les do pour déterminer les actions a prendre sur les do, aussi appeles mots d'actions
+suntaxe donnees test simple par mot clé,  approche par keyword-driven testing
+%% tag permettent classer les tests
+tag pour metado pour categoriser les tests, statistique collecte auto, selectionner les cas de tests a exec et lesquels sont critiques
+
+Les tests sont écrits dans des tables dont il existe quatre types:
+table des cas de test contenant les cas réels de test
+table de mots-clés, contient le smots clés utilisateur de bas nv utilise pour construire les cas de test
+table de paramétrage pour importer des fichiers ou definir des metado
+table de variables pour declarer des var glo pouvant etre utiliséesa ailleurs
+2 types de mots clé utilisateur (implémenta dans table) et librairie (implémenté par du code librairie de test faisant l'interface entre le test et le système à tester.
+
+%% Python implémentation mais fonctionne aussi avec Jython ou d'autres langage via des interfaces
+
+architecture modulaire extensible
+pour créer des tests on créé des librairies de test 
+%% fichier pour do test, un pour les cas de tests qui génère la suite de test
+%% ??????? and users can create new higher-level keywords from existing ones using
+%% the same syntax that is used for creating test cases.
+
+au lancement d'une execution le framework parse le fichier de données tests
+???en fonction des mots clé qu'il contient
+ensuite le framework utilise les mots clé fournies par les librairies de test
+pour interagir avec le système under test. Les librairies peuvent communiquer
+directement avec le systeme ou utilisertn d'autres outils de tests tels que les
+drivers
+rend ce qui s'est passé durant l'exécution du test dans deux fichiers different
+le report et le log file
+les librairies fournissent les keywords utilisait par Robot si ils n'existent
+pas on peut les créer: librairies standard (os, screendshot, char), externes installées séparement (ssh, http, ftp), spécifiques à de sprojets (test android ios)
+
+les outils sont pour faciliter la creation et execution de test: libdoc pour
+générer les mots cles des librairies et fichiers sources, vim plugin pr dev,
+emacs major mode pour editer les données de test
 

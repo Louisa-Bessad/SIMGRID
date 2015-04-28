@@ -164,14 +164,39 @@ simulateur avant la sortie de l'AS
 - java -jar plantuml.jar -tpng fichier.pu
 - CWRAP RR
 
-** 30.03.2015 -> 22.04.2015
+** 30.03.2015 -> 03.04.2015
 *** Things done
-- Écriture Pré-rapport
+- Écriture Pré-rapport (Intro Virtualisation émulation, Mediation communications réseaux)
+- Pictures
+- Bibliography
 *** Blocking points
 - place de "temps d'un SEB (netlink et cap)" dans le 2.1
 - pq pas systemtap et dyninst et strace, uprobes raison suffisante pour éviter ce choix, 
 *** Planned work 
 - Continuer la biblio
+
+** 06.04.2015 -> 10.04.2015
+*** Things done
+- Écriture Pré-rapport (Introduction, Virtualisation standard, ptrace, Uprobes, seccomp-bpf)
+- Biblio terminée
+*** Planned work
+- Finir seccomp-bpf
+
+** 13.04.2015 -> 17.04.2015
+*** Things done
+- Écriture Pré-rapport (Valgrind, seccomp-bpf, new Uprobes, LD_PRELOAD)
+*** Planned work
+- Commencer partie SOTA
+
+** 20.04.2015 -> 24.04.015
+*** Things done
+- Écriture Pré-rapport (cwrap, Distem, DETER)
+*** Planned work 
+- Terminer SOTA
+
+** 27.04.2015 -> 01.05.2015
+*** Things done
+- Écriture Pré-rapport (RR, Robot)
 *** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose et remerciements
 *** TODO revoir uprobes
 *** TODO outil du 2.1 à détailler
@@ -183,11 +208,10 @@ simulateur avant la sortie de l'AS
 *** DONE typo pour les citation, AS...
 *** TODO Simgrid is not a simulator
 *** TODO placer:
-On parle de n\oe uds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
+On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
 - parler des solutions qui n'existent plus?
+*** TODO schéma archi robot et DETER to modify at home
 
-** 27.04.2015 -> 01.05.2015
-- Écriture Pré-rapport
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
