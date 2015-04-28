@@ -117,3 +117,46 @@ uses the Emulab cluster testbed software to control and manage a pool of PCs
 secure experimental environment through configuration and management.  The DETER
 project[3] at ISI runs a DETER testbed with segments located at USC/ISI and the
 University of California at Berkeley consisting of more than 250 nodes.
+
+
+-------------------------------------------------------------
+RR
+la plupart de l'exécution d'une appli est deterministe
+rr sv les parties non deterministes (singaux, adresse des buffers et variables)
+entree non deterministe = mem partagee en multi tache, mais rr ne sv pas des parallèles executions pour cout d'efficacite => emule machine monocoeur
+utilisé au depart pour debug firefox
+les appli sont non deterministes execution tjs diff et bug peut arriver apres x execution c difficile de debug de maniere traditionnelle => temps a debugger de meme pr les bug transitoire (pas reproductible) pr les groses applis n'importe quel bug est important et doit être résolu d'ou rr
+ENREGISTRE EXEC NONDETERMINISTE ET DEBUG DETERMINISTE
+on enregistre une execution qui a échoué et on fait du debug sur l'enregistrement en le rejouant aussi souvent qu'on veut car la même éxécution est relancé.
+on enregistr l'application du cout c toute l'execution et l'echec qui sont sv sur le disque.  du coup on peut debug la panne
+ainsi on debug une trace de façon deterministe pas une execution non deterministe puisque a chaque execution rejouée toutes les ressources et actions sont les mêmes (espace d'adressage, contenu des registres, AS)
+RR solve the problem en effectuant ke debug en 2 phases: recording (sv execution de appli) + debug deterministe de la sv en utilisant gdb pour controler le rejeu autant de fois que desiré
+capture tous les evenements non deterministes
+du coup on meme rejouer les fautes faites par des outils de fuzzing ou d'injection de fautes et les debbuguer
+
+recorder implem
+pr scheduler il switch lors d'AS, preemption avec HPC(hardware perf counters) interruption compte nb instruction et arrete apres un certain nb specifié rejeu possible (sv valeur de compteur), signaux aussi rejoué comme préemption de tache
+
+syscall buffer
+seccomp-bpf pour tracer les syscalls specifiques
+api ctrl ptrace, HPC par ``perf event''
+ptrace cher use seccompbpf pour filtrer les AS intercepte via LD\_PRELOAD (sv valeur retour et type AS dans le syscall bufferpour rejeu)
+
+replay implem
+emule AS via trace do (small number)
+compteur d'instruction interruption apres nb instruction sv durant execution
+signaux si handler  restaure registre, handler et frame sv sinon rien
+rejoue l'AS mais le retour est celui sv durant l'execution pas le nv
+Rr outil de debug utilisant les cmd gdb
+%% durant le rejeut il emule les appels systèmes et ``rdtsc'' en écrivant les do nondeterministes sv dans un ``tracee''
+
+advantage:
+diminue le cout de debbug et permet de résoudre de nv bug
+fonctionne avec bcp d'appli puisque fonctionne firefox
+faible sur-cout de temps puisque veut que rr remplace gdb doit pouvoir resoudre pb aussi vite :D overhead depend du type de test faits
+
+neg:
+emule une machine mono coeur donc prog parallele ralentis
+ne peut pas enregistrer mem dont proc partage => thread pb
+tout les AS pas encore implem donc risque de voir apparaître selon appliaction et AS que son processus fait
+
