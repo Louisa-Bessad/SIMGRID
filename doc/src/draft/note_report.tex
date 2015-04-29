@@ -128,6 +128,60 @@ res emule et infra detailles et realistes, simple et robuste mais limité à la 
 
 
 -------------------------------------------------------------
+MicroGRid:
+pas d'outil de simulation qui explore le comportement d'applications pour les grilles ou qui utilisent leurs ressource
+Grille ont sont très héréogène (conf, perf, fiabilité) => logiciel flexible et pouvant s'adapter pour avoir une certaine fiabilité et des perfs
+pas de moyen de d'étudier la dynamique de tels logiciels pour évaluer efficacité robustesse et impact sur la stabilité de la grille.
+=> de simuler leur applications dans une grille virtuelle
+existe des applic pr checker acces aux ressources (uniforme, securise, et efficace) mais pas perf de appl
+
+simulation permet emuler machine plus puissante
+méthode pour evaluer les applications pour la grille et les environnements de grille basée sur l'émulateur MicroGrid
+MicroGrid outil pour prédire les pers d'une appli sur plusieurs ressources de grille et topo reseaux fournit une infrastructure de grille vituelle permettant l'experimentation
+ %% avec une gestion des ressources dyn et des applications ``adaptive'' en supportant les expe controllée et reproductibles
+pas prediction parfaite mais avoir une estimationi des perfs de appli dans de nouvelles topo
+comment simuler et modeliser la structure de grilles large echelle. ens d'outils de simulation permettant aux ``experimenters'' de lancer des appli utilisant la frille sur des ressources de grille virtuelles pour étudier le comportement complexe et dynamique de ces appli
+UCSD simuler  et modéliser une grille large-échelle
+%% = ensemble d'outils permettant au appli Globus de s'exécuter dans une grille virtuelle 
+= ens d'outils de simulation appele MicroGrid permettant de modeliser et evaluer le middleware les applis, et les services reseaux d'une grille. Ces outils fournissent un environnement pour faire des experiences et les reproduire, developper des methodes experimentales pour extrapoler d'une archi réelle à une virtuelle non existante.
+%% ????? Les outils de simulation doivent supporter les griles existantes, et modeliser les ressources et passage à l'échelle
+= on ne modifie pas les appli pour la simulation car on utilise la virtualisation pour l'environnement et ainsi obtenir une grille virtuelle + Gere des modeles heterogenes dans la grille virtuel en utilisant un temps virtuel pour conserver la precision de la simulation + modèles pour simuler les ressouces de calculs, mémoires et réseau. Doit pouvoir être sur des ressources heterogenes, 
+%% supporter appli qui utilisent Globus Grid middleware infrastructure 
+
+On définit des ressources et reseaux à émuler on peut ainsi etudier l'efficacité de plateforme  pour la grille ou celle d'environnement pour la grille qui n'existe pas encore dans des conditions controllées.
+interception au nv des biblothèques via LD\_PRELOAD
+Virtualisation:
+Ressources:
+appli doit persevoir juste la grille virtuelle (host names networks) independament des ressources physiques utilisées pour cela interception de toutes les actions faite par l'appli qui utilisent les ressources et les informtations des services fournies 
+chaque hote virtuel est lie à une machine physique via table de traduction IP virtuelles => physique. Tous les appels de librairies ``relevant'' sont interceptées et utilise cette table pour conserver la virtualisation: gethostname, bind,send,receive (socket), %% creation processus
+%% fournit à l'appli des des ressources et un service d'info de la grille virtuelle car tourne sur physique, gere homogene et hetero.
+virtualise deux types de ressources pour la grille diff (network: MaSSF et calcul: Cpu cp,troler)
+MaSSF:
+ emulateur de paquet reseau (possède module protocol pr modeliser un reseaux detaille'': IP TCP OSPF...)bqui gere exec d'applic non modifié en utilisant un simulateur,
+pour supporter la simulation du traffic en live d'une appli on a un module qui accepte et dispatch le traffic  de l'appli vers le module de modélisation reseaux et le renvoie passe aussi par lui. Pour intercepter les flux reseaux au niveau sockt de la par des proc (wrapsocket) qui communique avec AGENT module pour rediriger le traffic vers et emulateur et retour
+
+CPU controlleur:
+virtualise ressources CPU  et les procussus des machines physiques via SIGSTOP SIGCONT vers proc physique
+3 parties
+live process interception: creation ou destruciton de thread/processys intercepte lesa ppl fonctions main et exit et mets sa table de process a jour
+cpu usafe monitoring: toutes les 20ms il controlle le temps d'utilisation CPU de chaque processus de sa table en lisant dans le FS /proc
+%% Process scheduling
+%% controlleur calcule le taux d'utilisation du cpu de chaque hote virtuel, si on est au dessus de la vitesse de hote virtuelle stop tous les process sur machines virtuelles sinon ils reveillent les proc
+
+Coordination globale:
+obtenir une simulation ``balanced'' entre des ressources distibués implique une coordination globale
+module ``virtual time'' base sur les ressources virtuelles désirées et ressources physique employe 'cpu capcacity et netborwk BP, latency) il calcule le taux de simulation maximum d'exécution (maximum feasible simulationi rate)
+parallèlement on a une librairie de virtualisaiton qui utilise ce taux pour retourner un ecoulement du temps ajuste au système pour simuler une exucution à pleine puissance des mahcines virtuelles
+execution virtuelle coherent en coordonant la vitesse de simulation des differentes ressources.
+
+Ressource simulation:
+pour avoir un retour de perf précis (temps-réel) les ressources simulées par MicrGrid vont être controlees aec précision et simule au taux auquel la machine virtuelle à le droit d'avancer.
+Module de simulation: simuler la vitesse d'execution denombreux processeurs. calcul SR  et on divise pour chaque processus sur virtuel hote => MicroGrid CPU ordonnanceur (round robin, real-time permettrait plus de precision et fiabilité de la simulation avec quantum plus petit new qcheduler based on real-time priorities) + modeliser la structure de reseaux -> tens of millions d'éléments dans le réseau (100 millions de noeud simules, explorer un champs de vitesse et fiabilite et extrapoler  from a small set of grid simulations to a much broader space of network environment and applic behavior
+
+avantage:emulateur supporte tous les protocoles reseaux sophistique, controlleur permet emulation de VM avec vitesse variables
+
+Plus de version maintenue mais approche réutilisé dans certains projets (TimeKeeper permet chaque LXC d'avoir sa propore horloge virtuelle et possibilite de faire pause ou saut dans le temps module noyau integre a CORE (emulateur de res en temps reel emulant les hote et simule les liens, gettimeofday reimplemen poru envoyer temps virtuel, Integrated simulation and emulation using adaptative time dilation veut allier les av de la sim et emulation mais quand sim surcharge  prend du retard sur temps reel et introduit des delai quand envoie info a emulateur => dilater le tps pr garder synchro facteur dilation adapté fonction charge cpu et hote physique virtualisation avec hyperviseur kvm et remplacement gettimeofday par une fonciton get_virtual_time
+-------------------------------------------------------------
 DETER:
 website:
 - DETER projet de recherche et utilisateur DeterLab, banc de tests avancée emeule la complexité du monde réel pour tester les solutions de cybersécurié (pour protéger de cyber attaques et des failles reseau)

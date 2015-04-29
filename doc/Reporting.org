@@ -196,7 +196,7 @@ simulateur avant la sortie de l'AS
 
 ** 27.04.2015 -> 01.05.2015
 *** Things done
-- Écriture Pré-rapport (RR, Robot)
+- Écriture Pré-rapport (RR, Robot, MicroGrid)
 *** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose et remerciements
 *** TODO revoir uprobes
 *** TODO outil du 2.1 à détailler
@@ -210,7 +210,8 @@ simulateur avant la sortie de l'AS
 *** TODO placer:
 On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
 - parler des solutions qui n'existent plus?
-*** TODO schéma archi robot et DETER to modify at home
+impossible de predire et controller l'environnement avec des reseaux et machines partagées,empechant les expe reprouctibles
+*** TODO schéma archi robot et DETER to modify at home MicroGrid???
 
 
 * Conclusion
