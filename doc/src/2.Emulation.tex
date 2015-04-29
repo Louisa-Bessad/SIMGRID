@@ -39,8 +39,7 @@ qui s'occupera de récupérer les ressources demandées par les applications. Il
 existe différents outils permettant de mettre en place cette virtualisation, on
 trouve notamment \textbf{cgroup}, \textbf{netstat} et \textbf{cpuburner}.  L'émulation par limitation a l'avantage d'être simple à mettre en \oe uvre puisque
 l'on se base sur la machine hôte. Néanmoins elle est assez contraignante du fait
-qu'on ne puisse pas émuler des architectures plus performantes que l'hôte. De
-plus {\color{red} \textit{à écrire deux derniers points négatifs à éclaircir}}.
+qu'on ne puisse pas émuler des architectures plus performantes que l'hôte.
 
 \subsection{Émulation par interception}
 \label{section:interception}
@@ -70,7 +69,8 @@ et qui les transmettra ensuite au simulateur.
 %%   pour l'application. Ce mécanisme s'appelle la médiation.}
 
  Une application distribuée peut vouloir communiquer avec l'hôte soit pour
- effectuer de simples calculs {\color{red}\textbf{TODO}}(SEB), soit pour effectuer des requêtes de
+ effectuer de simples calculs %% {\color{red}\textbf{TODO}}(SEB)
+ , soit pour effectuer des requêtes de
  connexion ou de communication avec d'autres applications sur le réseau. Quand
  l'émulateur intercepte une communication venant d'un des processus d'une
  application, il modifie les caractéristiques de cette dernière pour qu'elle
