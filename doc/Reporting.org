@@ -29,7 +29,7 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 
 * Development
 ** Data Provenance
-
+-
 * Journal
 ** 1rst week March
 *** Things done
@@ -211,7 +211,8 @@ simulateur avant la sortie de l'AS
 On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
 - parler des solutions qui n'existent plus?
 impossible de predire et controller l'environnement avec des reseaux et machines partagées,empechant les expe reprouctibles
-*** TODO schéma archi robot et DETER to modify at home MicroGrid???
+*** DONE schéma archi robot et DETER to modify at home 
+- schéma MicroGrid et positionnement image???
 
 
 * Conclusion
