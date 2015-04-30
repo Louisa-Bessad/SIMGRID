@@ -1,4 +1,5 @@
-Mettre une cc générale comme c pas possible le source mais faut rajouter valgrind au second tableau
+Mettre une cc générale comme c pas possible le source mais faut rajouter
+valgrind au second tableau
 
 %% \begin{table}[H]
 %%   \centering
@@ -16,22 +17,55 @@ Mettre une cc générale comme c pas possible le source mais faut rajouter valgr
 %% \end{table}
 
 
-\begin{table}[H]
-\centering
-  \begin{tabular}{c|c|c|c|c|c|}
-    \cline{2-6} & \texttt{ptrace} & Uprobes & seccomp/BPF & \texttt{LD\_PRELOAD} & Got Injection
-    \\ \hline
-    \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau\\ d'interception\end{tabular}}
+%% \begin{table}[h]
+%%   \begin{tabular}{c|c|c|c|l|l|c|}
+%%     \cline{2-7}
+%%     & \texttt{ptrace}                                                   & Uprobes                                                 & seccomp/BPF                                             & \texttt{LD\_PRELOAD}  & got poisoning & Valgrind  \\ \hline
+%%     \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau \\ d'interception\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}  & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & Bibliothèque & Bibliothèque  & Binaire   \\ \hline
+%%           \multicolumn{1}{|c|}{Coût}                                                             & Moyen                                                    & Faible(?)                                               & ?                                                       & Faible       & ?             & Important \\ \hline
+%%           \multicolumn{1}{|c|}{Utilisation}                                                      & \begin{tabular}[c]{@{}c@{}}Assez\\ complèxe\end{tabular} & ?                                                       & ?                                                       & Simple       & ?             & Complèxe  \\ \hline
+%%   \end{tabular}
+%% \end{table}
+
+%% \begin{table}[H]
+%% \centering
+%%   \begin{tabular}{c|c|c|c|c|c|}
+%%     \cline{2-6} & \texttt{ptrace} & Uprobes & seccomp/BPF & \texttt{LD\_PRELOAD} & Got Injection
+%%     \\ \hline
+%%     \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau\\ d'interception\end{tabular}}
+%%     & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}
+%%         & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular}
+%%             & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} &
+%%                 Bibliothèque & Bibliothèque \\ \hline \multicolumn{1}{|c|}{Coût}
+%%                 & Moyen & Faible(?)  & ?  & Faible & ?  \\ \hline
+%%                 \multicolumn{1}{|c|}{Utilisation}
+%%                 & \begin{tabular}[c]{@{}c@{}}Assez \\ complèxe\end{tabular} & ?
+%%                     & ?  & Simple & ?  \\ \hline
+%%   \end{tabular}
+%%     \caption{Comparaison des différentes solutions d'interception entre
+%%       l'application et le noyau}
+%%   \label{TAB_COMP_OTHER}
+%% \end{table}
+
+
+\begin{table}[h]
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c|c|c|}
+\cline{2-7} & \texttt{ptrace} & Uprobes & seccomp/BPF & \texttt{LD\_PRELOAD} &
+got Poisoning & Valgrind \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau
+    \\ d'interception\end{tabular}}
+& \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}
     & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}
-        & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular}
-            & \begin{tabular}[c]{@{}c@{}}Appel \\ Système\end{tabular} &
-                Bibliothèque & Bibliothèque \\ \hline \multicolumn{1}{|c|}{Coût}
-                & Moyen & Faible(?)  & ?  & Faible & ?  \\ \hline
-                \multicolumn{1}{|c|}{Utilisation}
-                & \begin{tabular}[c]{@{}c@{}}Assez \\ complèxe\end{tabular} & ?
-                    & ?  & Simple & ?  \\ \hline
-  \end{tabular}
-    \caption{Comparaison des différentes solutions d'interception entre
-      l'application et le noyau}
-  \label{TAB_COMP_OTHER}
+        & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & Bibliothèque
+            & Bibliothèque & Binaire \\ \hline \multicolumn{1}{|c|}{Coût} &
+            Moyen & Faible(?) & ? & Faible & ? & Important \\ \hline
+            \multicolumn{1}{|c|}{Utilisation}
+            & \begin{tabular}[c]{@{}c@{}}Assez\\ complèxe\end{tabular} & ? & ? &
+                Simple & ? & Complèxe \\ \hline
+\end{tabular}
+}
+\caption{Comparaison des différentes solutions d'interception entre une
+  application et le noyau}
+\label{TAB_COMP}
 \end{table}

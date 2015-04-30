@@ -72,5 +72,11 @@ surchargera les fonctions temporelles dans notre bibliothèque préchargée avec
 \texttt{ptrace}. \textit{Et ce dernier s'occupera de toutes les autres
   fonctions}, ainsi on est certain de n'oublier aucune fonction.
 
-\paragraph{Got injection:}
+\paragraph{GOT Poisoning:}
 %% plus dur que nécessaire
+
+À la compilation, les adresses des appels de fonctions appartenant à des bibliothèques partagées ne sont pas connues. On associe alors un symbôle à chaque appel d'une de ces fonctions. C'est lors de l'exécution du programme que l'éditeur de lien dynamique résoudra le symbôle en trouvant l'adresse de la fonction à laquelle il correspond. Cette adresse sera ensuite stockée dans la ``Global Offset Table''\citep{ELF}, également appelée GOT. Ce tableau, stocké dans le segment de données d'un exécutable ELF, sauvegarde pour chaque symbole résolu l'adresse de la fonction correspondante. Ainsi, lors du premier appel à la fonction l'éditeur de lien retrouve l'adresse du symbole et pour les appels suivants il parcourt la GOT au lieu de refaire le calcul.
+
+La technique du ``GOT poisoning'' \citep{GOT_poisoning} permet d'injecter de fausses adresses de fonctions dans la GOT lors de l'édition de lien dynamique d'un programme. Ainsi, pour chaque fonction de bibliothèque partagée que l'on souhaite intercepter, on peut remplacer l'adresse associée au symbôle correspondant à la fonction par l'adresse d'une nouvelle fonction que l'on aura implémenté. Comme avec \texttt{LD\_PRELOAD} il ne faut pas oublier de fonctions sinon l'interception sera contournée.
+
+Cette solution étant très complexe elle ne sera pas développée en détail dans ce rapport.
