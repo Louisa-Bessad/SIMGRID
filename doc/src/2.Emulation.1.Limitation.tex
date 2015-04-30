@@ -1,0 +1,21 @@
+\subsection{Virtualisation standard}
+\label{section:limitation}
+%% \begin{itemize}
+%% \item principe: limiter l'accès aux ressources par exemple (cgroup, netstat, cpuburner), temps d'un SEB (bench avec netlink, limiter (cap))
+%% \item avantage plus simple
+%% \item désavantages: host>>target, modèle à vérifier, contrôle expérimental fin
+%% \end{itemize}
+
+Avec cette première méthode, illustrée Fig.\ref{TYPE_VIRTUALISATION}, on place la couche d'émulation au-dessus de la
+plateforme réelle (comme un hyperviseur pour une VM). De fait, la puissance de
+l'émulateur dépend de la puissance de la machine hôte et ne peux donc pas
+dépasser les capacités de cette dernière. De plus, en choisissant de placer
+l'émulation comme une surcouche, cela permet de limiter l'accès aux ressources
+pour les applications. En effet, elles ne pourront pas passer la couche
+d'émulation pour accéder aux ressources localisées sur la machine hôte. Les
+requêtes des applications distribuées seront arrêtées par l'émulateur. C'est lui
+qui s'occupera de récupérer les ressources demandées par les applications. Il
+existe différents outils permettant de mettre en place cette virtualisation, on
+trouve notamment \textbf{cgroups} \citep{cgroups} et \textbf{cpuburner} \citep{canon2006wrekavoc, buchert2011methods} pour le système et \textbf{iptables} \citep{netfilter_iptables, iptables_man} pour le réseau. L'émulation par limitation a l'avantage d'être simple à mettre en \oe uvre puisque
+l'on se base sur la machine hôte. Néanmoins elle est assez contraignante du fait
+qu'on ne puisse pas émuler des architectures plus performantes que l'hôte.

@@ -34,7 +34,7 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 ** 1rst week March
 *** Things done
 - Lire les papiers de Chloé, Guillaume, Marion et les papiers cités par Chloé.
-*** Blocking points and questions
+*** Blocking points and questions-
 - Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent
  sur la machine hôte, seules les actions qui ont besoin d'interagir avec
   l'environnement (réseau car applications distribuées) sont envoyées dans le
@@ -199,7 +199,7 @@ simulateur avant la sortie de l'AS
 - Écriture Pré-rapport (RR, Robot, MicroGrid)
 *** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose et remerciements
 *** TODO revoir uprobes
-*** TODO outil du 2.1 à détailler
+*** DONE outil du 2.1 à détailler
 *** DONE reprendre les images
 *** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
 *** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace

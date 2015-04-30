@@ -1,0 +1,49 @@
+\subsubsection{Action sur le binaire}
+%%Valgrind (perf pourrie)
+Pour agir sur le binaire d'une application, c'est l'outil d'instrumentation
+d'analyse dynamique Valgrind \citep{Valgrind, Valgrindweb} que nous allons étudier. À l'origine, il est utilisé
+pour le débuguage mémoire, puis il a évolué pour devenir l'instrument de base à
+la création d'outils d'analyse dynamique de code, tels que la mise en évidence
+de fuites mémoires ou le profilage\footnote{Méthode visant à analyser le code
+  d'une application pour connaître la liste des fonctions appelées et le temps
+  passé dans chacune d'elles}. Valgrind fonctionne à la manière d'une machine
+virtuelle faisant de la compilation à volée\footnote{Technique basée sur la
+  compilation de byte-code et la compilation dynamique. Elle vise à améliorer la
+  performance de systèmes bytecode-compilés par la traduction de bytecode en
+  code machine natif au moment de l'exécution}. Ainsi, ce n'est pas le code
+initial du programme qu'il envoie au processeur de la machine hôte. Il traduit
+d'abord le code dans une forme simple appelée ``Représentation Intermédiaire''. Ensuite, un des outils d'analyse dynamique de Valgrind peut être
+utilisé pour faire des transformations sur cette ``Représentation
+Intermédiaire''. Pour finir, Valgrind traduit la ``Représentation
+Intermédiaire'' en langage machine et c'est ce code que le processeur de la
+machine hôte va exécuter. De plus, grâce à la compilation dynamique, Valgrind
+peut recompiler certaines parties du code d'un programme durant son exécution et
+donc ajouter de nouvelles fonctions au code de l'application.
+
+Dans notre cas, on peut utiliser Valgrind pour mesurer le temps passé à faire un
+calcul. Ce dernier étant ensuite envoyé au simulateur pour calculer le temps de
+réponse dans l'environnement simulé nécessaire à l'émulateur. On pourrait
+également l'utiliser pour réécrire à la volée le code des fonctions que
+l'émulateur doit modifier pour maintenir la virtualisation. Pour faire cela, il
+faut créer un ``wrapper'' pour chaque fonction qui nous intéresse. Un wrapper
+Valgrind est une fonction de type identique à celle que l'on souhaite
+intercepter, mais ayant un nom différent (généré par les \texttt{macro} de
+Valgrind) pour la différencier de l'originale. Pour générer le nom du wrapper
+avec les \texttt{macro} de Valgrind on doit préciser la bibliothèque qui
+contient la fonction originale.%% et
+%% utiliser un Z-encodage\footnote{ Permet de rendre des caractères valides pour
+%%   des noms de fonction en C, Z est le caractère d'échappement pour. Par exemple
+%%   : Za pour *, Zp pour +, Zc = :,
+%%   ... \\ \url{http://valgrind.org/docs/manual/manual-core-adv.html}}. Cette
+%% opération est lourde et complexe. De plus, elle nécessite de connaître le nom de
+%% la bibliothèque qui contient la fonction qui nous intéresse
+Cela implique donc de connaître pour chaque fonction à intecepter le nom de la
+librairie qui l'implémente. Cette solution est donc assez contraignante et ses
+performances sont assez médiocres d'après l'étude faite par M. Guthmuller lors
+de son stage \citep{MARION:Interception}: facteur de 7.5 pour le temps
+d'exécution d'une application avec cet outil. Cette perte de performance est due
+à la compilation faite en deux phases ainsi qu'au temps nécessaire aux outils de
+Valgrind pour modifier ou rajouter du code à l'existant. Cela pourrait être
+acceptable, si Valgrind faisait de la traduction dynamique lors de la seconde
+phase de sa compilation, nous permettant ainsi d'avoir du code exécutable sur un
+autre type de processeur que celui de l'hôte, mais ce n'est pas le cas.
