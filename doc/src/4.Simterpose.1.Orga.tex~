@@ -1,0 +1,10 @@
+\subsection{Organisation générale}
+%schéma tableau
+
+\begin{figure}[H]
+  \centering \includegraphics[scale=0.5]{Pictures/png/Simterpose_orga_code_v3}
+  \caption{{\color{red} \textbf{TODO}}}
+  \label{Organisation_Simterpose}
+\end{figure}
+
+{\color{red} \textbf{TODO}}
