@@ -1,14 +1,10 @@
 \section{Simterpose: la médiation}
 \label{section:simterpose}
 
-Dans le cadre du projet Simterpose de virtualisation légère et de test
-d'applications distribuées, c'est l'émulation par interception qui a été
-choisie. En effet, le but final étant de pouvoir évaluer n'importe quelle
-application distribuée sur n'importe quel type d'architecture, on peut se
-retrouver à devoir émuler des machines plus puissantes que l'hôte, ce que
-l'émulation par dégradation ne permet pas. Pour cela, on va utiliser SIMGRID
-comme plateforme de simulation et Simterpose comme émulateur Dans cette section
-nous allons voir pourquoi ce choix ainsi que le fonctionnement interne de cet
-émulateur, notamment les outils préséntés en section \ref{section:emulation}
-qu'il utilise.
-
+Dans la section précédente, nous avons présentés différents outils permettant de
+faire de la virtualisation légère. Malheureusement, ils ne pouvaient pas être
+utilisés dans le cadre de notre projet. Nous allons voir pourquoi et par
+conséquent quelle plateforme de simlulation a été choisie ainsi que l'émulateur
+mis en place. Nous étudierons également le fonctionnement interne de ce dernier,
+notamment les outils préséntés en section \ref{section:interception} qu'il
+utilise.

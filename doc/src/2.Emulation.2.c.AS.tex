@@ -209,19 +209,7 @@ signifiquativement le nombre d'événement sur lequel attendra le processus
 espion.
 \newline
 Malgré ses défauts, l'appel système \texttt{ptrace} semble être le meilleur
-outil pour faire ce type d'interception. Néanmoins, il a été montré dans un
-précédent stage \citep{MARION:Interception} qu'il est inefficace voire inutile
-en ce qui concerne tous les appels systèmes temporels qu'une application
-souhaiterait exécuter (\texttt{time}(), \texttt{clock\_gettime}(),
-\texttt{gettimeofday}()) car le noyau ne les exécute pas. Cela est du à
-l'existence de la bibliothèque \textit{Virtual Dynamic Shared Object}
-(VDSO). Cette dernière vise à minimiser les coûts dûs aux deux changements de
-contexte effectués lors de l'exécution d'un appel système. VDSO va retrouver
-l'heure \textit{{\color{red}dans le contexte noyau}} lisible par tous les
-processus sans changer de mode. Il est possible de désactiver cette bibliothèque
-lors du boot mais cela réduit les performances (plus de changements de contexte)
-et oblige l'utilisateur à modifier les paramètres de son noyau. On peut donc
-dire que cette solution d'interception n'est donc pas complète.
+outil pour faire ce type d'interception. 
 
 %%avec \textbf{ptrace} ne sont pas possibles, d'où l'alliance
 %%   avec LD\_PRELOAD} Par exemple lors d'un gettimeofday l'appel système n'est pas
