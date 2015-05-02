@@ -1,2 +1,31 @@
-\subsection{DNS}
+\subsubsection{DNS}
 %% libcalls (ne rien rater), config fake (system wide), intercept 53 ( plus dur que nécessaire, port dns autre ou pas)
+
+Dans le cas d'utilisation du protocole DNS, on peut vouloir modifier le
+comportement de l'application afin qu'elle utilise d'autres serveurs que ceux
+utilisés par défaut ou aucuns afin que la résolution soit entièrement géré par
+Simterpose. Pour gérer cela plusieurs solutions sont envisageables.
+
+Une première solution serait de faire de l'interception de communications au
+niveau du port 53, utilisé par défaut dans DNS. Néanmoins, cela est assez
+complexe à \oe uvre car il faut pour chaque communication faite par
+l'application tester le port qu'elle souhaite utiliser. De plus, il n'est pas
+impossible que l'utilsiateur définisse un autre port pour le protocole DNS que
+celui par défaut. Cette solution n'est donc pas envisageable.
+
+Une autre approche serait de remplacer le fichier \texttt{resolv.conf} utilisé
+pour la résolution de nom. Ainsi, l'utilisateur configurerait son propre
+fichier, il pourrait égalemment fournir un fichier de spécifications de
+comportement en cas d'utilisation de DNS permettant à Simterpose de générer un
+nouveau fichier \texttt{resolv.conf}. Néanmoins, cette solution génère une
+surcharge de travail pour l'utilisateur or nous souhaitons avoir un émulateur
+qui soit simple d'utilisation.
+
+La dernière solution envisageable est de faire de l'interception d'appel de
+fonctions. Dans cas, on créé une bibliothèque partagée qui réécrit les foncitons
+liés à la résolution de nom que l'on inclut dans la variable d'environnemnt
+\texttt{LD\_PRELOAD}. Mais on a toujours le même problème qui est de n'oublier
+aucune fonction pour ne pas mettre en péril notre environnement virtuel. Pour
+l'instant, c'est la solution qui a été choisie. N'ayant pas encore été mise en
+place, il n'est pas exclu que nous devions trouver une autre solution pour gérer
+le DNS.
