@@ -207,12 +207,8 @@ de médiation avec cet outil sans faire appel à \texttt{ptrace}. Néanmoins,
 l'utilisation de seccomp/BPF avec \texttt{ptrace} permet de réduire
 signifiquativement le nombre d'événement sur lequel attendra le processus
 espion.
-\newline
+\vspace{0.5cm}
+
 Malgré ses défauts, l'appel système \texttt{ptrace} semble être le meilleur
 outil pour faire ce type d'interception. 
 
-%%avec \textbf{ptrace} ne sont pas possibles, d'où l'alliance
-%%   avec LD\_PRELOAD} Par exemple lors d'un gettimeofday l'appel système n'est pas
-%% lancé on répond directement au niveau de la bibliothèque ainsi on n'arrive même
-%% pas au niveau de l'appel système, donc ptrace ne fait rien.  Problème
-%% portabilité {\color{red} \textbf{gérer cette transition}}
