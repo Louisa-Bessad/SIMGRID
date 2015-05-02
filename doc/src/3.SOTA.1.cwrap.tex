@@ -1,4 +1,5 @@
 \subsection{CWRAP}
+\label{subsection:cwrap}
 %% pourquoi (tester samba), comment (LD\_PRELOAD comm, suid)
 
 cwrap\citep{cwrap, cwrap_bis} a pour but de tester des applications réseaux s'exécutant sur des machines UNIX ayant un accès réseau limité et sans droits root. Ce projet libre a débuté en 2005 avec le test du framework ``smbtorture'' de Samba\footnote{\url{https://www.samba.org/} \\ \url{https://wiki.samba.org/index.php/Writing\_Torture\_Tests}} Pour atteindre son objectif cwrap fait de l'émulation par interception basée sur le préchargement de quatre bibliothèques via \texttt{LD\_PRELOAD}, comme nous l'avons vu en \ref{paragraphe:LDPreload}.

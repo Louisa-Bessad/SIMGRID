@@ -1,13 +1,21 @@
-\subsection{Les communications réseaux}
+\subsection{Foctionnement interne de Simterpose}
+Les actions à intercepter pour maintenir la virtualisation sont de différentes
+natures. Il peut s'agir d'actions liées: \textit{i)} aux communications réseaux,
+\textit{ii)} à la création et à l'identification des processus, \textit{iii)} à
+la gestion du temps. Pour chacune les outils utilisés ne sont pas nécessairement
+les mêmes. Nous allons donc voir lesquels sont employés parmi ceux cités dans la
+section \ref{section:interception}.
+
+\subsubsection{Les communications réseaux}
  %-> syscall -> ptrace (full mediation, address translation)
 
-Lorsque \texttt{ptrace} est appelé en entrée ou sortie d'appel système, les modifications
-à apporter ne sont pas forcément les mêmes dans le cas d'une action nécessitant
-l'utilisation du réseau ou non. Dans le cas d'un calcul, il faut simplement
-maintenir une vision du temps tel qu'il s'écoule sur la machine simulée pour
-l'application. Ainsi en entrée d'appel système on n'a pas besoin de modifier
-quoique ce soit, par contre au retour il faut modifier le temps d'exécution du
-calcul en le remplaçant par celui calculé par le simulateur.
+Lorsque \texttt{ptrace} est appelé en entrée ou sortie d'appel système, les
+modifications à apporter ne sont pas forcément les mêmes dans le cas d'une
+action nécessitant l'utilisation du réseau ou non. Dans le cas d'un calcul, il
+faut simplement maintenir une vision du temps tel qu'il s'écoule sur la machine
+simulée pour l'application. Ainsi en entrée d'appel système on n'a pas besoin de
+modifier quoique ce soit, par contre au retour il faut modifier le temps
+d'exécution du calcul en le remplaçant par celui calculé par le simulateur.
 
 Dans le cas d'une communication réseau, le but de Simterpose étant de réussir à
 simuler un réseau \textit{virtuel} sur un réseau local, il faut gérer la
