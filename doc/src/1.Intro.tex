@@ -6,21 +6,27 @@
 
 Dans le cadre de ce stage, nous allons nous intéresser aux applications
 distribuées. Il s'agit d'applications dont une partie ou la totalité des
-ressources n'est pas localisée sur la machine où l'application s'exécute, mais sur
-plusieurs machines distinctes. Ces dernières communiquent entre elles via le
+ressources n'est pas localisée sur la machine où l'application s'exécute, mais
+sur plusieurs machines distinctes. Ces dernières communiquent entre elles via le
 réseau pour s'échanger les données nécessaires à l'exécution de
 l'application. Les applications distribuées ont de nombreux avantages: elles
 permettent notamment d'augmenter la disponibilités des données en se les
 échangeant, comme les applications Torrent (BitTorrent, $µ$Torrent...). Grâce au
 projet BOINC\footnote{\url{https://boinc.berkeley.edu/}} par exemple, on peut
 partager la puissance de calcul inutilisée de sa machine. Depuis une dizaine
-d'années la popularité de ces applications distribuées ne cesse de
-croître. Elles deviennent de plus en plus complexes avec des contraintes et des
-exigences de plus en plus fortes, en particulier au niveau des performances et
-de l'hétérogénéité des plate-formes et des ressources utilisées. Il devient donc
-de plus en plus difficile de créer de telles applications mais aussi de les
-tester. En effet, malgré l'évolution des applications distribuées, les
-protocoles d'évaluation de leurs performances n'ont que peu évolués.
+d'années la popularité de ces applications distribuées ne cesse de croître. On
+peut notamment penser aux applications de stockage de données
+LAFS\footnote{\url{https://tahoe-lafs.org/trac/tahoe-lafs}} et
+CEPH\footnote{\url{http://ceph.com/}}. La première apporte un stockage robuste
+qui préserve les données même si un site est physiquement détruit. La seconde
+souhaite fournir performance, fiabilité et scalabilité.  Elles deviennent de
+plus en plus complexes avec des contraintes et des exigences de plus en plus
+fortes, en particulier au niveau des performances et de l'hétérogénéité des
+plate-formes et des ressources utilisées. Il est donc de plus en plus
+difficile de créer de telles applications (absence d'horloge et mémoire
+centrale, deadlock, race, famine) mais aussi de les tester.  En effet, malgré
+l'évolution des applications distribuées, les protocoles d'évaluation de leurs
+performances n'ont que peu évolués.
 \newline
 
 Actuellement, il existe trois façons principales de tester le comportement
@@ -30,18 +36,17 @@ plate-forme réelle, la simulation et l'émulation.
 La première solution consiste à exécuter réellement l'application sur un parc de
 machines et d'étudier son comportement en conditions réelles. Cela permet de la
 tester sur un grand nombre d'environnements. L'outil créé et développé en partie
-en France pour cela est
-\textbf{Grid'5000}\footnote{Infrastructure de 8000 c\oe urs répartis dans la
-  France entière crée en
+en France pour cela est \textbf{Grid'5000}\footnote{Infrastructure de 8000 c\oe
+  urs répartis dans la France entière crée en
   2005. \\ \url{https://www.grid5000.fr/mediawiki/index.php/Grid5000:Home}}\citep{GRID5000},
 un autre outil développé à l'échelle mondiale est
 \textbf{PlanetLab} \footnote{Crée en 2002, cette infrastructure de test compte
-  aujourd'hui 1340 c\oe urs. \\ \url{http://www.planet-lab.org}}. Néanmoins, pour
-mettre en \oe uvre ces solutions complexes, il faut disposer des infrastructures
-nécessaires pour effectuer les tests. Il faut également écrire une application
-complète capable de gérer toutes ces ressources disponibles. Enfin, du fait du
-partage des différentes plateformes entre plusieurs utilisateurs, les
-expériences sont difficilement reproductibles.
+  aujourd'hui 1340 c\oe urs. \\ \url{http://www.planet-lab.org}}. Néanmoins,
+pour mettre en \oe uvre ces solutions complexes, il faut disposer des
+infrastructures nécessaires pour effectuer les tests. Il faut également écrire
+une application complète capable de gérer toutes ces ressources
+disponibles. Enfin, du fait du partage des différentes plateformes entre
+plusieurs utilisateurs, les expériences sont difficilement reproductibles.
 
 La seconde solution consiste à faire de la simulation: on modélise ce que l'on
 souhaite étudier (application et/ou environnement) via un programme appelé
@@ -54,7 +59,7 @@ l'application réelle, dans un environnement également modélisé. Cette soluti
 est donc facilement reproductible, plus simple à mette en \oe uvre, et permet de
 prédire l'évolution du système étudié grâce à l'utilisation de modèles
 mathématiques. De nos jours, les simulateurs tel que
-\textbf{SIMGRID}\citep{CASANOVA:SimGrid, MARTIN:SimGrid} peuvent simuler des
+\textbf{SimGrid}\citep{CASANOVA:SimGrid, MARTIN:SimGrid} peuvent simuler des
 applications distribuées mettant à contribution des milliers de
 noeuds. Néanmoins, avec la simulation on ne peut valider qu'un modèle et non
 l'application elle-même.
@@ -65,16 +70,16 @@ l'émulateur. Ce dernier joue le rôle d'intercepteur pour virtualiser
 l'environnement d'exécution.
 %On fera ainsi croire à l'application qu'elle s'exécute sur une machine autre que l'hôte.
 Cette solution représente un intermédiaire entre la simulation et l'exécution
-sur plate-forme réelle visant à résoudre les limitations de ces deux
+sur plateforme réelle visant à résoudre les limitations de ces deux
 solutions. En effet, les actions de l'application sont réellement exécutées sur
-la machine hôte, autrement dit la machine réelle sur laquelle s'exécute
-l'émulation. Et grâce à la virtualisation, l'application pense être dans un
-environnement différent de la machine réelle. De plus, cela évite d'avoir deux
-versions de l'application en terme de code: une pour la simulation et une pour
-la production. L'émulation peut-être faite \textit{off-line} (on
-sauvegarde les actions de l'application sur disque et on les rejoue plus tard
-dans un simulateur) ou \textit{on-line} (on bloque l'application le temps que le temps de
-réponse de la plate-forme virtualisée soit calculé).
+la machine hôte (la machine réelle sur laquelle s'exécute l'émulation) et grâce
+à la virtualisation, l'application pense être dans un environnement différent de
+la machine réelle. De plus, cela évite d'avoir deux versions de l'application en
+terme de code: une pour la simulation et une pour la production. L'émulation
+peut-être faite \textit{off-line} (on sauvegarde les actions de l'application
+sur disque et on les rejoue plus tard dans un simulateur) ou \textit{on-line}
+(on bloque l'application le temps que le temps de réponse de la plateforme
+virtualisée soit calculé).
 
 Actuellement, il existe deux types d'émulation pour les applications
 distribuées; la virtualisation standard et la légère. On parle de virtualisation
@@ -86,4 +91,4 @@ présenterons les projets permettant de faire de l'émulation pour tester des
 applications dans un environnement distribué. Pour finir, nous expliquerons en
 section \ref{section:simterpose}, pourquoi dans le cadre du projet Simterpose
 c'est la virtualisation légère par interception qui a été choisie et comment
-elle fonctionne.
+elle fonctionne. Enfin, nous concluerons en section \ref{section:ccl}
