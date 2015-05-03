@@ -8,14 +8,10 @@ application distribuée sur n'importe quel type d'architecture, on peut se
 retrouver à devoir émuler des machines plus puissantes que l'hôte, ce que
 l'émulation par dégradation ne permet pas. Ce choix exclut donc l'utilisation de
 Distem dans notre projet. Les autres outils de virtualisation par interception
-ont été écartées pour des raisons différentes. CWRAP en utilisant uniquement
+ont été écartées pour des raisons différentes: CWRAP en utilisant uniquement
 \texttt{LD\_PRELOAD} pour intercepter les actions semble être un choix risqué de
 par le contournement possible de l'interception. De plus, il est spécifique aux
-applications réseaux. RR utilise seccomp/BPF, dans notre cas nous ne souhaitons
-pas avoir à faire de la programmation noyau. MicroGrid n'étant plus maintenu
-aujourd'hui, ce n'est pas une bonne idée de lancer un projet bassé sur cet
-émulateur. DETER est trop spécifique à un domaine. Pour finir, Robot est assez
-complexe d'utilisation (création des librairies, mots-clés...).
+applications réseaux. RR gère le multithread mais pas la virtualisation réseau. MicroGrid utilise une émulation par dilation pour gérer le temps, l'interception semble être plus simple.
 
 Pour satisfaire les besoins de notre projet, il a été décidé de créer un nouvel
 émulateur Simterpose. Ce dernier doit être simple d'utilisation et facilement
@@ -40,14 +36,14 @@ des environnements hétérogènes.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.86]{Pictures/png/SimGrid}
-  \caption{Architecture de la plateforme SimGrid}
+  \caption{Architecture de la plateforme SimGrid.}
   \label{SimGrid}
 \end{figure}
 
 La Figure \ref{Organisation_generale} présente l'organisation générale du
-projet. Simgrid va générer l'environnement virtuel. Simterpose intercepte les
+projet. SimGrid va générer l'environnement virtuel. Simterpose intercepte les
 actions de l'application et les modifie pour maintenir l'émulation si
-nécessaire, Figure \ref{Organisation_Simterpose}. Puis, il les laisse
+nécessaire cf Figure \ref{Organisation_Simterpose}. Puis, il les laisse
 s'exécuter sur la machinie hôte et va interroger SimGrid pour qu'il calcule la
 réponse de l'environnement virtuel aux actions de l'application (temps d'exécution, gestion de communications réseaux).
 
@@ -55,14 +51,14 @@ réponse de l'environnement virtuel aux actions de l'application (temps d'exécu
   \centering
   %\includesvg{Pictures/svg/Communications_Simterpose_interprocess_v2}
   \includegraphics{Pictures/png/Communications_Simterpose_interprocess_v2}
-  \caption{Architecture de communications entre les différents acteurs}
+  \caption{Architecture de communications entre les différents acteurs.}
   \label{Organisation_generale}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{Pictures/png/Simterpose_orga_code_v3}
-  \caption{Le fonctionnement de Simterpose}
+  \caption{Le fonctionnement de Simterpose.}
   \label{Organisation_Simterpose}
 \end{figure}
 

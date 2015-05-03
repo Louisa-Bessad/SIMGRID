@@ -1,13 +1,13 @@
 \subsection{Robot}
 \label{subsection:Robot}
 
-Robot \citep{ROBOT_web} est une plateforme de tests automatisée pilotée par mots-clés\footnote{Utilisation de mot-clés dans la définition des données de test pour déterminer les actions à prendre sur les données lors de l'exécution. Voir \href{https://en.wikipedia.org/wiki/Keyword-driven\_testing}{keyword-driven testing}} créée en 2005 par Pekka Klärck \citep{ROBOTlaukkanen2006data}. La plateforme est libre de droit et la majeure partie de ses outils et librairies le sont égalements. Elle permet de lancer des tests ``normaux'' ou du ``ATDD''\footnote{Acceptance Test-Driven Development \citep{ROBOTlarman2010practices}: Techniques consistant à utiliser des exemples/tests pour clarifier et documenter les exigences d'un test. Également appelée ``Agile Acceptance Testing'' ou ``Story test-driven development''}
+Robot \citep{ROBOT_web} est une plateforme de tests automatisée pilotée par mots-clés\footnote{Utilisation de mot-clés dans la définition des données de test pour déterminer les actions à prendre sur les données lors de l'exécution. Voir keyword-driven testing  \url{https://en.wikipedia.org/wiki/Keyword-driven\_testing}} créée en 2005 par Pekka Klärck \citep{ROBOTlaukkanen2006data}. La plateforme est libre de droit et la majeure partie de ses outils et librairies le sont égalements. Elle permet de lancer des tests ``normaux'' ou du ``ATDD''\footnote{Acceptance Test-Driven Development \citep{ROBOTlarman2010practices}: Techniques consistant à utiliser des exemples/tests pour clarifier et documenter les exigences d'un test. Également appelée ``Agile Acceptance Testing'' ou ``Story test-driven development''}
 
 Robot possède une architecture modulaire extensible
-Fig.\ref{Robot_arch}.  Pour créer un test on le décrit sous forme de
+Figure \ref{Robot_arch}.  Pour créer un test, on le décrit sous forme de
 tables et on créé une librairie associée qui les transformera en un
 exécutable lorsqu'elle sera appelée. Il existe quatre types de tables
-\textit{i)} la table de de paramétrage pour importer des fichiers ou
+\textit{i)} la table de paramétrage pour importer des fichiers ou
 définir des métadonnées, \textit{ii)} la table des variables pour
 déclarer des variables globales pouvant être utilisées ailleurs,
 \textit{iii)} la table des \textit{cas de test} contenant les cas
@@ -25,7 +25,7 @@ test.
   \label{Robot_arch}
 \end{figure}
 
-Au lancement d'une exécution la plateforme Robot va analyser les tables décrivant le test en fonction des mots clés utilisés. Les librairies fournissent les mots-clés de librairie\footnote{L'architecture étant modulaire si une librairie n'existe pas on peut la créer et l'ajouter facilement a une des trois sections de librairies existants: standard (os, screendshot), externes (ssh, http, ftp) et spécifique à des projets (Android, iOS, Eclipse). On créé ainsi de nouveaux mots-clés de librairie.} que va utiliser Robot pour intéragir avec le système à tester. Les librairies peuvent communiquer directement avec le système ou utiliser d'autres outils de tests (par exemple les drivers). Les outils sont là pour faciliter la création et l'exécution des tests: ``libdoc'' pour générer les mots clés de librairie et fichiers sources, plug-in vim pour le développement, emacs major mode pour editer les données de test... 
+Au lancement d'une exécution la plateforme, Robot va analyser les tables décrivant le test en fonction des mots clés utilisés. Les bibliothèques fournissent les ``mots-clés de librairie''\footnote{L'architecture étant modulaire si une bibliothèque n'existe pas on peut la créer et l'ajouter facilement a une des trois sections de bibliothèques existants: standard (os, screendshot), externes (ssh, http, ftp) et spécifique à des projets (Android, iOS, Eclipse). On créé ainsi de nouveaux ``mots-clés de librairie''.} que va utiliser Robot pour intéragir avec le système à tester. Les bibliothèques peuvent communiquer directement avec le système ou utiliser d'autres outils de tests (par exemple les drivers). Les outils sont là pour faciliter la création et l'exécution des tests: ``libdoc'' pour générer les ``mots clés de librairie'' et fichiers sources, plug-in vim pour le développement, emacs major mode pour editer les données de test... 
 
 La plateforme dispose également d'un système de tag permettant d'ajouter des métadonnées catégorisant les tests, de collecter automatiquement les statistiques d'un test, selectionner les tests à exécuter et spécifier les tests qui sont critiques. 
 

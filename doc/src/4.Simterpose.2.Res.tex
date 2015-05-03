@@ -20,22 +20,21 @@ d'exécution du calcul en le remplaçant par celui calculé par le simulateur.
 Dans le cas d'une communication réseau, le but de Simterpose étant de réussir à
 simuler un réseau \textit{virtuel} sur un réseau local, il faut gérer la
 transition entre réseau local et réseau simulé. En effet l'application possède
-une adresse IP et des numéros de ports virtuels qui ne correspondent pas
-forcément à ceux attribués dans le réseau local.
+une adresse IP et des numéros de ports virtuels qui ne correspondent pas à ceux attribués dans le réseau local.
 
 \begin{figure}[H]
   \centering
   \begin{subfigure}{0.5\textwidth}
     \includegraphics[scale=0.8]{Pictures/png/Mediation_realite}
-    \caption{Communications réelles}
+    \caption{Communications réelles.}
   \label{COMM_REALITE}
   \end{subfigure}
   \begin{subfigure}{0.25\textwidth}
   \includegraphics[scale=0.5]{Pictures/png/Mediation_VM}
-  \caption{Communications vues \\ par les processus}
+  \caption{Communications vues \\ par les processus.}
   \label{COMM_VM}
   \end{subfigure}
-  \caption{Les communications réseaux entre deux processus}
+  \caption{Les communications réseaux entre deux processus.}
   \label{COMM}
 \end{figure}
 
@@ -49,29 +48,29 @@ en plus du numéro de socket, les adresses IP et les ports locaux et distants de
 deux entités qui souhaitent communiquer comme moyen d'identification. Pour gérer
 toutes ces modifications deux solutions ont été proposées lors d'un précédent
 stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation par traduction
-  d'adresse} et la \textit{full médiation}.
+  d'adresse} et la \textit{full médiation}. Néanmoins, ces deux solutions n'ont
+pas encore été évalué en pratique.
 
  \begin{figure}[H]
    \centering
    \begin{subfigure}{0.5\textwidth}
    \includegraphics[scale=0.5]{Pictures/png/Mediation_translation_v2}
-   \caption{Médiation par traduction d'adresse}
+   \caption{Médiation par traduction d'adresse.}
    \label{ADDRESS_TRANSLATION}
    \end{subfigure}
    \begin{subfigure}{0.4\textwidth}
      \includegraphics[scale=0.5]{Pictures/png/Mediation_full_v2}
-  \caption{Full meditation}
+  \caption{Full meditation.}
   \label{FULL_MEDIATION}
    \end{subfigure}
-   \caption{Les différents types de médiation}
+   \caption{Les différents types de médiation.}
    \label{MEDIATION}
  \end{figure}
  
-\paragraph{Traduction d'adresse}
- Avec ce type de médiation, illustrée Fig.\ref{ADDRESS_TRANSLATION}, on considère
- que le noyau gère les communications. Ainsi en entrée et sortie d'appel système
+\paragraph{Traduction d'adresse.}
+ Avec ce type de médiation, illustrée Figure \ref{ADDRESS_TRANSLATION}, on laisse le noyau gèrre les communications. Ainsi en entrée et sortie d'appel système
  Simterpose va juste s'occuper de la transition entre le réseau virtuel simulé
- par SIMGRID et le réseau local, en utilisant les informations de communications
+ par SimGrid et le réseau local, en utilisant les informations de communications
  contenues dans la socket. Pour cela, Simterpose gère un tableau de
  correspondances, dans lequel pour chaque couple <IP, ports virtuels> , on a un
  couple <IP, ports réels> associé.  De fait, en entrée d'un appel système de
@@ -80,11 +79,11 @@ stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation par traductio
  et les ports réels sur le réseau local, afin que la source de l'appel système
  corresponde à une machine existante sur le réseau local. Au retour de l'appel
  système, il faudra remodifier les paramètres en remettant l'adresse et les
- ports virtuels pour que l'application pense toujours être \textit{dans un
-   environnement distribué.}  La limite de cette approche est liée au nombre de
+ ports virtuels pour que l'application pense toujours être dans un
+   environnement distribué. La limite de cette approche est liée au nombre de
  ports disponibles sur l'hôte.
 
-\paragraph{Full médiation} 
+\paragraph{Full médiation.} 
 Dans ce cas, le noyau ne va plus gérer les communications car nous allons
 empêcher l'application de communiquer via des sockets et même d'établir des
 connexions avec une autre application. Puisqu'il n'y a aucune communication, on
@@ -93,20 +92,8 @@ les applications peuvent conserver les adresses et les ports simulées qu'elles
 considèrent comme réels. Quand l'application voudra faire un appel système de
 type communication ou connexion vers une autre application, le processus espion
 de Simterpose qui sera notifié via \texttt{ptrace} neutralisera l'appel système,
-comme illustré sur la Fig.\ref{FULL_MEDIATION}. \textit{Ensuite, ce processus en
-  utilisant \texttt{ptrace} récupérera, en lisant dans la mémoire du processus
-  espionné, les données à envoyer ou récupérer et ira directement les lire ou
-  les écrire dans la mémoire du destinataire.}  Même si la \textit{full
-  médiation} permet d'éviter les communications réseaux et de conserver des
-tables de correspondances, elle s'avère moins efficace dans le cas
-d'applications qui communiquent énormément et utilisent de grosses données. En
-effet, les appels à la mémoire sont bien plus coûteux que les communications
-réseau.
+comme illustré sur la Figure \ref{FULL_MEDIATION}. Ensuite, ce processus
+récupérera, en lisant dans la mémoire du processus espionné, les données à
+envoyer ou récupérer et ira directement les lire ou les écrire dans la mémoire
+du destinataire.
 
- 
-%% begin{figure}
-%%   \centering
-%%   \includegraphics[scale=0.5]{Pictures/png/Mediation_full_v2}
-%%   \caption{{\color{red} \textbf{TODO}}}
-%%   \label{FULL_MEDIATION}
-%% \end{figure}

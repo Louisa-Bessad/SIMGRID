@@ -19,19 +19,16 @@ qu'une application souhaiterait exécuter car le noyau ne les exécute pas. Cela
 est dû à l'existence de la bibliothèque \textit{Virtual Dynamic Shared Object}
 (VDSO). Cette dernière vise à minimiser les coûts dûs aux deux changements de
 contexte effectués lors de l'exécution d'un appel système. VDSO va retrouver
-l'heure dans le contexte noyau lisible par tous les processus sans changer de
-mode. Il est possible de désactiver cette bibliothèque lors du boot mais cela
-réduit les performances, augmentation du nombre de changements de contexte, et
-oblige l'utilisateur à modifier les paramètres de son noyau.
+l'heure dans un segment du processus partagé avec l'espace noyau lisible par tous les processus sans changer de mode. Il est possible de désactiver cette bibliothèque lors du boot mais cela réduit les performances, augmente le nombre de changements de contexte, et oblige l'utilisateur à modifier les paramètres de son noyau.
 
 On va donc se placer à un autre niveau pour intercepter ces fonctions. Malgrè
 leur nombre il a été décidé d'agir lors du préchargement de bibliothèque. On va
 créer une bibliothèque qui surcharge les appels de fonctions liées au temps et
 la placer dans la variable d'environnement \texttt{LD\_PRELOAD}, comme nous
-l'avons vu en section \ref{paragraphe:LDPreload}. Néanmoins il faut faire
-attention de n'oublier aucune fonction.Une fois l'interception temporelle
-effectuée, Simterpose interroge SimGrid pour obtenir l'heure virtuelle et la
-renvoie à l'application.
+l'avons vu en section \ref{paragraphe:LDPreload}, en prenant gare à n'oublier
+aucune fonction utilisée. Une fois l'interception temporelle effectuée,
+Simterpose interroge SimGrid pour obtenir l'heure virtuelle et la renvoie à
+l'application.
 
 Dans le cas d'une action interceptée (calcul, communications réseaux),
 Simterpose doit gérer l'horloge de l'application avant de lui renvoyer le

@@ -1,6 +1,6 @@
 Dans cette section, nous avons présenté différentes approches permettant de faire de l'interception et de la médiation d'actions d'applications, résumé dans la table \ref{TAB_COMP}. Dans le cas d'émulateur ne souhaitant pas modifier le code source d'une application les outils présentés en \ref{section:source} sont inutiles. De plus, de par le surcoût d'utilisation de Valgrind, cette solution est à écarter dans le cas d'applications distribuées large échelle s'exécutant dans un environnement distribué.
 
-\begin{table}[h]
+\begin{table}[H]
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{c|c|c|c|c|c|c|}
 \cline{2-7} & \texttt{ptrace} & Uprobes & seccomp/BPF & \texttt{LD\_PRELOAD} &
@@ -18,6 +18,6 @@ got Poisoning & Valgrind \\ \hline
 \end{tabular}
 }
 \caption{Comparaison des différentes solutions d'interception entre une
-  application et le noyau}
+  application et le noyau.}
 \label{TAB_COMP}
 \end{table}

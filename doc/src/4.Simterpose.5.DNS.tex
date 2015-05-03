@@ -9,9 +9,8 @@ Simterpose. Pour gérer cela plusieurs solutions sont envisageables.
 Une première solution serait de faire de l'interception de communications au
 niveau du port 53, utilisé par défaut dans DNS. Néanmoins, cela est assez
 complexe à \oe uvre car il faut pour chaque communication faite par
-l'application tester le port qu'elle souhaite utiliser. De plus, il n'est pas
-impossible que l'utilsiateur définisse un autre port pour le protocole DNS que
-celui par défaut. Cette solution n'est donc pas envisageable.
+l'application tester le port qu'elle souhaite utiliser. De plus, il est possible que l'utilisateur définisse un autre port pour le protocole DNS que
+celui par défaut. Cette solution n'est donc pas suffisante.
 
 Une autre approche serait de remplacer le fichier \texttt{resolv.conf} utilisé
 pour la résolution de nom. Ainsi, l'utilisateur configurerait son propre
@@ -25,9 +24,8 @@ La dernière solution envisageable est de faire de l'interception d'appel de
 fonctions. Dans cas, on créé une bibliothèque partagée qui réécrit les foncitons
 liés à la résolution de nom que l'on inclut dans la variable d'environnemnt
 \texttt{LD\_PRELOAD}. Mais on a toujours le même problème qui est de n'oublier
-aucune fonction pour ne pas mettre en péril notre environnement virtuel. Pour
-l'instant, c'est la solution qui a été choisie. N'ayant pas encore été mise en
-place, il n'est pas exclu que nous devions trouver une autre solution pour gérer
-le DNS.
+aucune fonction pour maintenir notre environnement virtuel. Pour l'instant,
+c'est la solution qui a été choisie. N'ayant pas encore été mise en place, il
+n'est pas exclu que nous devions trouver une autre solution pour gérer le DNS.
 
 \vspace{0.5cm}
