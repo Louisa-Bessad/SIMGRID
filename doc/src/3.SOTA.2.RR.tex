@@ -15,10 +15,10 @@ et qui vise à surpasser gdb. Il a été créé pour déboguer Firefox, mais il
 peut-être utilisé sur n'importe quel type d'application. Il résout le problème
 des exécutions non déterministes en deux phases. La première consiste à
 enregistrer l'exécution de tous les événements non déterministes qui pourraient
-échouer. La seconde phase débogue l'exécution de façon déterministe en rejouant
+échouer. La seconde débogue l'exécution de façon déterministe en rejouant
 l'enregistrement aussi souvent qu'on le souhaite. On relance toujours la même
-exécution et que les ressources restent les mêmes (espace d'adressage, contenu
-des registres, appels systèmes), d'où l'idée de déterminisme. Avec cette
+exécution et les ressources restent les mêmes (espace d'adressage, contenu
+des registres, appels système), d'où l'idée de déterminisme. Avec cette
 méthode, on peut même déboguer les fautes qui sont produites par des outils de
 fuzzing\footnote{ Technique pour tester des logiciels basée sur l'injection des
   données aléatoires dans les entrées d'un programme. Si le programme échoue:
@@ -32,27 +32,27 @@ parallélisme.
 RR utilise différents outils selon la phase de son
 exécution\citep{RRimplem}. Dans la phase d'enregistrement, pour gérer
 l'ordonnancement lors du rejeu, il sauvegarde les actions qu'il considère comme
-mécanisme d'interruption d'une application: \textit{i)} les appels systèmes
+mécanisme d'interruption d'une application: \textit{i)} les appels système
 exécutés \textit{ii)} la préemption via HPC\footnote{Hardware Performance
   Counters \\ On compte les instructions qui s'exécutent et on arrête
   l'application quand le nombre d'instrucions exécuté atteint la valeur du HPC
-  fourni par l'utilisateur} en sauvegardant le nombre d'instructions à exécuter
+  fournie par l'utilisateur.} en sauvegardant le nombre d'instructions à exécuter
 avant une interruption \textit{iii)} les signaux UNIX exécutés ainsi que leur
 handler s'il est réimplémenté. Dans la phase de rejeu, RR utilise les données
 non déterministes sauvegardées lors de la première phase pour mettre en place
-son émulation (appels systèmes, compteur d'instructions, handler de signal,
+son émulation (appels système, compteur d'instructions, handler de signal,
 valeur des registres lors de ces actions). Quand RR va rejouer un appel système,
 les valeurs de retour des registres seront celles sauvegardées lors de
-l'exécution réelle et non celles du rejeu. Pour intercepter les appels systèmes,
-RR utilise LD\_PRELOAD (section\ref{paragraphe:LDPreload}) qui va les placer
-dans un buffer. Ensuite Seccomp/BPF(section\ref{paragraph:seccomp/bpf})
-parcourra le buffer pour filtrer les appels systèmes et les laisser
+l'exécution réelle et non celles du rejeu. Pour intercepter les appels système,
+RR utilise \texttt{LD\_PRELOAD} (section \ref{paragraphe:LDPreload}) qui va les
+placer dans un buffer. Ensuite Seccomp/BPF(section\ref{paragraph:seccomp/bpf})
+parcourra le buffer pour filtrer les appels système et les laisser
 exécuter. Pour cette partie de la gestion de l'appel on n'utilise pas ptrace car
 il est trop couteux en terme de changement de contexte, Figure \ref{AS_RR}.
 \begin{figure}
 \centering \includegraphics[scale=0.30]{Pictures/png/RR_AS}
 \caption{Comparaison de l'exécution du rejeu de RR avec ptrace et seccomp-bpf
-  pour gérer l'exécution des appels systèmes.}
+  pour gérer l'exécution des appels système.}
 \label{AS_RR}
 \end{figure}
 Il sera utilisé pour renvoyer le bon résultat à l'application (celui sauvegardé
@@ -62,14 +62,14 @@ utiliser les commandes gbd (placer les points d'arrêts, cotinuer
 l'exécution...). En utilisant gdb à l'intérieur de son outil de débogage, RR
 veut essayer de le surpasser en terme d'efficacité.
 
-De par son fonctionnement, RR permet donc de diminuer le temps de débogage et
-d'en résoudre de nouveaux plus facilement. De plus, il peut fonctionner avec de
-nombreuses applications puisqu'il arrive à gérer une grosse application telle
-que Firefox. Le surcoût de la phase d'enregistrement par rapport à un simple
-debogage avec gdb varie selon les applications et les tests
-effectués. Néanmoins, le fait que RR n'enregistre pas la mémoire partagée en
-multi-tâche est un problème pour déboguer des threads. De plus, il émule une
-machine simplement mono-c\oe ur ce qui est un problème pour l'utilisation du
-parallélisme. Tous les appels systèmes ne sont pas encore implémentés et en
-fonction de l'application à tester on risque de voir apparaître un problème
-d'interception de certains appels systèmes exécutés par les processus.
+De par son fonctionnement, RR permet donc de diminuer le temps de débogage. De
+plus, il peut fonctionner avec de nombreuses applications puisqu'il arrive à
+gérer une grosse application telle que Firefox. Le surcoût de la phase
+d'enregistrement par rapport à un simple debogage avec gdb varie selon les
+applications et les tests effectués. Néanmoins, le fait que RR n'enregistre pas
+la mémoire partagée en multi-tâche est un problème pour déboguer des threads. De
+plus, il émule une machine simplement mono-c\oe ur ce qui est un problème pour
+l'utilisation du parallélisme. Tous les appels système ne sont pas encore
+implémentés et en fonction de l'application à tester on risque de voir
+apparaître un problème d'interception de certains appels système exécutés par
+les processus.

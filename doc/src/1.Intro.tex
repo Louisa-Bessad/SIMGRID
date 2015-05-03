@@ -22,7 +22,7 @@ qui préserve les données même si un site est physiquement détruit. La second
 souhaite fournir performance, fiabilité et scalabilité.  Elles deviennent de
 plus en plus complexes avec des contraintes et des exigences de plus en plus
 fortes, en particulier au niveau des performances et de l'hétérogénéité des
-plate-formes et des ressources utilisées. Il est donc de plus en plus
+plateformes et des ressources utilisées. Il est donc de plus en plus
 difficile de créer de telles applications (absence d'horloge et mémoire
 centrale, deadlock, race, famine) mais aussi de les tester.  En effet, malgré
 l'évolution des applications distribuées, les protocoles d'évaluation de leurs
@@ -61,7 +61,7 @@ prédire l'évolution du système étudié grâce à l'utilisation de modèles
 mathématiques. De nos jours, les simulateurs tel que
 \textbf{SimGrid}\citep{CASANOVA:SimGrid, MARTIN:SimGrid} peuvent simuler des
 applications distribuées mettant à contribution des milliers de
-noeuds. Néanmoins, avec la simulation on ne peut valider qu'un modèle et non
+n\oe uds. Néanmoins, avec la simulation on ne peut valider qu'un modèle et non
 l'application elle-même.
 
 La troisième solution consiste à faire de l'émulation: on exécute réellement
@@ -81,14 +81,16 @@ sur disque et on les rejoue plus tard dans un simulateur) ou \textit{on-line}
 (on bloque l'application le temps que le temps de réponse de la plateforme
 virtualisée soit calculé).
 
-Actuellement, il existe deux types d'émulation pour les applications
-distribuées; la virtualisation standard et la légère. On parle de virtualisation
-légère quand on souhaite tester des applications sur une centaine
-d'instances. Dans ce rapport nous allons présenter en section
-\ref{section:emulation} les méthodes utilisées pour faire de la virtualisation
-légère: limitation et interception. Puis en section \ref{section:sota} nous
-présenterons les projets permettant de faire de l'émulation pour tester des
-applications dans un environnement distribué. Pour finir, nous expliquerons en
-section \ref{section:simterpose}, pourquoi dans le cadre du projet Simterpose
-c'est la virtualisation légère par interception qui a été choisie et comment
-elle fonctionne. Enfin, nous concluerons en section \ref{section:ccl}
+%% Il existe deux types d'émulation pour les applications distribuées; la
+%% virtualisation standard et la légère. On parle de virtualisation légère quand on
+%% souhaite tester des applications sur une centaine d'instances.
+
+Au cours de ce stage, nous allons nous intéresser plus particulièrement à l'exécution d'applications distribuées arbitraires au dessus de la plateforme de simulation SimGrid. Pour cela, nous allons présenter en section \ref{section:emulation} les méthodes utilisées
+pour faire de la virtualisation %% légère: limitation et interception
+. Puis en
+section \ref{section:sota} nous présenterons les projets permettant de faire de
+l'émulation pour tester des applications dans un environnement
+distribué. Ensuite, nous expliquerons en section \ref{section:simterpose},
+pourquoi dans le cadre du projet Simterpose c'est la virtualisation légère par
+interception qui a été choisie et comment elle fonctionne. Pour finir, nous
+concluerons en section \ref{section:ccl}.

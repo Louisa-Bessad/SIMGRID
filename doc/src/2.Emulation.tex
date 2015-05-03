@@ -1,12 +1,41 @@
 \section{Approches possibles pour la virtualisation légère}
 \label{section:emulation}
 
-Dans cette section, nous présentons les différentes approches possibles pour virtualiser des applications distribuées afin de permettre leur étude. L'objectif général étant de permettre l'étude du comportement d'une application réelle sur une plateforme différente de celle sur laquelle l'expérience a lieu. On appellera la vraie plateforme hébergeant l'expérience ``machine hôte'' et celle sur laquelle on veut tester l'application sans y avoir accès ``machine cible''.
+Dans cette section, nous présentons les différentes approches possibles pour
+virtualiser des applications distribuées afin de permettre leur
+étude. L'objectif général étant de permettre l'étude du comportement d'une
+application réelle sur une plateforme différente de celle sur laquelle
+l'expérience a lieue. On appellera la vraie plateforme hébergeant l'expérience
+``machine hôte'' et celle sur laquelle on veut tester l'application sans y avoir
+accès ``machine cible''.
 
-Il existe actuellement deux méthodes permettant de faire de la virtualisation
-légère. La première est une émulation par limitation ou dégradation également
-appelée virtualisation standard et la seconde est une émulation par
-interception.
+Le choix de la virtualisation pour notre projet génère quatre problèmes: les
+threads, le temps, les communications réseaux et les échange utilisant le
+protocole DNS, que notre plateforme devra résoudre.
+
+Il existe actuellement deux méthodes permettant de faire de la virtualisation:
+standard et légère.
+
+La première est une émulation complète de la machine comme celle utilisée par
+vmware. Dans cet émulateur, le système d'exploitation est hébergé sur une
+plateforme matérielle totalement virtualisée. Il n'a pas la possibilité de
+lancer toutes les instructions et doit déclencher un handler pour que
+l'hyperviseur les exécute. Cette solution pourrait être applicable dans le cadre
+notre objectif général d'émulation d'applications mais elle ne passe pas du tout
+à l'échelle (plus d'une douzaine de machines).
+
+La seconde est dite légère car elle permet de tester des applications sur une
+centaine d'instances. Pour que cela soit possible elle n'émule pas complètement
+la machine, notamment le CPU. De fait, elle ne peut exécuter que des
+applications ayant été compilées pour le même jeu d'instructions que celui de
+l'hôte. Malgrè cette contrainte, c'est la virtualisation légère qui a été choisi
+pour notre projet car il est très important d'avoir une solution d'exécution
+rapide quelque soit le nombre d'instance.
+
+La virtualisation légère peut se faire par limitation également appélée
+dégradation ou par interception. Nous allons donc étudier ces deux possibilités
+afin de choisir celle qui est la plus adapté à notre objectif et voir comment
+elle peut résoudre les problèmes cités précdemment.
 
 
 

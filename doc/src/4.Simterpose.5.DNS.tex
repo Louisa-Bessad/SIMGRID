@@ -3,26 +3,27 @@
 
 Dans le cas d'utilisation du protocole DNS, on peut vouloir modifier le
 comportement de l'application afin qu'elle utilise d'autres serveurs que ceux
-utilisés par défaut ou aucuns afin que la résolution soit entièrement géré par
-Simterpose. Pour gérer cela plusieurs solutions sont envisageables.
+utilisés par défaut, ou aucun afin que la résolution soit entièrement gérée par
+Simterpose. 
 
-Une première solution serait de faire de l'interception de communications au
-niveau du port 53, utilisé par défaut dans DNS. Néanmoins, cela est assez
-complexe à \oe uvre car il faut pour chaque communication faite par
-l'application tester le port qu'elle souhaite utiliser. De plus, il est possible que l'utilisateur définisse un autre port pour le protocole DNS que
-celui par défaut. Cette solution n'est donc pas suffisante.
+Une première solution envisageable serait de faire de l'interception de
+communications au niveau du port 53, utilisé par défaut dans DNS. Néanmoins,
+cela est assez complexe à mettre en \oe uvre car il faut pour chaque
+communication faite par l'application tester le port qu'elle souhaite
+utiliser. De plus, il est possible que l'utilisateur définisse un autre port
+pour le protocole DNS que celui par défaut. Cette solution n'est donc pas
+suffisante.
 
 Une autre approche serait de remplacer le fichier \texttt{resolv.conf} utilisé
-pour la résolution de nom. Ainsi, l'utilisateur configurerait son propre
-fichier, il pourrait égalemment fournir un fichier de spécifications de
-comportement en cas d'utilisation de DNS permettant à Simterpose de générer un
+pour la résolution de nom par un fichier spécifié par l'utilisateur. Il pourrait également fournir un fichier de spécification de
+comportements en cas d'utilisation de DNS permettant à Simterpose de générer un
 nouveau fichier \texttt{resolv.conf}. Néanmoins, cette solution génère une
-surcharge de travail pour l'utilisateur or nous souhaitons avoir un émulateur
+surcharge de travail pour l'utilisateur et nous souhaitons avoir un émulateur
 qui soit simple d'utilisation.
 
 La dernière solution envisageable est de faire de l'interception d'appel de
 fonctions. Dans cas, on créé une bibliothèque partagée qui réécrit les foncitons
-liés à la résolution de nom que l'on inclut dans la variable d'environnemnt
+liées à la résolution de nom que l'on inclut dans la variable d'environnemnt
 \texttt{LD\_PRELOAD}. Mais on a toujours le même problème qui est de n'oublier
 aucune fonction pour maintenir notre environnement virtuel. Pour l'instant,
 c'est la solution qui a été choisie. N'ayant pas encore été mise en place, il

@@ -4,18 +4,18 @@
 Pour agir sur le binaire d'une application, c'est l'outil d'instrumentation
 d'analyse dynamique Valgrind \citep{Valgrind, Valgrindweb} que nous allons
 étudier. D'autres outils suivent la même approche générale, tels que DynInst:
-outil pour la modification à la volée de binaire utilisé notamment en HPC.
+outil pour la modification à la volée de binaire utilisé notamment en HPC \citep{Dyn}.
 
 À l'origine, Valgrind était utilisé pour le débuguage mémoire, puis il a évolué
 pour devenir l'instrument de base à la création d'outils d'analyse dynamique de
 code, tels que la mise en évidence de fuites mémoires ou le
 profilage\footnote{Méthode visant à analyser le code d'une application pour
 connaître la liste des fonctions appelées et le temps passé dans chacune
-d'elles}. Valgrind fonctionne à la manière d'une machine virtuelle faisant de la
+d'elles.}. Valgrind fonctionne à la manière d'une machine virtuelle faisant de la
 compilation à volée\footnote{Technique basée sur la compilation de byte-code et
 la compilation dynamique. Elle vise à améliorer la performance de systèmes
 bytecode-compilés par la traduction de bytecode en code machine natif au moment
-de l'exécution}. Ainsi, ce n'est pas le code initial du programme qu'il envoie
+de l'exécution.}. Ainsi, ce n'est pas le code initial du programme qu'il envoie
 au processeur de la machine hôte. Il traduit d'abord le code dans une forme
 simple appelée ``Représentation Intermédiaire''. Ensuite, un des outils
 d'analyse dynamique de Valgrind peut être utilisé pour faire des transformations
@@ -46,7 +46,5 @@ nécessaire aux outils de Valgrind pour modifier ou rajouter du code à
 l'existant. Cela pourrait être acceptable, si Valgrind faisait de la traduction
 dynamique lors de la seconde phase de sa compilation, nous permettant ainsi
 d'avoir du code exécutable sur un autre type de processeur que celui de l'hôte,
-mais ce n'est pas le cas.
-
-Néanmoins, même si on résout le problème de performance, la mise en \oe uvre de
-cette approche restera difficile.
+mais ce n'est pas le cas. Néanmoins, même si on résout le problème de
+performance, la mise en \oe uvre de cette approche restera difficile.

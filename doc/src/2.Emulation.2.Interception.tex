@@ -1,4 +1,4 @@
-\subsection{Émulation par interception}
+\subsection{Emulation par interception}
 \label{section:interception}
 %% principe: interception des actions et médiation (pas juste interception et rejeu). Intercepter des symboles pour en changer l'effet
 
@@ -14,20 +14,15 @@ et qui les transmettra ensuite au simulateur.
  d'autres applications sur le réseau. Quand l'émulateur intercepte une
  communication venant d'un des processus d'une application, il modifie les
  caractéristiques de la communication pour qu'elle puisse s'exécuter sur la
- machine hôte. Quand cette dernière renvoie une réponse à l'application, elle
- est également interceptée par l'émulateur pour que l'application ne voit pas le
- changement d'architecture. En même temps, il envoie au simulateur le temps
- d'exécution de l'action sur la machine hôte pour qu'il puisse calculer ce temps
- sur la machine simulée, en faisant un rapport entre les performances des deux
- machines. Les délais calculés par le simulateur sont soit des temps de calculs
- soit des temps de connexion ou de communication. Lorsque le simulateur a
- calculé le temps de réponse, il le transmet à l'émulateur qui l'envoie à
- l'application en plus du résultat du calcul demandé pour mettre à jour son
- horloge. Ainsi, les calculs sont réellement exécutés sur la machine, les
- communications réellement émises sur le réseau géré par le simulateur et c'est
- le temps de réponse qu'il fourni qui va influencer l'horloge de
- l'application. Finalement, les applications ne communiquent plus directement
- entre elles.
+ machine hôte. Il fait la même chose lorsque cette dernière envoie une réponse à
+ l'application. En parallèle, l'émulateur demande au simulateur de calculer le
+ temps d'exécution de l'action dans l'environnement virtuel pour l'action
+ demandée par l'application. L'émulateur envoie ce temps à l'application en plus
+ du résultat du calcul demandé pour mettre à jour son horloge. Ainsi, les
+ calculs sont réellement exécutés sur la machine, les communications réellement
+ émises sur le réseau géré par le simulateur et c'est le temps de réponse qu'il
+ fourni qui va influencer l'horloge de l'application. Finalement, les
+ applications ne communiquent plus directement entre elles.
 
  \begin{figure}
    \centering \includegraphics[scale=0.5]{Pictures/png/Emulation_fonctionnement}
@@ -37,13 +32,14 @@ et qui les transmettra ensuite au simulateur.
  
 Pour intercepter ces actions, il faut d'abord choisir à quel niveau se placer.
 En effet, une application peut communiquer avec le noyau via différentes
-abstractions. Elle peut soit utiliser les fonctions d'interaction directe avec
-le noyau que sont les appels systèmes, soit utiliser les différentes
-abstractions fournies par le système d'exploitation: bibliothèques (fonctions de
-la libc par exemple) ou les fonctions POSIX dans le cas d'un système UNIX.
+abstractions, Figure \ref{AS_Communication}. Elle peut soit utiliser les
+fonctions d'interaction directe avec le noyau que sont les appels systèmes, soit
+utiliser les différentes abstractions fournies par le système d'exploitation:
+bibliothèques (fonctions de la libc par exemple) ou les fonctions POSIX dans le
+cas d'un système UNIX.
 
 Nous allons donc voir comment on peut intercepter et modifier des actions au
-niveau de l'application (fichier source puis binaire), des appels systèmes et
+niveau de l'application (fichier source puis binaire), des appels système et
 des appels de fonctions. Par la suite nous appelerons médiation l'ensemble des
 modifications effectuées par l'émulateur sur les actions interceptées.
 

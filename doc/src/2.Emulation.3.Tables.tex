@@ -1,22 +1,21 @@
-Dans cette section, nous avons présenté différentes approches permettant de faire de l'interception et de la médiation d'actions d'applications, résumé dans la table \ref{TAB_COMP}. Dans le cas d'émulateur ne souhaitant pas modifier le code source d'une application les outils présentés en \ref{section:source} sont inutiles. De plus, de par le surcoût d'utilisation de Valgrind, cette solution est à écarter dans le cas d'applications distribuées large échelle s'exécutant dans un environnement distribué.
+Dans cette section, nous avons présenté différentes approches permettant de
+faire de l'interception et de la médiation d'actions d'applications, résumés
+dans la table \ref{TAB_COMP}. Dans le cas d'émulateur ne souhaitant pas modifier
+le code source d'une application les outils présentés en \ref{section:source}
+sont inutiles. De plus, de par le surcoût d'utilisation de Valgrind, cette
+solution est à écarter dans le cas d'applications distribuées large échelle
+s'exécutant dans un environnement distribué.
 
-\begin{table}[H]
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{c|c|c|c|c|c|c|}
-\cline{2-7} & \texttt{ptrace} & Uprobes & seccomp/BPF & \texttt{LD\_PRELOAD} &
-got Poisoning & Valgrind \\ \hline
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau
-    \\ d'interception\end{tabular}}
-& \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}
-    & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular}
-        & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & Bibliothèque
-            & Bibliothèque & Binaire \\ \hline \multicolumn{1}{|c|}{Coût} &
-            Moyen & Faible(?) & ? & Faible & ? & Important \\ \hline
-            \multicolumn{1}{|c|}{Utilisation}
-            & \begin{tabular}[c]{@{}c@{}}Assez\\ complèxe\end{tabular} & ? & ? &
-                Simple & ? & Complexe \\ \hline
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{2-6}
+ & ptrace & Uprobes & seccomp/BPF & LD\_PRELOAD & Valgrind \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau \\ d'interception\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & Bibliothèque & Binaire \\ \hline
+\multicolumn{1}{|c|}{Coût} & Moyen & Faible & Moyen & Faible & Important \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Mise en\\ oeuvre\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Assez\\ complèxe\end{tabular} & \begin{tabular}[c]{@{}c@{}}Assez\\ Complexe\end{tabular} & \begin{tabular}[c]{@{}c@{}}Assez \\ complexe\end{tabular} & Simple & Complexe \\ \hline
+\multicolumn{1}{|c|}{Utilisé pour} & \begin{tabular}[c]{@{}c@{}}- Thread \\ (incomplet)\\ - Echanges \\ réseau\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread \\ (incomplet)\\ - Echanges\\ réseau\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread \\ (incomplet)\\ - Echanges\\ réseau\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread \\(incomplet)\\ - Temps\\ - DNS\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread\\ - Temps\\ - Echanges\\ réseau\\ - DNS\end{tabular} \\ \hline
 \end{tabular}
-}
 \caption{Comparaison des différentes solutions d'interception entre une
   application et le noyau.}
 \label{TAB_COMP}

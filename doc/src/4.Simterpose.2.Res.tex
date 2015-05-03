@@ -1,10 +1,10 @@
-\subsection{Foctionnement interne de Simterpose}
+\subsection{Fonctionnement interne de Simterpose}
 Les actions à intercepter pour maintenir la virtualisation sont de différentes
-natures. Il peut s'agir d'actions liées: \textit{i)} aux communications réseaux,
+natures. Il peut s'agir d'actions liées \textit{i)} aux communications réseaux,
 \textit{ii)} à la création et à l'identification des processus, \textit{iii)} à
-la gestion du temps. Pour chacune les outils utilisés ne sont pas nécessairement
-les mêmes. Nous allons donc voir lesquels sont employés parmi ceux cités dans la
-section \ref{section:interception}.
+la gestion du temps, \texttt{iv)} à l'utilisation du protocole DNS. Pour chacune, les outils utilisés ne sont pas nécessairement les mêmes. Nous allons donc voir
+lesquels sont employés parmi ceux cités dans la section
+\ref{section:interception}.
 
 \subsubsection{Les communications réseaux}
  %-> syscall -> ptrace (full mediation, address translation)
@@ -18,7 +18,7 @@ modifier quoique ce soit, par contre au retour il faut modifier le temps
 d'exécution du calcul en le remplaçant par celui calculé par le simulateur.
 
 Dans le cas d'une communication réseau, le but de Simterpose étant de réussir à
-simuler un réseau \textit{virtuel} sur un réseau local, il faut gérer la
+simuler un réseau virtuel sur un réseau local, il faut gérer la
 transition entre réseau local et réseau simulé. En effet l'application possède
 une adresse IP et des numéros de ports virtuels qui ne correspondent pas à ceux attribués dans le réseau local.
 
@@ -49,7 +49,7 @@ deux entités qui souhaitent communiquer comme moyen d'identification. Pour gér
 toutes ces modifications deux solutions ont été proposées lors d'un précédent
 stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation par traduction
   d'adresse} et la \textit{full médiation}. Néanmoins, ces deux solutions n'ont
-pas encore été évalué en pratique.
+pas encore été évaluée en pratique.
 
  \begin{figure}[H]
    \centering
@@ -68,8 +68,7 @@ pas encore été évalué en pratique.
  \end{figure}
  
 \paragraph{Traduction d'adresse.}
- Avec ce type de médiation, illustrée Figure \ref{ADDRESS_TRANSLATION}, on laisse le noyau gèrre les communications. Ainsi en entrée et sortie d'appel système
- Simterpose va juste s'occuper de la transition entre le réseau virtuel simulé
+ Avec ce type de médiation, illustrée Figure \ref{ADDRESS_TRANSLATION}, on laisse le noyau gèrer les communications. Ainsi, en entrée et sortie d'appel système, Simterpose va juste s'occuper de la transition entre le réseau virtuel simulé
  par SimGrid et le réseau local, en utilisant les informations de communications
  contenues dans la socket. Pour cela, Simterpose gère un tableau de
  correspondances, dans lequel pour chaque couple <IP, ports virtuels> , on a un
@@ -79,16 +78,15 @@ pas encore été évalué en pratique.
  et les ports réels sur le réseau local, afin que la source de l'appel système
  corresponde à une machine existante sur le réseau local. Au retour de l'appel
  système, il faudra remodifier les paramètres en remettant l'adresse et les
- ports virtuels pour que l'application pense toujours être dans un
-   environnement distribué. La limite de cette approche est liée au nombre de
+ ports virtuels. La limite de cette approche est liée au nombre de
  ports disponibles sur l'hôte.
 
 \paragraph{Full médiation.} 
 Dans ce cas, le noyau ne va plus gérer les communications car nous allons
 empêcher l'application de communiquer via des sockets et même d'établir des
 connexions avec une autre application. Puisqu'il n'y a aucune communication, on
-n'a pas besoin de gérer de tableau de correspondance d'adresse et de ports et
-les applications peuvent conserver les adresses et les ports simulées qu'elles
+n'a pas besoin de gérer de tableau de correspondance d'adresses et de ports et
+les applications peuvent conserver les adresses et les ports simulés qu'elles
 considèrent comme réels. Quand l'application voudra faire un appel système de
 type communication ou connexion vers une autre application, le processus espion
 de Simterpose qui sera notifié via \texttt{ptrace} neutralisera l'appel système,
