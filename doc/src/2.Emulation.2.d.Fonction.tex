@@ -1,9 +1,9 @@
 \subsubsection{Médiation directe des appels de fonctions}
 %%pourquoi: pthread, temps
 
-Puisque l'interception des actions d'une application au plus bas niveau ne
-suffit pas, on peut penser qu'une bonne solution est d'intercepter les actions
-de l'application au plus haut niveau que sont les bibliothèques. Pour cela nous
+Nous avons vu que l'interception des actions d'une application au plus bas
+niveau ne suffit pas, une autre solution est d'intercepter les actions de
+l'application au plus haut niveau que sont les bibliothèques. Pour cela nous
 allons étudier deux approches basées sur l'éditeur de liens dynamiques de Linux
 qui permet d'insérer du code dans l'exécution d'un programme.
 
@@ -22,44 +22,31 @@ différentes, celle utilisée par le programme sera celle qui est contenue dans 
 bibliothèque partagée apparaîssant en premier dans la liste des bibliothèques
 préchargées. Ce ne sera pas \textit{nécessairement} celle de la bibliothèque
 attendue par le programme. Par exemple, on créé une bibliothèque partagée qui
-implémente une fonction open() de même prototype que la fonction open() de la
-libc et on place cette bibliothèque dans la variable \texttt{LD\_PRELOAD}. Quand
-on exécute un programme faisant un appel à open(), l'éditeur de lien va d'abord
-charger les bibliothèques contenues dans la variable d'environnement
-\texttt{LD\_PRELOAD} puis la libc, la nouvelle bibliothèque apparaîtra donc
-avant la libc dans la liste des bibliothèques préchargées. Ainsi, c'est la
-nouvelle fonction open() qui sera exécutée par le programme et non
-l'originale. De cette façon, on peut intercepter n'importe quelle fonction.
+implémente une fonction \texttt{printf}() de même prototype que la
+fonction \texttt{printf}() de la libc et on place cette bibliothèque dans la
+variable \texttt{LD\_PRELOAD}. Quand on exécute un programme faisant un appel
+à \texttt{printf}(), l'éditeur de lien va d'abord charger les bibliothèques
+contenues dans la variable d'environnement \texttt{LD\_PRELOAD} puis la libc, la
+nouvelle bibliothèque apparaîtra donc avant la libc dans la liste des
+bibliothèques préchargées. Ainsi, c'est la nouvelle fonction \texttt{printf}()
+qui sera exécutée par le programme et non l'originale. De cette façon, on peut
+intercepter n'importe quelle fonction.
 
 Dans notre cas, on va donc créer notre propre bibliothèque de fonctions. Pour
-chaque fonction susceptible d'être utilisée par l'application, on crééra une
+chaque fonction que l'on souhaite intercepter, on crééra une
 fonction de même nom et de même type dans notre bibliothèque. Chacune de nos
 fonctions contiendra alors toutes les modifications nécessaires pour maintenir
 notre environnement simulé suivi d'un appel à la fonction initiale. On rappelle
-que dans notre cas, on souhaite juste intercepter l'appel et pas l'empêcher.
-%%Pour faire
-%% appel à la fonction initiale on ne peut pas simplement l'appeler par son nom
-%% puisque ce serait notre nouvelle fonction qui serait appelée. On va donc utiliser
-%% dans notre nouvelle fonction les fonctions de la famille dlopen, notamment
-%% dlopen et dlsym. La première permet de charger une bibliothèque dynamique dont
-%% le nom est passé en paramètre et de récupérer un
-%% ``handle''\footnote{http://pubs.opengroup.org/onlinepubs/009695399/functions/dlopen.html
-%%   \\ A successful dlopen() shall return a handle which the caller may use on
-%%   subsequent calls to dlsym() and dlclose(). The value of this handle should not
-%%   be interpreted in any way by the caller.} utilisé par dlsym pour trouver
-%% l'adresse de la fonction originale qui nous intéresse en mémoire, nous
-%% permettant ainsi d'y faire appel.
-Notre nouvelle bibliothèque sera préchargée avant les autres en la plaçant dans
+que dans notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. Notre nouvelle bibliothèque sera préchargée avant les autres en la plaçant dans
 la variable \texttt{LD\_PRELOAD}, ainsi nos fonctions passeront avant les
 fonctions des bibliothèques usuelles.
 
 Néanmoins, si l'application fait un appel système directement sans passer par la
-couche \textit{Bibliothèques} (Fig.~\ref{AS_Communication}) notre mécanisme
+couche \textit{Bibliothèques} (Figure \ref{AS_Communication}) notre mécanisme
 d'interception est contourné. \textit{En effet on ne peut surcharger que des
   fonctions définies dans bibliothèques chargées dynamiquement avec cette solution, et non les appels
   systèmes directement.} De même, si on oublie de réécrire une fonction d'une
-des bibliothèques utilisée par l'application. Cette solution n'est donc pas
-suffisante pour le modèle d'interception que nous souhaitons avoir.
+des bibliothèques utilisée par l'application. De plus \texttt{LD\_PRELOAD} étant utilisé pour les bibliothèques chargées dynamiquement, les bibliothèques statiques chargées à la compilation utilisant des fonctions à intercepter seront oublié. Ainsi, l'interception au niveau des appels de fonctions ne permet pas une interception complète.
 
 \paragraph{GOT Poisoning:}
 %% plus dur que nécessaire
@@ -68,6 +55,6 @@ suffisante pour le modèle d'interception que nous souhaitons avoir.
 
 La technique du ``GOT poisoning'' \citep{GOT_poisoning} permet d'injecter de fausses adresses de fonctions dans la GOT lors de l'édition de lien dynamique d'un programme. Ainsi, pour chaque fonction de bibliothèque partagée que l'on souhaite intercepter, on peut remplacer l'adresse associée au symbôle correspondant à la fonction par l'adresse d'une nouvelle fonction que l'on aura implémenté. Comme avec \texttt{LD\_PRELOAD} il ne faut pas oublier de fonctions sinon l'interception sera contournée.
 
-Cette solution étant très complexe elle ne sera pas développée en détail dans ce rapport.
+En comparaison avec l'interception via \texttt{LD\_PRELOAD}, cette solution n'apporte pas grand chose de nouveau. La seule différence étant que la variable d'environnement \texttt{LD\_PRELOAD} n'est pas lu lors d'exécution de code setuid entraînant un problème d'interception. Dans notre cas, on ne s'intéresse pas aux problème de sécurité, nous avons donc choisi de ne pas développer cette solution et de nous concentrer sur \texttt{LD\_PRELOAD}.
 
 \vspace{0.5cm}
