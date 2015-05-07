@@ -3,12 +3,18 @@
 %% principe: interception des actions et médiation (pas juste interception et rejeu). Intercepter des symboles pour en changer l'effet
 
 Dans le cas de l'émulation par interception, illustrée
-Figure \ref{Virtu_interception}, pour mettre en place un environnement distribué
+Figure \ref{Virtu_interception} , pour mettre en place un environnement distribué
 émulé sur lequel les applications penseront s'exécuter, deux outils vont être
 utilisés; un simulateur pour virtualiser l'environnement d'exécution, et un
 émulateur qui va attraper toutes les communications de l'application avec l'hôte
 et qui les transmettra ensuite au simulateur.
 
+ \begin{figure}[H]
+   \centering \includegraphics[scale=0.5]{Pictures/png/Emulation_fonctionnement}
+   \caption{Fonctionnement de l'émulation par interception.}
+   \label{INTERCEPTION}
+ \end{figure}
+ 
  Une application distribuée peut vouloir interagir avec son environnement soit
  pour effectuer de simples calculs, soit pour effectuer des communications avec
  d'autres applications sur le réseau. Quand l'émulateur intercepte une
@@ -24,11 +30,6 @@ et qui les transmettra ensuite au simulateur.
  fourni qui va influencer l'horloge de l'application. Finalement, les
  applications ne communiquent plus directement entre elles.
 
- \begin{figure}
-   \centering \includegraphics[scale=0.5]{Pictures/png/Emulation_fonctionnement}
-   \caption{Fonctionnement de l'émulation par interception.}
-   \label{INTERCEPTION}
- \end{figure}
  
 Pour intercepter ces actions, il faut d'abord choisir à quel niveau se placer.
 En effet, une application peut communiquer avec le noyau via différentes

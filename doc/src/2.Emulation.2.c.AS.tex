@@ -24,7 +24,7 @@ sortir de l'appel système.
  écrire directement dans l'espace d'adressage de ce dernier, à n'importe quel
  moment ou lorsque un événement particulier se produit. De cette façon, on peut
  contrôler l'exécution d'un processus. C'est un appel système dont chaque action
- à effectuer est passée sous forme de requêtes en paramètre de l'appel système.
+ à effectuer est passée sous forme de requête en paramètre de l'appel système.
 
 Pour pouvoir contrôler un processus via \texttt{ptrace}, on va créer deux
 processus via un \texttt{fork}; un processus appelé ``processus espionné'' qui
@@ -64,8 +64,8 @@ ou \texttt{PTRACE\_DETACH} qui le laisse continuer son exécution.
 
 Néanmoins, pour contrôler un processus, \texttt{ptrace} fait de nombreux
 changements de contexte pour pouvoir intercepter et gérer les événements, or
-cela coûte plusieurs centaines de cycle CPU. De plus, il supporte mal
-les processus utilisant du multithreading, et ne fait pas parti de la norme
+cela coûte plusieurs centaines de cycles CPU. De plus, il supporte mal
+les processus utilisant du multithreading, et ne fait pas partie de la norme
 POSIX. Ainsi il peut ne pas être disponible sur certaines architectures et son
 exécution peut varier d'une machine à une autre.
 
@@ -76,7 +76,7 @@ Nous tenons à faire remarquer que \texttt{strace}\footnote{\url{http://linux.di
 \textit{user-space probes}, est quant à lui une API noyau permettant d'insérer
 dynamiquement des points d'arrêts à n'importe quel endroit dans le code d'une
 application et à n'importe quel moment de son exécution. Nous pouvons donc
-l'utiliser avec les appels systèmes comme points d'arrêts.
+l'utiliser avec les appels système comme points d'arrêts.
 
 La façon la plus classique d'utiliser cette interface se base sur Utrace,
 équivalent de \texttt{ptrace} en mode noyau. Ce dernier permet d'éviter les
@@ -90,7 +90,7 @@ processus concerné et l'adresse virtuelle du point d'arrêt. Pour gérer un poi
 d'arrêt Uprobes utilise trois structures de
 données \textit{i)} \texttt{uprobe\_process} (une par processus controlé),
 \textit{ii)} \texttt{uprobe\_task} (autant que le processus contrôlé a de
-thread), \textit{iii)} \texttt{uprobe\_kimg} (une pour chaque point d'arrêt
+threads), \textit{iii)} \texttt{uprobe\_kimg} (une pour chaque point d'arrêt
 affectant un procesus). Chaque structure \texttt{uprobe\_task} et
 \texttt{uprobe\_kimg} sont propres à une structure \texttt{uprobe\_process}. La
 fonction \texttt{init} du module va poser les points d'arrêt et la fonction
@@ -134,12 +134,12 @@ dont l'utilisateur devra également gérer le bon chargement.
 %% Read only
 \label{paragraph:seccomp/bpf}
 
-Seccomp \citep{seccompbpf} est un appel système qui permet d'isoler un processus
+\texttt{seccomp} \citep{seccompbpf} est un appel système qui permet d'isoler un processus
 en lui donnant le droit d'appeler et d'exécuter qu'un certain nombre d'appels
 systèmes: \texttt{read}, \texttt{write}, \texttt{exit} et \texttt{sigreturn}. Si
 le processus fait un autre appel système, il sera arrêté avec un signal
 \texttt{SIGKILL}. Comme cela est assez contraignant, le nombre d'applications
-que l'on peut utiliser avec seccomp est donc très limité. Pour plus de
+que l'on peut utiliser avec \texttt{seccomp} est donc très limité. Pour plus de
 flexibilité, on peut utiliser une extension de cet appel système appelée
 seccomp/BPF, pour \textit{seccomp BSD Packet Filter}, permettant de définir dans
 un programme BPF \citep{BPF_mccanne1993bsd} les appels systèmes autorisés à
@@ -151,7 +151,7 @@ toutes les règles. Dans le cas où les appels systèmes \texttt{fork} ou
 enfants, de même que pour les processus faisant des appels \texttt{execve}
 quand ils sont autorisés. Les règles des filtres BPF portent sur le type de
 l'appel système et/ou ses arguments. Ainsi, à chaque entrée ou sortie d'un appel
-système, ne faisant pas partie des quatre autorisés par seccomp, l'extension
+système, ne faisant pas partie des quatre autorisés par \texttt{seccomp}, l'extension
 utilisant BPF est appelée. Elle reçoit en entrée le numéro de l'appel système,
 ses arguments et le pointeur de l'instruction concernée. En fonction des règles,
 elle laisse l'appel système s'exécuter ou pas.  De plus, seccomp/BPF possède une

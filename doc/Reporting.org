@@ -197,16 +197,16 @@ simulateur avant la sortie de l'AS
 ** 27.04.2015 -> 01.05.2015
 *** Things done
 - Écriture Pré-rapport (RR, Robot, MicroGrid, actions sur le source, got poisoning)
-*** TODO Écrire la partie loria (présentation) projet SIMGRID Simterpose
+*** DONE Écrire la partie loria (présentation) projet SIMGRID Simterpose
 *** TODO revoir uprobes
 *** DONE outil du 2.1 à détailler
 *** DONE reprendre les images
-*** TODO trouver lien ptrace, transition et pourquoi besoin de ld_preload
-*** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
+*** DONE trouver lien ptrace, transition et pourquoi besoin de ld_preload
+*** DONE ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
 *** DONE Intre de chaque parties et transitions
 *** DONE schéma différences entre les virtualisations
 *** DONE typo pour les citation, AS...
-*** TODO Simgrid is not a simulator
+*** DONE Simgrid is not a simulator
 *** TODO placer:
 On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
 - parler des solutions qui n'existent plus?

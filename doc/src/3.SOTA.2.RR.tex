@@ -45,13 +45,13 @@ valeur des registres lors de ces actions). Quand RR va rejouer un appel système
 les valeurs de retour des registres seront celles sauvegardées lors de
 l'exécution réelle et non celles du rejeu. Pour intercepter les appels système,
 RR utilise \texttt{LD\_PRELOAD} (section \ref{paragraphe:LDPreload}) qui va les
-placer dans un buffer. Ensuite Seccomp/BPF(section\ref{paragraph:seccomp/bpf})
+placer dans un buffer. Ensuite Seccomp/BPF(section \ref{paragraph:seccomp/bpf})
 parcourra le buffer pour filtrer les appels système et les laisser
 exécuter. Pour cette partie de la gestion de l'appel on n'utilise pas ptrace car
 il est trop couteux en terme de changement de contexte, Figure \ref{AS_RR}.
 \begin{figure}
 \centering \includegraphics[scale=0.30]{Pictures/png/RR_AS}
-\caption{Comparaison de l'exécution du rejeu de RR avec ptrace et seccomp-bpf
+\caption{Comparaison de l'exécution du rejeu de RR avec \texttt{ptrace} et seccomp/BPF
   pour gérer l'exécution des appels système.}
 \label{AS_RR}
 \end{figure}

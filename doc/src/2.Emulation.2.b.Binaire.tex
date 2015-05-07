@@ -3,10 +3,9 @@
 
 Pour agir sur le binaire d'une application, c'est l'outil d'instrumentation
 d'analyse dynamique Valgrind \citep{Valgrind, Valgrindweb} que nous allons
-étudier. D'autres outils suivent la même approche générale, tels que DynInst:
-outil pour la modification à la volée de binaire utilisé notamment en HPC \citep{Dyn}.
+étudier. D'autres outils suivent la même approche générale, tels que DynInst, un outil pour la modification à la volée de binaire utilisé notamment en HPC \citep{Dyn}.
 
-À l'origine, Valgrind était utilisé pour le débuguage mémoire, puis il a évolué
+À l'origine, Valgrind était utilisé pour le débogage mémoire, puis il a évolué
 pour devenir l'instrument de base à la création d'outils d'analyse dynamique de
 code, tels que la mise en évidence de fuites mémoires ou le
 profilage\footnote{Méthode visant à analyser le code d'une application pour
@@ -28,7 +27,7 @@ l'application.
 
 Dans notre cas, on peut utiliser Valgrind pour mesurer le temps passé à faire un
 calcul. Ce dernier étant ensuite envoyé au simulateur pour calculer le temps de
-réponse dans l'environnement simulé nécessaire à l'émulateur. On pourrait
+réponse dans l'environnement simulé nécessaire à l'émulateur. On peut
 également l'utiliser pour réécrire à la volée le code des fonctions que
 l'émulateur doit modifier pour maintenir la virtualisation. Pour faire cela, il
 faut créer un ``wrapper'' pour chaque fonction qui nous intéresse. Un wrapper

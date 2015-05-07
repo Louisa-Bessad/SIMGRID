@@ -40,12 +40,14 @@
 %\setmainfont{Adobe Garamond Pro}       
 %\setmainfont{EB Garamond}
 
-%\renewcommand*\rmdefault{ppl}
+%% \renewcommand*\rmdefault{ppl}
 % --------------------------------
 
 %\usepackage[language=french]{csquotes}
 
-
+\setcounter{page}{1}
+\pagenumbering{Roman}
+%%\onehalfspacing
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,10 +130,79 @@
 %% Début du document
 
 \begin{document}
+\begin{titlepage}
 
-\selectlanguage{francais}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
 
+\center % Center everything on the page
+ 
+%----------------------------------------------------------------------------------------
+%	HEADING SECTIONS
+%----------------------------------------------------------------------------------------
 
+\textsc{\LARGE Université Pierre et MArie Curie}\\[0.44cm] % Name of your university/college
+\textsc{\Large Master informatiqe}\\[0.44cm] % Major heading such as course name
+\textsc{\large Systèmes et Applications Répartis}\\[1.44cm] % Minor heading such as course title
+
+\textsc{\LARGE Loria}\\[0.44cm] % Name of your university/college
+\textsc{\Large Equipe VERIDIS}\\[1.44cm] % Major heading such as course name
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Real-time online emulation of real applications on SimGrid with Simterpose}\\[0.4cm] % Title of your document
+\HRule \\[1.44cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Etudiant:}\\
+Louisa \textsc{Bessad} % Your name
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Encadrant} \\
+Martin \textsc{Quinson} % Supervisor's Name
+\\\vspace{1.44cm} \emph{Rapporteur:} \\ Sébastien
+\textsc{Monnet}
+\end{flushright}
+\end{minipage}\\[2cm]
+
+% If you don't want a supervisor, uncomment the two lines below and remove the section above
+%\Large \emph{Author:}\\
+%John \textsc{Smith}\\[3cm] % Your name
+
+%----------------------------------------------------------------------------------------
+%	DATE SECTION
+%----------------------------------------------------------------------------------------
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%	LOGO SECTION
+%----------------------------------------------------------------------------------------
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+\includegraphics[scale=0.2]{Pictures/png/UPMC_sorbonne.png}\hspace{3cm}
+\includegraphics[scale=0.1]{Pictures/loria_logo.jpg}
+
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+\end{titlepage}
+\clearpage
+%\vfill
+
+%%\newpage
+%%\mbox{}
+%%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Définition des en-têtes et pied de pages
@@ -139,14 +210,13 @@
 %\fancyhead{}
 %\fancyfoot{}
 %
-\fancyhead[L]{\textsc{Université Pierre et Marie Curie}\\
-          Master Informatique\\ Stage M2 \annee \\ \nomEtudA}
+\fancyhead[L]{\textsc{Université Pierre et Marie Curie} \\ {\color{white} b} \\ \nomEtudA}
 \fancyhead[C]{\textbf{Pré-rapport}}%\\\titreProjetCourt}}
-\fancyhead[R]{\textsc{LORIA} \\ {\color{white} b} \\ {\color{white} b} \\ \nomEncad}
+\fancyhead[R]{\textsc{LORIA} \\ {\color{white} b} \\ \nomEncad}
 
 \fancyfoot[L]{\includegraphics[width=3cm]{Pictures/png/UPMC_sorbonne.png}}
-\fancyfoot[C]{\textbf{\thepage/\pageref{fin}}}
-%%\fancyfoot[R]{\includegraphics[width=4cm]{Pictures/loria_logo.jpg}}
+\fancyfoot[C]{\textbf{\thepage}}
+\fancyfoot[R]{\includegraphics[width=4cm]{Pictures/loria_logo.jpg}}
 
 %\lhead[\fancyplain{}{\texttt{Université Pierre et Marie Curie}\\
 %          Master Informatique\\ UE \textbf{PSAR} fév. \annee \\ \nomEncad}]
@@ -166,34 +236,17 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-      \begin{center}
-        \begin{boxedminipage}{12cm}{
-            \begin{center}
-              ~\\\LARGE\textbf{\titreProjetLong}\\
-              ~\\\large Étudiante: \textbf{\nomEtudA,}\\
-              ~\\\large Encadrant: \textbf{\nomEncad}\\
-              ~
-            \end{center}
-            }
-        \end{boxedminipage}
-      \end{center}
 
-%\vfill
-
-\newpage
-\mbox{}
-\newpage
-    
 \tableofcontents
 %\vfill
 \newpage
-\mbox{}
-\newpage
+%% \mbox{}
+%% \newpage
 
 \listoffigures
 \newpage
-\mbox{}
-\newpage
+%% \mbox{}
+%% \newpage
 
 %Abstract
 %\begin{abstract}
@@ -201,10 +254,12 @@
   %% Dans le cadre de ce stage nous allons nous intéresser aux applications ditribuées à large échelle et comment on peut les tester et évaluer leurs performances via une combinaison d'émulation et de simulation en utilisant SIMGRID et Simterpose qui sont deux projets européens. SIMGRID a été lancé en 1999 pour étudier des algorithmes d'ordonnancement sur des plateformes hétérogènes dans un environnement distribué et faciliter leur programmation. Il fournit les outils de base nécessaire à la simulation de ce type d'applications. Simterpose s'insère dans le projet SIMGRID afin de pouvoir étudier des applications complètes et pas uniquement leur modèle que l'on fournit habituellement en paramètre au simulateur. Le but est de faire de l'émulation en utilisant un simulateur que sera SIMGRID. Puisque nous nous intéressons aux applications distribuées notre émulateur doit pouvoir\textit{i)} exécuter un grand nombre d'instances d'une même application sur un même système afin de pouvoir debugguer, \textit{ii)} évaluer des applications ayant de nombreuses condition d'exécution (simple n\oe ud, réseau complet), \textit{iii)} collecter les informations concernant l'application pendant qu'elle s'exécute.
 %\end{abstract}
 %\newpage
+
 \input{src/0.0.Loria.tex}
 \newpage
 
 \setcounter{page}{1}
+\pagenumbering{arabic}
 % Content
 %% \input{src/0.Remerciements.tex}
 %% \newpage

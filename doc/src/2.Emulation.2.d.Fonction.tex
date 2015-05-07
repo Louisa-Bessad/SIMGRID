@@ -36,7 +36,7 @@ Dans notre cas, on va donc créer notre propre bibliothèque de fonctions. Pour
 chaque fonction que l'on souhaite intercepter, on crééra une
 fonction de même nom et de même type dans notre bibliothèque. Chacune de nos
 fonctions contiendra alors toutes les modifications nécessaires pour maintenir
-notre environnement simulé suivi d'un appel à la fonction initiale. On rappelle
+notre environnement simulé, suivi d'un appel à la fonction initiale. On rappelle
 que dans notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. Notre nouvelle bibliothèque sera préchargée avant les autres en la plaçant dans
 la variable \texttt{LD\_PRELOAD}, ainsi nos fonctions passeront avant les
 fonctions des bibliothèques usuelles.
@@ -55,9 +55,9 @@ appels de fonctions ne permet pas une interception complète.
 \paragraph{GOT Poisoning:}
 %% plus dur que nécessaire
 
-À la compilation, les adresses des appels de fonctions appartenant à des bibliothèques partagées ne sont pas connues. On associe alors un symbôle à chaque appel d'une de ces fonctions. C'est lors de l'exécution du programme que l'éditeur de lien dynamique résoudra le symbôle en trouvant l'adresse de la fonction à laquelle il correspond. Cette adresse sera ensuite stockée dans la ``Global Offset Table''\citep{ELF}, également appelée GOT. Ce tableau, stocké dans le segment de données d'un exécutable ELF, sauvegarde pour chaque symbole résolu l'adresse de la fonction correspondante. Ainsi, lors du premier appel à la fonction l'éditeur de lien retrouve l'adresse du symbole et pour les appels suivants il parcourt la GOT au lieu de refaire le calcul.
+À la compilation, les adresses des appels de fonctions appartenant à des bibliothèques partagées ne sont pas connues. On associe alors un symbole à chaque appel d'une de ces fonctions. C'est lors de l'exécution du programme que l'éditeur de lien dynamique résoudra le symbole en trouvant l'adresse de la fonction à laquelle il correspond. Cette adresse sera ensuite stockée dans la ``Global Offset Table''\citep{ELF}, également appelée GOT. Ce tableau, stocké dans le segment de données d'un exécutable ELF, sauvegarde pour chaque symbole résolu l'adresse de la fonction correspondante. Ainsi, lors du premier appel à la fonction, l'éditeur de lien retrouve l'adresse du symbole et pour les appels suivants il parcourt la GOT au lieu de refaire le calcul.
 
-La technique du ``GOT poisoning'' \citep{GOT_poisoning} permet d'injecter de fausses adresses de fonctions dans la GOT lors de l'édition de lien dynamique d'un programme. Ainsi, pour chaque fonction de bibliothèque partagée que l'on souhaite intercepter, on peut remplacer l'adresse associée au symbôle correspondant à la fonction par l'adresse d'une nouvelle fonction que l'on aura implémentée. Comme avec \texttt{LD\_PRELOAD} il ne faut pas oublier de fonctions sinon l'interception sera contournée.
+La technique du ``GOT poisoning'' \citep{GOT_poisoning} permet d'injecter de fausses adresses de fonctions dans la GOT lors de l'édition de lien dynamique d'un programme. Ainsi, pour chaque fonction de bibliothèque partagée que l'on souhaite intercepter, on peut remplacer l'adresse associée au symbole correspondant à la fonction par l'adresse d'une nouvelle fonction que l'on aura implémentée. Comme avec \texttt{LD\_PRELOAD} il ne faut pas oublier de fonctions sinon l'interception sera contournée.
 
 En comparant avec l'interception via \texttt{LD\_PRELOAD}, la seule différence est que la variable d'environnement \texttt{LD\_PRELOAD} n'est pas lue lors d'exécution de code \texttt{setuid} entraînant un problème d'interception. Dans notre cas, on ne s'intéresse pas aux problèmes de sécurité, nous avons donc choisi de ne pas développer cette solution et de nous concentrer sur \texttt{LD\_PRELOAD}.
 
