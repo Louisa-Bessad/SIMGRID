@@ -216,10 +216,14 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 ** 04.05.2015 -> 07.05.2015
 *** Things done
 - Why a "Make *** [diff-send] Erreur 1" with "make diff-send" TODO (repeat du 24.03)
+- Cleaning code (a .h for each .c)
 *** Blocking points
+- What is the meaning of 'SYSCALL_PROCESS_H' and when should we use it?
 *** Planned work
-*** TODO Faire des .h pour chaque fichier une fois que tout le code sera réparti
-
+*** DONE Faire des .h pour chaque fichier
+- Clean all the include .h in every .h because there are loops in there
+*** TODO fix 'make *** [diff-send] Erreur 1'
+*** TODO fix the compilation problem of communication.o sockets.o and simterpose.o, there are linked
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
