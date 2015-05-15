@@ -211,7 +211,6 @@ On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le 
 - parler des solutions qui n'existent plus?
 impossible de predire et controller l'environnement avec des reseaux et machines partagées,empechant les expe reprouctibles
 *** DONE schéma archi robot et DETER to modify at home 
-- schéma MicroGrid et positionnement image???
 
 ** 04.05.2015 -> 07.05.2015
 *** Things done
@@ -220,10 +219,17 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 *** Blocking points
 - What is the meaning of 'SYSCALL_PROCESS_H' and when should we use it?
 *** Planned work
-*** DONE Faire des .h pour chaque fichier
-- Clean all the include .h in every .h because there are loops in there
 *** TODO fix 'make *** [diff-send] Erreur 1'
-*** TODO fix the compilation problem of communication.o sockets.o and simterpose.o, there are linked
+
+** 11.05.2015 -> 15.05.2015
+*** Things done
+- Roll back cleaning of all include of each .c
+- Compilation of Simterpose on the most recent version of SimGrid
+*** Blocking points
+*** Planned work
+- Verify that the old tests still works on the new version of Simterpose/SimGrid
+*** TODO Clean all the include .h in every .h because there are loops in there
+*** TODO Done the previous TODO means to fix the compilation problem of communication.o sockets.o and simterpose.o, there are linked
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
