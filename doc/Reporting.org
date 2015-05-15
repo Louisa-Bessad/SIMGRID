@@ -1,0 +1,230 @@
+#+STARTUP: showall
+
+* Findings
+** Introduction 
+
+** Related Work
+
+** Bibliography
+*** Articles
+Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas Nussbaum. Design and
+Evaluation of a Virtual Experimental Environment for Distributed
+Systems. [Research Report] RR-8046, 2012. <hal-00724308v1>
+ Martin Quinson. SimGrid: a Generic Framework for Large-Scale Distributed Experiments.
+9th International conference on Peer-to-peer computing - IEEE P2P 2009, Sep
+2009, Seattle, United States. IEEE. <inria-00435802> 
+KENISTON, Jim, MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace, utrace,
+uprobes: Lightweight, dynamic tracing of user apps. In : Proceedings of the 2007
+Linux Symposium. 2007. p. 215-224.
+*** Reports of internships
+http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-slides.pdf
+http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2013-master-simpad-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2012-master-simterpose-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf
+http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
+** Contribution 
+
+
+* Development
+** Data Provenance
+
+* Journal
+** 1rst week March
+*** Things done
+- Lire les papiers de Chloé, Guillaume, Marion et les papiers cités par Chloé.
+*** Blocking points and questions-
+- Je n'arrive pas à comprendre qui s'éxecute, où et comment. Les applis tournent
+ sur la machine hôte, seules les actions qui ont besoin d'interagir avec
+  l'environnement (réseau car applications distribuées) sont envoyées dans le
+  simulateur?
+- Si on exécute les applications sur la machine hôte, dans ce cas en quoi ça permet
+d'exécuter sur différentes machines avec des puissances de calcul différentes?
+--> Benchmark et rejeu pour ce qui est calcul d'application et envoie ce temps
+dans le simulateur qui ajuste en fonction de la plate-forme qu'il simule. Ce qui
+fait une émulation simulation.  
+--> 4 choses: COMM (temps de communication), SEB (temps calcul), obtenir le
+temps,DNS (resolution de nom). Obtenir l'heure pas de transformation en AS
+(perte de performance à cause des changements de contextes), LD_PRELOAD (combien
+de temps depuis le dernier chronostrart/stop) cat /proc/self/maps pour voir les
+différents segments mémoire de processus (vsyscall: memoire kernel mappe pour
+avoir l'heure, emplacement des lib...)
+*** Planned work 
+*** DONE Lire code et le comprendre (relire le ld_preload_pthread)
+*** DONE Faire tourner le programme actuel
+*** TODO Les papiers dans /biblio/to_read
+
+** 09.03.2015
+*** Things done
+- Lire les "proof of concept" et les comprendre
+- Lire les codes de tests/apps (bon brain storming about socket functions)
+- Fichiers server_poll et server_poll_multi fastidieux.
+- Laissé de côté le fichier apps/chess_adavanced.c
+*** Blocking points and questions
+- un appel dans le fichier ldpreload_pthread/mdfpthread.c
+- quand on fait un fork le parent ne s'attache pas au fils??? Il y a juste le
+ fils qui fait un PTRACE_ME???  (revoir l'annexe de Guillaume)
+- c'est quoi "tesh"?  
+--> tesh, c'est le testing shell, l'outil qu'on a écrit
+dans simgrid pour nos tests d'intégration. Je l'avais posé en sujet scolaire une
+fois. http://webloria.loria.fr/~quinson/Teaching/RS/projet-test.pdf La version
+dans simgrid est en perl de nos jours, mais y'a une version en C assez balèze
+qui demeure. Le principal défaut de la version C est de ne pas être porté à
+windows (forcément).
+*** Planned work
+- Relire send_client/server serverMultiClients.c
+- Mettre au propre note et schéma
+*** DONE Lire le code dans src
+
+** 10-13.03.2015
+*** Things done
+- essayer de trouver par quel bout commencer à lire les fichiers contenu dans
+src --> .h lus
+- commencer à faire des liens entre les différents fichiers et structures
+*** Blocking points and questions
+*** Planned work
+- lire les .c notamment sys_* et syscall_process
+*** TODO Mettre les en-têtes de fichiers et commentaire, corriger le code si besoin (erreur ctrl C/V et commentaires)
+- peupler les sys_* avec ctrl-X ctrl-V (suivre strace)
+- remplacer le switch du syscall_process par un tableau de pointeurs de
+  fonctions
+- améliorer la testsuite avec un script diff entre les sorties simterpose et
+  strace --> algorithme de diff wikipédia --> longuest common subsequence
+
+** 16.03.2015
+*** Things done
+- lire sys_*
+*** Blocking points
+- où sont définies les macro MSG_* et les xbt_dynar_* 
+--> /opt/simgrid/include
+- à quoi sert le while de process_runner (simterpose.c) 
+--> processus lancé via le ptrace on le bloque dès que quelque chose se produit via le
+resume (pendant le resume fait ses calculs) si on en sort = AS à gérer
+- à quoi servent les processus clonés et la fonction main_loop (simterpose.c)?
+--> main_loop = process_runner quand on est dans un clone 
+--> quand fork ou create on fait un clone en fait du coup c'est l'AS clone qui
+    gère ça.
+*** Planned work
+- lire le fichier syscall_process.c et autres tools en .c
+
+** 17-18-19.03.2015
+*** Things done
+-lecture en cours de syscall_process.c
+*** Blocking points
+- qu'est ce qu'une MSG task et à quoi ça sert 
+--> voir 101 de SIMGRID
+- pourquoi à l'entrée du syscall_write on ne fait rien si on est en
+address_translation
+--> toute la petite sauce a été faite dans le open déjà
+- différence pipe_t et pipe_end_s
+--> l'un est la sortie (pipe_end_s) pour savoir de quel côté on est et
+    l'autre est le tube pour les données
+- pourquoi on n'a pas de return à la sortie de chaque syscall dans le
+  process_handle?
+--> Certains AS sont bloquants et du temps doit s'écouler au niveau du
+simulateur avant la sortie de l'AS
+
+- pourquoi incrémenter le compteur de référence à la sortie du syscall_write,
+  entree du syscall_write alors qu'il est déjà incrémenté dans le open et qu'on
+  le décrémente ensuite??? Est-ce pour éviter de fermer un fd à 0 si on
+  l'utilise ailleurs...
+- traitement des pipe dans syscall_write et process_close_call = ????
+- pourquoi le syscall_poll_pre ne fonctionne pas?
+- que fait sys_build_select et pourquoi le syscall_select_pre renvoie une valeur
+ de match alors que c'est l'AS noyau qui devrait renvoyer ça?
+--> C'est tout du n'importe quoi
+*** Planned work
+- lire le code de strace
+- read SIMGRID101
+*** TODO réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
+    
+** 23-24.03.2015
+*** Things done
+- lire syscall_process.c (enfin)
+- compilation de simterpose / correction d'un bug à la compilation
+- exécution du code sur msg_clientserver.sh
+*** Blocking points
+- pourquoi à l'entrée de l'AS connect on fait appel à process_handle
+--> WTF but it works...
+- WTF le sleep(4) dans syscall_fcntl
+- make diff-send erreur après exit
+*** Planned work
+*** DONE schéma du connect
+
+** 25-26-27.03.2015
+*** Things done
+- Rédaction "pré-rapport" (template)
+- Bibliographie
+*** Blocking points
+- clarifier cette histoire de /proc/id/mem
+*** Planned work
+*** DONE ne pas parler de communications mais d'actions
+- compléter la partie émulation avec d'autres simulateurs ou test invalidés
+- java -jar plantuml.jar -tpng fichier.pu
+- CWRAP RR
+
+** 30.03.2015 -> 03.04.2015
+*** Things done
+- Écriture Pré-rapport (Intro Virtualisation émulation, Mediation communications réseaux)
+- Pictures
+- Bibliography
+*** Blocking points
+- place de "temps d'un SEB (netlink et cap)" dans le 2.1
+- pq pas systemtap et dyninst et strace, uprobes raison suffisante pour éviter ce choix, 
+*** Planned work 
+- Continuer la biblio
+
+** 06.04.2015 -> 10.04.2015
+*** Things done
+- Écriture Pré-rapport (Introduction, Virtualisation standard, ptrace, Uprobes, seccomp-bpf)
+- Biblio terminée
+*** Planned work
+- Finir seccomp-bpf
+
+** 13.04.2015 -> 17.04.2015
+*** Things done
+- Écriture Pré-rapport (Valgrind, seccomp-bpf, new Uprobes, LD_PRELOAD)
+*** Planned work
+- Commencer partie SOTA
+
+** 20.04.2015 -> 24.04.015
+*** Things done
+- Écriture Pré-rapport (cwrap, Distem, DETER, partie 4)
+*** Planned work 
+- Terminer SOTA
+
+** 27.04.2015 -> 01.05.2015
+*** Things done
+- Écriture Pré-rapport (RR, Robot, MicroGrid, actions sur le source, got poisoning, del RR)
+*** DONE Écrire la partie loria (présentation) projet SIMGRID Simterpose
+*** TODO revoir uprobes
+*** DONE outil du 2.1 à détailler
+*** DONE reprendre les images
+*** DONE trouver lien ptrace, transition et pourquoi besoin de ld_preload
+*** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
+*** DONE Intre de chaque parties et transitions
+*** DONE schéma différences entre les virtualisations
+*** DONE typo pour les citation, AS...
+*** DONE Simgrid is not a simulator
+*** TODO placer:
+On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
+- parler des solutions qui n'existent plus?
+impossible de predire et controller l'environnement avec des reseaux et machines partagées,empechant les expe reprouctibles
+*** DONE schéma archi robot et DETER to modify at home 
+- schéma MicroGrid et positionnement image???
+
+** 04.05.2015 -> 07.05.2015
+*** Things done
+- Why a "Make *** [diff-send] Erreur 1" with "make diff-send" TODO (repeat du 24.03)
+- Cleaning code (a .h for each .c)
+*** Blocking points
+- What is the meaning of 'SYSCALL_PROCESS_H' and when should we use it?
+*** Planned work
+*** DONE Faire des .h pour chaque fichier
+- Clean all the include .h in every .h because there are loops in there
+*** TODO fix 'make *** [diff-send] Erreur 1'
+*** TODO fix the compilation problem of communication.o sockets.o and simterpose.o, there are linked
+
+* Conclusion
+Hello Next Guy! At the end remote all the jokes :p
+ 
