@@ -227,9 +227,16 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 - Compilation of Simterpose on the most recent version of SimGrid
 *** Blocking points
 *** Planned work
-- Verify that the old tests still works on the new version of Simterpose/SimGrid
+- Verify that the old tests still works on the new version of SimGrid
 *** TODO Clean all the include .h in every .h because there are loops in there
 *** TODO Done the previous TODO means to fix the compilation problem of communication.o sockets.o and simterpose.o, there are linked
+
+** 18.05.2015 -> 22.05.2015
+*** Things done
+- The old poc works now with the new version of SimGrid
+- Reduce the modification of code to switch the execution of Simterpose between two versions of SimGrid
+*** Blocking points 
+*** Planned work
 
 * Conclusion
 Hello Next Guy! At the end remote all the jokes :p
