@@ -237,6 +237,8 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 - Reduce the modification of code to switch the execution of Simterpose between two versions of SimGrid
 - Clean the switch in syscall_handle (function calls )
 *** Blocking points 
+- It's cute to call MSG_process_create in sys_process.c to avoid a bug but this function has never been implemented in SimGrid (old or new version), there is just a prototype on msg.h ...
+- the end loop of simterpose_process_runner is near to the main_loop function, why should we keep the loop and not call the function?
 *** Planned work
 - Clean the switch ( comments and when we return or not and why some functions are void or int in return)
 - Script diff
