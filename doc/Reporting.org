@@ -254,11 +254,19 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 - Work on the "retcode=139" problem. That's a segfault in simterpose.
   - use printf in segfault handler instead of XBT logs (more robust so)
   - we can't run simterpose in valgrind because childs are still
-    attached to valgrind until the fork (of course), and valgrind does
+    attached to valgrind after the fork (of course), and valgrind does
     strange things that we don't support yet, eg fcntl(DUPFD).
   - I think that the segfault (that is hard to see because valgrind is
     useless) is in communications.c. Definitely, we need to rewrite
     that file for a sane handling of the FD metadata.
+- Thinking about the test suite.
+  - Actually, testing the comparison to strace output seems very
+    difficult to implement for little gain.
+  - It would be better to use tesh(1) to ensure that the test
+    applications always return exactlu the same output (without tracing
+    all the syscalls)
+  - we would use the comparison to strace when improving the code, and
+    enforcing the output (only) in regression tests.
 *** TODO support fcntl(DUPFD) 
 Also, do all the strange things that valgrind does when simterpose
 forkes a new process in valgrind.
