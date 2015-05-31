@@ -238,13 +238,28 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 - Clean the switch in syscall_handle (function calls )
 *** Blocking points 
 - It's cute to call MSG_process_create in sys_process.c to avoid a bug but this function has never been implemented in SimGrid (old or new version), there is just a prototype on msg.h ...
+  - Answer Mt: that function exists, you must have missed it. 
 - the end loop of simterpose_process_runner is near to the main_loop function, why should we keep the loop and not call the function?
+  - Answer Mt: feel free to clean everything that you can
 *** Planned work
-- Clean the switch ( comments and when we return or not and why some functions are void or int in return)
+- Clean the switch (comments and when we return or not and why some functions are void or int in return)
 - Script diff
 - FIXME and TODO commented in the code 
 - Do we need the two ifdef dand process_descriptor.c et .h
-
-* Conclusion
-Hello Next Guy! At the end remote all the jokes :p
+  - Answer Mt: I killed them
+** 31.05.2015 [Mt]
+*** Things done
+- Kill compatibility with "old" simgrid (older than git head). The code is complex enough.
+- Merge branches into master. We are alone here.
+- Work on the "retcode=139" problem. That's a segfault in simterpose.
+  - use printf in segfault handler instead of XBT logs (more robust so)
+  - we can't run simterpose in valgrind because childs are still
+    attached to valgrind until the fork (of course), and valgrind does
+    strange things that we don't support yet, eg fcntl(DUPFD).
+  - I think that the segfault (that is hard to see because valgrind is
+    useless) is in communications.c. Definitely, we need to rewrite
+    that file for a sane handling of the FD metadata.
+*** TODO support fcntl(DUPFD) 
+Also, do all the strange things that valgrind does when simterpose
+forkes a new process in valgrind.
  
