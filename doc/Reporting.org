@@ -245,8 +245,9 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 - Clean the switch (comments and when we return or not and why some functions are void or int in return)
 - Script diff
 - FIXME and TODO commented in the code 
-- Do we need the two ifdef dand process_descriptor.c et .h
+- Do we need the two ifdef in process_descriptor.c et .h
   - Answer Mt: I killed them
+
 ** 31.05.2015 [Mt]
 *** Things done
 - Kill compatibility with "old" simgrid (older than git head). The code is complex enough.
@@ -263,11 +264,18 @@ impossible de predire et controller l'environnement avec des reseaux et machines
   - Actually, testing the comparison to strace output seems very
     difficult to implement for little gain.
   - It would be better to use tesh(1) to ensure that the test
-    applications always return exactlu the same output (without tracing
+    applications always return exactly the same output (without tracing
     all the syscalls)
   - we would use the comparison to strace when improving the code, and
     enforcing the output (only) in regression tests.
 *** TODO support fcntl(DUPFD) 
 Also, do all the strange things that valgrind does when simterpose
 forkes a new process in valgrind.
- 
+  
+** 01.06.2015
+*** Things done
+- Update the version of SimGrid
+- Work on the segfault of communication.c could come from:
+  - Bad gestion of ref_count somewhere
+  - Problem at the return of MSG_main in simterpose.c but I don't know why
+    
