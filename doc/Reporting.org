@@ -272,10 +272,21 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 Also, do all the strange things that valgrind does when simterpose
 forkes a new process in valgrind.
   
-** 01.06.2015
+** 01.06.2015 -> 05.06.2015
 *** Things done
 - Update the version of SimGrid
 - Work on the segfault of communication.c could come from:
   - Bad gestion of ref_count somewhere
   - Problem at the return of MSG_main in simterpose.c but I don't know why
-    
+- Reading Valgrind documentation to find which system calls have to be implemented   
+- Test of the option " --cfg=contexts/factory:thread " during the execution of Simterpose.
+It is useless.
+- To have a good execution of SimGrid with Valgrind, you have to put on the cmake:
+  - enable_compile_optimizations     OFF
+  - enable_mallocators               ON
+  - enable_model-checking            OFF
+- Delete "TODO union pour les arguments de fcntl"
+-> There are only two types of arguments (int and void), it is useless.
+- Implemented options of fcntl
+  - F_DUPFD 
+**** TODO check the initial value of refcount in F_DUPFD 
