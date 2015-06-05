@@ -268,7 +268,7 @@ impossible de predire et controller l'environnement avec des reseaux et machines
     all the syscalls)
   - we would use the comparison to strace when improving the code, and
     enforcing the output (only) in regression tests.
-*** TODO support fcntl(DUPFD) 
+*** DONE support fcntl(DUPFD) 
 Also, do all the strange things that valgrind does when simterpose
 forkes a new process in valgrind.
   
@@ -278,17 +278,22 @@ forkes a new process in valgrind.
 - Work on the segfault of communication.c could come from:
   - Bad gestion of ref_count somewhere
   - Problem at the return of MSG_main in simterpose.c but I don't know why
-  - Looking for this with Valgrind and gdb
-    - les malloc n'arrive pas à atteindre les fichiers:
+  - Looking for this with gdb:
+    - malloc cannot reach file:
       "2917 malloc.c: Aucun fichier ou dossier de ce type"
       ex: free(proc->name) (process_descriptor.c:79) 
     - close_all_communication (sockets.c: 369)
-      - ref_count de fichier à -1 (qui après disparaissent pour revenir à 1)
-      - la boucle ne s'exécute pas correctement on fait des boucles entre l:373 et 375 pas 405
-      - result n'est jamais realloué (reste à 0)
+      - ref_count of fd at -1, and then disappeared replaced by 1
+      - the loop doesn't work correctly, we loop between l:373 and 375 not 405
+      - result never reallocated (stay at 0)
+  - Looking for this with Valgrind:
+    - process_fcntl_call (sys_memory.c:398): we try to reach the file descriptor indexed by arg
+      but in the case of proc this file descriptor can be allocated at annother index
+      than "arg->fd" in its list of file descriptor
+    - try to replace all the wrong call and then an error:
+      sys_memory.c:377 after i = 3 we cannot reach fd_list[i] and the segfault
 - Reading Valgrind documentation to find which system calls have to be implemented   
 - Test of the option " --cfg=contexts/factory:thread " during the execution of Simterpose.
-It is useless.
 - To have a good execution of SimGrid with Valgrind, you have to put on the cmake:
   - enable_compile_optimizations     OFF
   - enable_mallocators               ON
@@ -297,5 +302,11 @@ It is useless.
 -> There are only two types of arguments (int and void), it is useless.
 - Implemented options of fcntl
   - F_DUPFD 
+*** Blocking points
+- see l.282 and 284 of this file
+*** Planned work
+- Maybe add a variable in process_descriptor to keep the size of the list of the file descriptor
+  owned by a process. Because all the for loops are going from 0 to MAX_FD but fd_list is dynamic 
+  so it is possible that we continue on the loop till 1024 except there is few files
 **** TODO check the initial value of refcount in F_DUPFD 
-**** TODO faire fonctionner simterpose avec l'option  --cfg=contexts/factory:thread
+**** TODO be able to run simterpose with the option  --cfg=contexts/factory:thread
