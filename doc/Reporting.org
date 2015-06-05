@@ -278,6 +278,14 @@ forkes a new process in valgrind.
 - Work on the segfault of communication.c could come from:
   - Bad gestion of ref_count somewhere
   - Problem at the return of MSG_main in simterpose.c but I don't know why
+  - Looking for this with Valgrind and gdb
+    - les malloc n'arrive pas à atteindre les fichiers:
+      "2917 malloc.c: Aucun fichier ou dossier de ce type"
+      ex: free(proc->name) (process_descriptor.c:79) 
+    - close_all_communication (sockets.c: 369)
+      - ref_count de fichier à -1 (qui après disparaissent pour revenir à 1)
+      - la boucle ne s'exécute pas correctement on fait des boucles entre l:373 et 375 pas 405
+      - result n'est jamais realloué (reste à 0)
 - Reading Valgrind documentation to find which system calls have to be implemented   
 - Test of the option " --cfg=contexts/factory:thread " during the execution of Simterpose.
 It is useless.
@@ -290,3 +298,4 @@ It is useless.
 - Implemented options of fcntl
   - F_DUPFD 
 **** TODO check the initial value of refcount in F_DUPFD 
+**** TODO faire fonctionner simterpose avec l'option  --cfg=contexts/factory:thread
