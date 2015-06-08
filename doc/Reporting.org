@@ -300,8 +300,7 @@ forkes a new process in valgrind.
   - enable_model-checking            OFF
 - Delete "TODO union pour les arguments de fcntl"
 -> There are only two types of arguments (int and void), it is useless.
-- Implemented options of fcntl
-  - F_DUPFD 
+- Implemented option of fcntl F_DUPFD 
 *** Blocking points
 - see l.282 and 284 of this file
 *** Planned work
@@ -310,3 +309,16 @@ forkes a new process in valgrind.
   so it is possible that we continue on the loop till 1024 except there is few files
 **** TODO check the initial value of refcount in F_DUPFD 
 **** TODO be able to run simterpose with the option  --cfg=contexts/factory:thread
+
+** 08.06.2015 -> 12.06.2015
+*** Things done
+- It seems it was useless to change the index of fd_list for file descriptors
+- Implemented options of fcntl:
+  - F_GETFL
+- Solve the error in syscall write:
+==5445== Invalid read of size 4
+==5445==    at 0x414EC8: syscall_write (sys_memory.c:235)
+*** Blocking poins
+- I don't really understand what is done in sys_memory.:269 -> 275
+- Valgrind try to read or write in files that was never opened (proc->fd_list[arg->fd] = nil)
+*** Planned work
