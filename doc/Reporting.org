@@ -7,15 +7,31 @@
 
 ** Bibliography
 *** Articles
-Luc Sarzyniec, Tomasz Buchert, Emmanuel Jeanvoine, Lucas Nussbaum. Design and
-Evaluation of a Virtual Experimental Environment for Distributed
-Systems. [Research Report] RR-8046, 2012. <hal-00724308v1>
- Martin Quinson. SimGrid: a Generic Framework for Large-Scale Distributed Experiments.
-9th International conference on Peer-to-peer computing - IEEE P2P 2009, Sep
-2009, Seattle, United States. IEEE. <inria-00435802> 
-KENISTON, Jim, MAVINAKAYANAHALLI, Ananth, PANCHAMUKHI, Prasanna, et al. Ptrace, utrace,
-uprobes: Lightweight, dynamic tracing of user apps. In : Proceedings of the 2007
-Linux Symposium. 2007. p. 215-224.
+- Experimental methodologies for large-scale systems: a survey 
+- Grid'5000: a large scale and highly reconfigurable experimental grid testbed
+- Design and Evaluation of a Virtual Experimental Environment for Distributed
+  Systems 
+- Emulation at Very Large Scale with Distem 
+- Simgrid: A toolkit for the simulation of application scheduling
+- SimGrid: a Generic Framework for Large-Scale Distributed Experiments
+- Émulation d'applications distribuées sur des plates-formes virtuelles simulées 
+- Ptrace, utrace, uprobes: Lightweight, dynamic tracing of user apps
+- Valgrind: A Framework for Heavyweight Dynamic Binary Instrumentation
+- The BSD packet filter: A new architecture for user-level packet capture
+- Methods for Emulation of Multi-Core CPU Performance
+- Wrekavoc: a tool for emulating heterogeneity 
+- Single node on-line simulation of mpi applications with smpi
+- Virtual extensible local area network (VXLAN):
+  A framework for overlaying virtualized layer 2 networks over layer 3 networks 
+- The microgrid: a scientific tool for modeling computational grids 
+- The microgrid: Using emulation to predict application performance in diverse grid
+  network environments 
+- TimeKeeper: a lightweight virtual time system for linux
+- Integrated simulation and emulation using adaptive time dilation
+- The DETER Project
+- The science of cyber security experimentation: the DETER project
+- A DETER Federation Architecture
+- An Integrated Experimental Environment for Distributed Systems and Networks
 *** Reports of internships
 http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-slides.pdf
 http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf
@@ -23,6 +39,25 @@ http://www.loria.fr/~quinson/Research/Students/2013-master-simpad-rapport.pdf
 http://www.loria.fr/~quinson/Research/Students/2012-master-simterpose-rapport.pdf
 http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf
 http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
+*** Website
+https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt
+http://www.netfilter.org
+http://www.loria.fr/~quinson/Research/SMP
+http://coccinelle.lip6.fr
+http://valgrind.org/
+http://www.dyninst.org/
+http://man7.org/linux/man-pages/man2/seccomp.2.html
+https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld\_preload-to-cheat-inject-features-and-investigate-programs
+http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
+https://grugq.github.io/docs/subversiveld.pdf
+http://vxheaven.org/lib/vrn00.html
+https://cwrap.org/
+https://lwn.net/Articles/594863/
+http://rr-project.org/
+http://rr-project.org/rr.html
+http://deter-project.org/
+
+
 ** Contribution 
 
 
