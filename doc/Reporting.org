@@ -350,10 +350,14 @@ forkes a new process in valgrind.
 - It seems it was useless to change the index of fd_list for file descriptors
 - Implemented options of fcntl:
   - F_GETFL
-- Solve the error in syscall write:
-==5445== Invalid read of size 4
-==5445==    at 0x414EC8: syscall_write (sys_memory.c:235)
+- Using the right registers in ptrace_get_registers function
 *** Blocking poins
 - I don't really understand what is done in sys_memory.:269 -> 275
-- Valgrind try to read or write in files that was never opened (proc->fd_list[arg->fd] = nil)
+- Valgrind try to read or write in files that was never opened (proc->fd_list[arg->fd] = nil):
+==5445== Invalid read of size 4
+==5445==    at 0x414EC8: syscall_write (sys_memory.c:235)
+- Is it not dangerous to assign unsigned long of reg_s struct to a variable
+  of type int (file_desc->fd)?
+- What is the register orig_rax?
 *** Planned work
+**** TODO test of arhitecture in the Makefile after we had merde Gabriel's work
