@@ -347,10 +347,16 @@ forkes a new process in valgrind.
 
 ** 08.06.2015 -> 12.06.2015
 *** Things done
+- One file per syscall
 - It seems it was useless to change the index of fd_list for file descriptors
+- A file for the fcntl syscall (sys_memory.c began to be too long)
 - Implemented options of fcntl:
-  - F_GETFL
-- Using the right registers in ptrace_get_registers function
+  - F_DUPFD_OCLOEXEC
+  - F_GETFD & F_SETFD
+  - F_GETFL & F_SETFL
+  - F_SETLK & F_SETLKW
+- Using the right registers in ptrace_get_registers function according to the architecture
+- Index all the flags for fcntl syscall in sys_fcntl.c and args_trace.c
 *** Blocking poins
 - I don't really understand what is done in sys_memory.:269 -> 275
 - Valgrind try to read or write in files that was never opened (proc->fd_list[arg->fd] = nil):
@@ -359,5 +365,9 @@ forkes a new process in valgrind.
 - Is it not dangerous to assign unsigned long of reg_s struct to a variable
   of type int (file_desc->fd)?
 - What is the register orig_rax?
+- How handle the difference between access mode and status flags in our struct of file
 *** Planned work
-**** TODO test of arhitecture in the Makefile after we had merde Gabriel's work
+- modify the struct for file to make the difference between access mode and status flags maybe
+**** TODO complete all allocation of fd_descriptor with the new field
+**** TODO test of arhitecture in the Makefile after we had merge Gabriel's work
+**** TODO Think about how the flags are managed actually ( &= |= or simple = ) and check | o_cloexec
