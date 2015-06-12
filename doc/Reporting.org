@@ -357,6 +357,8 @@ forkes a new process in valgrind.
   - F_SETLK & F_SETLKW
 - Using the right registers in ptrace_get_registers function according to the architecture
 - Index all the flags for fcntl syscall in sys_fcntl.c and args_trace.c
+- Find the root of the segfault: the main process of Simterpose sends datas to Simterpose
+  that return a NILL pointer. And then we try to access this pointer -> segfault
 *** Blocking poins
 - I don't really understand what is done in sys_memory.:269 -> 275
 - Valgrind try to read or write in files that was never opened (proc->fd_list[arg->fd] = nil):
@@ -368,6 +370,6 @@ forkes a new process in valgrind.
 - How handle the difference between access mode and status flags in our struct of file
 *** Planned work
 - modify the struct for file to make the difference between access mode and status flags maybe
-**** TODO complete all allocation of fd_descriptor with the new field
+**** DONE complete all allocation of fd_descriptor with the new field
 **** TODO test of arhitecture in the Makefile after we had merge Gabriel's work
 **** TODO Think about how the flags are managed actually ( &= |= or simple = ) and check | o_cloexec
