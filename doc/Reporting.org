@@ -41,21 +41,16 @@ http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf
 http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-slides.pdf
 *** Website
 https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt
-http://www.netfilter.org
-http://www.loria.fr/~quinson/Research/SMP
-http://coccinelle.lip6.fr
-http://valgrind.org/
-http://www.dyninst.org/
+http://www.netfilter.org http://www.loria.fr/~quinson/Research/SMP
+http://coccinelle.lip6.fr http://valgrind.org/ http://www.dyninst.org/
 http://man7.org/linux/man-pages/man2/seccomp.2.html
 https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld\_preload-to-cheat-inject-features-and-investigate-programs
 http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
-https://grugq.github.io/docs/subversiveld.pdf
-http://vxheaven.org/lib/vrn00.html
-https://cwrap.org/
-https://lwn.net/Articles/594863/
-http://rr-project.org/
-http://rr-project.org/rr.html
-http://deter-project.org/
+https://grugq.github.io/docs/subversiveld.pdf http://vxheaven.org/lib/vrn00.html
+https://cwrap.org/ https://lwn.net/Articles/594863/ http://rr-project.org/
+http://rr-project.org/rr.html http://deter-project.org/
+How to w/r in dev/mem:
+https://www.blackhat.com/presentations/bh-europe-09/Lineberry/BlackHat-Europe-2009-Lineberry-code-injection-via-dev-mem.pdf
 
 
 ** Contribution 
@@ -322,13 +317,15 @@ forkes a new process in valgrind.
       - the loop doesn't work correctly, we loop between l:373 and 375 not 405
       - result never reallocated (stay at 0)
   - Looking for this with Valgrind:
-    - process_fcntl_call (sys_memory.c:398): we try to reach the file descriptor indexed by arg
-      but in the case of proc this file descriptor can be allocated at annother index
-      than "arg->fd" in its list of file descriptor
+    - process_fcntl_call (sys_memory.c:398): we try to reach the file descriptor
+      indexed by arg but in the case of proc this file descriptor can be allocated
+      at annother index than "arg->fd" in its list of file descriptor
     - try to replace all the wrong call and then an error:
       sys_memory.c:377 after i = 3 we cannot reach fd_list[i] and the segfault
-- Reading Valgrind documentation to find which system calls have to be implemented   
-- Test of the option " --cfg=contexts/factory:thread " during the execution of Simterpose.
+- Reading Valgrind documentation to find which system calls
+  have to be implemented   
+- Test of the option " --cfg=contexts/factory:thread " during the execution
+  of Simterpose.
 - To have a good execution of SimGrid with Valgrind, you have to put on the cmake:
   - enable_compile_optimizations     OFF
   - enable_mallocators               ON
@@ -337,11 +334,11 @@ forkes a new process in valgrind.
 -> There are only two types of arguments (int and void), it is useless.
 - Implemented option of fcntl F_DUPFD 
 *** Blocking points
-- see l.282 and 284 of this file
 *** Planned work
-- Maybe add a variable in process_descriptor to keep the size of the list of the file descriptor
-  owned by a process. Because all the for loops are going from 0 to MAX_FD but fd_list is dynamic 
-  so it is possible that we continue on the loop till 1024 except there is few files
+- Maybe add a variable in process_descriptor to keep the size of the list of
+  the file descriptor owned by a process. Because all the for loops are going
+  from 0 to MAX_FD but fd_list is dynamic so it is possible that we continue
+  on the loop till 1024 except there is few files
 **** TODO check the initial value of refcount in F_DUPFD 
 **** TODO be able to run simterpose with the option  --cfg=contexts/factory:thread
 
@@ -355,21 +352,33 @@ forkes a new process in valgrind.
   - F_GETFD & F_SETFD
   - F_GETFL & F_SETFL
   - F_SETLK & F_SETLKW
-- Using the right registers in ptrace_get_registers function according to the architecture
+- Using the right registers in ptrace_get_registers function according to
+  the architecture
 - Index all the flags for fcntl syscall in sys_fcntl.c and args_trace.c
-- Find the root of the segfault: the main process of Simterpose sends datas to Simterpose
-  that return a NILL pointer. And then we try to access this pointer -> segfault
+- Find the root of the segfault: the main process of Simterpose sends datas
+  to Simterpose that return a NILL pointer. And then we try to access this pointer
+  -> segfault
 *** Blocking poins
-- I don't really understand what is done in sys_memory.:269 -> 275
-- Valgrind try to read or write in files that was never opened (proc->fd_list[arg->fd] = nil):
+- I don't really understand what is done in sys_write at the end
+  (sys_write.c: 95 -> 103)
+- Valgrind try to read or write in files that was never opened
+  (proc->fd_list[arg->fd] = nil):
 ==5445== Invalid read of size 4
 ==5445==    at 0x414EC8: syscall_write (sys_memory.c:235)
-- Is it not dangerous to assign unsigned long of reg_s struct to a variable
-  of type int (file_desc->fd)?
+- When we store the values of registers in ptrace_get_registers, we have
+  "unsigned long" type in reg_s struct.
+  But when we are in a syscall, for instance with file descriptors we make
+  "file_desc->fd = reg->ret" fd is an int whereas ret is unsigned long.
+  Is it not dangerous to assign unsigned long of reg_s struct to a variable
+  of type int?
 - What is the register orig_rax?
-- How handle the difference between access mode and status flags in our struct of file
+  (ptrace_utils.c:200 pour 64bits & 211 pour 32bits)
+- How handle the difference between access mode and status flags in our
+  struct of file
 *** Planned work
-- modify the struct for file to make the difference between access mode and status flags maybe
+- modify the struct for file to make the difference between access mode
+  and status flags maybe
 **** DONE complete all allocation of fd_descriptor with the new field
 **** TODO test of arhitecture in the Makefile after we had merge Gabriel's work
 **** TODO Think about how the flags are managed actually ( &= |= or simple = ) and check | o_cloexec
+**** TODO read the link /dev/mem w/r
