@@ -358,7 +358,7 @@ forkes a new process in valgrind.
 - Find the root of the segfault: the main process of Simterpose sends datas
   to Simterpose that return a NILL pointer. And then we try to access this pointer
   -> segfault
-*** Blocking poins
+*** Blocking points
 - I don't really understand what is done in sys_write at the end
   (sys_write.c: 95 -> 103)
 - Valgrind try to read or write in files that was never opened
@@ -368,7 +368,7 @@ forkes a new process in valgrind.
 - When we store the values of registers in ptrace_get_registers, we have
   "unsigned long" type in reg_s struct.
   But when we are in a syscall, for instance with file descriptors we make
-  "file_desc->fd = reg->ret" fd is an int whereas ret is unsigned long.
+  "file_desc->fd = reg->ret" fd is an "int" whereas ret is "unsigned long".
   Is it not dangerous to assign unsigned long of reg_s struct to a variable
   of type int?
 - What is the register orig_rax?
@@ -378,7 +378,19 @@ forkes a new process in valgrind.
 *** Planned work
 - modify the struct for file to make the difference between access mode
   and status flags maybe
-**** DONE complete all allocation of fd_descriptor with the new field
-**** TODO test of arhitecture in the Makefile after we had merge Gabriel's work
+**** TODO Complete all allocation of fd_descriptor with the new field (flags/mode/new flags of fcntl)
+**** TODO Test of arhitecture in the Makefile after we had merge Gabriel's work
 **** TODO Think about how the flags are managed actually ( &= |= or simple = ) and check | o_cloexec
-**** TODO read the link /dev/mem w/r
+**** TODO Read the link /dev/mem w/r
+
+** 15.06.2015 -> 19.06.2015
+*** Things done
+- Add a mode field to open syscall structure and complete syscall_open()
+- Add get_args_open function
+*** Blocking points
+- two open syscall made by the same process with the same fd returned
+- one open syscall with flags value to 2048
+- one write sycall on a file that is not yet opened whereas the return value
+  gave by the system is not an error
+*** Planned work
+
