@@ -387,10 +387,12 @@ forkes a new process in valgrind.
 *** Things done
 - Add a mode field to open syscall structure and complete syscall_open()
 - Add get_args_open function
+- Replace all the "int" types in syscall structures by "unsigned long"
+  (returned by ptrace_get_registers)
 *** Blocking points
 - two open syscall made by the same process with the same fd returned
 - one open syscall with flags value to 2048
 - one write sycall on a file that is not yet opened whereas the return value
   gave by the system is not an error
 *** Planned work
-
+**** TODO gérer les erreurs dans fcntl
