@@ -396,3 +396,26 @@ forkes a new process in valgrind.
   gave by the system is not an error
 *** Planned work
 **** TODO gérer les erreurs dans fcntl
+
+** 29.06.2015 -> 03.07.2015
+*** Things done
+- Execution with Valgrind without segfault
+- Put unsigned long and cast of type int/long in the right place for each syscall structure
+*** Blocking points
+*** Planned work
+- Is it usefull to have unsigned long in ptrace_restore_syscall
+- Check:
+  - Functions using reg_s structure that they use a cast for each field (reg-> or r->)
+  - <0 and >0 with correct casts
+  - %lu and %d
+  - Sometimes ret lu -> l, or int (sys_open:37, sys_send:47)
+  - execve struct ptr_arg ul -> l be careful (print_syscall.c)
+  - select field timeout is a double whereas it should be a timeval struct
+  - two first structures of syscall_data.h (trouble when we cast)
+  - sort the argument in syscall structure
+  - trouble with recvmsg when we change the type of return in reg->ret
+  - socklen_t no need to cast
+  - setsockopt getsockopt voir les champs
+  - no syscall time
+  - clone argument
+  - clone and exec todo
