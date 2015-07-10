@@ -419,3 +419,8 @@ forkes a new process in valgrind.
   - no syscall time
   - clone argument
   - clone and exec todo
+- Erase the syscall structures and read directly in registers.
+
+** 06.07.2015 -> 10.07.2015
+*** Things done
+
