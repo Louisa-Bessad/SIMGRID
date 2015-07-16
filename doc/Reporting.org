@@ -430,4 +430,9 @@ to avoid to read every time in registers.
 
 ** 13.07.2015 -> 17.07.2015
 *** Things done
+- Adding the use of reg_s structures instead of ptrage_get_register call for each syscall proceed last week
+- getpeername syscall done
+*** Blocking points
+- What is this call to ptrace_cpy and ptrace_poke in sys_getpeername:44, 80 and 81
 *** Planned work
+- Correct the geetpername system
