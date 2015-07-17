@@ -395,17 +395,19 @@ forkes a new process in valgrind.
 - one write sycall on a file that is not yet opened whereas the return value
   gave by the system is not an error
 *** Planned work
-**** TODO gérer les erreurs dans fcntl
+**** DONE gérer les erreurs dans fcntl
 
 ** 29.06.2015 -> 03.07.2015
-*** Things done
+-*** Things done
 - Execution with Valgrind without segfault
-- Put unsigned long and cast of type int/long in the right place for each syscall structure
+- Put unsigned long and cast of type int/long in the right place for each
+  syscall structure
 *** Blocking points
 *** Planned work
 - Is it usefull to have unsigned long in ptrace_restore_syscall
 - Check:
-  - Functions using reg_s structure that they use a cast for each field (reg-> or r->)
+  - Functions using reg_s structure that they use a cast for each field
+    (reg-> or r->)
   - <0 and >0 with correct casts
   - %lu and %d
   - Sometimes ret lu -> l, or int (sys_open:37, sys_send:47)
@@ -430,9 +432,19 @@ to avoid to read every time in registers.
 
 ** 13.07.2015 -> 17.07.2015
 *** Things done
-- Adding the use of reg_s structures instead of ptrage_get_register call for each syscall proceed last week
-- getpeername syscall done
+- Adding the use of reg_s structures instead of ptrage_get_register call for
+  each syscall proceed last week
+- getpeername, listen, pipe, fcntl syscalls done
 *** Blocking points
 - What is this call to ptrace_cpy and ptrace_poke in sys_getpeername:44, 80 and 81
+- Does the reallocation of reg_s is enough to modify register because
+  the SETREGS is done with reg_s struc or we have to make a SETREGS with ptrace
+- To retrieve the value in register why a ptrace_cpy? x=reg->ret is not enough ?
+- With msg_clientser: The poll syscall does not always finish its execution (sentence "End of
+  simulation... does not appear). It works with Valgrind.
+- With send_clientserver: simulation ends only with Valgrind.
 *** Planned work
 - Correct the geetpername system
+- Finish the poll syscall bug maybe it's my computer
+- Check for a bug with ptrace getregs with another computer
+- Rename pool files on poll files
