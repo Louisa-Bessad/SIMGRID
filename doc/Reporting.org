@@ -82,7 +82,7 @@ avoir l'heure, emplacement des lib...)
 *** Planned work 
 *** DONE Lire code et le comprendre (relire le ld_preload_pthread)
 *** DONE Faire tourner le programme actuel
-*** TODO Les papiers dans /biblio/to_read
+*** DONE Les papiers dans /biblio/to_read
 
 ** 09.03.2015
 *** Things done
@@ -114,7 +114,7 @@ src --> .h lus
 *** Blocking points and questions
 *** Planned work
 - lire les .c notamment sys_* et syscall_process
-*** TODO Mettre les en-têtes de fichiers et commentaire, corriger le code si besoin (erreur ctrl C/V et commentaires)
+*** DONE Mettre les en-têtes de fichiers et commentaire, corriger le code si besoin (erreur ctrl C/V et commentaires)
 - peupler les sys_* avec ctrl-X ctrl-V (suivre strace)
 - remplacer le switch du syscall_process par un tableau de pointeurs de
   fonctions
@@ -166,7 +166,7 @@ simulateur avant la sortie de l'AS
 *** Planned work
 - lire le code de strace
 - read SIMGRID101
-*** TODO réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
+*** DONE réorganiser le switch de process_handle pour ne pas avoir chercher de bon ordre de lecture...
     
 ** 23-24.03.2015
 *** Things done
@@ -227,16 +227,16 @@ simulateur avant la sortie de l'AS
 *** Things done
 - Écriture Pré-rapport (RR, Robot, MicroGrid, actions sur le source, got poisoning, del RR)
 *** DONE Écrire la partie loria (présentation) projet SIMGRID Simterpose
-*** TODO revoir uprobes
+*** DONE revoir uprobes
 *** DONE outil du 2.1 à détailler
 *** DONE reprendre les images
 *** DONE trouver lien ptrace, transition et pourquoi besoin de ld_preload
-*** TODO ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
+*** DONE ne pas oublier de place le pq les syscalls et choix amd64 pour ptrace
 *** DONE Intre de chaque parties et transitions
 *** DONE schéma différences entre les virtualisations
 *** DONE typo pour les citation, AS...
 *** DONE Simgrid is not a simulator
-*** TODO placer:
+*** DONE placer:
 On parle de noeuds hétérogènes car les n\oe uds émulé ne possèdent pas le même nombre de c\oe urs ni la même fréquence. 
 - parler des solutions qui n'existent plus?
 impossible de predire et controller l'environnement avec des reseaux et machines partagées,empechant les expe reprouctibles
@@ -249,7 +249,7 @@ impossible de predire et controller l'environnement avec des reseaux et machines
 *** Blocking points
 - What is the meaning of 'SYSCALL_PROCESS_H' and when should we use it?
 *** Planned work
-*** TODO fix 'make *** [diff-send] Erreur 1'
+*** DONE fix 'make *** [diff-send] Erreur 1'
 
 ** 11.05.2015 -> 15.05.2015
 *** Things done
@@ -442,9 +442,17 @@ to avoid to read every time in registers.
 - To retrieve the value in register why a ptrace_cpy? x=reg->ret is not enough ?
 - With msg_clientser: The poll syscall does not always finish its execution (sentence "End of
   simulation... does not appear). It works with Valgrind.
+  -> Problem from my computer
 - With send_clientserver: simulation ends only with Valgrind.
+  -> Problem from my computer
 *** Planned work
-- Correct the geetpername system
-- Finish the poll syscall bug maybe it's my computer
-- Check for a bug with ptrace getregs with another computer
-- Rename pool files on poll files
+**** DONE Correct the geetpername system
+- Finish the poll syscall bug maybe it's my computer. It's my computer.
+- Check for a bug with ptrace getregs with another computer. Idem
+**** DONE Rename pool files on poll files
+
+** 20.07.2015 -> 24.07.2015
+*** Things done
+- shutdown, getsockopt, setsockopt, socket, select, read, write syscalls done
+*** Blocking points
+- ptrace_poke sys_read.c:122 ????
