@@ -453,6 +453,8 @@ to avoid to read every time in registers.
 
 ** 20.07.2015 -> 24.07.2015
 *** Things done
-- shutdown, getsockopt, setsockopt, socket, select, read, write syscalls done
+- shutdown, getsockopt, setsockopt, socket, select, read, write, bind, connect,
+  accept, recvfrom syscalls done
 *** Blocking points
 - ptrace_poke sys_read.c:122 ????
+- recvmsg bugs with Valgrind
