@@ -454,7 +454,7 @@ to avoid to read every time in registers.
 ** 20.07.2015 -> 24.07.2015
 *** Things done
 - shutdown, getsockopt, setsockopt, socket, select, read, write, bind, connect,
-  accept, clone, sendto syscalls done
+  accept, clone, sendto, sendmsg, recvfrom syscalls done
 *** Blocking points
 - ptrace_poke sys_read.c:122 ????
 - recvmsg and recvfrom create an infinite waiting when we del the sysarg structures
