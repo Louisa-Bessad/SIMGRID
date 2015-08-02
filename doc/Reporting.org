@@ -464,4 +464,15 @@ to avoid to read every time in registers.
 
 ** 27.07.2015 -> 31.07.2015
 *** Things done
+- All syscall structures deleted
+- Implementation of fcntl finished and begining of the test
 *** Blocking points
+*** Planned work
+- Finish the test of fcntl and continue the other syscalls (open, write, read)
+- Possible bench (overhead made by simterpose to catch syscalls, on big and little files too)
+- Try to code time functions or one other mediation
+
+** 03.08.2015 -> 07.08.2015
+*** Things done
+*** Blocking points
+*** Planned work
