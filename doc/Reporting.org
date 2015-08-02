@@ -458,3 +458,10 @@ to avoid to read every time in registers.
 *** Blocking points
 - ptrace_poke sys_read.c:122 ????
 - recvmsg and recvfrom create an infinite waiting when we del the sysarg structures
+*** Planned work
+- Try to finish the last syscall
+- Code sysfile and time
+
+** 27.07.2015 -> 31.07.2015
+*** Things done
+*** Blocking points
