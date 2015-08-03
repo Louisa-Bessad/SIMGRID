@@ -474,5 +474,9 @@ to avoid to read every time in registers.
 
 ** 03.08.2015 -> 07.08.2015
 *** Things done
+- Mediation par translation
+  - Fcntl syscall test file (the two last tests are weird)
+  - Open, close syscalls ok
 *** Blocking points
 *** Planned work
+- Use the "time" command to get execution time
