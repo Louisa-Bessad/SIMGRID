@@ -440,8 +440,8 @@ to avoid to read every time in registers.
 - Does the reallocation of reg_s is enough to modify register because
   the SETREGS is done with reg_s struc or we have to make a SETREGS with ptrace
 - To retrieve the value in register why a ptrace_cpy? x=reg->ret is not enough ?
-- With msg_clientser: The poll syscall does not always finish its execution (sentence "End of
-  simulation... does not appear). It works with Valgrind.
+- With msg_clientser: The poll syscall does not always finish its execution
+  (sentence "End of simulation... does not appear). It works with Valgrind.
   -> Problem from my computer
 - With send_clientserver: simulation ends only with Valgrind.
   -> Problem from my computer
@@ -457,7 +457,8 @@ to avoid to read every time in registers.
   accept, clone, sendto, sendmsg, recvfrom syscalls done
 *** Blocking points
 - ptrace_poke sys_read.c:122 ????
-- recvmsg and recvfrom create an infinite waiting when we del the sysarg structures
+- recvmsg and recvfrom create an infinite waiting when we del the sysarg
+  structures
 *** Planned work
 - Try to finish the last syscall
 - Code sysfile and time
@@ -469,14 +470,18 @@ to avoid to read every time in registers.
 *** Blocking points
 *** Planned work
 - Finish the test of fcntl and continue the other syscalls (open, write, read)
-- Possible bench (overhead made by simterpose to catch syscalls, on big and little files too)
 - Try to code time functions or one other mediation
 
 ** 03.08.2015 -> 07.08.2015
 *** Things done
 - Mediation par translation
   - Fcntl syscall test file (the two last tests are weird)
-  - Open, close syscalls ok
+  - Open, close, lseek, fcntl, read and write syscalls ok
+    Read and write already written
+- Full mediation 
+  - Read and write syscalls
 *** Blocking points
 *** Planned work
 - Use the "time" command to get execution time
+- Possible bench overhead made by simterpose to catch syscalls
+  - on big and little files simple reading/write, lseek...
