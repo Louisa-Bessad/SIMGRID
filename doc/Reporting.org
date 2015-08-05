@@ -474,14 +474,13 @@ to avoid to read every time in registers.
 
 ** 03.08.2015 -> 07.08.2015
 *** Things done
-- Mediation par translation
-  - Fcntl syscall test file (the two last tests are weird)
-  - Open, close, lseek, fcntl, read and write syscalls ok
-    Read and write already written
-- Full mediation 
-  - Read and write syscalls
+- Read, write, open, create, close, fcntl, lseek, dup, dup2, poll done for two mediations
+- One "test file" for system file
 *** Blocking points
 *** Planned work
-- Use the "time" command to get execution time
-- Possible bench overhead made by simterpose to catch syscalls
-  - on big and little files simple reading/write, lseek...
+- Use the "time" command to get execution time NO
+- Possible bench overhead made by simterpose to catch syscalls NO
+  - on big and little files simple reading/write, lseek... NO
+- Possible test:
+  - compare the two mediations on sys_file and network
+  - compare the two mediations with other hypervisor
