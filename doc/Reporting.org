@@ -474,8 +474,11 @@ to avoid to read every time in registers.
 
 ** 03.08.2015 -> 07.08.2015
 *** Things done
-- Read, write, open, create, close, fcntl, lseek, dup, dup2, poll done for two mediations
+- Read, write, open, create, close, fcntl, lseek, dup, dup2, poll done for two
+  mediations
 - One "test file" for system file
+- Full mediation fixing bugs, there was errors in several network files
+  (bind, accept, get/setsockopt, recvmsg/sendmsg, write)
 *** Blocking points
 *** Planned work
 - Use the "time" command to get execution time NO
@@ -484,3 +487,4 @@ to avoid to read every time in registers.
 - Possible test:
   - compare the two mediations on sys_file and network
   - compare the two mediations with other hypervisor
+- Debug the sendto and recvfrom syscall and write send/recv syscall
