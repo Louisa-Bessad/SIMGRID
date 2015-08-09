@@ -488,3 +488,8 @@ to avoid to read every time in registers.
   - compare the two mediations on sys_file and network
   - compare the two mediations with other hypervisor
 - Debug the sendto and recvfrom syscall and write send/recv syscall
+
+** 10.08.2015 -> 15.08.2015
+*** Things done
+*** Blocking points
+*** Planned work
