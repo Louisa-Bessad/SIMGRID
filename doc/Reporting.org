@@ -491,5 +491,6 @@ to avoid to read every time in registers.
 
 ** 10.08.2015 -> 15.08.2015
 *** Things done
+- LD_PRELOAD et fonctions temporelles
 *** Blocking points
 *** Planned work
