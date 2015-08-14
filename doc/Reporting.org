@@ -491,9 +491,11 @@ to avoid to read every time in registers.
 
 ** 10.08.2015 -> 15.08.2015
 *** Things done
-- LD_PRELOAD et fonctions temporelles
+- LD_PRELOAD and time funcitons
 - sendto/recvfrom syscalls in address translation and full mediation
 - send and recv too but they cannot be tested yet 
   (no 32bits architecture available)
+- All test scripts (except which that cannot be tested) work with the two
+  mediations and the interception with LD_PRELOAD
 *** Blocking points
 *** Planned work
