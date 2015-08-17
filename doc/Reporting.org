@@ -497,5 +497,29 @@ to avoid to read every time in registers.
   (no 32bits architecture available)
 - All test scripts (except which that cannot be tested) work with the two
   mediations and the interception with LD_PRELOAD
+- Tuxcall syscall to get simulation time in the application
+- Real test for architecture
+*** Blocking points
+*** Planned work
+- Plan experience
+
+** 17.08.2015 -> 21.08.2015
+*** Things done
+- Experience plan:
+  - Types of applications :
+    - several little messages
+    - one big message
+    - one distributed application (BitTorrent)
+  - Mesure the overhead produced by Simterpose with SimGrid:
+    We mesure the simulation time of SimGrid with and without Simterpose. 
+    Then we can see the overhead du to the deploiement of Simterpose.
+  - Find for every type of applications the best mediation by comparing the simulation
+    time and if there are egals, we will compare the execution time.
+These two experiences would show the minimum and maximum overhead for every type of 
+applications du to Simterpose
+  - Mesure the overhead produced on the execution time when Simterpose use the time
+    interception with LD_PRELOAD fon time functions.
+With these experiences we will have an intervale of the cost of Simteprose for simulation
+and execution time
 *** Blocking points
 *** Planned work
