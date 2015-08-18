@@ -513,13 +513,15 @@ to avoid to read every time in registers.
   - Mesure the overhead produced by Simterpose with SimGrid:
     We mesure the simulation time of SimGrid with and without Simterpose. 
     Then we can see the overhead du to the deploiement of Simterpose.
-  - Find for every type of applications the best mediation by comparing the simulation
-    time and if there are egals, we will compare the execution time.
-These two experiences would show the minimum and maximum overhead for every type of 
-applications du to Simterpose
-  - Mesure the overhead produced on the execution time when Simterpose use the time
-    interception with LD_PRELOAD fon time functions.
-With these experiences we will have an intervale of the cost of Simteprose for simulation
-and execution time
+  - Find for every type of applications the best mediation by comparing the 
+    simulation time and if there are egals, we will compare the execution time.
+    These two experiences would show the minimum and maximum overhead for every
+    type of applications du to Simterpose
+  - Mesure the overhead produced on the execution time when Simterpose use the
+    time interception with LD_PRELOAD fon time functions.
+With these experiences we will have an intervale of the cost of Simteprose for
+simulation and execution time
+- Mesure of execution time for time experience with LD_PRELOAD or not with the
+  two types of mediation
 *** Blocking points
 *** Planned work
