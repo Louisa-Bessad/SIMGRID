@@ -1,0 +1,82 @@
+make: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/src »
+make[1]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[2]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[  2%] Building C object src/CMakeFiles/simterpose.dir/communication.c.o
+[  4%] Building C object src/CMakeFiles/simterpose.dir/cputimer.c.o
+[  6%] Building C object src/CMakeFiles/simterpose.dir/data_utils.c.o
+[  9%] Building C object src/CMakeFiles/simterpose.dir/print_syscall.c.o
+[ 11%] Building C object src/CMakeFiles/simterpose.dir/process_descriptor.c.o
+[ 13%] Building C object src/CMakeFiles/simterpose.dir/ptrace_utils.c.o
+[ 16%] Building C object src/CMakeFiles/simterpose.dir/simterpose.c.o
+[ 18%] Building C object src/CMakeFiles/simterpose.dir/sockets.c.o
+[ 20%] Building C object src/CMakeFiles/simterpose.dir/sys_accept.c.o
+[ 23%] Building C object src/CMakeFiles/simterpose.dir/sys_bind.c.o
+[ 25%] Building C object src/CMakeFiles/simterpose.dir/sys_brk.c.o
+[ 27%] Building C object src/CMakeFiles/simterpose.dir/syscall_process.c.o
+[ 30%] Building C object src/CMakeFiles/simterpose.dir/sys_clone.c.o
+[ 32%] Building C object src/CMakeFiles/simterpose.dir/sys_close.c.o
+[ 34%] Building C object src/CMakeFiles/simterpose.dir/sys_connect.c.o
+[ 37%] Building C object src/CMakeFiles/simterpose.dir/sys_creat.c.o
+[ 39%] Building C object src/CMakeFiles/simterpose.dir/sys_dup.c.o
+[ 41%] Building C object src/CMakeFiles/simterpose.dir/sys_dup2.c.o
+[ 44%] Building C object src/CMakeFiles/simterpose.dir/sys_execve.c.o
+[ 46%] Building C object src/CMakeFiles/simterpose.dir/sys_exit.c.o
+[ 48%] Building C object src/CMakeFiles/simterpose.dir/sys_fcntl.c.o
+[ 51%] Building C object src/CMakeFiles/simterpose.dir/sys_getpeername.c.o
+[ 53%] Building C object src/CMakeFiles/simterpose.dir/sys_getpid.c.o
+[ 55%] Building C object src/CMakeFiles/simterpose.dir/sys_getsockopt.c.o
+[ 58%] Building C object src/CMakeFiles/simterpose.dir/sys_listen.c.o
+[ 60%] Building C object src/CMakeFiles/simterpose.dir/sys_lseek.c.o
+[ 62%] Building C object src/CMakeFiles/simterpose.dir/sys_open.c.o
+[ 65%] Building C object src/CMakeFiles/simterpose.dir/sys_pipe.c.o
+[ 67%] Building C object src/CMakeFiles/simterpose.dir/sys_poll.c.o
+[ 69%] Building C object src/CMakeFiles/simterpose.dir/sys_read.c.o
+[ 72%] Building C object src/CMakeFiles/simterpose.dir/sys_recv.c.o
+[ 74%] Building C object src/CMakeFiles/simterpose.dir/sys_recvfrom.c.o
+[ 76%] Building C object src/CMakeFiles/simterpose.dir/sys_recvmsg.c.o
+[ 79%] Building C object src/CMakeFiles/simterpose.dir/sys_select.c.o
+[ 81%] Building C object src/CMakeFiles/simterpose.dir/sys_send.c.o
+[ 83%] Building C object src/CMakeFiles/simterpose.dir/sys_sendmsg.c.o
+[ 86%] Building C object src/CMakeFiles/simterpose.dir/sys_sendto.c.o
+[ 88%] Building C object src/CMakeFiles/simterpose.dir/sys_setsockopt.c.o
+[ 90%] Building C object src/CMakeFiles/simterpose.dir/sys_shutdown.c.o
+[ 93%] Building C object src/CMakeFiles/simterpose.dir/sys_socket.c.o
+[ 95%] Building C object src/CMakeFiles/simterpose.dir/sys_tuxcall.c.o
+[ 97%] Building C object src/CMakeFiles/simterpose.dir/sys_write.c.o
+[100%] Building C object src/CMakeFiles/simterpose.dir/xbt_log_strace.c.o
+Linking C executable simterpose
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Built target simterpose
+make[2]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/src »
+make: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/tests/apps »
+make[1]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[2]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Building C object tests/apps/CMakeFiles/msg_server.dir/msg_server.c.o
+Linking C executable msg_server
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Built target msg_server
+make[2]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[2]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Building C object tests/apps/CMakeFiles/msg_client.dir/msg_client.c.o
+Linking C executable msg_client
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Built target msg_client
+make[2]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/tests/apps »
+User CPU time 7976 
+System CPU time 9973 
+Total CPU time 17949 
