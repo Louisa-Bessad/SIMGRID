@@ -1,0 +1,46 @@
+#! /bin/bash
+
+# argument 1 script mesures
+# argument 2 folder
+# argument 3 mediation
+# argument 4 experience type
+
+cpt=0
+# tableau=( 10 10 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 )
+tableau=( 10 10 11 11 1 12 12 1 13 13 14 14 15 15 16 16 17 17 18 18 19 19 20 20 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9)
+
+if [ "$4" == "little_msg" ]; then
+    for i in `ls little_msg/$2/$3`
+    do
+	echo $i
+	if [ "$i" == "$1.${tableau[$cpt]}.1.txt" ]; then
+            grep -A 3 User little_msg/$2/$3/$i >> little_msg/$2/$3.1.txt
+	    echo "----------------------------" >> little_msg/$2/$3.1.txt
+	fi
+	if [ "$i" == "$1.${tableau[$cpt]}.2.txt" ]; then
+    	    grep -A 2 "End of simulation" little_msg/$2/$3/$i >> little_msg/$2/$3.2.txt
+	    echo "----------------------------" >> little_msg/$2/$3.2.txt
+	fi
+	
+    let cpt++
+    echo $cpt
+    done
+fi
+
+if [ "$4" == "big_msg" ]; then
+    for i in `ls big_msg/$2/$3`
+    do
+	echo $i
+	if [ "$i" == "$1.${tableau[$cpt]}.1.txt" ]; then
+            grep -A 3 User big_msg/$2/$3/$i >> big_msg/$2/$3.1.txt
+	    echo "----------------------------" >> big_msg/$2/$3.1.txt
+	fi
+	if [ "$i" == "$1.${tableau[$cpt]}.2.txt" ]; then
+    	    grep -A 2 "End of simulation" big_msg/$2/$3/$i >> big_msg/$2/$3.2.txt
+	    echo "----------------------------" >> big_msg/$2/$3.2.txt
+	fi
+     
+    let cpt++
+    echo $cpt
+    done
+fi

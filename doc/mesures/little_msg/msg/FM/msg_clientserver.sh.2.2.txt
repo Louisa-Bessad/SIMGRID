@@ -1,0 +1,64 @@
+[Tremblay:apps/msg_server:(1) 0.000000] [simterpose/INFO] Process is starting child: apps/msg_server 2227 1000000 128
+Unhandled syscall: [4001] uname = 0
+Unhandled syscall: [4001] access = -2
+Unhandled syscall: [4001] mmap = 140737354113024
+Unhandled syscall: [4001] access = -2
+[4001] open(/etc/ld.so.cache, 524288) = 3
+Unhandled syscall: [4001] fstat = 0
+Unhandled syscall: [4001] mmap = 140737353961472
+[4001] close(3) = 0 
+Unhandled syscall: [4001] access = -2
+[4001] open(/lib/x86_64-linux-gnu/libc.so.6, 524288) = 3
+Unhandled syscall: [4001] fstat = 0
+Unhandled syscall: [4001] mmap = 140737347932160
+Unhandled syscall: [4001] mprotect = 0
+Unhandled syscall: [4001] mmap = 140737351839744
+Unhandled syscall: [4001] mmap = 140737351864320
+[4001] close(3) = 0 
+Unhandled syscall: [4001] mmap = 140737353957376
+Unhandled syscall: [4001] mmap = 140737353949184
+Unhandled syscall: [4001] arch_prctl = 0
+Unhandled syscall: [4001] mprotect = 0
+Unhandled syscall: [4001] mprotect = 0
+Unhandled syscall: [4001] mprotect = 0
+Unhandled syscall: [4001] munmap = 0
+Server starting on port 2227: #msg: 1000000; size: 128 
+Server: Waiting for incoming requests
+[Jupiter:apps/msg_client:(2) 3.000000] [simterpose/INFO] Process is starting child: apps/msg_client 162.32.43.1 2227 1000000 128
+Unhandled syscall: [4002] uname = 0
+Unhandled syscall: [4002] access = -2
+Unhandled syscall: [4002] mmap = 140737354113024
+Unhandled syscall: [4002] access = -2
+[4002] open(/etc/ld.so.cache, 524288) = 3
+Unhandled syscall: [4002] fstat = 0
+Unhandled syscall: [4002] mmap = 140737353961472
+[4002] close(3) = 0 
+Unhandled syscall: [4002] access = -2
+[4002] open(/lib/x86_64-linux-gnu/libc.so.6, 524288) = 3
+Unhandled syscall: [4002] fstat = 0
+Unhandled syscall: [4002] mmap = 140737347932160
+Unhandled syscall: [4002] mprotect = 0
+Unhandled syscall: [4002] mmap = 140737351839744
+Unhandled syscall: [4002] mmap = 140737351864320
+[4002] close(3) = 0 
+Unhandled syscall: [4002] mmap = 140737353957376
+Unhandled syscall: [4002] mmap = 140737353949184
+Unhandled syscall: [4002] arch_prctl = 0
+Unhandled syscall: [4002] mprotect = 0
+Unhandled syscall: [4002] mprotect = 0
+Unhandled syscall: [4002] mprotect = 0
+Unhandled syscall: [4002] munmap = 0
+Client starting: #msg: 1000000; size:128 (the server is on 162.32.43.1:2227) 
+[4002] getpid() = 4002 
+[4002] open(/etc/resolv.conf, 524288) = 4
+Unhandled syscall: [4002] fstat = 0
+Unhandled syscall: [4002] mmap = 140737354108928
+[4002] close(4) = 0 
+Unhandled syscall: [4002] munmap = 0
+Unhandled syscall: [4002] uname = 0
+Connected to the server 162.32.43.1:2227
+[4001] close(4) = 0 
+[Tremblay:apps/msg_server:(1) 6508.000000] /home/algorille/Bureau/SIMGRID/simterpose/src/communication.c:125: [COMMUNICATION/ERROR] Don't free the info_socket since its refcount is still 1
+[4002] close(3) = 0 
+Client exiting after 1000000 msgs 
+[6508.000000] [simterpose/INFO] End of simulation. Simulated time: 6508.000000. Used interposer: Full mediation (peek/poke every data)

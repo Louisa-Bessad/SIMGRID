@@ -1,0 +1,40 @@
+User CPU time 110 
+System CPU time 0 
+Total CPU time 110 
+----------------------------
+User CPU time 111 
+System CPU time 5 
+Total CPU time 116 
+----------------------------
+User CPU time 109 
+System CPU time 1 
+Total CPU time 110 
+----------------------------
+User CPU time 105 
+System CPU time 0 
+Total CPU time 105 
+----------------------------
+User CPU time 91 
+System CPU time 1 
+Total CPU time 92 
+----------------------------
+User CPU time 93 
+System CPU time 0 
+Total CPU time 93 
+----------------------------
+User CPU time 93 
+System CPU time 0 
+Total CPU time 93 
+----------------------------
+User CPU time 91 
+System CPU time 0 
+Total CPU time 91 
+----------------------------
+User CPU time 104 
+System CPU time 0 
+Total CPU time 104 
+----------------------------
+User CPU time 109 
+System CPU time 0 
+Total CPU time 109 
+----------------------------
