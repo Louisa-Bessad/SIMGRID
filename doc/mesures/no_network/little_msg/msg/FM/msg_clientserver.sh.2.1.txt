@@ -1,0 +1,28 @@
+make: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/src »
+make[1]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[2]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Built target simterpose
+make[2]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/src »
+make: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/tests/apps »
+make[1]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[2]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Built target msg_server
+make[2]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[2]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: entrant dans le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[3]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+[100%] Built target msg_client
+make[2]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make[1]: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose »
+make: quittant le répertoire « /home/algorille/Bureau/SIMGRID/simterpose/tests/apps »
+User CPU time 93 
+System CPU time 8 
+Total CPU time 101 

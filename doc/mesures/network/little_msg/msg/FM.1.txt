@@ -1,0 +1,40 @@
+User CPU time 3256 
+System CPU time 4151 
+Total CPU time 7407 
+----------------------------
+User CPU time 3215 
+System CPU time 4165 
+Total CPU time 7380 
+----------------------------
+User CPU time 3225 
+System CPU time 4218 
+Total CPU time 7443 
+----------------------------
+User CPU time 3148 
+System CPU time 4197 
+Total CPU time 7345 
+----------------------------
+User CPU time 3126 
+System CPU time 4209 
+Total CPU time 7335 
+----------------------------
+User CPU time 3240 
+System CPU time 4231 
+Total CPU time 7471 
+----------------------------
+User CPU time 3206 
+System CPU time 4251 
+Total CPU time 7457 
+----------------------------
+User CPU time 3241 
+System CPU time 4224 
+Total CPU time 7465 
+----------------------------
+User CPU time 3121 
+System CPU time 4229 
+Total CPU time 7350 
+----------------------------
+User CPU time 3193 
+System CPU time 4196 
+Total CPU time 7389 
+----------------------------

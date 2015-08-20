@@ -1,0 +1,63 @@
+[Tremblay:apps/sendto_server:(1) 0.000000] [simterpose/INFO] Process is starting child: apps/sendto_server 2227 1000000 128
+Unhandled syscall: [27372] uname = 0
+Unhandled syscall: [27372] access = -2
+Unhandled syscall: [27372] mmap = 140737354113024
+Unhandled syscall: [27372] access = -2
+[27372] open(/etc/ld.so.cache, 524288) = 3
+Unhandled syscall: [27372] fstat = 0
+Unhandled syscall: [27372] mmap = 140737353961472
+[27372] close(3) = 0 
+Unhandled syscall: [27372] access = -2
+[27372] open(/lib/x86_64-linux-gnu/libc.so.6, 524288) = 3
+Unhandled syscall: [27372] fstat = 0
+Unhandled syscall: [27372] mmap = 140737347932160
+Unhandled syscall: [27372] mprotect = 0
+Unhandled syscall: [27372] mmap = 140737351839744
+Unhandled syscall: [27372] mmap = 140737351864320
+[27372] close(3) = 0 
+Unhandled syscall: [27372] mmap = 140737353957376
+Unhandled syscall: [27372] mmap = 140737353949184
+Unhandled syscall: [27372] arch_prctl = 0
+Unhandled syscall: [27372] mprotect = 0
+Unhandled syscall: [27372] mprotect = 0
+Unhandled syscall: [27372] mprotect = 0
+Unhandled syscall: [27372] munmap = 0
+Waiting for connexion
+[Jupiter:apps/sendto_client:(2) 3.000000] [simterpose/INFO] Process is starting child: apps/sendto_client 127.0.0.1 2227 1000000 128
+Unhandled syscall: [27373] uname = 0
+Unhandled syscall: [27373] access = -2
+Unhandled syscall: [27373] mmap = 140737354113024
+Unhandled syscall: [27373] access = -2
+[27373] open(/etc/ld.so.cache, 524288) = 3
+Unhandled syscall: [27373] fstat = 0
+Unhandled syscall: [27373] mmap = 140737353961472
+[27373] close(3) = 0 
+Unhandled syscall: [27373] access = -2
+[27373] open(/lib/x86_64-linux-gnu/libc.so.6, 524288) = 3
+Unhandled syscall: [27373] fstat = 0
+Unhandled syscall: [27373] mmap = 140737347932160
+Unhandled syscall: [27373] mprotect = 0
+Unhandled syscall: [27373] mmap = 140737351839744
+Unhandled syscall: [27373] mmap = 140737351864320
+[27373] close(3) = 0 
+Unhandled syscall: [27373] mmap = 140737353957376
+Unhandled syscall: [27373] mmap = 140737353949184
+Unhandled syscall: [27373] arch_prctl = 0
+Unhandled syscall: [27373] mprotect = 0
+Unhandled syscall: [27373] mprotect = 0
+Unhandled syscall: [27373] mprotect = 0
+Unhandled syscall: [27373] munmap = 0
+[27373] getpid() = 27373 
+[27373] open(/etc/resolv.conf, 524288) = 4
+Unhandled syscall: [27373] fstat = 0
+Unhandled syscall: [27373] mmap = 140737354108928
+[27373] close(4) = 0 
+Unhandled syscall: [27373] munmap = 0
+Unhandled syscall: [27373] uname = 0
+Here 69935266 162.32.43.4
+Connect to client  162.32.43.4:65535
+Connect to server 162.32.43.1:2227
+[27372] close(4) = 0 
+[Tremblay:apps/sendto_server:(1) 6508.138557] /home/algorille/Bureau/SIMGRID/simterpose/src/communication.c:125: [COMMUNICATION/ERROR] Don't free the info_socket since its refcount is still 1
+[27373] close(3) = 0 
+[6508.138557] [simterpose/INFO] End of simulation. Simulated time: 6508.138557. Used interposer: Full mediation (peek/poke every data)
