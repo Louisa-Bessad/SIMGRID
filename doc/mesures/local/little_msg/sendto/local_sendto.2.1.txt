@@ -1,0 +1,3 @@
+User CPU time 36 
+System CPU time 241 
+Total CPU time 277 

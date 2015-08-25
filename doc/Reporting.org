@@ -511,17 +511,26 @@ to avoid to read every time in registers.
     - one big message
     - one distributed application (BitTorrent)
   - Mesure the overhead produced by Simterpose with SimGrid:
-    We mesure the simulation time of SimGrid with and without Simterpose. 
+    We mesure the simulation time with and without Simterpose. 
     Then we can see the overhead du to the deploiement of Simterpose.
   - Find for every type of applications the best mediation by comparing the 
-    simulation time and if there are egals, we will compare the execution time.
+    execution time and if there are egals, we will compare the simulation time.
     These two experiences would show the minimum and maximum overhead for every
     type of applications du to Simterpose
   - Mesure the overhead produced on the execution time when Simterpose use the
     time interception with LD_PRELOAD fon time functions.
-With these experiences we will have an intervale of the cost of Simteprose for
-simulation and execution time
-- Mesure of execution time for time experience with LD_PRELOAD or not with the
+  - Mesure of execution time for time experience with LD_PRELOAD or not with the
   two types of mediation
+With these experiences we will have an intervale of the cost of Simteprose for
+simulation and execution time.
+*** Blocking points
+*** Planned work
+- if we have time we will make the experience for BitTorrent because it will
+  probably cause some troubles.
+
+** 24.08.2015 -> 31.08.2015
+*** Things done
+- Finish the experiences
+- Write final report
 *** Blocking points
 *** Planned work

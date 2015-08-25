@@ -1,0 +1,7 @@
+User CPU time 0
+System CPU time 0 
+Total CPU time 0
+
+real 0m0.007s
+user 0m0.001s
+sys  0m0.008s
