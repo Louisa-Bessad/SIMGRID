@@ -25,25 +25,13 @@
 \bibpunct{[}{]}{,}{n}{,}{,}
 
 % --------------------------------
-%Pour compiler sur Ubuntu
-%\usepackage[latin1]{inputenc}
-
-% --------------------------------
 %Pour compiler sur Manjaro        
 \usepackage[utf8]{inputenc}
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
-
 % --------------------------------
-% Fonction of available fonts
-%\usepackage{fontspec} 
-%\setmainfont{Adobe Garamond Pro}       
-%\setmainfont{EB Garamond}
-
-%% \renewcommand*\rmdefault{ppl}
-% --------------------------------
-
-%\usepackage[language=french]{csquotes}
+%Pour les tableaux multi-colonnes
+\usepackage{multirow}
 
 \setcounter{page}{1}
 \pagenumbering{Roman}
@@ -173,7 +161,7 @@ Martin \textsc{Quinson} % Supervisor's Name
 \\\vspace{1.44cm} \emph{Rapporteur:} \\ Sébastien
 \textsc{Monnet}
 \end{flushright}
-\end{minipage}\\[2cm]
+\end{minipage}\\[1.5cm]
 
 % If you don't want a supervisor, uncomment the two lines below and remove the section above
 %\Large \emph{Author:}\\
@@ -183,7 +171,7 @@ Martin \textsc{Quinson} % Supervisor's Name
 %	DATE SECTION
 %----------------------------------------------------------------------------------------
 
-{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+{\large \today}\\[1.5cm] % Date, change the \today to a set date if you want to be precise
 
 %----------------------------------------------------------------------------------------
 %	LOGO SECTION
@@ -245,6 +233,9 @@ Martin \textsc{Quinson} % Supervisor's Name
 
 \listoffigures
 \newpage
+
+\listoftables
+\newpage
 %% \mbox{}
 %% \newpage
 
@@ -258,11 +249,13 @@ Martin \textsc{Quinson} % Supervisor's Name
 \input{src/0.0.Loria.tex}
 \newpage
 
+\input{src/0.Remerciements.tex}
+\newpage
+
 \setcounter{page}{1}
 \pagenumbering{arabic}
 % Content
-%% \input{src/0.Remerciements.tex}
-%% \newpage
+
 \input{src/1.Intro.tex}
 \newpage
 \input{src/2.Emulation.tex}

@@ -1,3 +1,18 @@
-{\color{red} \textbf{TODO ccl}}
-On peut dire que blabla, d'autres fonctionalites blabla pas necessite d'experiences juste fonctionnelles.
+Dans cette section nous avons analysé les performances des fonctionalités implémentées durant mon stage. Cela nous a permis de constater que malgré l'existence d'un surcoût au niveau du temps d'exécution, il est parfaitement possible de mettre en place une virtualisation légère utilisant le réseau de communications et la gestion du temps que nous avons mis en place dans Simterpose. Le tableau suivant résume les différents overhead de Simterpose afin d'avoir une vision plus globale.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+\centering
+\begin{tabular}{c|c|c|c|ll}
+\cline{2-4}
+                              & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Réseau de communications\end{tabular}}                               & \multirow{2}{*}{Temps} &  &  \\ \cline{2-3}
+                              & \begin{tabular}[c]{@{}c@{}}Grosse données\end{tabular} & \begin{tabular}[c]{@{}c@{}}Petites données\end{tabular} &                        &  &  \\ \cline{1-4}
+\multicolumn{1}{|c|}{Minimal} & 0.9s                                                      & 64s                                                         & 0s                      &  &  \\ \cline{1-4}
+\multicolumn{1}{|c|}{Maximal} & 1.18s                                                     & 74.5s                                                       & 0.23s                   &  &  \\ \cline{1-4}
+\multicolumn{1}{|c|}{Moyen}   & 1.1s                                                      & 70.1s                                                       & 0.02s                   &  &  \\ \cline{1-4}
+\end{tabular}
+\caption{Overhead du temps d'exécution d'applications avec Simterpose}
+\label{global_overhead}
+\end{table}
 
