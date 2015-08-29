@@ -532,5 +532,7 @@ simulation and execution time.
 *** Things done
 - Finish the experiences
 - Write final report
+  - network experiment part
+  - time experiment part
 *** Blocking points
 *** Planned work

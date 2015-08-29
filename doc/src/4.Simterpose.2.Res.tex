@@ -1,4 +1,6 @@
 \subsection{Fonctionnement interne de Simterpose}
+\label{subsection:fonctionnement_simterpose}
+
 Les actions à intercepter pour maintenir la virtualisation sont de différentes
 natures. Il peut s'agir d'actions liées \textit{i)} aux communications réseaux,
 \textit{ii)} à la création et à l'identification des processus, \textit{iii)} à
@@ -8,6 +10,7 @@ lesquels sont employés parmi ceux cités dans la section
 
 \subsubsection{Les communications réseaux}
  %-> syscall -> ptrace (full mediation, address translation)
+\label{subsubsection:fonctionnement_reseau}
 
 Lorsque \texttt{ptrace} est appelé en entrée ou sortie d'appel système, les
 modifications à apporter ne sont pas forcément les mêmes dans le cas d'une
