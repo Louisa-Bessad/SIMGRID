@@ -6,7 +6,7 @@ Dans le cas de l'émulation par interception, illustrée
 Figure \ref{Virtu_interception} , pour mettre en place un environnement distribué
 émulé sur lequel les applications penseront s'exécuter, deux outils vont être
 utilisés; un simulateur pour virtualiser l'environnement d'exécution, et un
-émulateur qui va attraper toutes les communications de l'application avec l'hôte
+émulateur qui va intercepter toutes les communications de l'application avec l'hôte
 et qui les transmettra ensuite au simulateur.
 
  \begin{figure}[H]
@@ -20,10 +20,10 @@ et qui les transmettra ensuite au simulateur.
  d'autres applications sur le réseau. Quand l'émulateur intercepte une
  communication venant d'un des processus d'une application, il modifie les
  caractéristiques de la communication pour qu'elle puisse s'exécuter sur la
- machine hôte. Il fait la même chose lorsque cette dernière envoie une réponse à
+ machine hôte. Il effectue l'opération inverse lorsque cette dernière envoie une réponse à
  l'application. En parallèle, l'émulateur demande au simulateur de calculer le
- temps d'exécution de l'action dans l'environnement virtuel pour l'action
- demandée par l'application. L'émulateur envoie ce temps à l'application en plus
+ temps d'exécution dans l'environnement virtuel de l'action
+ demandée par l'application. L'émulateur renvoie ce temps à l'application en plus
  du résultat du calcul demandé pour mettre à jour son horloge. Ainsi, les
  calculs sont réellement exécutés sur la machine, les communications réellement
  émises sur le réseau géré par le simulateur et c'est le temps de réponse qu'il
@@ -36,7 +36,7 @@ En effet, une application peut communiquer avec le noyau via différentes
 abstractions, Figure \ref{AS_Communication}. Elle peut soit utiliser les
 fonctions d'interaction directe avec le noyau que sont les appels systèmes, soit
 utiliser les différentes abstractions fournies par le système d'exploitation:
-bibliothèques (fonctions de la libc par exemple) ou les fonctions POSIX dans le
+bibliothèques (fonctions de la \texttt{libc} par exemple) ou les fonctions POSIX dans le
 cas d'un système UNIX.
 
 Nous allons donc voir comment on peut intercepter et modifier des actions au

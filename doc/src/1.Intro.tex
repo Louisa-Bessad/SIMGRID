@@ -23,8 +23,8 @@ souhaite fournir performance, fiabilité et scalabilité.  Elles deviennent de
 plus en plus complexes avec des contraintes et des exigences de plus en plus
 fortes, en particulier au niveau des performances et de l'hétérogénéité des
 plateformes et des ressources utilisées. Il est donc de plus en plus
-difficile de créer de telles applications (absence d'horloge et mémoire
-centrale, deadlock, race, famine) mais aussi de les tester.  En effet, malgré
+difficile de créer de telles applications (absence d'horloge commune et mémoire
+centrale, deadlock, \textit{race condition}, famine) mais aussi de les tester.  En effet, malgré
 l'évolution des applications distribuées, les protocoles d'évaluation de leurs
 performances n'ont que peu évolués.
 \newline
@@ -50,15 +50,14 @@ plusieurs utilisateurs, les expériences sont difficilement reproductibles.
 
 La seconde solution consiste à faire de la simulation: on modélise ce que l'on
 souhaite étudier (application et/ou environnement) via un programme appelé
-simulateur. Dans ce cas, pour pouvoir tester des applications distribuées sur un
-simulateur, on doit d'abord abstraire l'application ainsi que l'environnement
+simulateur. Dans ce cas, pour pouvoir tester des applications distribuées, on doit d'abord abstraire l'application ainsi que l'environnement
 d'exécution. Pour cela, on identifie les propriétés de l'application et de son
 environnement puis on les transforme à l'aide de modèles mathématiques. Ainsi,
 on va exécuter dans le simulateur le modèle de l'application et non
 l'application réelle, dans un environnement également modélisé. Cette solution
 est donc facilement reproductible, plus simple à mette en \oe uvre, et permet de
 prédire l'évolution du système étudié grâce à l'utilisation de modèles
-mathématiques. De nos jours, les simulateurs tel que
+mathématiques. De nos jours, les simulateurs tels que
 \textbf{SimGrid}\citep{CASANOVA:SimGrid, MARTIN:SimGrid} peuvent simuler des
 applications distribuées mettant à contribution des milliers de
 n\oe uds. Néanmoins, avec la simulation on ne peut valider qu'un modèle et non

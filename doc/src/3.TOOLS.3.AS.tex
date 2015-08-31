@@ -1,24 +1,22 @@
-\subsubsection{Médiation des Appels Système}
+\subsection{Médiation des Appels Systèmes}
 %% pourquoi: read/write, comm reseau 
 
 En regardant la Figure \ref{AS_Communication} et les différents niveaux
 d'abstractions, le moyen le plus simple pour attraper les actions de
-l'application en gérant un minimum de choses est d'intercepter directement les
-appels systèmes.  Ces derniers sont constitués de deux parties; l'entrée
+l'application en gérant un minimum de choses semble être l'interception directe des appels systèmes. Ces derniers sont constitués de deux parties; l'entrée
 initialise l'appel via les registres de l'application qui contiennent les
 arguments de l'appel puis donne la main au noyau. La sortie inscrit la valeur de
 retour de l'appel système dans le registre de retour de l'application, les
 registres d'arguments contenant toujours les valeurs reçues à l'entrée de
 l'appel système, et rend la main à l'application. Nous devons donc bloquer
-l'application à chaque interception d'une deux parties de l'appel système. Nous
-pouvons ainsi de récupérer et modifier les informations permettant de maintenir
-l'environnement simulé avant de lui rendre la main, pour pouvoir entrer ou
+l'application à chaque interception d'une deux parties de l'appel système. Ainsi, on pourra récupérer et modifier les informations permettant de maintenir
+l'environnement simulé avant de rendre la main à l'application, pour pouvoir entrer ou
 sortir de l'appel système.
 
  Dans cette section, nous allons présenter les outils existants qui permettent
  de faire cela.
  
- \paragraph{L'appel système ptrace}\citep{AS:Interception, MARION:Interception}
+ \subsubsection{L'appel système ptrace}\citep{AS:Interception, MARION:Interception}
  , dont la Figure \ref{PTRACE_FONCTIONNEMENT} illustre le fonctionnement, permet
  de tracer tous les événement désirés d'un processus. Il peut également lire et
  écrire directement dans l'espace d'adressage de ce dernier, à n'importe quel
@@ -44,7 +42,7 @@ fois: à l'entrée et à la sortie de chaque appel système.
 
 Quand un processus de l'application voudra faire un appel système, il sera
 bloqué avant de l'exécuter et le processus espion qui lui est associé sera
-notifié via un appel système \texttt{ptrace}. Ce dernier fait alors les
+notifié via un appel système \texttt{ptrace}. Ce dernier effectue alors les
 modifications nécessaires dans les registres du processus espionné pour
 conserver la virtualisation de l'environnement. Ensuite, il rendra la main au
 processus espionné pour que l'appel système puisse avoir lieu. Le même
@@ -72,17 +70,17 @@ exécution peut varier d'une machine à une autre.
 Nous tenons à faire remarquer que \texttt{strace}\footnote{\url{http://linux.die.net/man/1/strace}} suit la même approche que \texttt{ptrace} sans avoir ses désavantages, mais qu'il a été écarté lors d'un précédent stage à cause de sa licence trop restrisctive.
 
 %% Non module noyau
-\paragraph{Uprobes}\citep{AS:Interception, MARION:Interception},
+\subsubsection{Uprobes}\citep{AS:Interception, MARION:Interception},
 \textit{user-space probes}, est quant à lui une API noyau permettant d'insérer
 dynamiquement des points d'arrêts à n'importe quel endroit dans le code d'une
 application et à n'importe quel moment de son exécution. Nous pouvons donc
-l'utiliser avec les appels système comme points d'arrêts.
+l'utiliser avec les appels systèmes comme points d'arrêts.
 
 La façon la plus classique d'utiliser cette interface se base sur Utrace,
 équivalent de \texttt{ptrace} en mode noyau. Ce dernier permet d'éviter les
 nombreux changements de contexte, qui dégradent les performances, et offre une
 meilleure gestion du multithreading. Dans cette version, l'utilisateur fournit
-pour chaque point d'arrêt un handler particulier à exécuter avant ou après
+pour chaque point d'arrêts un handler particulier à exécuter avant ou après
 l’instruction marquée. Uprobes étant un outil s'exécutant dans le noyau, les
 handlers doivent être placés dans un module noyau. Ce dernier contient pour
 chaque point d'arrêt géré par Uprobes le handler à exécuter, ainsi que le pid du
@@ -94,7 +92,7 @@ threads), \textit{iii)} \texttt{uprobe\_kimg} (une pour chaque point d'arrêt
 affectant un procesus). Chaque structure \texttt{uprobe\_task} et
 \texttt{uprobe\_kimg} sont propres à une structure \texttt{uprobe\_process}. La
 fonction \texttt{init} du module va poser les points d'arrêt et la fonction
-\texttt{exit} les enlevera. Pour cela on utilise respectivement la fonction
+\texttt{exit} les enlevera. Pour cela, on utilise respectivement la fonction
 \texttt{register\_uprobe} et \texttt{unregister\_uprobe}. Ces deux fonctions ont
 pour argument le pid du processus à contrôler, l'adresse virtuelle du point
 d'arrêt dans le code et le handler à exécuter quand le point d'arrêt est
@@ -103,7 +101,7 @@ paramètres en parcourant la liste des structures \texttt{uprobes\_process} ou l
 crééra si cette dernière n'existe pas. Ensuite, elle crée la structure
 \texttt{uprobe\_kimg}, puis fait appel à Utrace pour bloquer l'application, le
 temps de placer le point d'arrêt dans le code de celle-ci. Pour cela, on va
-placer avant l'instruction sondée un appel au module contenant le handler à
+insère avant l'instruction sondée un appel au module contenant le handler à
 invoquer, puis on rend la main à l'application en utilisant de nouveau
 Utrace. \texttt{unregister\_uprobe} fait de même mais supprime la structure
 \texttt{uprobe\_kimg} passée en paramètre au lieu de l'ajouter. De plus, s'il
@@ -130,20 +128,20 @@ représente aussi son plus gros défaut de par sa dangerosité. De plus, dans no
 cas il ne semble pas judicieux de faire de la programmation noyau via un module
 dont l'utilisateur devra également gérer le bon chargement.
 
-\paragraph{Seccomp/BPF:}
+\subsubsection{Seccomp/BPF:}
 %% Read only
 \label{paragraph:seccomp/bpf}
 
 \texttt{seccomp} \citep{seccompbpf} est un appel système qui permet d'isoler un processus
-en lui donnant le droit d'appeler et d'exécuter qu'un certain nombre d'appels
+en lui donnant le droit de n'appeler et de n'exécuter qu'un certain nombre d'appels
 systèmes: \texttt{read}, \texttt{write}, \texttt{exit} et \texttt{sigreturn}. Si
 le processus fait un autre appel système, il sera arrêté avec un signal
 \texttt{SIGKILL}. Comme cela est assez contraignant, le nombre d'applications
-que l'on peut utiliser avec \texttt{seccomp} est donc très limité. Pour plus de
+que l'on peut utiliser avec \texttt{seccomp} est donc limité. Pour plus de
 flexibilité, on peut utiliser une extension de cet appel système appelée
 seccomp/BPF, pour \textit{seccomp BSD Packet Filter}, permettant de définir dans
 un programme BPF \citep{BPF_mccanne1993bsd} les appels systèmes autorisés à
-s'exécuter, en plus de ceux cités précédemment. Cette dernière fonctionne sur le
+s'exécuter, en plus de ceux cités précédemment. Cette extension fonctionne sur le
 même principe que le filtrage de paquet réseau où on établit une suite de
 règles. Pour pouvoir s'exécuter, un appel système doit pouvoir passer à travers
 toutes les règles. Dans le cas où les appels systèmes \texttt{fork} ou
@@ -160,9 +158,9 @@ au processus espion, s'il existe, de ne plus attendre sur chaque appel système
 du processus espionné, mais uniquement sur les appels systèmes qu'il souhaite
 intercepter.
 
-L'appel système seccomp et son extension seccomp/BPF ne sont disponibles que si
+L'appel système seccomp et son extension seccomp/BPF sont disponibles uniquement si
 le noyau est configuré avec l'option \texttt{CONFIG\_SECCOMP} pour la première
-et \texttt{CONFIG\_SECCOMP\_FILTER} pour la deuxième. Pour pouvoir créer des
+et \texttt{CONFIG\_SECCOMP\_FILTER} pour la seconde. Pour pouvoir créer des
 filtres, il faut également avoir des droits particuliers, notamment l'exécution
 de certaines commandes administrateurs. Ainsi, l'utilisation de cet appel
 système et de son extension demande une certaine configuration noyau et des
@@ -172,9 +170,9 @@ De plus, si on l'utilise sans l'option d'appel à \texttt{ptrace}, on ne peut qu
 lire le contenu de l'appel système et pas le modifier. On ne peut donc pas faire
 de médiation avec cet outil sans faire appel à \texttt{ptrace}. Néanmoins,
 l'utilisation de seccomp/BPF avec \texttt{ptrace} permet de réduire
-signifiquativement le nombre d'événement sur lequel attendra le processus
+signifiquativement le nombre d'événements sur lequel attendra le processus
 espion.
 \vspace{0.5cm}
 
-Malgré ses défauts, \texttt{ptrace} semble être le meilleur outil pour intercepter des appels système.
+Malgré ses défauts, \texttt{ptrace} semble être le meilleur outil pour intercepter des appels systèmes.
 

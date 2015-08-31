@@ -22,17 +22,18 @@ qu'une application souhaiterait exécuter car le noyau ne les exécute pas. Cela
 est dû à l'existence de la bibliothèque \textit{Virtual Dynamic Shared Object}
 (\texttt{VDSO}). Cette dernière vise à minimiser les coûts dûs aux deux changements de contexte effectués lors de l'exécution d'un appel système. \texttt{VDSO} va retrouver l'heure dans un segment du processus partagé avec l'espace noyau lisible par tous les processus sans changer de mode. Il est possible de désactiver cette bibliothèque lors du boot mais cela réduit les performances, augmente le nombre de changements de contexte, et oblige l'utilisateur à modifier les paramètres de son noyau.
 
-On va donc se placer à un autre niveau pour intercepter ces fonctions. Malgré
-leur nombre, il a été décidé d'agir lors du préchargement de bibliothèque. On va
-créer une bibliothèque qui surcharge les appels de fonctions liées au temps et
-la placer dans la variable d'environnement \texttt{LD\_PRELOAD}. Une fois l'interception temporelle effectuée,
-Simterpose interroge SimGrid pour obtenir l'heure virtuelle et la renvoie à
-l'application.
+On va donc se placer à un autre niveau pour intercepter ces
+fonctions. Malgré leur nombre, il a été décidé d'agir lors du
+préchargement de bibliothèque. On va créer une bibliothèque qui
+surcharge les appels de fonctions liées au temps et la placer dans la
+variable d'environnement \texttt{LD\_PRELOAD}. Une fois l'interception
+temporelle effectuée, Simterpose interroge SimGrid pour obtenir
+l'heure virtuelle et la renvoie à l'application.
 
 Dans le second cas, lors d'une action interceptée (calcul, communications
 réseau), Simterpose doit gérer l'horloge de l'application avant de lui renvoyer
 le résultat de l'exécution. Pour cela, Simterpose envoie à SimGrid l'heure et la
-durée d'exécution sur la machine hôte . Ce dernier calcule en fonction de ces
+durée d'exécution sur la machine hôte. Ce dernier calcule en fonction de ces
 deux informations, le temps qui aurait été nécessaire pour une telle exécution
 sur la plateforme virtuelle et l'envoie à Simterpose. Pour finir, l'émulateur
 rend la main à l'application en lui envoyant l'heure virtuelle en plus du

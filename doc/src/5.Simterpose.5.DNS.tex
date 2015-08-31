@@ -14,12 +14,14 @@ utiliser. De plus, il est possible que l'utilisateur définisse un autre port
 pour le protocole DNS que celui par défaut. Cette solution n'est donc pas
 suffisante.
 
-Une autre approche serait de remplacer le fichier \texttt{resolv.conf} utilisé
-pour la résolution de nom par un fichier spécifié par l'utilisateur. Il pourrait également fournir un fichier de spécification de
-comportements en cas d'utilisation de DNS permettant à Simterpose de générer un
-nouveau fichier \texttt{resolv.conf}. Néanmoins, cette solution génère une
-surcharge de travail pour l'utilisateur et nous souhaitons avoir un émulateur
-qui soit simple d'utilisation.
+ne autre approche serait de remplacer le fichier \texttt{resolv.conf}
+utilisé pour la résolution de nom par un fichier spécifié par
+l'utilisateur. Il pourrait également fournir un fichier de
+spécification de comportement en cas d'utilisation de DNS permettant
+à Simterpose de générer un nouveau
+fichier \texttt{resolv.conf}. Néanmoins, cette solution génère une
+surcharge de travail pour l'utilisateur et nous souhaitons avoir un
+émulateur qui soit simple d'utilisation.
 
 La dernière solution envisageable est de faire de l'interception d'appel de
 fonctions. Dans cas, on créé une bibliothèque partagée qui réécrit les foncitons

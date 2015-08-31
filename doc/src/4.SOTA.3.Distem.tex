@@ -28,7 +28,7 @@ pourra controller la fréquence individuellement.
 \begin{figure}[H]
   \centering
   \includegraphics[scale=0.70]{Pictures/png/Distem_repartion_coeurs_v1}
-  \caption{Répartition des c\oe urs d'un processeur d'une machine hôte entre les différents n\oe uds virtuels qu'elle héberge et émulation de leur puissance en utilisant qu'une partie de leur puissance.}
+  \caption{Répartition des c\oe urs d'un processeur d'une machine hôte entre les différents n\oe uds virtuels qu'elle héberge et émulation de leur puissance en n'utilisant qu'une partie de leur puissance.}
   \label{Distem_core}
 \end{figure}
   
@@ -40,7 +40,7 @@ la vitesse de chaque c\oe ur alloué à un n\oe ud virtuel.
 \begin{figure}
   \centering
   \includegraphics{Pictures/png/Distem_architecture}
-  \caption{Architecture de communication de Distem. On a 3 n\oe uds physiques (``Pnodes'') contenant chacun 3 n\oe uds virtuels (``Vnodes'').}
+  \caption{Architecture de communications de Distem. Ici on a 3 n\oe uds physiques (``Pnodes'') contenant chacun 3 n\oe uds virtuels (``Vnodes'').}
   \label{Distem_archi}
 \end{figure}
 
@@ -51,7 +51,7 @@ virtualisés alors que les seconds représentent les n\oe uds que l'on souhaite
 émuler. Un des Pnodes appelé ``coordinator'' gère le contrôle de
 l'infrastructure dans sa globalité en communiquant avec l'ensemble des
 Pnodes. Ces derniers peuvent héberger plusieurs Vnodes, chaque Pnode possèdant
-son démon Distem qui les contrôle. Les Vnodes sont séparés et n'ont pas
+son démon Distem qui contrôle les Vnodes. Les Vnodes sont séparés et n'ont pas
 connaissance des autres Vnodes présents sur le Pnode. Pour permettre cela,
 Distem utilise un conteneur LXC pour émuler un Vnode. Ainsi, chaque Vnode
 possède un espace d'adressage séparé pour les ressources sytème (tâches,
@@ -63,7 +63,7 @@ urs attribués à chaque Vnode, Distem utilise l'algorithme
 CPU-Hogs\footnote{Méthode de dégradation des performances du CPU qui consiste à
   créer un processus pour qu'il occupe le CPU pendant un certain temps.}
 \citep{DISTEM_buchert2011methods}. Ainsi les Vnodes ont connaissance les uns des
-autres uniquement via le réseau virtuel. Chaque Vnodes possède une ou plusieurs
+autres uniquement via le réseau virtuel. Chaque Vnode possède une ou plusieurs
 interfaces réseau virtuelles reliées au réseau physique de l'hôte pour pouvoir
 communiquer avec l'extérieur. Du fait du grand nombre de n\oe uds qu'on souhaite
 émuler et qui vont communiquer entre eux cet accès au réseau extérieur pose
@@ -79,7 +79,7 @@ d'abstraction réseau à l'intérieur du Pnode en utilisant
 VXLAN\citep{VXLAN_mahalingam2014virtual, DISTEM_buchert2014emulation} comme le
 montre la Figure \ref{Distem_VXLAN}. Ainsi, les paquets seront échangés entre
 Pnodes sur le réseau et c'est la couche VXLAN qui s'occupera d'envoyer au bon
-Vnodes le paquet reçu sur le Pnodes. Ces derniers étant très peu nombreux on est
+Vnode le paquet reçu sur le Pnode. Ces derniers étant très peu nombreux on est
 sûrs de ne pas surcharger les tables ARP.
 
 \begin{figure}[H]
@@ -91,4 +91,4 @@ sûrs de ne pas surcharger les tables ARP.
 
 On voit donc que Distem possède une infrastructure et un réseau émulé bien
 détaillés et assez réalistes. De plus il est capable de gérer les fautes
-injectées au niveau des n\oe uds ou sur le réseau. Son seul problème est donc d'utiliser la virtualisation par limitation empêchant ainsi l'émulation de machines plus rapides.
+injectées au niveau des n\oe uds ou sur le réseau. Son seul problème est donc d'utiliser la virtualisation par limitation empêchant ainsi l'émulation de machines plus puissante que l'hôte.

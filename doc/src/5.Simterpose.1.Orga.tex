@@ -10,7 +10,7 @@ l'émulation par dégradation ne permet pas. Ce choix exclut donc l'utilisation 
 Distem dans notre projet. Les autres outils de virtualisation par interception
 ont été écartées pour des raisons différentes: CWRAP utilise uniquement
 \texttt{LD\_PRELOAD} pour intercepter les actions et est spécifique aux
-applications réseaux. RR gère le multithread mais pas la virtualisation réseau. MicroGrid utilise une émulation par dilation pour gérer le temps. Dans notre cas, nous voulons faire de l'interception.
+applications réseaux. RR gère le multithread mais pas la virtualisation réseau. MicroGrid utilise une émulation par dilation pour gérer le temps. Or, dans notre cas, nous voulons faire de l'interception.
 
 Pour satisfaire les besoins de notre projet, il a été décidé de créer un nouvel
 émulateur Simterpose. Ce dernier doit être simple d'utilisation et facilement
@@ -40,9 +40,9 @@ des environnements hétérogènes.
 
 La Figure \ref{Organisation_generale} présente l'organisation générale de la plateforme de simulation. SimGrid va générer l'environnement virtuel. Simterpose intercepte les
 actions de l'application et les modifie pour maintenir l'émulation si
-nécessaire cf Figure \ref{Organisation_Simterpose}. Puis, il les laisse
+nécessaire. Puis, il les laisse
 s'exécuter sur la machinie hôte et va interroger SimGrid pour qu'il calcule la
-réponse de l'environnement virtuel aux actions de l'application (temps d'exécution, gestion de communications réseaux).
+réponse de l'environnement virtuel aux actions de l'application (temps d'exécution, gestion de communications réseaux). La Figure \ref{Organisation_Simterpose} illustre ce fonctionnement.
 
 \begin{figure}[H]
   \centering

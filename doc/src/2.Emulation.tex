@@ -12,11 +12,10 @@ Il existe actuellement deux méthodes permettant de faire de la virtualisation:
 standard et légère.
 
 La première est une émulation complète de la machine comme celle utilisée par
-vmware. Dans cet émulateur, le système d'exploitation est hébergé sur une
+\texttt{vmware}. Dans cet émulateur, le système d'exploitation est hébergé sur une
 plateforme matérielle totalement virtualisée. Il n'a pas la possibilité de
 lancer toutes les instructions, l'émulateur déclenche un handler pour que
-l'hyperviseur les exécute. Cette solution pourrait être applicable dans le cadre
-notre objectif général d'émulation d'applications mais elle ne passe pas du tout
+l'hyperviseur les exécute. Cette solution pourrait être applicable dans le cadre de notre objectif général d'émulation d'applications mais elle ne passe pas du tout
 à l'échelle (plus d'une douzaine de machines).
 
 La seconde est dite légère car elle permet de tester des applications sur une
@@ -24,7 +23,7 @@ centaine d'instances. Pour que cela soit possible elle n'émule pas complètemen
 la machine, notamment le CPU. De fait, elle ne peut exécuter que des
 applications ayant été compilées pour le même jeu d'instructions que celui de
 l'hôte.  De plus, le choix de la virtualisation pour notre projet génère quatre
-problèmes: les threads, le temps, les communications réseaux et les échange
+problèmes: les threads, le temps, les communications réseaux et les échanges
 utilisant le protocole DNS, que notre plateforme devra résoudre. Malgré cette
 contrainte, c'est la virtualisation légère qui a été choisi pour notre projet
 car il est très important d'avoir une solution d'exécution rapide quelque soit
@@ -32,7 +31,7 @@ le nombre d'instance.
 
 La virtualisation légère peut se faire par limitation également appelée
 dégradation ou par interception. Nous allons donc étudier ces deux possibilités
-afin de choisir celle qui est la plus adaptée à notre objectif et voir comment
+afin de choisir la plus adaptée à notre objectif et voir comment
 elle peut résoudre les problèmes cités précédemment.
 
 

@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,11pt]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage{xltxtra}
@@ -24,11 +24,14 @@
 \usepackage{subcaption}
 \bibpunct{[}{]}{,}{n}{,}{,}
 
+\usepackage{amsmath}
+\usepackage{amssymb}
 % --------------------------------
 %Pour compiler sur Manjaro        
-\usepackage[utf8]{inputenc}
-\usepackage{algorithmicx}
-\usepackage{algpseudocode}
+%% \usepackage[utf8]{inputenc}
+%% \usepackage{algorithmicx}
+%% \usepackage{algpseudocode}
+\usepackage[latin1]{inputenc}
 % --------------------------------
 %Pour les tableaux multi-colonnes
 \usepackage{multirow}
@@ -261,51 +264,53 @@ Martin \textsc{Quinson} % Supervisor's Name
 \input{src/2.Emulation.tex}
 \input{src/2.Emulation.1.Limitation.tex}
 \input{src/2.Emulation.2.Interception.tex}
-\input{src/2.Emulation.2.a.Source.tex}
-\input{src/2.Emulation.2.b.Binaire.tex}
-\input{src/2.Emulation.2.c.AS.tex}
-\input{src/2.Emulation.2.d.Fonction.tex}
-\input{src/2.Emulation.3.Tables.tex}
 
 \newpage
-\input{src/3.SOTA.tex}
-\input{src/3.SOTA.1.cwrap.tex}
-\input{src/3.SOTA.2.RR.tex}
-\input{src/3.SOTA.3.Distem.tex}
-\input{src/3.SOTA.4.MicroGrid.tex}
-\input{src/3.SOTA.5.DETER.tex}
+\input{src/3.TOOLS.1.Source.tex}
+\input{src/3.TOOLS.2.Binaire.tex}
+\input{src/3.TOOLS.3.AS.tex}
+\input{src/3.TOOLS.4.Fonctions.tex}
+\input{src/3.TOOLS.5.Ccl.tex}
+
+\newpage
+\input{src/4.SOTA.tex}
+\input{src/4.SOTA.1.cwrap.tex}
+\input{src/4.SOTA.2.RR.tex}
+\input{src/4.SOTA.3.Distem.tex}
+\input{src/4.SOTA.4.MicroGrid.tex}
+\input{src/4.SOTA.5.DETER.tex}
 %% \input{src/3.SOTA.6.Robot.tex}
 
 \newpage
-\input{src/4.Simterpose.tex}
-\input{src/4.Simterpose.1.Orga.tex}
-\input{src/4.Simterpose.2.Res.tex}
-\input{src/4.Simterpose.3.Thread.tex}
-\input{src/4.Simterpose.4.Time.tex}
-\input{src/4.Simterpose.5.DNS.tex}
-\input{src/4.Simterpose.6.Ccl.tex}
+\input{src/5.Simterpose.tex}
+\input{src/5.Simterpose.1.Orga.tex}
+\input{src/5.Simterpose.2.Res.tex}
+\input{src/5.Simterpose.3.Thread.tex}
+\input{src/5.Simterpose.4.Time.tex}
+\input{src/5.Simterpose.5.DNS.tex}
+\input{src/5.Simterpose.6.Ccl.tex}
 
 \newpage
-\input{src/5.Work.tex}
-\input{src/5.Work.1.Tools.tex}
-\input{src/5.Work.2.Network.tex}
-\input{src/5.Work.3.Time.tex}
-\input{src/5.Work.4.Ccl.tex}
+\input{src/6.Work.tex}
+\input{src/6.Work.1.Network.tex}
+\input{src/6.Work.2.Time.tex}
+\input{src/6.Work.3.Tools.tex}
+\input{src/6.Work.4.Ccl.tex}
 
 \newpage
-\input{src/6.Evaluation.tex}
-\input{src/6.Evaluation.1.Res.tex}
-\input{src/6.Evaluation.2.Temps.tex}
-\input{src/6.Evaluation.3.Ccl.tex}
+\input{src/7.Evaluation.tex}
+\input{src/7.Evaluation.1.Res.tex}
+\input{src/7.Evaluation.2.Temps.tex}
+\input{src/7.Evaluation.3.Ccl.tex}
 
 \newpage
-\input{src/7.Conclusion.tex}
+\input{src/8.Conclusion.tex}
 
 \newpage
 
 % Bib
 \bibliographystyle{plainnat}
-\bibliography{src/8.Biblio} % The file containing the bibliography
+\bibliography{src/9.Biblio} % The file containing the bibliography
 \label{fin}
 
 \end{document}

@@ -4,7 +4,7 @@
 Les actions à intercepter pour maintenir la virtualisation sont de différentes
 natures. Il peut s'agir d'actions liées \textit{i)} aux communications réseaux,
 \textit{ii)} à la création et à l'identification des processus, \textit{iii)} à
-la gestion du temps, \texttt{iv)} à l'utilisation du protocole DNS. Pour chacune, les outils utilisés ne sont pas nécessairement les mêmes. Nous allons donc voir
+la gestion du temps, \textit{iv)} à l'utilisation du protocole DNS. Pour chacune, les outils utilisés ne sont pas nécessairement les mêmes. Nous allons donc voir
 lesquels sont employés parmi ceux cités dans la section
 \ref{section:interception}.
 
@@ -74,8 +74,8 @@ pas encore été évaluée en pratique.
  Avec ce type de médiation, illustrée Figure \ref{ADDRESS_TRANSLATION}, on laisse le noyau gèrer les communications. Ainsi, en entrée et sortie d'appel système, Simterpose va juste s'occuper de la transition entre le réseau virtuel simulé
  par SimGrid et le réseau local, en utilisant les informations de communications
  contenues dans la socket. Pour cela, Simterpose gère un tableau de
- correspondances, dans lequel pour chaque couple <IP, ports virtuels> , on a un
- couple <IP, ports réels> associé.  De fait, en entrée d'un appel système de
+ correspondances, dans lequel pour chaque couple <IP, ports>virtuels , on a un
+ couple <IP, ports>réels associé.  De fait, en entrée d'un appel système de
  type réseau (\texttt{bind}, \texttt{connect}, \texttt{accept} ...), Simterpose
  doit remplacer l'adresse et les ports virtuels de l'application par l'adresse
  et les ports réels sur le réseau local, afin que la source de l'appel système
