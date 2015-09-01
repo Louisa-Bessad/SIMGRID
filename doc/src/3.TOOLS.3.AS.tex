@@ -16,13 +16,16 @@ sortir de l'appel système.
  Dans cette section, nous allons présenter les outils existants qui permettent
  de faire cela.
  
- \subsubsection{L'appel système ptrace}\citep{AS:Interception, MARION:Interception}
- , dont la Figure \ref{PTRACE_FONCTIONNEMENT} illustre le fonctionnement, permet
- de tracer tous les événement désirés d'un processus. Il peut également lire et
- écrire directement dans l'espace d'adressage de ce dernier, à n'importe quel
- moment ou lorsque un événement particulier se produit. De cette façon, on peut
- contrôler l'exécution d'un processus. C'est un appel système dont chaque action
- à effectuer est passée sous forme de requête en paramètre de l'appel système.
+ \subsubsection{L'appel système ptrace}
+ \label{subsection:ptrace}
+               
+L'appel système \texttt{ptrace}\citep{AS:Interception, MARION:Interception},
+dont la Figure \ref{PTRACE_FONCTIONNEMENT} illustre le fonctionnement, permet de
+tracer tous les événement désirés d'un processus. Il peut également lire et
+écrire directement dans l'espace d'adressage de ce dernier, à n'importe quel
+moment ou lorsque un événement particulier se produit. De cette façon, on peut
+contrôler l'exécution d'un processus. C'est un appel système dont chaque action
+à effectuer est passée sous forme de requête en paramètre de l'appel système.
 
 Pour pouvoir contrôler un processus via \texttt{ptrace}, on va créer deux
 processus via un \texttt{fork}; un processus appelé ``processus espionné'' qui
@@ -70,11 +73,13 @@ exécution peut varier d'une machine à une autre.
 Nous tenons à faire remarquer que \texttt{strace}\footnote{\url{http://linux.die.net/man/1/strace}} suit la même approche que \texttt{ptrace} sans avoir ses désavantages, mais qu'il a été écarté lors d'un précédent stage à cause de sa licence trop restrisctive.
 
 %% Non module noyau
-\subsubsection{Uprobes}\citep{AS:Interception, MARION:Interception},
-\textit{user-space probes}, est quant à lui une API noyau permettant d'insérer
-dynamiquement des points d'arrêts à n'importe quel endroit dans le code d'une
-application et à n'importe quel moment de son exécution. Nous pouvons donc
-l'utiliser avec les appels systèmes comme points d'arrêts.
+\subsubsection{Uprobes}
+
+Uprobes\citep{AS:Interception, MARION:Interception}, pour \textit{user-space
+  probes}, est une API noyau permettant d'insérer dynamiquement des points
+d'arrêts à n'importe quel endroit dans le code d'une application et à n'importe
+quel moment de son exécution. Nous pouvons donc l'utiliser avec les appels
+systèmes comme points d'arrêts.
 
 La façon la plus classique d'utiliser cette interface se base sur Utrace,
 équivalent de \texttt{ptrace} en mode noyau. Ce dernier permet d'éviter les

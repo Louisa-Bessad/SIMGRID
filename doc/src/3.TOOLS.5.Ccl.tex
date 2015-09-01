@@ -4,7 +4,14 @@ dans la table \ref{TAB_COMP}. Dans le cas d'émulateur ne souhaitant pas modifie
 le code source d'une application, les outils présentés en \ref{section:source}
 sont inutiles. De plus, de par le surcoût d'utilisation de Valgrind, cette
 solution est à écarter dans le cas d'applications distribuées large échelle
-s'exécutant dans un environnement distribué.
+s'exécutant dans un environnement distribué. L'outils Uprobes est également à
+exclure car nous ne souhaitons pas écrire de code noyau. De plus, nous pouvons
+voir qu'il y a une certaine complémentarité entre l'appel
+système \texttt{ptrace} et la variable d'environnement \texttt{LD\_PRELOAD}. En
+effet, \texttt{LD\_PRELOAD} résout les lacunes de \texttt{ptrace} concernant les
+fonctions de temps et le multithreading. A l'inverse, \texttt{ptrace} permet
+d'intercepter les appels systèmes que l'on ne peut pas gérer
+avec \texttt{LD\_PRELOAD}.
 
 \begin{table}[h]
 \centering

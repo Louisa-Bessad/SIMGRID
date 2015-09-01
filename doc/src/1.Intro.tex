@@ -13,20 +13,20 @@ l'application. Les applications distribuées ont de nombreux avantages: elles
 permettent notamment d'augmenter la disponibilités des données en se les
 échangeant, comme les applications Torrent (BitTorrent, $µ$Torrent...). Grâce au
 projet BOINC\footnote{\url{https://boinc.berkeley.edu/}} par exemple, on peut
-partager la puissance de calcul inutilisée de sa machine. Depuis une dizaine
-d'années, la popularité de ces applications distribuées ne cesse de croître. On
-peut notamment penser aux applications de stockage de données
+partager la puissance de calcul inutilisée de sa machine. On peut également
+penser aux applications de stockage de données
 LAFS\footnote{\url{https://tahoe-lafs.org/trac/tahoe-lafs}} et
 CEPH\footnote{\url{http://ceph.com/}}. La première apporte un stockage robuste
 qui préserve les données même si un site est physiquement détruit. La seconde
-souhaite fournir performance, fiabilité et scalabilité.  Elles deviennent de
-plus en plus complexes avec des contraintes et des exigences de plus en plus
-fortes, en particulier au niveau des performances et de l'hétérogénéité des
-plateformes et des ressources utilisées. Il est donc de plus en plus
-difficile de créer de telles applications (absence d'horloge commune et mémoire
-centrale, deadlock, \textit{race condition}, famine) mais aussi de les tester.  En effet, malgré
-l'évolution des applications distribuées, les protocoles d'évaluation de leurs
-performances n'ont que peu évolués.
+souhaite fournir performance, fiabilité et scalabilité. Depuis une dizaine
+d'années, la popularité de ces applications distribuées ne cesse de
+croître. Elles deviennent de plus en plus complexes avec des contraintes et des
+exigences de plus en plus fortes, en particulier au niveau des performances et
+de l'hétérogénéité des plateformes et des ressources utilisées. Il est donc de
+plus en plus difficile de créer de telles applications (absence d'horloge
+commune et mémoire centrale, deadlock, race condition, famine) mais aussi de les
+tester.  En effet, malgré l'évolution des applications distribuées, les
+protocoles d'évaluation de leurs performances n'ont que peu évolués.
 \newline
 
 Actuellement, il existe trois façons principales de tester le comportement
@@ -42,7 +42,7 @@ en France pour cela est \textbf{Grid'5000}\footnote{Infrastructure de 8000 c\oe
 un autre outil développé à l'échelle mondiale est
 \textbf{PlanetLab} \footnote{Crée en 2002, cette infrastructure de test compte
   aujourd'hui 1340 c\oe urs. \\ \url{http://www.planet-lab.org}}. Néanmoins,
-pour mettre en \oe uvre ces solutions complexes, il faut disposer des
+afin de mettre en \oe uvre ces solutions complexes, il faut disposer des
 infrastructures nécessaires pour effectuer les tests. Il faut également écrire
 une application complète capable de gérer toutes ces ressources
 disponibles. Enfin, du fait du partage des différentes plateformes entre
@@ -84,12 +84,18 @@ virtualisée soit calculé).
 %% virtualisation standard et la légère. On parle de virtualisation légère quand on
 %% souhaite tester des applications sur une centaine d'instances.
 
-Au cours de ce stage, nous allons nous intéresser plus particulièrement à l'exécution d'applications distribuées arbitraires au dessus de la plateforme de simulation SimGrid. Pour cela, nous allons présenter en section \ref{section:emulation} les méthodes utilisées
-pour faire de la virtualisation %% légère: limitation et interception
-. Puis en
-section \ref{section:sota} nous présenterons les projets permettant de faire de
-l'émulation pour tester des applications dans un environnement
-distribué. Ensuite, nous expliquerons en section \ref{section:simterpose},
-pourquoi dans le cadre du projet Simterpose c'est la virtualisation légère par
-interception qui a été choisie et comment elle fonctionne. Pour finir, nous
-concluerons en section \ref{section:ccl}.
+Au cours de ce stage, nous allons nous intéresser plus particulièrement à
+l'exécution d'applications distribuées arbitraires au dessus de la plateforme de
+simulation SimGrid. Pour cela, nous allons présenter en section
+\ref{section:emulation} les différents types de virtualisations qui
+existent. Nous verrons en section \ref{section:tools} les outils qui permettent
+de mettre en place la virtualisation que nous aurons choisie pour ce
+projet. Puis en section \ref{section:sota} nous présenterons les projets
+permettant de faire de l'émulation pour tester des applications dans un
+environnement distribué. Ensuite, nous expliquerons en section
+\ref{section:simterpose}, pourquoi dans le cadre du projet Simterpose c'est la
+virtualisation légère par interception qui a été choisie et comment elle
+fonctionne. En section \ref{section:work}, nous expliquerons le travail qui a
+été effectué durant ce stage . Puis, Nous présenterons nos expériences et les
+résultats obtenus en section \ref{secton:evaluation}. Pour finir, nous
+concluerons avec les sections \ref{section:future_work} et \ref{section:ccl}.

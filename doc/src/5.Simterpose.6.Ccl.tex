@@ -1,8 +1,6 @@
-Dans cette section, nous avons étudié l'organisation globale de Simterpose. Le
-fonctionnement interne de cet émulateur montre la complémentarité de deux outils
-présentés en section \ref{section:interception}: l'appel système \texttt{ptrace}
-et la variable d'environnement \texttt{LD\_PRELOAD}. En
-effet, \texttt{LD\_PRELOAD} résout les lacunes de \texttt{ptrace} concernant les
-fonctions de temps et le multithreading. A l'inverse, puisque \texttt{ptrace}
-permet d'intercepter les appels systèmes que \texttt{LD\_PRELOAD} ne permet pas
-de gérer, \texttt{ptrace} résout donc les problèmes de \texttt{LD\_PRELOAD}.
+Dans cette section, nous avons étudié l'organisation globale de Simterpose ainsi
+que son fonctionnement interne. Nous avons pu voir que deux des outils présentés
+en section \ref{section:tools} sont utilisés pour implémenter notre émulateur:
+l'appel système \texttt{ptrace} et la variable
+d'environnement \texttt{LD\_PRELOAD}.
+

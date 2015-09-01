@@ -1,0 +1,22 @@
+\section{Outils pour la virtualisation légère}
+\label{section:tools}
+
+Afin d'intercepter les actions d'une application il faut d'abord choisir à quel
+niveau se placer.  En effet, une application peut communiquer avec le noyau via
+différentes abstractions, Figure \ref{AS_Communication}. Elle peut soit utiliser
+les fonctions d'interaction directe avec le noyau que sont les appels systèmes,
+soit utiliser les différentes abstractions fournies par le système
+d'exploitation: bibliothèques (fonctions de la \texttt{libc} par exemple) ou les
+fonctions POSIX dans le cas d'un système UNIX.
+
+Nous allons donc voir comment on peut intercepter et modifier des actions au
+niveau de l'application (fichier source puis binaire), des appels système et
+des appels de fonctions. Par la suite nous appelerons médiation l'ensemble des
+modifications effectuées par l'émulateur sur les actions interceptées.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[scale=0.75]{Pictures/png/Communication_application_noyau_v3.png}
+ \caption{Communications possibles entre le noyau et une application.}
+ \label{AS_Communication}
+\end{figure}

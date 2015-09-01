@@ -6,24 +6,19 @@ natures. Il peut s'agir d'actions liées \textit{i)} aux communications réseaux
 \textit{ii)} à la création et à l'identification des processus, \textit{iii)} à
 la gestion du temps, \textit{iv)} à l'utilisation du protocole DNS. Pour chacune, les outils utilisés ne sont pas nécessairement les mêmes. Nous allons donc voir
 lesquels sont employés parmi ceux cités dans la section
-\ref{section:interception}.
+\ref{section:tools}.
 
 \subsubsection{Les communications réseaux}
  %-> syscall -> ptrace (full mediation, address translation)
 \label{subsubsection:fonctionnement_reseau}
 
-Lorsque \texttt{ptrace} est appelé en entrée ou sortie d'appel système, les
-modifications à apporter ne sont pas forcément les mêmes dans le cas d'une
-action nécessitant l'utilisation du réseau ou non. Dans le cas d'un calcul, il
-faut simplement maintenir une vision du temps tel qu'il s'écoule sur la machine
-simulée pour l'application. Ainsi en entrée d'appel système on n'a pas besoin de
-modifier quoique ce soit, par contre au retour il faut modifier le temps
-d'exécution du calcul en le remplaçant par celui calculé par le simulateur.
-
 Dans le cas d'une communication réseau, le but de Simterpose étant de réussir à
-simuler un réseau virtuel sur un réseau local, il faut gérer la
-transition entre réseau local et réseau simulé. En effet l'application possède
-une adresse IP et des numéros de ports virtuels qui ne correspondent pas à ceux attribués dans le réseau local.
+simuler un réseau virtuel sur un réseau local, il faut gérer la transition entre
+réseau local et réseau simulé, comme le montre la Figure \ref{COMM}. En effet,
+l'application possède une adresse IP et des numéros de ports virtuels qui ne
+correspondent pas à ceux attribués dans le réseau local.
+
+La gestion de cette transition va se faire au niveau des appels systèmes, car nous ne souhaitons pas prendre le risque d'oublier des fonctions en utilisant \texttt{LD\_PRELOAD}. Pour intercepter les appels systèmes liés au réseau nous allons utiliser l'appel système \texttt{ptrace} présenté en section \ref{subsection:ptrace}.
 
 \begin{figure}[H]
   \centering
@@ -48,11 +43,12 @@ d'un processus, mais plusieurs processus peuvent avoir un même numéro de
 \textit{file descriptor} pour des sockets de communications différentes puisque
 chacune à son propre espace mémoire. Pour pallier à ce problème on va utiliser
 en plus du numéro de socket, les adresses IP et les ports locaux et distants des
-deux entités qui souhaitent communiquer comme moyen d'identification. Pour gérer
-toutes ces modifications deux solutions ont été proposées lors d'un précédent
-stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation par traduction
-  d'adresse} et la \textit{full médiation}. Néanmoins, ces deux solutions n'ont
-pas encore été évaluée en pratique.
+deux entités qui souhaitent communiquer comme moyen d'identification.
+
+Afin de gérer toutes ces modifications deux solutions ont été proposées lors
+d'un précédent stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation
+  par traduction d'adresse} et la \textit{full médiation}. Néanmoins, ces deux
+solutions n'ont pas encore été évaluée en pratique.
 
  \begin{figure}[H]
    \centering

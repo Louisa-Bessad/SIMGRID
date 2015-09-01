@@ -28,10 +28,10 @@
 \usepackage{amssymb}
 % --------------------------------
 %Pour compiler sur Manjaro        
-%% \usepackage[utf8]{inputenc}
-%% \usepackage{algorithmicx}
-%% \usepackage{algpseudocode}
-\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+%% \usepackage[latin1]{inputenc}
 % --------------------------------
 %Pour les tableaux multi-colonnes
 \usepackage{multirow}
@@ -76,7 +76,7 @@
 
 %%%% Indiquer le type de document et sa version ci-dessous:
 
-\def\typeDoc{Pré-rapport}
+\def\typeDoc{Rapport final}
  
 %% - Rapport intermédaire
 %% - Rapport final
@@ -264,8 +264,10 @@ Martin \textsc{Quinson} % Supervisor's Name
 \input{src/2.Emulation.tex}
 \input{src/2.Emulation.1.Limitation.tex}
 \input{src/2.Emulation.2.Interception.tex}
+\input{src/2.Emulation.3.Ccl.tex}
 
 \newpage
+\input{src/3.TOOLS.tex}
 \input{src/3.TOOLS.1.Source.tex}
 \input{src/3.TOOLS.2.Binaire.tex}
 \input{src/3.TOOLS.3.AS.tex}
@@ -304,13 +306,16 @@ Martin \textsc{Quinson} % Supervisor's Name
 \input{src/7.Evaluation.3.Ccl.tex}
 
 \newpage
-\input{src/8.Conclusion.tex}
+\input{src/8.FutureWork.tex}
+
+\newpage
+\input{src/9.Conclusion.tex}
 
 \newpage
 
 % Bib
 \bibliographystyle{plainnat}
-\bibliography{src/9.Biblio} % The file containing the bibliography
+\bibliography{src/10.Biblio} % The file containing the bibliography
 \label{fin}
 
 \end{document}
