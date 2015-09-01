@@ -25,7 +25,7 @@ représenté sur la Figure \ref{Distem_core}, on alloue à chaque n\oe ud virtue
 un certain nombre de c\oe urs du processeur de la machine physique dont on
 pourra controller la fréquence individuellement.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[scale=0.70]{Pictures/png/Distem_repartion_coeurs_v1}
   \caption{Répartition des c\oe urs d'un processeur d'une machine hôte entre les différents n\oe uds virtuels qu'elle héberge et émulation de leur puissance en n'utilisant qu'une partie de leur puissance.}
@@ -82,7 +82,7 @@ Pnodes sur le réseau et c'est la couche VXLAN qui s'occupera d'envoyer au bon
 Vnode le paquet reçu sur le Pnode. Ces derniers étant très peu nombreux on est
 sûrs de ne pas surcharger les tables ARP.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   \includegraphics[scale=0.45]{Pictures/png/Distem_VXLAN}
   \caption{Abstraction des communications réseaux de Distem via VXLAN. Les paquets en gras sont ceux envoyés en présence de VXLAN et ceux en italiques sont ceux qui seraient envoyés sur un réseau n'utilisant pas VXLAN.}

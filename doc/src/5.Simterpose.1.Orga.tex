@@ -22,7 +22,7 @@ pannes, et le fait de pouvoir fonctionner sans avoir accès au fichier source de
 l'application sont également des conditions à satisfaire.
 
 Simterpose utilise la plateforme de simulation SimGrid, dont l'architecture
-est représentée (Figure \ref{SimGrid}), pour générer l'environnement virtuel
+est représentée Figure \ref{SimGrid}, pour générer l'environnement virtuel
 nécessaire à l'expérience. À sa création en 1999, SimGrid
 \citep{CASANOVA:SimGrid} était une plateforme fournissant des outils pour
 construire un simulateur afin d'étudier les algorithmes d'ordonnancement en
@@ -33,7 +33,7 @@ des environnements hétérogènes.
  
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.86]{Pictures/png/SimGrid}
+  \includegraphics{Pictures/png/SimGrid}
   \caption{Architecture de la plateforme SimGrid.}
   \label{SimGrid}
 \end{figure}
@@ -44,7 +44,7 @@ nécessaire. Puis, il les laisse
 s'exécuter sur la machinie hôte et va interroger SimGrid pour qu'il calcule la
 réponse de l'environnement virtuel aux actions de l'application (temps d'exécution, gestion de communications réseaux). La Figure \ref{Organisation_Simterpose} illustre ce fonctionnement.
 
-\begin{figure}[H]
+\begin{figure}
   \centering
   %\includesvg{Pictures/svg/Communications_Simterpose_interprocess_v2}
   \includegraphics{Pictures/png/Communications_Simterpose_interprocess_v2}
@@ -54,7 +54,7 @@ réponse de l'environnement virtuel aux actions de l'application (temps d'exécu
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.5]{Pictures/png/Simterpose_orga_code_v3}
+  \includegraphics[scale=0.5]{Pictures/png/Simterpose_orga_code_v4}
   \caption{Le fonctionnement de Simterpose.}
   \label{Organisation_Simterpose}
 \end{figure}

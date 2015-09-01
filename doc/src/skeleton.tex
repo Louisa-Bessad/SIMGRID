@@ -26,6 +26,7 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{listings}
 % --------------------------------
 %Pour compiler sur Manjaro        
 \usepackage[utf8]{inputenc}
@@ -39,6 +40,12 @@
 \setcounter{page}{1}
 \pagenumbering{Roman}
 %%\onehalfspacing
+
+\renewcommand{\lstlistingname}{Algorithme}
+\renewcommand{\lstlistlistingname}{Liste des algorithmes}
+%% \newcommand{\listlistingname}{List of Listings}
+%% \newlistof{listoflistings}{lol}{\listlistingname}
+%% \newlistentry{listing}{lol}{0} % added
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -202,7 +209,7 @@ Martin \textsc{Quinson} % Supervisor's Name
 %\fancyfoot{}
 %
 \fancyhead[L]{\textsc{Université Pierre et Marie Curie} \\ {\color{white} b} \\ \nomEtudA}
-\fancyhead[C]{\textbf{Pré-rapport}}%\\\titreProjetCourt}}
+\fancyhead[C]{\textbf{Rapport}}%\\\titreProjetCourt}}
 \fancyhead[R]{\textsc{LORIA} \\ {\color{white} b} \\ \nomEncad}
 
 \fancyfoot[L]{\includegraphics[width=3cm]{Pictures/png/UPMC_sorbonne.png}}
@@ -238,6 +245,9 @@ Martin \textsc{Quinson} % Supervisor's Name
 \newpage
 
 \listoftables
+\newpage
+
+\lstlistoflistings
 \newpage
 %% \mbox{}
 %% \newpage

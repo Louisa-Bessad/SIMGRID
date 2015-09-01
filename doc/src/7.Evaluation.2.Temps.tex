@@ -13,7 +13,7 @@ L'application qui a été créée pour effectuer nos expériences exécute diff�
 \subsubsection{Full mediation}
  Tout d'abord nous allons exécuter l'application qui effectue les appels temporels avec Simterpose en \textit{full mediation} sans \texttt{LD\_PRELOAD} et avec \texttt{LD\_PRELOAD}. Les résultats de l'expérience sont présentés Figure \ref{Temps_FM}. On constate que le temps d'exécution avec interception via \texttt{LD\_PRELOAD} est plus ou moins constant (environ 1,03 secondes), alors que celui sans interception varie énormément, entre 0,82 et 1,13 secondes. Cela est dû au fait que lorsqu'on appelle des fonctions temporelles sans interception via \texttt{LD\_PRELOAD} la bibliothèque \texttt{VDSO} est appelée pour gérer l'appel et accéde elle-même à la mémoire. Cet accès n'a pas un coût constant puisqu'il dépend de la charge du système qui varie en permanence même si on ne fait tourner que notre application et aucune autre en parallèle. Ainsi, le temps d'exécution peut varier comme c'est la cas ici alors qu'il est stable quand on utilise \texttt{LD\_PRELOAD} puisqu'on empèche ces accès. Néanmoins, en moyenne les deux expériences ont environ le même temps d'exécution, 1 seconde pour la première et 1,02 secondes pour la deuxième. On peut donc considérer que l'interception via \texttt{LD\_PRELOAD} a un surcoût négligeable lorsqu'on utilise Simterpose en \textit{full mediation}.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[scale=0.80]{mesures/graph/Temps_FM.png}
     \caption{Temps d'exécution d'une application temporelle en \textit{full mediation} avec interception via \texttt{LD\_PRELOAD} et sans interception}
@@ -23,10 +23,10 @@ L'application qui a été créée pour effectuer nos expériences exécute diff�
 \subsubsection{Mediation par traduction d'adresse}
 Nous allons maintenant voir s'il en est de même  lorsqu'on exécute l'application qui effectue les appels temporels avec Simterposeen \textit{médiation par traduction d'adresse} avec et sans intercpetion via \texttt{LD\_PRELOAD}. Les résultats cette expérience sont présentés Figure \ref{Temps_AT}. On constate ici aussi que le temps d'exécution avec interception via \texttt{LD\_PRELOAD} est plus ou moins constant (environ 1,02 seconde), alors que celui sans interception varie beaucoup, entre 0,86 et 1,12 secondes. Cela est dû comme précédement à l'utilisation de la bibliothèque \texttt{VDSO} en l'absence d'interception via \texttt{LD\_PRELOAD}. De plus, le temps d'exécution moyen des deux expériences est le même: 1,02 secondes. Dans ce cas, on peut dire que l'interceprtion via \texttt{LD\_PRELOAD} en \textit{médiation par traduction d'adresse} n'a aucun surcoût.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[scale=0.65]{mesures/graph/Temps_AT.jpg}
-    \caption{Temps d'exécution d'une application temporelle en \textit{full mediation} avec interception via \texttt{LD\_PRELOAD} et sans interception}
+    \caption{Temps d'exécution d'une application temporelle en \textit{médiation par traduction d'adresse} avec interception via \texttt{LD\_PRELOAD} et sans interception}
     \label{Temps_AT}
 \end{figure}
 
