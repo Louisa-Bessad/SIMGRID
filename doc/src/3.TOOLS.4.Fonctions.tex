@@ -7,7 +7,7 @@ l'application au plus haut niveau que sont les bibliothèques. Pour cela nous
 allons étudier deux approches basées sur l'éditeur de liens dynamiques de Linux
 qui permet d'insérer du code dans l'exécution d'un programme.
 
-\subsubsection{LD\_PRELOAD:}
+\subsubsection{LD\_PRELOAD}
 \label{paragraphe:LDPreload}
 %pas suid
 
@@ -54,7 +54,7 @@ compilation utilisant des fonctions à intercepter seront
 oubliées. Ainsi, l'interception au niveau des appels de fonctions ne
 permet pas une interception complète.
 
-\subsubsection{GOT Poisoning:}
+\subsubsection{GOT Poisoning}
 %% plus dur que nécessaire
 
 À la compilation, les adresses des appels de fonctions appartenant à des bibliothèques partagées ne sont pas connues. On associe alors un symbole à chaque appel d'une de ces fonctions. C'est lors de l'exécution du programme que l'éditeur de lien dynamique résoudra le symbole en trouvant l'adresse de la fonction à laquelle il correspond. Cette adresse sera ensuite stockée dans la ``Global Offset Table''\citep{ELF}, également appelée GOT. Ce tableau, stocké dans le segment de données d'un exécutable ELF, sauvegarde pour chaque symbole résolu l'adresse de la fonction correspondante. Ainsi, lors du premier appel à la fonction, l'éditeur de lien retrouve l'adresse du symbole et pour les appels suivants il parcourt la GOT au lieu de refaire le calcul.

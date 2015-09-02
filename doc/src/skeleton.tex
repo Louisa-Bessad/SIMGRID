@@ -36,13 +36,15 @@
 % --------------------------------
 %Pour les tableaux multi-colonnes
 \usepackage{multirow}
-
+\usepackage{tocloft}
 \setcounter{page}{1}
 \pagenumbering{Roman}
 %%\onehalfspacing
 
 \renewcommand{\lstlistingname}{Algorithme}
 \renewcommand{\lstlistlistingname}{Liste des algorithmes}
+
+\renewcommand{\cftdotsep}{\cftnodots}
 %% \newcommand{\listlistingname}{List of Listings}
 %% \newlistof{listoflistings}{lol}{\listlistingname}
 %% \newlistentry{listing}{lol}{0} % added
@@ -159,7 +161,7 @@
 
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
-\emph{Etudiant:}\\
+\emph{Etudiante:}\\
 Louisa \textsc{Bessad} % Your name
 \end{flushleft}
 \end{minipage}
@@ -209,7 +211,7 @@ Martin \textsc{Quinson} % Supervisor's Name
 %\fancyfoot{}
 %
 \fancyhead[L]{\textsc{Université Pierre et Marie Curie} \\ {\color{white} b} \\ \nomEtudA}
-\fancyhead[C]{\textbf{Rapport}}%\\\titreProjetCourt}}
+\fancyhead[C]{\textbf{Rapport final}}%\\\titreProjetCourt}}
 \fancyhead[R]{\textsc{LORIA} \\ {\color{white} b} \\ \nomEncad}
 
 \fancyfoot[L]{\includegraphics[width=3cm]{Pictures/png/UPMC_sorbonne.png}}
@@ -317,6 +319,8 @@ Martin \textsc{Quinson} % Supervisor's Name
 
 \newpage
 \input{src/8.FutureWork.tex}
+\input{src/8.FutureWork.1.Simterpose.tex}
+\input{src/8.FutureWork.2.Evaluation.tex}
 
 \newpage
 \input{src/9.Conclusion.tex}
