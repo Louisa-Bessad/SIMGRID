@@ -24,15 +24,15 @@ La gestion de cette transition va se faire au niveau des appels systèmes, car n
   \centering
   \begin{subfigure}{0.5\textwidth}
     \includegraphics[scale=0.8]{Pictures/png/Mediation_realite}
-    \caption{Communications réelles.}
+    \caption{Communications réelles}
   \label{COMM_REALITE}
   \end{subfigure}
   \begin{subfigure}{0.25\textwidth}
   \includegraphics[scale=0.5]{Pictures/png/Mediation_VM}
-  \caption{Communications vues \\ par les processus.}
+  \caption{Communications vues \\ par les processus}
   \label{COMM_VM}
   \end{subfigure}
-  \caption{Les communications réseau entre deux processus.}
+  \caption{Les communications réseau entre deux processus}
   \label{COMM}
 \end{figure}
 
@@ -46,11 +46,11 @@ en plus du numéro de socket, les adresses IP et les ports locaux et distants de
 deux entités qui souhaitent communiquer comme moyen d'identification.
 
 Afin de gérer toutes ces modifications deux solutions ont été proposées lors
-d'un précédent stage \citep{GUILLAUME:Interceptionsyscall}: la \textit{médiation
-  par traduction d'adresse} et la \textit{full médiation}. Néanmoins, ces deux
-solutions n'ont pas encore été évaluée en pratique.
+d'un précédent stage \citep{GUILLAUME:Interceptionsyscall}: l'\textit{address
+  translation} et la \textit{full mediation}. Néanmoins, ces deux solutions
+n'ont pas encore été évaluée en pratique.
  
-\paragraph{Traduction d'adresse.}
+\paragraph{Traduction d'adresse}
  Avec ce type de médiation, illustrée Figure \ref{ADDRESS_TRANSLATION}, on laisse le noyau gèrer les communications. Ainsi, en entrée et sortie d'appel système, Simterpose va juste s'occuper de la transition entre le réseau virtuel simulé
  par SimGrid et le réseau local, en utilisant les informations de communications
  contenues dans la socket. Pour cela, Simterpose gère un tableau de
@@ -64,7 +64,7 @@ solutions n'ont pas encore été évaluée en pratique.
  ports virtuels. La limite de cette approche est liée au nombre de
  ports disponibles sur l'hôte.
 
-\paragraph{Full médiation.} \label{paragraph:FULL_MEDIATION}
+\paragraph{Full mediation} \label{paragraph:FULL_MEDIATION}
 Dans ce cas, le noyau ne va plus gérer les communications car nous allons
 empêcher l'application de communiquer via des sockets et même d'établir des
 connexions avec une autre application. Puisqu'il n'y a aucune communication, on
@@ -82,14 +82,14 @@ du destinataire.
    \centering
    \begin{subfigure}{0.5\textwidth}
    \includegraphics[scale=0.5]{Pictures/png/Mediation_translation_v2}
-   \caption{Médiation par traduction d'adresse.}
+   \caption{\textit{Address translation}}
    \label{ADDRESS_TRANSLATION}
    \end{subfigure}
    \begin{subfigure}{0.4\textwidth}
      \includegraphics[scale=0.5]{Pictures/png/Mediation_full_v2}
-  \caption{Full meditation.}
+  \caption{\textit{Full mediation}}
   \label{FULL_MEDIATION}
    \end{subfigure}
-   \caption{Les différents types de médiation.}
+   \caption{Les différents types de médiation}
    \label{MEDIATION}
  \end{figure}

@@ -19,11 +19,11 @@ Pour gèrer la résolution de nom avec le DNS, trois solutions avaient été pro
         \multicolumn{1}{|c|}{{\it Problèmes}}                                                       & \begin{tabular}[c]{@{}l@{}}- Teste pour chaque\\  communication le port utilisé\\ - Redéfinition possible du\\ port utilisé par le protocole DSN\end{tabular} & \begin{tabular}[c]{@{}l@{}}- Charge de travail \\ sur l'utilisateur\\ (création du fichier)\end{tabular} & - Risque d'oubli de fonctions                                                          &  &  \\ \cline{1-4}
     \end{tabular}
   }
-  \caption{Solutions proposées pour gérer la résolution de noms via le protocole DSN dans Simterpose.}
+  \caption[Solutions proposées pour gérer la résolution de noms via le protocole DSN]{Solutions proposées pour gérer la résolution de noms via le protocole DSN dans Simterpose.}
   \label{table:DNS}
 \end{table}
 
 \subsubsection{Amélioration des fonctionnalités existantes de Simterpose}
-En section \ref{subsubsection:fonctionnement_reseau}, nous avons présentés deux types de médiation qui ont été implémentées pendant ce stage: la \textit{full mediation} et la \textit{médiation par traduction d'adresse}. Comme nous l'avons vu en section \ref{section:work}, lorsque Simterpose utilise la \textit{full mediation} il utilise \texttt{ptrace} pour accéder aux données à envoyer et/ou recevoir.
+En section \ref{subsubsection:fonctionnement_reseau}, nous avons présentés deux types de médiation qui ont été implémentées pendant ce stage: la \textit{full mediation} et l'\textit{address translation}. Comme nous l'avons vu en section \ref{section:work}, lorsque Simterpose utilise la \textit{full mediation} il utilise \texttt{ptrace} pour accéder aux données à envoyer et/ou recevoir.
 
 Nous avons envisagé une autre solution appelée ``accès direct'' qui serait peut-être moins coûteuse que l'exécution de cet appel système pour ce type de requête. Ce troisième type de médiation consisterait à ouvrir l'espace d'adressage des deux processus qui sont en train de communiquer via Simterpose, accessible depuis \texttt{/proc/PID/mem}. On pourrait ainsi lire et écrire directement dans la mémoire du processus concerné. Il existe pour cela des appels systèmes qui permettent à l'hypervisor d'optimiser les communications entre VM\footnote{\url{http://knem.gforge.inria.fr/}}, une VM représentant dans notre cas un processus essayant de communiquer avec un autre sur une autre VM. Néanmoins, il n'est pas garanti que l'utilisation de ces appels soit plus efficace que l'appel à \texttt{ptrace}.
