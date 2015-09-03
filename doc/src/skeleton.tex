@@ -27,6 +27,7 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{listings}
+\usepackage{appendix}
 % --------------------------------
 %Pour compiler sur Manjaro        
 \usepackage[utf8]{inputenc}
@@ -45,10 +46,6 @@
 \renewcommand{\lstlistlistingname}{Liste des algorithmes}
 
 \renewcommand{\cftdotsep}{\cftnodots}
-%% \newcommand{\listlistingname}{List of Listings}
-%% \newlistof{listoflistings}{lol}{\listlistingname}
-%% \newlistentry{listing}{lol}{0} % added
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Définitions à personnaliser 
@@ -141,11 +138,11 @@
 %----------------------------------------------------------------------------------------
 
 \textsc{\LARGE Université Pierre et MArie Curie}\\[0.44cm] % Name of your university/college
-\textsc{\Large Master informatiqe}\\[0.44cm] % Major heading such as course name
+\textsc{\Large Master informatique}\\[0.44cm] % Major heading such as course name
 \textsc{\large Systèmes et Applications Répartis}\\[1.44cm] % Minor heading such as course title
 
 \textsc{\LARGE Loria}\\[0.44cm] % Name of your university/college
-\textsc{\Large Equipe VERIDIS}\\[1.44cm] % Major heading such as course name
+\textsc{\Large Équipe VERIDIS}\\[1.44cm] % Major heading such as course name
 
 %----------------------------------------------------------------------------------------
 %	TITLE SECTION
@@ -161,7 +158,7 @@
 
 \begin{minipage}{0.4\textwidth}
 \begin{flushleft} \large
-\emph{Etudiante:}\\
+\emph{Étudiante:}\\
 Louisa \textsc{Bessad} % Your name
 \end{flushleft}
 \end{minipage}
@@ -325,7 +322,9 @@ Martin \textsc{Quinson} % Supervisor's Name
 \input{src/9.Conclusion.tex}
 
 \newpage
+\input{src/Annexe_A.tex}
 
+\newpage
 % Bib
 \bibliographystyle{plainnat}
 \bibliography{src/10.Biblio} % The file containing the bibliography

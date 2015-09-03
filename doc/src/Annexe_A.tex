@@ -1,0 +1,38 @@
+\begin{appendix}
+\chapter{Utilisation de Simterpose}
+
+Pour utiliser Simterpose il faut lui fournir deux fichiers, un fichier de plateforme et un de déploiement, qui seront utilisés par SimGrid.
+
+Le fichier de plateforme permet à SimGrid de mettre en place le réseau simulé. Dans ce fichier on définit plusieurs choses. Tout d'abord, on définit les hôtes présents sur le réseau. Pour chaque hôte, on spécifie un identifiant, une puissance de calcul et éventuellement une adresse IP(v4). Si on ne fournit aucune adresse IP à un n\oe ud, une adresse IP arbitraire lui sera alloué au début de la simulation. Ensuite, on définit toutes les routes du réseau. Pour cela, il faut fournir à chacune une bande passante, une latence, ainsi que les noeuds reliés.
+
+Le fichier de déploiement quand à lui permet de définir la répartition de l'application distribuée sur la plateforme. Pour chaque processus utilisé, on va définir le n\oe ud qui va l'héberger parmi ceux présent dans le fichier de plateforme. On fournit également le binaire de l'application à exécuter et si besoin les paramètres nécessaires pour lancer l'application. De plus, il faut fournir un temps que nous appelons ``temps de début'' qui est utilisé par SimGrid pour lancer l'application quand son temps simulé a atteint le ``temps de début''.
+\vspace{0.5cm}
+
+Pour lancer Simterpose il y a plusieurs commandes en fonction du type d'exécution désirée.
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  xleftmargin=\parindent,
+  language=sh,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{blue},
+  commentstyle=\itshape\color{green!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{violet},
+}
+\lstset{escapechar=@,style=customc, caption={}}
+\begin{lstlisting}
+#Pour une exécution simple (avec interception réseau uniquement)
+> sudo simterpose -s platform.xml deploiement.xml
+
+#Pour une exécution avec en plus l'interception du temps
+> sudo LD_PRELOAD=lib.so -s platform.xml deploiement.xml
+
+#Pour utiliser un débogueur
+> sudo simterpose ``gdb --args'' -s platform.xml deploiement.xml
+#ou
+> sudo simterpose valgrind -s platform.xml deploiement.xml
+\end{lstlisting}
+\end{appendix}
