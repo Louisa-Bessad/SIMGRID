@@ -1,13 +1,6 @@
-\section{Évaluation des fonctionnalités implémentées}
+\section{Évaluation expériementale}
 \label{section:evaluation}
 
-Dans la section précédente, nous avons présenté le travail réalisé au cours de ce stage. Maintenant, nous souhaitons évaluer les performances des fonctionnalités que nous avons implémentées. Pour cela, nous allons d'abord présenter l'architecture utilisée. La plateforme sur laquelle nous avons effectuée nos expériences possède les caractéristiques suivantes:
-\begin{itemize}
-\item Distribution: ubuntu 3.13.0-62
-\item Processeur: 4 c\oe urs multithread à 2.60 GHz
-\end{itemize}
-En ce qui concerne SimGrid et Simterpose, les commits utilisés pour les expériences sont respectivement f42adf1 (16 Août 2015) et 77f7d81 (19 Août 2015). 
+Dans la section précédente, nous avons présenté le travail réalisé au cours de ce stage. Maintenant, nous souhaitons évaluer les performances des fonctionnalités que nous avons implémentées. Pour cela, nous allons d'abord présenter l'architecture utilisée. La plateforme sur laquelle nous avons effectuée nos expériences possède les caractéristiques suivantes: distribution ubuntu 3.13.0-62, Processeur: 4 c\oe urs multithread à 2.60 GHz. En ce qui concerne SimGrid et Simterpose, les commits utilisés pour les expériences sont respectivement f42adf1 (16 Août 2015) et 77f7d81 (19 Août 2015). 
 
-Au niveau de la plateforme réseau simulée par SimGrid on a quates n\oe uds réliés les uns aux autres. Chacun a une puissance de $10^7$ {\color{red} XXXX}, une bande passante de $10^9$ {\color{red} XXXX} et une latence de $5.10^{-4}s$. Pour nos expériences on utilise seulement deux de ces n\oe uds, dont l'un joue le rôle de client et l'autre joue le serveur. 
-
-Maintenant que nous connaissons l'architecture utilisée, nous allons voir quelles expériences ont été faites pour chaque fonctionnalité et les résultats qu'elles ont apportés.
+Au niveau de la plateforme réseau simulée par SimGrid on a quatres n\oe uds réliés les uns aux autres. Chaque n\oe ud a une puissance de 10 MFlops, une bande passante de 10 Go/s et une latence de $5.10^{-4}$s. Pour nos expériences on utilise seulement deux de ces n\oe uds, dont l'un joue le rôle de client et l'autre joue le serveur. 

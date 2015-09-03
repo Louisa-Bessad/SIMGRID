@@ -1,17 +1,20 @@
 \subsection{Médiation des Appels Systèmes}
 %% pourquoi: read/write, comm reseau 
 
-En regardant la Figure \ref{AS_Communication} et les différents niveaux
-d'abstractions, le moyen le plus simple pour attraper les actions de
-l'application en gérant un minimum de choses semble être l'interception directe des appels systèmes. Ces derniers sont constitués de deux parties; l'entrée
-initialise l'appel via les registres de l'application qui contiennent les
-arguments de l'appel puis donne la main au noyau. La sortie inscrit la valeur de
-retour de l'appel système dans le registre de retour de l'application, les
-registres d'arguments contenant toujours les valeurs reçues à l'entrée de
-l'appel système, et rend la main à l'application. Nous devons donc bloquer
-l'application à chaque interception d'une deux parties de l'appel système. Ainsi, on pourra récupérer et modifier les informations permettant de maintenir
-l'environnement simulé avant de rendre la main à l'application, pour pouvoir entrer ou
-sortir de l'appel système.
+Comme le montre la Figure \ref{AS_Communication}, les appels systèmes sont les
+seules communications qui ne passent pas par un niveau d'abstraction. Ces
+derniers communiquent directement avec le noyau. Le moyen le plus simple pour
+intercepter les actions de l'application en gérant un minimum de choses semble
+donc être l'interception des appels systèmes. Ces derniers sont constitués de
+deux parties; l'entrée initialise l'appel via les registres de l'application qui
+contiennent les arguments de l'appel puis donne la main au noyau. La sortie
+inscrit la valeur de retour de l'appel système dans le registre de retour de
+l'application, les registres d'arguments contenant toujours les valeurs reçues à
+l'entrée de l'appel système, et rend la main à l'application. Nous devons donc
+bloquer l'application à chaque interception d'une deux parties de l'appel
+système. Ainsi, on pourra récupérer et modifier les informations permettant de
+maintenir l'environnement simulé avant de rendre la main à l'application, pour
+pouvoir entrer ou sortir de l'appel système.
 
  Dans cette section, nous allons présenter les outils existants qui permettent
  de faire cela.
@@ -19,7 +22,7 @@ sortir de l'appel système.
  \subsubsection{L'appel système ptrace}
  \label{subsection:ptrace}
                
-L'appel système \texttt{ptrace}\citep{AS:Interception, MARION:Interception},
+L'appel système \texttt{ptrace} \citep{AS:Interception, MARION:Interception},
 dont la Figure \ref{PTRACE_FONCTIONNEMENT} illustre le fonctionnement, permet de
 tracer tous les événement désirés d'un processus. Il peut également lire et
 écrire directement dans l'espace d'adressage de ce dernier, à n'importe quel
@@ -45,16 +48,16 @@ fois: à l'entrée et à la sortie de chaque appel système.
 
 Quand un processus de l'application voudra faire un appel système, il sera
 bloqué avant de l'exécuter et le processus espion qui lui est associé sera
-notifié via un appel système \texttt{ptrace}. Ce dernier effectue alors les
-modifications nécessaires dans les registres du processus espionné pour
-conserver la virtualisation de l'environnement. Ensuite, il rendra la main au
-processus espionné pour que l'appel système puisse avoir lieu. Le même
-fonctionnement est utilisé pour le retour de l'appel système. Le processus
-espion change simplement le temps d'exécution de l'appel système et l'horloge de
-l'application en utilisant ceux calculés par le simulateur. Quand un processus
-espion a fini un suivi, il peut envoyer deux types de requêtes au processus
-espionné: \texttt{PTRACE\_KILL} qui termine le processus espionné
-ou \texttt{PTRACE\_DETACH} qui le laisse continuer son exécution.
+notifié. Ce dernier effectue alors les modifications nécessaires dans les
+registres du processus espionné pour conserver la virtualisation de
+l'environnement. Ensuite, il rendra la main au processus espionné pour que
+l'appel système puisse avoir lieu. Le même fonctionnement est utilisé pour le
+retour de l'appel système. Le processus espion change simplement le temps
+d'exécution de l'appel système et l'horloge de l'application en utilisant ceux
+calculés par le simulateur. Quand un processus espion a fini un suivi, il peut
+envoyer deux types de requêtes au processus espionné: \texttt{PTRACE\_KILL} qui
+termine le processus espionné ou \texttt{PTRACE\_DETACH} qui le laisse continuer
+son exécution.
 
 \begin{figure}
 \centering
@@ -70,12 +73,12 @@ les processus utilisant du multithreading, et ne fait pas partie de la norme
 POSIX. Ainsi il peut ne pas être disponible sur certaines architectures et son
 exécution peut varier d'une machine à une autre.
 
-Nous tenons à faire remarquer que \texttt{strace}\footnote{\url{http://linux.die.net/man/1/strace}} suit la même approche que \texttt{ptrace} sans avoir ses désavantages, mais qu'il a été écarté lors d'un précédent stage à cause de sa licence trop restrisctive.
+Nous tenons à faire remarquer que l'utilitaire UNIX \texttt{strace}\footnote{\url{http://linux.die.net/man/1/strace}} suit la même approche que \texttt{ptrace} sans avoir ses désavantages, mais qu'il a été écarté car il ne fait qu'afficher les appels systèmes réalisés par une application.
 
 %% Non module noyau
 \subsubsection{Uprobes}
 
-Uprobes\citep{AS:Interception, MARION:Interception}, pour \textit{user-space
+Uprobes \citep{AS:Interception, MARION:Interception}, pour \textit{user-space
   probes}, est une API noyau permettant d'insérer dynamiquement des points
 d'arrêts à n'importe quel endroit dans le code d'une application et à n'importe
 quel moment de son exécution. Nous pouvons donc l'utiliser avec les appels
@@ -128,16 +131,13 @@ utilise. De plus, un handler peut également ajouter ou enlever des points
 d'arrêts.
 
 Les deux avantages de cette solution sont qu'elle est rapide et qu'elle a accès
-à toutes les ressources sans aucune restriction. Mais ce dernier point
-représente aussi son plus gros défaut de par sa dangerosité. De plus, dans notre
-cas il ne semble pas judicieux de faire de la programmation noyau via un module
-dont l'utilisateur devra également gérer le bon chargement.
+à toutes les ressources sans aucune restriction.
 
 \subsubsection{Seccomp/BPF}
 %% Read only
 \label{paragraph:seccomp/bpf}
 
-\texttt{seccomp} \citep{seccompbpf} est un appel système qui permet d'isoler un processus
+\texttt{seccomp}\footnote{Seccomp man \url{http://man7.org/linux/man-pages/man2/seccomp.2.html}} est un appel système qui permet d'isoler un processus
 en lui donnant le droit de n'appeler et de n'exécuter qu'un certain nombre d'appels
 systèmes: \texttt{read}, \texttt{write}, \texttt{exit} et \texttt{sigreturn}. Si
 le processus fait un autre appel système, il sera arrêté avec un signal
@@ -177,7 +177,4 @@ de médiation avec cet outil sans faire appel à \texttt{ptrace}. Néanmoins,
 l'utilisation de seccomp/BPF avec \texttt{ptrace} permet de réduire
 signifiquativement le nombre d'événements sur lequel attendra le processus
 espion.
-\vspace{0.5cm}
-
-Malgré ses défauts, \texttt{ptrace} semble être le meilleur outil pour intercepter des appels systèmes.
 

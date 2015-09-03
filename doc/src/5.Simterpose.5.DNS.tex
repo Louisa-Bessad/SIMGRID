@@ -25,8 +25,8 @@ surcharge de travail pour l'utilisateur et nous souhaitons avoir un
 émulateur qui soit simple d'utilisation.
 
 La dernière solution envisageable est de faire de l'interception d'appel de
-fonctions. Dans cas, on créé une bibliothèque partagée qui réécrit les foncitons
-liées à la résolution de nom que l'on inclut dans la variable d'environnemnt
+fonctions. Dans ce cas, on créé une bibliothèque partagée qui réécrit les fonctions
+liées à la résolution de nom que l'on inclut dans la variable d'environnement
 \texttt{LD\_PRELOAD}. Mais on a toujours le même problème qui est de n'oublier
 aucune fonction pour maintenir notre environnement virtuel. Pour l'instant,
 c'est la solution qui a été choisie. N'ayant pas encore été mise en place, il

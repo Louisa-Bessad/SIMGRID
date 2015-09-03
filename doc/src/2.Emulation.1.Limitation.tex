@@ -1,4 +1,4 @@
-\subsection{Emulation par limitation}
+\subsection{Émulation par limitation}
 \label{section:limitation}
 %% \begin{itemize}
 %% \item principe: limiter l'accès aux ressources par exemple (cgroup, netstat, cpuburner), temps d'un SEB (bench avec netlink, limiter (cap))
@@ -16,18 +16,21 @@ pourront pas passer la couche d'émulation pour accéder aux ressources localis�
 sur la machine hôte. Les requêtes des applications seront arrêtées par
 l'émulateur. C'est lui qui s'occupera de récupérer les ressources demandées par
 les applications. Il existe différents outils permettant de mettre en place
-cette virtualisation, on trouve notamment \textbf{cgroups} \citep{cgroups} et
-\textbf{cpuburner} \citep{canon2006wrekavoc, buchert2011methods} pour le système
-et \textbf{iptables} \citep{netfilter_iptables, iptables_man} pour le
-réseau. L'émulation par limitation a l'avantage d'être simple à mettre en \oe
-uvre puisque l'on se base sur la machine hôte. Néanmoins, elle est assez
-contraignante du fait qu'on ne puisse pas émuler des architectures plus
-performantes que l'hôte.
+cette virtualisation, on trouve notamment
+\textbf{cgroups}\footnote{\url{https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt}}
+et \textbf{cpuburner} \citep{canon2006wrekavoc, buchert2011methods} pour le
+système\footnote{\textbf{cgroups} contrôle que l'application ne reçoive pas plus
+  de ressources que prévues, alors que \textbf{cpuburner} lance un programme
+  glouton qui monopolise des ressources afin que l'application ne puisse
+  utiliser que ce qu'on lui laisse.} et \textbf{iptables}\footnote{The netfilter.org project \url{http://www.netfilter.org/} \\ Man iptables \url{http://ipset.netfilter.org/iptables.man.html}} pour le réseau. L'émulation par
+limitation a l'avantage d'être simple à mettre en \oe uvre puisque l'on se base
+sur la machine hôte. Néanmoins, elle est assez contraignante du fait qu'on ne
+puisse pas émuler des architectures plus performantes que l'hôte.
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}{0.3\textwidth}
-    \includegraphics[scale=0.38]{Pictures/png/Virtualisation_limitation}
+  \begin{subfigure}{0.4\textwidth}
+    \includegraphics[scale=0.39]{Pictures/png/Virtualisation_limitation}
     \caption{Virtualisation par limitation}
     \label{Virtu_limitation}
   \end{subfigure}

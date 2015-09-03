@@ -1,9 +1,9 @@
-\subsection{Emulation par interception}
+\subsection{Émulation par interception}
 \label{section:interception}
 %% principe: interception des actions et médiation (pas juste interception et rejeu). Intercepter des symboles pour en changer l'effet
 
 Dans le cas de l'émulation par interception, illustrée
-Figure \ref{Virtu_interception} , pour mettre en place un environnement distribué
+Figure \ref{Virtu_interception}, pour mettre en place un environnement distribué
 émulé sur lequel les applications penseront s'exécuter, deux outils vont être
 utilisés; un simulateur pour virtualiser l'environnement d'exécution, et un
 émulateur qui va intercepter toutes les communications de l'application avec l'hôte
@@ -20,14 +20,14 @@ et qui les transmettra ensuite au simulateur.
  d'autres applications sur le réseau. Quand l'émulateur intercepte une
  communication venant d'un des processus d'une application, il modifie les
  caractéristiques de la communication pour qu'elle puisse s'exécuter sur la
- machine hôte. Il effectue l'opération inverse lorsque cette dernière envoie une réponse à
- l'application. En parallèle, l'émulateur demande au simulateur de calculer le
- temps d'exécution dans l'environnement virtuel de l'action
- demandée par l'application. L'émulateur renvoie ce temps à l'application en plus
- du résultat du calcul demandé pour mettre à jour son horloge. Ainsi, les
- calculs sont réellement exécutés sur la machine, les communications réellement
- émises sur le réseau géré par le simulateur et c'est le temps de réponse qu'il
- fourni qui va influencer l'horloge de l'application. Finalement, les
- applications ne communiquent plus directement entre elles.
+ machine hôte. Il effectue l'opération inverse lorsque cette dernière envoie une
+ réponse à l'application. En parallèle, l'émulateur demande au simulateur de
+ calculer le temps d'exécution dans l'environnement virtuel de l'action demandée
+ par l'application. L'émulateur renvoie ce temps à l'application en plus du
+ résultat du calcul demandé pour mettre à jour son horloge. Ainsi, les calculs
+ sont réellement exécutés sur la machine, les communications réellement émises
+ sur le réseau géré par le simulateur et c'est le temps de réponse qu'il fourni
+ qui va influencer l'horloge de l'application. Finalement, les applications ne
+ communiquent plus directement entre elles.
 
 \vspace{0.5cm}

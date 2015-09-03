@@ -5,30 +5,30 @@ Dans le domaine de la cyber-sécurité, le test de solutions de défenses propos
 face aux différentes menaces n'est pas simple et se développe lentement. En
 effet, de nombreuses ressources sont nécessaires et il ne semble pas judicieux
 d'effectuer les tests en environnement réel. De plus, les innovations qui
-fonctionnent parfaitement dans des environnements contrôlés et prédictibles
-sont souvent moins efficaces et fiables dans la réalité de par la taille du
-réseau et des ressources qui constituent son environnement.  C'est pour cela que
-l'USC\footnote{University Southern California} et l'UC
-Berkeley\footnote{Université de Californie à Berkeley} ont lancé le projet DETER
-\citep{DETER_Project, DETER_benzel2011science, DETER_mirkovic2010deter}. À sa
-création en 2003, DETER était un projet de recherche avancée visant à
-développer des méthodes expérimentales pour les innovations en matière de
-cyber-sécurité (contrer les cyber-attaques, trouver les failles réseaux
-...). Puis en 2004, le besoin de tester ces méthodes se faisant de plus en plus
-sentir, le développement de DeterLab\footnote{DeterLab: cyber DEfense Technology
-  Experimental Research Laboratory} a été lancé. Cette plateforme d'émulation
-par interception libre et partagée fournit un environnement de test large
-échelle et réaliste. Elle permet également d'automatiser et de reproduire des
-expériences pouvant être de différentes natures. En effet, DeterLab peut
-\textit{i)} observer et analyser le comportement de cyber-attaques\footnote{
-  Attaques DDos et botnets, vers et codes malicieux, protocoles de stockage
-  anti-intrusion (intrusion-tolerant), ainsi que le chiffrement et la détection
-  de \textit{pattern}.} et de technologies de cyber-défense, \textit{ii)} tester et
-mesurer l'efficacité des solutions de défenses proposées pour contrer les
-menaces. Les utilisateurs accèdent aux machines dont ils ont besoins pour leurs
-expériences, demandent une certaine configuration du réseau, du système et des
-applications présentes sur les machines. Pour fonctionner, ce laboratoire virtuel a
-développé 7 outils complémentaires. Seuls 4 outils nous intéressent dans le cadre de notre projet\footnote{Les 3 autres sont le simulateur de comportement humain DASH, ``Multy-party Experiments'' pour avoir une vision partielle du monde lors d'une expérience et ``Risky Experiment Management Capability'' pour gérer les échanges d'expériences avec le réseau extérieur.}.
+fonctionnent parfaitement dans des environnements contrôlés et prédictibles sont
+souvent moins efficaces et fiables dans la réalité de par la taille du réseau et
+des ressources qui constituent son environnement.  C'est pour cela que
+l'Université de Californie du Sud et l'Université de Californie à Berkeley ont
+lancé le projet DETER\footnote{\url{http://deter-project.org/}} \citep{DETER_benzel2011science,
+  DETER_mirkovic2010deter}. À sa création en 2003, DETER était un projet de
+recherche avancée visant à développer des méthodes expérimentales pour les
+innovations en matière de cyber-sécurité (contrer les cyber-attaques, trouver
+les failles réseaux ...). Puis en 2004, le besoin de tester ces méthodes se
+faisant de plus en plus sentir, le développement de DeterLab, pour cyber DEfense
+Technology Experimental Research Laboratory, a été lancé. Cette plateforme
+d'émulation par interception libre et partagée fournit un environnement de test
+large échelle et réaliste. Elle permet également d'automatiser et de reproduire
+des expériences pouvant être de différentes natures. En effet, DeterLab peut
+observer etanalyser le comportement de cyber-attaques\footnote{ Attaques DDos et
+  botnets, vers et codes malicieux, protocoles de stockage anti-intrusion
+  (intrusion-tolerant), ainsi que le chiffrement et la détection de
+  \textit{pattern}.} et de technologies de cyber-défense. De plus, il peut
+tester et mesurer l'efficacité des solutions de défenses proposées pour contrer
+les menaces. Les utilisateurs accèdent aux machines dont ils ont besoins pour
+leurs expériences, demandent une certaine configuration du réseau, du système et
+des applications présentes sur les machines. Pour fonctionner, ce laboratoire
+virtuel a développé 7 outils complémentaires. Seuls 4 outils nous intéressent
+dans le cadre de notre projet.
 
 Le premier, qui constitue le c\oe ur logiciel et hardware de DeterLab, se base
 sur Emulab \citep{EMULAB_INIT}. DeterLab a étendu ce dernier pour permettre de
@@ -64,7 +64,7 @@ le fait DETER. Il se peut qu'une expérience exécutée sur une de ces plateform
 aie besoin de plus de machines que la plateforme ne peut en fournir, que ce soit
 en terme de nombre, de puissance ou d'hétérogénéité des machines. Pour pallier
 ce problème, le projet DETER a créé la
-``Federation''\citep{DETER_faber2007deter}. Elle permet de déployer une
+``Federation'' \citep{DETER_faber2007deter}. Elle permet de déployer une
 expérience sur plusieurs plateforme de tests différentes et d'avoir un plus
 grand facteur de passage à l'échelle. La Figure \ref{Federation} montre
 l'exécution d'une expérience dont les 3 n\oe uds sont répartis sur différentes

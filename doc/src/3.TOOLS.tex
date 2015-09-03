@@ -3,10 +3,11 @@
 
 Afin d'intercepter les actions d'une application il faut d'abord choisir à quel
 niveau se placer.  En effet, une application peut communiquer avec le noyau via
-différentes abstractions, Figure \ref{AS_Communication}. Elle peut soit utiliser
-les fonctions d'interaction directe avec le noyau que sont les appels systèmes,
-soit utiliser les différentes abstractions fournies par le système
-d'exploitation: bibliothèques (fonctions de la \texttt{libc} par exemple) ou les
+différentes abstractions, comme le montre la Figure \ref{AS_Communication}. Elle
+peut soit utiliser les fonctions d'interaction directe avec le noyau que sont
+les appels systèmes, soit utiliser les différentes abstractions fournies par le
+système d'exploitation: les bibliothèques (fonctions de la \texttt{libc},
+bibliothèques de haut niveau telle que \texttt{gtk} par exemples) ou les
 fonctions POSIX dans le cas d'un système UNIX.
 
 \begin{figure}[H]
@@ -18,6 +19,6 @@ fonctions POSIX dans le cas d'un système UNIX.
 
 Nous allons donc voir comment on peut intercepter et modifier des actions au
 niveau de l'application (fichier source puis binaire), des appels système et
-des appels de fonctions. Par la suite nous appelerons médiation l'ensemble des
+des appels de fonctions. Par la suite nous appellerons médiation l'ensemble des
 modifications effectuées par l'émulateur sur les actions interceptées.
 

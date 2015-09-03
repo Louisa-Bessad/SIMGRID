@@ -9,14 +9,13 @@ gérer le temps: les appels de fonctions liées au temps et les actions faites p
 l'application qui prennent du temps lors de leur exécution.
 
 Dans le premier cas, Simterpose va intercepter les appels de fonctions
-temporelles et les modifier pour renvoyer l'heure virtuelle. Ces dernières étant
+temporelles et les modifier pour renvoyer l'horloge virtuelle. Ces dernières étant
 assez nombreuses, il est moins coûteux, en terme charge de travail pour
 le programmeur, d'intercepter via
 \texttt{ptrace} les appels sytèmes temporels (\texttt{time},
 \texttt{clock\_gettime}, \texttt{gettimeofday}).
 
-Néanmoins, il a été montré dans un précédent stage
-\citep{CHLOE:Emulationapplicationdistribuees} que \texttt{ptrace} est inefficace
+Néanmoins, il a été montré dans un précédent stage \citep{CHLOE:Emulationapplicationdistribuees} que \texttt{ptrace} est inefficace
 voire inutile en ce qui concerne l'interception des appels systèmes temporels
 qu'une application souhaiterait exécuter car le noyau ne les exécute pas. Cela
 est dû à l'existence de la bibliothèque \textit{Virtual Dynamic Shared Object}
@@ -28,7 +27,7 @@ préchargement de bibliothèque. On va créer une bibliothèque qui
 surcharge les appels de fonctions liées au temps et la placer dans la
 variable d'environnement \texttt{LD\_PRELOAD}. Une fois l'interception
 temporelle effectuée, Simterpose interroge SimGrid pour obtenir
-l'heure virtuelle et la renvoie à l'application.
+l'horloge virtuelle et la renvoie à l'application.
 
 Dans le second cas, lors d'une action interceptée (calcul, communications
 réseau), Simterpose doit gérer l'horloge de l'application avant de lui renvoyer

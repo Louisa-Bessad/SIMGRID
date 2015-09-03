@@ -2,9 +2,8 @@
 %%Valgrind (perf pourrie)
 \label{subsubsection:valgrind}
 
-Pour agir sur le binaire d'une application, c'est l'outil d'instrumentation
-d'analyse dynamique Valgrind \citep{Valgrind, Valgrindweb} que nous allons
-étudier. D'autres outils suivent la même approche générale, tels que DynInst, un outil pour la modification à la volée de binaire utilisé notamment en HPC \citep{Dyn}.
+Pour agir sur le binaire d'une application, il existe différents outils. Nous
+allons utiliser l'outil d'instrumentation d'analyse dynamique Valgrind\footnote{\url{http://valgrind.org/}} \citep{Valgrind} comme exemple.
 
 À l'origine, Valgrind était utilisé pour le débogage mémoire, puis il a évolué
 pour devenir l'instrument de base à la création d'outils d'analyse dynamique de
@@ -46,5 +45,5 @@ nécessaire aux outils de Valgrind pour modifier ou rajouter du code à
 l'existant. Cela pourrait être acceptable, si Valgrind faisait de la traduction
 dynamique lors de la seconde phase de sa compilation, nous permettant ainsi
 d'avoir du code exécutable sur un autre type de processeur que celui de l'hôte,
-mais ce n'est pas le cas. Néanmoins, même si on résout le problème de
+mais ce n'est pas le cas. De plus, même si on résout le problème de
 performance, la mise en \oe uvre de cette approche restera difficile.

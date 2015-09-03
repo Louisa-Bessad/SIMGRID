@@ -2,7 +2,7 @@
 \label{subsection:cwrap}
 %% pourquoi (tester samba), comment (LD\_PRELOAD comm, suid)
 
-cwrap\citep{cwrap, cwrap_bis} a pour but de tester des applications réseaux
+cwrap\footnote{CWRAP Website \url{https://cwrap.org/} \\ An article about cwrap and how it works \url{https://lwn.net/Articles/594863/}} a pour but de tester des applications réseaux
 s'exécutant sur des machines UNIX ayant un accès réseau limité et sans droits
 administrateur. Ce projet libre a débuté en 2005 avec le test du framework
 ``smbtorture'' de Samba\footnote{\url{https://www.samba.org/}
@@ -11,14 +11,14 @@ atteindre son objectif, cwrap fait de l'émulation par interception basée sur l
 préchargement de quatre bibliothèques via \texttt{LD\_PRELOAD}, comme nous
 l'avons vu en section \ref{paragraphe:LDPreload}.
 
-La première, \texttt{socket\_wrapper} \citep{cwrap}, gère les communications
+La première, \texttt{socket\_wrapper}, gère les communications
 réseaux. Elle modifie toutes les fonctions liées aux sockets afin que toutes les
 communications soient basées sur des sockets UNIX et que le routage soit fait
 sur le réseau local émulé. Cela permet de pouvoir lancer plusieurs instances de
 serveur sur la même machine hôte. On peut également utiliser les ports
 privilégiés (en dessous de 1024) sans avoir les droits administrateur dans le
 réseau local émulé pour communiquer. Cette bibliothèque permet aussi de faire
-des captures réseau. La seconde, \texttt{nss\_wrapper} \citep{cwrap}, est
+des captures réseau. La seconde, \texttt{nss\_wrapper}, est
 utilisée dans le cas d'applications dont les démons doivent pouvoir gérer des
 utilisateurs. Pour cela, elle va modifier le contenu des variables
 d'environnement spécifiant les fichiers \texttt{passwd} et \texttt{group} qui
@@ -27,17 +27,17 @@ variables contiendraient les fichiers \texttt{passwd} et \texttt{group} du
 système mais dans ce cas le démon ne pourrait pas les
 modifier. \texttt{nss\_wrapper} permet également de fournir un fichier
 \texttt{host} utilisé pour la résolution de noms lors de communications entre
-sockets. La troisième bibliothèque, appelée \texttt{uid\_wrapper} \citep{cwrap},
-permet de simuler des droits utilisateurs. Autrement dit, elle fait croire aux
-applications qu'elles s'exécutent avec des droits qui ne sont pas les leurs, par
-exemple une exécution avec des droits administrateur. Pour cela, on intercepte
-les appels de type \texttt{setuid} et \texttt{getuid} et on réécrit le mapping
-fait entre l'identifiant de l'appelant et celui passé en paramètre pour le
-remplacer par un identifiant possédant les droits désirés. La dernière
-librairie, \texttt{resolv\_wrapper} \citep{cwrap}, gère les requêtes DNS. Elle
-intercepte ces requêtes et soit les redirige vers un serveur DNS de notre choix
-spécifié dans \texttt{resolv.conf}, soit utilise un fichier de résolution de
-noms que l'on a fourni à l'application.
+sockets. La troisième bibliothèque, appelée \texttt{uid\_wrapper},
+permet de simuler des droits utilisateurs. Autrement dit, lorsque cette
+bibliothèque est utilisée les applications qui s'exécutent pensent avoir des
+droit qu'elles n'ont pas en réalité. Pour cela, on intercepte les appels de type
+\texttt{setuid} et \texttt{getuid} et on réécrit le mapping fait entre
+l'identifiant de l'appelant et celui passé en paramètre pour le remplacer par un
+identifiant possédant les droits désirés. La dernière librairie,
+\texttt{resolv\_wrapper}, gère les requêtes DNS. Elle intercepte
+ces requêtes et soit les redirige vers un serveur DNS de notre choix spécifié
+dans \texttt{resolv.conf}, soit utilise un fichier de résolution de noms que
+l'on a fourni à l'application.
 
 Ainsi, on a un système permettant de tester des applications utilisant des
 réseaux complexes. Néanmoins, on utilise uniquement \texttt{LD\_PRELOAD} pour

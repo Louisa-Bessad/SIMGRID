@@ -1,18 +1,17 @@
-Dans cette section nous avons analysé les performances des fonctionnalités implémentées durant mon stage. Cela nous a permis de constater que malgré l'existence d'un surcoût au niveau du temps d'exécution, il est parfaitement possible de mettre en place une virtualisation légère utilisant le réseau de communications et la gestion du temps que nous avons mis en place dans Simterpose. Le tableau suivant résume les différents \textit{overhead} de Simterpose afin d'avoir une vision plus globale.
+Dans cette section nous avons analysé les performances des fonctionnalités implémentées durant ce stage. Cela nous a permis de constater que malgré l'existence d'un sur-coût au niveau du temps d'exécution, il est parfaitement possible de mettre en place une virtualisation légère utilisant le réseau de communications et la gestion du temps que nous avons mis en place dans Simterpose. Le tableau suivant résume les différents \textit{overhead} de Simterpose.
 
-% Please add the following required packages to your document preamble:
-% \usepackage{multirow}
 \begin{table}[H]
 \centering
-\begin{tabular}{c|c|c|c|ll}
-\cline{2-4}
-                              & \multicolumn{2}{c|}{\begin{tabular}[c]{@{}c@{}}Réseau de communications\end{tabular}}                               & \multirow{2}{*}{Temps} &  &  \\ \cline{2-3}
-                              & \begin{tabular}[c]{@{}c@{}}Grosse données\end{tabular} & \begin{tabular}[c]{@{}c@{}}Petites données\end{tabular} &                        &  &  \\ \cline{1-4}
-\multicolumn{1}{|c|}{Minimal} & 0.9s                                                      & 64s                                                         & 0s                      &  &  \\ \cline{1-4}
-\multicolumn{1}{|c|}{Maximal} & 1.18s                                                     & 74.5s                                                       & 0.23s                   &  &  \\ \cline{1-4}
-\multicolumn{1}{|c|}{Moyen}   & 1.1s                                                      & 70.1s                                                       & 0.02s                   &  &  \\ \cline{1-4}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{2-6}
+                              & \multicolumn{2}{c|}{Réseau de communciations} & \multicolumn{2}{c|}{Débit}        & \multirow{2}{*}{Temps} \\ \cline{2-5}
+                              & Grosses données       & Petites données       & Grosses données & Petites données &                        \\ \hline
+\multicolumn{1}{|c|}{Minimal} & 0.9s                  & 64s                   & 1.1Mo/s         & 2o/s            & 0s                     \\ \hline
+\multicolumn{1}{|c|}{Maximal} & 1.18s                 & 74.5s                 & 850ko/s         & 1.7o/s          & 0.23s                  \\ \hline
+\multicolumn{1}{|c|}{Moyen}   & 1.1s                  & 70.1s                 & 909ko/s         & 1.8o/s          & 0.02s                  \\ \hline
 \end{tabular}
-\caption{\textit{Overhead} du temps d'exécution d'applications avec Simterpose}
+}
+\caption{\textit{Overhead} du temps d'exécution d'applications avec Simterpose et débit des échanges}
 \label{global_overhead}
 \end{table}
-

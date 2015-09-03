@@ -10,23 +10,21 @@ ressources n'est pas localisée sur la machine où l'application s'exécute, mai
 sur plusieurs machines distinctes. Ces dernières communiquent entre elles via le
 réseau pour s'échanger les données nécessaires à l'exécution de
 l'application. Les applications distribuées ont de nombreux avantages: elles
-permettent notamment d'augmenter la disponibilités des données en se les
-échangeant, comme les applications Torrent (BitTorrent, $µ$Torrent...). Grâce au
+permettent notamment d'augmenter la disponibilité des données en se les
+échangeant, comme les applications Torrent (BitTorrent ...). Grâce au
 projet BOINC\footnote{\url{https://boinc.berkeley.edu/}} par exemple, on peut
 partager la puissance de calcul inutilisée de sa machine. On peut également
 penser aux applications de stockage de données
 LAFS\footnote{\url{https://tahoe-lafs.org/trac/tahoe-lafs}} et
 CEPH\footnote{\url{http://ceph.com/}}. La première apporte un stockage robuste
 qui préserve les données même si un site est physiquement détruit. La seconde
-souhaite fournir performance, fiabilité et scalabilité. Depuis une dizaine
-d'années, la popularité de ces applications distribuées ne cesse de
+souhaite fournir performance, fiabilité et scalabilité. Depuis longtemps, la popularité de ces applications distribuées ne cesse de
 croître. Elles deviennent de plus en plus complexes avec des contraintes et des
 exigences de plus en plus fortes, en particulier au niveau des performances et
 de l'hétérogénéité des plateformes et des ressources utilisées. Il est donc de
 plus en plus difficile de créer de telles applications (absence d'horloge
 commune et mémoire centrale, deadlock, race condition, famine) mais aussi de les
-tester.  En effet, malgré l'évolution des applications distribuées, les
-protocoles d'évaluation de leurs performances n'ont que peu évolués.
+tester. En effet, l'évaluation d'applications distribuées a évoluée mais cela représente un effort permanent.
 \newline
 
 Actuellement, il existe trois façons principales de tester le comportement
@@ -38,7 +36,7 @@ machines et d'étudier son comportement en conditions réelles. Cela permet de l
 tester sur un grand nombre d'environnements. L'outil créé et développé en partie
 en France pour cela est \textbf{Grid'5000}\footnote{Infrastructure de 8000 c\oe
   urs répartis dans la France entière créée en
-  2005. \\ \url{https://www.grid5000.fr/mediawiki/index.php/Grid5000:Home}}\citep{GRID5000},
+  2005. \\ \url{https://www.grid5000.fr/mediawiki/index.php/Grid5000:Home}} \citep{GRID5000},
 un autre outil développé à l'échelle mondiale est
 \textbf{PlanetLab} \footnote{Créée en 2002, cette infrastructure de test compte
   aujourd'hui 1340 c\oe urs. \\ \url{http://www.planet-lab.org}}. Néanmoins,
@@ -49,7 +47,7 @@ disponibles. Enfin, du fait du partage des différentes plateformes entre
 plusieurs utilisateurs, les expériences sont difficilement reproductibles.
 
 La seconde solution consiste à faire de la simulation: on modélise ce que l'on
-souhaite étudier (application et/ou environnement) via un programme appelé
+souhaite étudier (application et environnement) via un programme appelé
 simulateur. Dans ce cas, pour pouvoir tester des applications distribuées, on doit d'abord abstraire l'application ainsi que l'environnement
 d'exécution. Pour cela, on identifie les propriétés de l'application et de son
 environnement puis on les transforme à l'aide de modèles mathématiques. Ainsi,
@@ -58,7 +56,7 @@ l'application réelle, dans un environnement également modélisé. Cette soluti
 est donc facilement reproductible, plus simple à mette en \oe uvre, et permet de
 prédire l'évolution du système étudié grâce à l'utilisation de modèles
 mathématiques. De nos jours, les simulateurs tels que
-\textbf{SimGrid}\citep{CASANOVA:SimGrid, MARTIN:SimGrid} peuvent simuler des
+\textbf{SimGrid} \citep{casanova:hal-01017319} peuvent simuler des
 applications distribuées mettant à contribution des milliers de
 n\oe uds. Néanmoins, avec la simulation on ne peut valider qu'un modèle et non
 l'application elle-même.
@@ -87,7 +85,7 @@ virtualisée soit calculé).
 Au cours de ce stage, nous allons nous intéresser plus particulièrement à
 l'exécution d'applications distribuées arbitraires au dessus de la plateforme de
 simulation SimGrid. Pour cela, nous allons présenter en section
-\ref{section:emulation} les différents types de virtualisations qui
+\ref{section:emulation} les différents types de virtualisation qui
 existent. Nous verrons en section \ref{section:tools} les outils qui permettent
 de mettre en place la virtualisation que nous aurons choisie pour ce
 projet. Puis en section \ref{section:sota} nous présenterons les projets
@@ -96,6 +94,6 @@ environnement distribué. Ensuite, nous expliquerons en section
 \ref{section:simterpose}, pourquoi dans le cadre du projet Simterpose c'est la
 virtualisation légère par interception qui a été choisie et comment elle
 fonctionne. En section \ref{section:work}, nous expliquerons le travail qui a
-été effectué durant ce stage . Puis, Nous présenterons nos expériences et les
+été effectué durant ce stage. Puis, nous présenterons nos expériences et les
 résultats obtenus en section \ref{section:evaluation}. Pour finir, nous
-concluerons avec les sections \ref{section:future_work} et \ref{section:ccl}.
+conclurons avec les sections \ref{section:future_work} et \ref{section:ccl}.

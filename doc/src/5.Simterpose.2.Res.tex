@@ -2,11 +2,11 @@
 \label{subsection:fonctionnement_simterpose}
 
 Les actions à intercepter pour maintenir la virtualisation sont de différentes
-natures. Il peut s'agir d'actions liées \textit{i)} aux communications réseaux,
-\textit{ii)} à la création et à l'identification des processus, \textit{iii)} à
-la gestion du temps, \textit{iv)} à l'utilisation du protocole DNS. Pour chacune, les outils utilisés ne sont pas nécessairement les mêmes. Nous allons donc voir
-lesquels sont employés parmi ceux cités dans la section
-\ref{section:tools}.
+natures. Il peut s'agir d'actions liées aux communications réseaux, à la
+création et à l'identification des processus, à la gestion du temps, ainsi qu'à
+l'utilisation du protocole DNS. Pour chacune, les outils utilisés ne sont pas
+nécessairement les mêmes. Nous allons donc voir lesquels sont employés parmi
+ceux cités dans la section \ref{section:tools}.
 
 \subsubsection{Les communications réseaux}
  %-> syscall -> ptrace (full mediation, address translation)
@@ -18,7 +18,7 @@ réseau local et réseau simulé, comme le montre la Figure \ref{COMM}. En effet
 l'application possède une adresse IP et des numéros de ports virtuels qui ne
 correspondent pas à ceux attribués dans le réseau local.
 
-La gestion de cette transition va se faire au niveau des appels systèmes, car nous ne souhaitons pas prendre le risque d'oublier des fonctions en utilisant \texttt{LD\_PRELOAD}. Pour intercepter les appels systèmes liés au réseau nous allons utiliser l'appel système \texttt{ptrace} présenté en section \ref{subsection:ptrace}.
+La gestion de cette transition va se faire au niveau des appels systèmes, car nous ne souhaitons pas oublier des fonctions en utilisant \texttt{LD\_PRELOAD}. Pour intercepter les appels systèmes liés au réseau nous allons utiliser l'appel système \texttt{ptrace} présenté en section \ref{subsection:ptrace}.
 
 \begin{figure}[H]
   \centering
@@ -36,14 +36,11 @@ La gestion de cette transition va se faire au niveau des appels systèmes, car n
   \label{COMM}
 \end{figure}
 
-De plus on ne peut pas se baser uniquement sur le numéro de \textit{file
-  descriptor} associé à une socket pour identifier deux entités qui communiquent
-entre elles. En effet ce \textit{file descriptor} est unique pour chaque socket
-d'un processus, mais plusieurs processus peuvent avoir un même numéro de
-\textit{file descriptor} pour des sockets de communications différentes puisque
-chacune à son propre espace mémoire. Pour pallier à ce problème on va utiliser
-en plus du numéro de socket, les adresses IP et les ports locaux et distants des
-deux entités qui souhaitent communiquer comme moyen d'identification.
+De plus, il n'est pas suffisant de se baser uniquement sur le descripteur de fichier associé à une socket pour identifier deux entités qui communiquent
+entre elles. En effet ce descripteur est unique pour chaque socket
+d'un processus, mais plusieurs processus peuvent avoir un même descripteur de fichier pour des sockets de communications différentes puisque
+chacun à son propre espace mémoire. Pour pallier à ce problème, nous allons utiliser les adresses IP et les ports locaux et distants des
+deux entités qui souhaitent communiquer comme moyen d'identification en plus du numéro de socket.
 
 Afin de gérer toutes ces modifications deux solutions ont été proposées lors
 d'un précédent stage \citep{GUILLAUME:Interceptionsyscall}: l'\textit{address

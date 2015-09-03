@@ -12,54 +12,54 @@ qui permet d'insérer du code dans l'exécution d'un programme.
 %pas suid
 
 L'utilisation de la variable d'environnement \texttt{LD\_PRELOAD}
-\citep{LDPreload}, contenant une liste de bibliothèques partagées, va nous
+\footnote{\url{https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld\_preload-to-cheat-inject-features-and-investigate-programs/}}, contenant une liste de bibliothèques partagées, va nous
 permettre d'intercepter les appels aux fonctions qui nous intéressent et d'en
 modifier le comportement. Cette variable est utilisée à chaque lancement d'un
 programme par l'éditeur de liens pour charger les bibliothèques partagées qui
 doivent être chargées avant toute autre bibliothèque (même celles utilisées par
 le programme). Ainsi, si une fonction est définie dans plusieurs bibliothèques
 différentes, celle utilisée par le programme sera celle qui est contenue dans la
-bibliothèque partagée apparaîssant en premier dans la liste des bibliothèques
+bibliothèque partagée apparaissant en premier dans la liste des bibliothèques
 préchargées. Ce ne sera pas nécessairement celle de la bibliothèque
-attendue par le programme. Par exemple, on créé une bibliothèque partagée qui
+attendue par le programme. Par exemple, on crée une bibliothèque partagée qui
 implémente une fonction \texttt{printf} de même prototype que la
 fonction \texttt{printf} de la libc et on place cette bibliothèque dans la
 variable \texttt{LD\_PRELOAD}. Quand on exécute un programme faisant un appel
 à \texttt{printf}, l'éditeur de lien va d'abord charger les bibliothèques
-contenues dans la variable d'environnement \texttt{LD\_PRELOAD} puis la libc, la
-nouvelle bibliothèque apparaîtra donc avant la libc dans la liste des
+contenues dans la variable d'environnement \texttt{LD\_PRELOAD} puis la \texttt{libc}, la
+nouvelle bibliothèque apparaîtra donc avant la \texttt{libc} dans la liste des
 bibliothèques préchargées. Ainsi, c'est la nouvelle fonction \texttt{printf}
 qui sera exécutée par le programme et non l'originale. De cette façon, on peut
 intercepter n'importe quelle fonction.
 
-Dans notre cas, on va donc créer notre propre bibliothèque de fonctions. Pour
-chaque fonction à intercepter, on crééra une
-fonction de même nom et de même type dans notre bibliothèque. Chacune de nos
-fonctions contiendra alors toutes les modifications nécessaires pour maintenir
-notre environnement simulé, suivi d'un appel à la fonction initiale. On rappelle
-que dans notre cas, on souhaite juste intercepter l'appel et pas l'empêcher. Notre nouvelle bibliothèque sera préchargée avant les autres en la plaçant dans
-la variable \texttt{LD\_PRELOAD}, ainsi nos fonctions passeront avant les
-fonctions des bibliothèques usuelles.
+Dans notre cas, on va créer notre propre bibliothèque de fonctions. Pour chaque
+fonction à intercepter, on crée une fonction de même nom et de même type dans
+notre bibliothèque. Chacune de nos fonctions doit contenir les modifications
+nécessaires pour maintenir l'environnement simulé. Si on souhaite seulement
+intercepter l'appel et non l'empêcher la nouvelle fonction doit également
+contenir un appel à la fonction initiale. Notre nouvelle bibliothèque sera
+préchargée avant les autres en la plaçant dans la variable \texttt{LD\_PRELOAD},
+ainsi nos fonctions passeront avant les fonctions des bibliothèques usuelles.
 
-Néanmoins, si l'application fait un appel système directement sans
-passer par la couche \textit{Bibliothèques} (Figure
-\ref{AS_Communication}) notre mécanisme d'interception est
-contourné. En effet, avec cette solution on ne peut surcharger que des
-fonctions définies dans les bibliothèques chargées dynamiquement, et
-non les appels systèmes directement. De même, si on oublie de réécrire
-une fonction d'une des bibliothèques utilisée par l'application. De
-plus, \texttt{LD\_PRELOAD} étant utilisé pour les bibliothèques
-chargées dynamiquement, les bibliothèques statiques chargées à la
-compilation utilisant des fonctions à intercepter seront
-oubliées. Ainsi, l'interception au niveau des appels de fonctions ne
-permet pas une interception complète.
+Néanmoins, il existe trois cas dans lequel notre mécanisme d'interception est
+contourné. Le premier se produit lorsque l'application fait un appel système
+directement sans passer par la couche \textit{Bibliothèques} (Figure
+\ref{AS_Communication}). En effet, avec cette solution on ne peut surcharger que
+des fonctions définies dans les bibliothèques chargées dynamiquement, et non les
+appels systèmes directement. Le second contournement de notre mécanisme a lieu
+si on oublie de réécrire une fonction d'une des bibliothèques utilisée par
+l'application. Pour finir, \texttt{LD\_PRELOAD} étant utilisé pour les
+bibliothèques chargées dynamiquement, si une bibliothèque statique chargée à la
+compilation fait appel à une fonction que nous voudrions intercepter notre
+mécanisme d'interception n'interviendra pas. Ainsi, l'interception au niveau des
+appels de fonctions ne permet pas une interception complète.
 
 \subsubsection{GOT Poisoning}
 %% plus dur que nécessaire
 
-À la compilation, les adresses des appels de fonctions appartenant à des bibliothèques partagées ne sont pas connues. On associe alors un symbole à chaque appel d'une de ces fonctions. C'est lors de l'exécution du programme que l'éditeur de lien dynamique résoudra le symbole en trouvant l'adresse de la fonction à laquelle il correspond. Cette adresse sera ensuite stockée dans la ``Global Offset Table''\citep{ELF}, également appelée GOT. Ce tableau, stocké dans le segment de données d'un exécutable ELF, sauvegarde pour chaque symbole résolu l'adresse de la fonction correspondante. Ainsi, lors du premier appel à la fonction, l'éditeur de lien retrouve l'adresse du symbole et pour les appels suivants il parcourt la GOT au lieu de refaire le calcul.
+À la compilation, les adresses des appels de fonctions appartenant à des bibliothèques partagées ne sont pas connues. On associe alors un symbole à chaque appel d'une de ces fonctions. C'est lors de l'exécution du programme que l'éditeur de lien dynamique résoudra le symbole en trouvant l'adresse de la fonction à laquelle il correspond. Cette adresse sera ensuite stockée dans la ``Global Offset Table''\footnote{Cheating the ELF, Subversive Dynamic Linking to Libraries \\ \url{https://grugq.github.io/docs/subversiveld.pdf}}, également appelée GOT. Ce tableau, stocké dans le segment de données d'un exécutable ELF, sauvegarde pour chaque symbole résolu l'adresse de la fonction correspondante. Ainsi, lors du premier appel à la fonction, l'éditeur de lien retrouve l'adresse du symbole et pour les appels suivants il parcourt la GOT au lieu de refaire le calcul.
 
-La technique du ``GOT poisoning'' \citep{GOT_poisoning} permet d'injecter de fausses adresses de fonctions dans la GOT lors de l'édition de lien dynamique d'un programme. Ainsi, pour chaque fonction de bibliothèque partagée que l'on souhaite intercepter, on peut remplacer l'adresse associée au symbole correspondant à la fonction par l'adresse d'une nouvelle fonction que l'on aura implémentée. Comme avec \texttt{LD\_PRELOAD} il ne faut pas oublier de fonctions sinon l'interception sera contournée.
+La technique du ``GOT poisoning''\footnote{Infection via GOT poisoning d'appel à des bibliothèques partagées \\ \url{http://vxheaven.org/lib/vrn00.html}} permet d'injecter de fausses adresses de fonctions dans la GOT lors de l'édition de lien dynamique d'un programme. Ainsi, pour chaque fonction de bibliothèque partagée que l'on souhaite intercepter, on peut remplacer l'adresse associée au symbole correspondant à la fonction par l'adresse d'une nouvelle fonction que l'on aura implémentée. Comme avec \texttt{LD\_PRELOAD} il ne faut pas oublier de fonctions sinon l'interception sera contournée.
 
 En comparant avec l'interception via \texttt{LD\_PRELOAD}, la seule différence est que la variable d'environnement \texttt{LD\_PRELOAD} n'est pas lue lors de l'exécution de code \texttt{setuid} entraînant un problème d'interception. Dans notre cas, on ne s'intéresse pas aux problèmes de sécurité, nous avons donc choisi de ne pas développer cette solution et de nous concentrer sur \texttt{LD\_PRELOAD}.
 

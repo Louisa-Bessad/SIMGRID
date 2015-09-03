@@ -24,9 +24,15 @@
 
 @Comment  ----- Partie 2
 
-@misc{cgroups,
-title={cgroups},
-note={\url{https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt}},
+@article{quetier2007scalability,
+  title={Scalability comparison of four host virtualization tools},
+  author={Qu{\'e}tier, Benjamin and Neri, Vincent and Cappello, Franck},
+  journal={Journal of Grid Computing},
+  volume={5},
+  number={1},
+  pages={83--98},
+  year={2007},
+  publisher={Springer}
 }
 
 @inproceedings{buchert2011methods,
@@ -41,22 +47,8 @@ note={\url{https://www.kernel.org/doc/Documentation/cgroups/cgroups.txt}},
 @inproceedings{canon2006wrekavoc,
   title={Wrekavoc: a tool for emulating heterogeneity.},
   author={Canon, Louis-Claude and Jeannot, Emmanuel and others},
-  booktitle={IPDPS},
+  booktitle={Parallel \& Distributed Processing Symposium (IPDPS)},
   year={2006}
-}
-
-@misc{netfilter_iptables,
-title={The netfilter.org project},
-note={\url{http://www.netfilter.org/}}
-}
-
-@misc{iptables_man,
-title={Man iptables},
-note={\url{http://ipset.netfilter.org/iptables.man.html}}
-}
-@misc{SMPI,
-title={SMPI Project: Simulation d'applications MPI},
-note={\url{http://www.loria.fr/~quinson/Research/SMPI/}}
 }
 
 @inproceedings{clauss2011single,
@@ -66,11 +58,6 @@ note={\url{http://www.loria.fr/~quinson/Research/SMPI/}}
   pages={664--675},
   year={2011},
   organization={IEEE}
-}
-
-@misc{cocci,
-title={Coccinelle project},
-note={\url{http://coccinelle.lip6.fr/}}
 }
 
 @inproceedings{MARION:Emulation,
@@ -85,6 +72,21 @@ note={\url{http://coccinelle.lip6.fr/}}
   PDF = {https://hal.inria.fr/inria-00565341/file/RR-7536.pdf},
   HAL_ID = {inria-00565341},
   HAL_VERSION = {v1},
+}
+
+@article{casanova:hal-01017319,
+          hal_id = {hal-01017319},
+          url = {http://hal.inria.fr/hal-01017319},
+          title = {Versatile, Scalable, and Accurate Simulation of Distributed Applications and Platforms},
+          author = {Casanova, Henri and Giersch, Arnaud and Legrand, Arnaud and Quinson, Martin and Suter, Fr{\'e}d{\'e}ric},
+          publisher = {Elsevier},
+          pages = {2899-2917},
+          journal = {Journal of Parallel and Distributed Computing},
+          volume = {74},
+          number = {10},
+          year = {2014},
+          month = Jun,
+          pdf = {http://hal.inria.fr/hal-01017319/PDF/simgrid3-journal.pdf},
 }
 
 @inproceedings{MARTIN:SimGrid,
@@ -119,21 +121,21 @@ note={\url{http://coccinelle.lip6.fr/}}
 }
 
 @masterthesis{MARION:Interception,
-title={\href{http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf}{Interception système pour la capture et le rejeu de traces}},
+title={Rapport de stage: \href{http://www.loria.fr/~quinson/Research/Students/2010_guthmuller-rapport.pdf}{Interception système pour la capture et le rejeu de traces}},
 author={Marion Guthmuller},
 school={Université Henri Poincaré - Nancy 1},
 year={2009--2010},
 }
 
 @misc{GUILLAUME:Interceptionsyscall,
-title={\href{http://www.loria.fr/~quinson/Research/Students/2012-master-simterpose-rapport.pdf}{Simulation of distributed application with usage of syscalls interception}},
+title={Rapport de stage: \href{http://www.loria.fr/~quinson/Research/Students/2012-master-simterpose-rapport.pdf}{Simulation of distributed application with usage of syscalls interception}},
 author={Guillaume Serrière},
 school={ESIAL - TELECOM Nancy},
 year={2012},
 }
 
 @misc{CHLOE:Emulationapplicationdistribuees,
-title={\href{http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf}{Rapport de stage: Émulation d'applications distribuées sur des plates-formes virtuelles simulées}},
+title={Rapport de stage: \href{http://www.loria.fr/~quinson/Research/Students/2014-master-simterpose-rapport.pdf}{Émulation d'applications distribuées sur des plates-formes virtuelles simulées}},
 author={Chloé MACUR},
 school={École Polytechnique},
 year={2014},
@@ -157,22 +159,6 @@ year={2014},
  keywords = {Memcheck, Valgrind, dynamic binary analysis, dynamic binary instrumentation, shadow values},
 }
 
-@misc{Valgrindweb,
-title={Valgrind},
-note={\url{http://valgrind.org/}},
-year={2000},
-}
-
-@misc{Dyn,
-title={DynInst},
-note={\url{http://www.dyninst.org/}}
-}
-
-@misc{seccompbpf,
-title={Seccomp man},
-note={\url{http://man7.org/linux/man-pages/man2/seccomp.2.html}},
-}
-
 @inproceedings{BPF_mccanne1993bsd,
   title={The BSD packet filter: A new architecture for user-level packet capture},
   author={McCanne, Steven and Jacobson, Van},
@@ -182,47 +168,12 @@ note={\url{http://man7.org/linux/man-pages/man2/seccomp.2.html}},
   organization={USENIX Association}
 }
 
-@misc{LDPreload,
-title={\textsc{LD\_PRELOAD}},
-note={\url{https://rafalcieslak.wordpress.com/2013/04/02/dynamic-linker-tricks-using-ld\_preload-to-cheat-inject-features-and-investigate-programs/}},
-}
-
 @misc{sharedlibrairies,
 title={How to create shared libraries},
 note={\url{http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html}},
 }
 
-@misc{ELF,
-title={Cheating the ELF, Subversive Dynamic Linking to Libraries},
-note={\url{https://grugq.github.io/docs/subversiveld.pdf}}
-}
-
-@misc{GOT_poisoning,
-title={Infection via GOT poisoning d'appel à des bibliothèques partagées},
-note={\url{http://vxheaven.org/lib/vrn00.html}}
-}
-
 @Comment ----- Partie 3
-@misc{cwrap,
-title={CWRAP Website},
-note={\url{https://cwrap.org/}},
-}
-
-@misc{cwrap_bis,
-title={An article about cwrap and how it works},
-note={\url{https://lwn.net/Articles/594863/}},
-}
-
-@misc{RR,
-title={RR Project},
-note={\url{http://rr-project.org/}},
-}
-
-@misc{RRimplem,
-title={RR implémentation},
-note={\url{http://rr-project.org/rr.html}},
-}
-
 @inproceedings{DISTEM,
   TITLE = {{Design and Evaluation of a Virtual Experimental Environment for Distributed Systems}},
   AUTHOR = {Sarzyniec, Luc and Buchert, Tomasz and Jeanvoine, Emmanuel and Nussbaum, Lucas},
@@ -299,11 +250,6 @@ note={\url{http://rr-project.org/rr.html}},
   pages={167--178},
   year={2014},
   organization={ACM}
-}
-
-@misc{DETER_Project,
-title={The DETER Project},
-note={\url{http://deter-project.org/}},
 }
 
 @article{DETER_mirkovic2010deter,
