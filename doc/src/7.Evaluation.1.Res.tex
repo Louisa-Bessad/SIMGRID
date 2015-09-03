@@ -13,7 +13,7 @@ Afin de mesurer l'\textit{overhead} produit par Simterpose, notre expérience co
 
 Dans le cas de l'envoi de plusieurs petits messages le temps moyen d'exécution en local est d'environ 3 secondes, avec Simterpose on arrive à 72 secondes en \textit{full mediation} et à 75 secondes en \textit{address translation}. On a donc une exécution qui prend 25 fois plus de temps. De même, lors de l'envoi d'un gros message le système met 0,01 secondes en moyenne pour exécuter l'application alors que Simterpose met entre 1 et 1,1 secondes selon le type de médiation. Cette exécution prendra donc 100 fois plus de temps si on souhaite réellement mettre en place notre émulateur.
 
-\begin{figure}
+\begin{figure}[H]
   \centering
     \includegraphics[scale=0.5]{mesures/graph/Bigmsg_local.jpg}
     \caption[Temps d'exécution lors de l'envoi d'un message de 1Mo]{Temps d'exécution lors de l'envoi d'un message de 1Mo avec et sans Simterpose.}
