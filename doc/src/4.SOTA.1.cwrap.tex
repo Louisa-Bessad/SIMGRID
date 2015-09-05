@@ -4,7 +4,7 @@
 
 cwrap\footnote{CWRAP Website \url{https://cwrap.org/} \\ An article about cwrap and how it works \url{https://lwn.net/Articles/594863/}} a pour but de tester des applications réseaux
 s'exécutant sur des machines UNIX ayant un accès réseau limité et sans droits
-administrateur. Ce projet libre a débuté en 2005 avec le test du framework
+administrateurs. Ce projet libre a débuté en 2005 avec le test du framework
 ``smbtorture'' de Samba\footnote{\url{https://www.samba.org/}
   \\ \url{https://wiki.samba.org/index.php/Writing\_Torture\_Tests}}. Pour
 atteindre son objectif, cwrap fait de l'émulation par interception basée sur le
@@ -16,7 +16,7 @@ réseaux. Elle modifie toutes les fonctions liées aux sockets afin que toutes l
 communications soient basées sur des sockets UNIX et que le routage soit fait
 sur le réseau local émulé. Cela permet de pouvoir lancer plusieurs instances de
 serveur sur la même machine hôte. On peut également utiliser les ports
-privilégiés (en dessous de 1024) sans avoir les droits administrateur dans le
+privilégiés (en dessous de 1024) sans avoir les droits administrateurs dans le
 réseau local émulé pour communiquer. Cette bibliothèque permet aussi de faire
 des captures réseau. La seconde, \texttt{nss\_wrapper}, est
 utilisée dans le cas d'applications dont les démons doivent pouvoir gérer des

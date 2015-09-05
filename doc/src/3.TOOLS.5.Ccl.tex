@@ -1,6 +1,6 @@
 \subsection{Conclusion}
 
-Dans cette section, nous avons présenté différentes approches permettant de
+Dans cette section, nous avons présenté différents outils permettant de
 faire de l'interception et de la médiation d'actions d'applications, résumées
 dans le tableau \ref{TAB_COMP}. Dans le cas d'émulateur ne souhaitant pas modifier
 le code source d'une application, les outils présentés en \ref{subsection:source}
@@ -10,10 +10,10 @@ sont inutiles.
 \centering
 \begin{tabular}{c|c|c|c|c|c|}
 \cline{2-6}
- & ptrace & Uprobes & seccomp/BPF & LD\_PRELOAD & Valgrind \\ \hline
+ & \texttt{ptrace} & Uprobes & seccomp/BPF & LD\_PRELOAD & Valgrind \\ \hline
 \multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Niveau \\ d'interception\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & \begin{tabular}[c]{@{}c@{}}Appel\\ Système\end{tabular} & Bibliothèque & Binaire \\ \hline
 \multicolumn{1}{|c|}{Coût} & Moyen & Faible & Moyen & Faible & Important \\ \hline
-\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Mise en\\ oeuvre\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Assez\\ complèxe\end{tabular} & \begin{tabular}[c]{@{}c@{}}Assez\\ Complexe\end{tabular} & \begin{tabular}[c]{@{}c@{}}Assez \\ complexe\end{tabular} & Simple & Complexe \\ \hline
+\multicolumn{1}{|c|}{\begin{tabular}[c]{@{}c@{}}Mise en\\ \oe uvre\end{tabular}} & \begin{tabular}[c]{@{}c@{}}Assez\\ complexe\end{tabular} & \begin{tabular}[c]{@{}c@{}}Assez\\ complexe\end{tabular} & \begin{tabular}[c]{@{}c@{}}Assez \\ complexe\end{tabular} & Simple & Complexe \\ \hline
 \multicolumn{1}{|c|}{Utilisé pour} & \begin{tabular}[c]{@{}c@{}}- Thread \\ (incomplet)\\ - Echanges \\ réseau\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread \\ (incomplet)\\ - Echanges\\ réseau\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread \\ (incomplet)\\ - Echanges\\ réseau\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread \\(incomplet)\\ - Temps\\ - DNS\end{tabular} & \begin{tabular}[c]{@{}c@{}}- Thread\\ - Temps\\ - Echanges\\ réseau\\ - DNS\end{tabular} \\ \hline
 \end{tabular}
 \caption[Comparaison des différentes solutions d'interception]{Comparaison des différentes solutions d'interception entre une application et le noyau.}

@@ -9,7 +9,7 @@ L'objectif principal étant de montrer qu'il est possible de faire de la virtual
 L'application qui a été créée pour effectuer nos expériences exécute différents appels à des fonctions temporelles (\texttt{ftime}, \texttt{time}, \texttt{gettimeofday}, \texttt{localtime}, \texttt{mktime}...). Le protocole utilisé consiste à exécuter 20 fois l'application puis une moyenne du temps d'exécution ainsi qu'une mesure des temps minimum et maximum sont calculés.
 
 \subsubsection{Résultat}
- Notre expérience consiste à exécuter l'application qui effectue les appels temporels avec Simterpose sans \texttt{LD\_PRELOAD} et avec \texttt{LD\_PRELOAD}. Les résultats de l'expérience sont présentés Figure \ref{Temps_FM}. On constate que le temps d'exécution avec interception via \texttt{LD\_PRELOAD} est plus ou moins constant (environ 1,03 secondes), alors que celui sans interception varie énormément, entre 0,82 et 1,13 secondes. 
+ Notre expérience consiste à exécuter l'application qui effectue les appels temporels avec Simterpose sans \texttt{LD\_PRELOAD} et avec \texttt{LD\_PRELOAD} en suivant le protoloce présenté plus haut. Les résultats de l'expérience sont présentés Figure \ref{Temps_FM}. On constate que le temps d'exécution avec interception via \texttt{LD\_PRELOAD} est plus ou moins constant (environ 1,03 secondes), alors que celui sans interception varie énormément, entre 0,82 et 1,13 secondes. 
 
 \begin{figure}[H]
   \centering
@@ -19,7 +19,8 @@ L'application qui a été créée pour effectuer nos expériences exécute diff�
 \end{figure}
 
 \subsubsection{Analyse}
-Cela est dû au fait que lorsqu'on appelle des fonctions temporelles sans interception via \texttt{LD\_PRELOAD} la bibliothèque \texttt{VDSO} est appelée pour gérer l'appel et accéde elle-même à la mémoire. Néanmoins, en moyenne les deux expériences ont environ le même temps d'exécution, 1 seconde pour la première et 1,02 secondes pour la deuxième.
+
+Cette grande variation du temps d'exéctuion est dûe au fait que lorsqu'on appelle des fonctions temporelles sans interception via \texttt{LD\_PRELOAD} la bibliothèque \texttt{VDSO} est appelée pour gérer l'appel et accéde elle-même à la mémoire. Néanmoins, en moyenne les deux expériences ont environ le même temps d'exécution, 1 seconde pour la première et 1,02 secondes pour la deuxième.
 
 \subsubsection{Conclusion}
 Pour conclure, cette exéprience nous permet de montrer que l'interception via \texttt{LD\_PRELOAD} a un surcoût négligeable lorsqu'on utilise Simterpose. Il est donc possible de mettre en place une virtualisation légère pour la gestion du temps.

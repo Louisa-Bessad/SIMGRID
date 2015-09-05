@@ -3,7 +3,7 @@
 
 Comme le montre la Figure \ref{AS_Communication}, les appels systèmes sont les
 seules communications qui ne passent pas par un niveau d'abstraction. Ces
-derniers communiquent directement avec le noyau. Le moyen le plus simple pour
+derniers communiquant directement avec le noyau. Le moyen le plus simple pour
 intercepter les actions de l'application en gérant un minimum de choses semble
 donc être l'interception des appels systèmes. Ces derniers sont constitués de
 deux parties; l'entrée initialise l'appel via les registres de l'application qui
@@ -24,7 +24,7 @@ pouvoir entrer ou sortir de l'appel système.
                
 L'appel système \texttt{ptrace} \citep{AS:Interception, MARION:Interception},
 dont la Figure \ref{PTRACE_FONCTIONNEMENT} illustre le fonctionnement, permet de
-tracer tous les événement désirés d'un processus. Il peut également lire et
+tracer tous les événements désirés d'un processus. Il peut également lire et
 écrire directement dans l'espace d'adressage de ce dernier, à n'importe quel
 moment ou lorsque un événement particulier se produit. De cette façon, on peut
 contrôler l'exécution d'un processus. C'est un appel système dont chaque action
@@ -70,7 +70,7 @@ Néanmoins, pour contrôler un processus, \texttt{ptrace} fait de nombreux
 changements de contexte pour pouvoir intercepter et gérer les événements, or
 cela coûte plusieurs centaines de cycles CPU. De plus, il supporte mal
 les processus utilisant du multithreading, et ne fait pas partie de la norme
-POSIX. Ainsi il peut ne pas être disponible sur certaines architectures et son
+POSIX. Ainsi, il peut ne pas être disponible sur certaines architectures et son
 exécution peut varier d'une machine à une autre.
 
 Nous tenons à faire remarquer que l'utilitaire UNIX \texttt{strace}\footnote{\url{http://linux.die.net/man/1/strace}} suit la même approche que \texttt{ptrace} sans avoir ses désavantages, mais qu'il a été écarté car il ne fait qu'afficher les appels systèmes réalisés par une application.
@@ -80,15 +80,15 @@ Nous tenons à faire remarquer que l'utilitaire UNIX \texttt{strace}\footnote{\u
 
 Uprobes \citep{AS:Interception, MARION:Interception}, pour \textit{user-space
   probes}, est une API noyau permettant d'insérer dynamiquement des points
-d'arrêts à n'importe quel endroit dans le code d'une application et à n'importe
+d'arrêt à n'importe quel endroit dans le code d'une application et à n'importe
 quel moment de son exécution. Nous pouvons donc l'utiliser avec les appels
-systèmes comme points d'arrêts.
+systèmes comme points d'arrêt.
 
 La façon la plus classique d'utiliser cette interface se base sur Utrace,
 équivalent de \texttt{ptrace} en mode noyau. Ce dernier permet d'éviter les
 nombreux changements de contexte, qui dégradent les performances, et offre une
 meilleure gestion du multithreading. Dans cette version, l'utilisateur fournit
-pour chaque point d'arrêts un handler particulier à exécuter avant ou après
+pour chaque point d'arrêt un handler particulier à exécuter avant ou après
 l’instruction marquée. Uprobes étant un outil s'exécutant dans le noyau, les
 handlers doivent être placés dans un module noyau. Ce dernier contient pour
 chaque point d'arrêt géré par Uprobes le handler à exécuter, ainsi que le pid du
@@ -98,7 +98,7 @@ données \textit{i)} \texttt{uprobe\_process} (une par processus controlé),
 \textit{ii)} \texttt{uprobe\_task} (autant que le processus contrôlé a de
 threads), \textit{iii)} \texttt{uprobe\_kimg} (une pour chaque point d'arrêt
 affectant un procesus). Chaque structure \texttt{uprobe\_task} et
-\texttt{uprobe\_kimg} sont propres à une structure \texttt{uprobe\_process}. La
+\texttt{uprobe\_kimg} est propre à une structure \texttt{uprobe\_process}. La
 fonction \texttt{init} du module va poser les points d'arrêt et la fonction
 \texttt{exit} les enlevera. Pour cela, on utilise respectivement la fonction
 \texttt{register\_uprobe} et \texttt{unregister\_uprobe}. Ces deux fonctions ont
@@ -109,7 +109,7 @@ paramètres en parcourant la liste des structures \texttt{uprobes\_process} ou l
 crééra si cette dernière n'existe pas. Ensuite, elle crée la structure
 \texttt{uprobe\_kimg}, puis fait appel à Utrace pour bloquer l'application, le
 temps de placer le point d'arrêt dans le code de celle-ci. Pour cela, on va
-insère avant l'instruction sondée un appel au module contenant le handler à
+insèrer avant l'instruction sondée un appel au module contenant le handler à
 invoquer, puis on rend la main à l'application en utilisant de nouveau
 Utrace. \texttt{unregister\_uprobe} fait de même mais supprime la structure
 \texttt{uprobe\_kimg} passée en paramètre au lieu de l'ajouter. De plus, s'il
@@ -128,7 +128,7 @@ ce dernier créé ou supprime les structures \texttt{uprobe\_process}
 concernées. Utrace peut également être utilisé dans le handler gérant un point
 d'arrêt pour récupérer des informations sur l'application et les données qu'elle
 utilise. De plus, un handler peut également ajouter ou enlever des points
-d'arrêts.
+d'arrêt.
 
 Les deux avantages de cette solution sont qu'elle est rapide et qu'elle a accès
 à toutes les ressources sans aucune restriction.
@@ -163,7 +163,7 @@ au processus espion, s'il existe, de ne plus attendre sur chaque appel système
 du processus espionné, mais uniquement sur les appels systèmes qu'il souhaite
 intercepter.
 
-L'appel système seccomp et son extension seccomp/BPF sont disponibles uniquement si
+L'appel système \texttt{seccomp} et son extension seccomp/BPF sont disponibles uniquement si
 le noyau est configuré avec l'option \texttt{CONFIG\_SECCOMP} pour la première
 et \texttt{CONFIG\_SECCOMP\_FILTER} pour la seconde. Pour pouvoir créer des
 filtres, il faut également avoir des droits particuliers, notamment l'exécution

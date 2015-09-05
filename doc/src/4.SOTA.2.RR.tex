@@ -46,7 +46,7 @@ valeurs de retour des registres seront celles sauvegardées lors de l'exécution
 réelle et non celles du rejeu. RR utilise l'outil \texttt{LD\_PRELOAD} que nous
 avons vu en section \ref{paragraphe:LDPreload} pour intercepter les appels
 systèmes et les placer dans un buffer. Ensuite Seccomp/BPF, vu en section
-\ref{paragraph:seccomp/bpf}, parcourra le buffer pour filtrer les appels système
+\ref{paragraph:seccomp/bpf}, parcourra le buffer pour filtrer les appels systèmes
 et les laisser exécuter. Pour cette partie de la gestion de l'appel on n'utilise
 pas \texttt{ptrace} car il est trop coûteux en terme de changement de contexte,
 comme le montre la Figure \ref{AS_RR}. Il sera utilisé pour renvoyer le bon
@@ -70,7 +70,7 @@ d'enregistrement par rapport à un simple debogage avec \texttt{gdb} varie selon
 applications et les tests effectués. Néanmoins, le fait que RR n'enregistre pas
 la mémoire partagée en multi-tâche est un problème pour déboguer des threads. De
 plus, il émule une machine simplement mono-c\oe ur ce qui est un problème pour
-l'utilisation du parallélisme. Tous les appels système ne sont pas encore
+l'utilisation du parallélisme. Tous les appels systèmes ne sont pas encore
 implémentés et en fonction de l'application à tester on risque de voir
-apparaître un problème d'interception de certains appels système exécutés par
+apparaître un problème d'interception de certains appels systèmes exécutés par
 les processus.

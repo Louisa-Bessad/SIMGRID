@@ -3,7 +3,7 @@
 \label{subsubsection:valgrind}
 
 Pour agir sur le binaire d'une application, il existe différents outils. Nous
-allons utiliser l'outil d'instrumentation d'analyse dynamique Valgrind\footnote{\url{http://valgrind.org/}} \citep{Valgrind} comme exemple.
+allons utiliser l'outil d'instrumentation d'analyse dynamique Valgrind\footnote{\url{http://valgrind.org/}} \citep{Valgrind} comme exemple ici.
 
 À l'origine, Valgrind était utilisé pour le débogage mémoire, puis il a évolué
 pour devenir l'instrument de base à la création d'outils d'analyse dynamique de
@@ -40,7 +40,7 @@ intercepter le nom de la librairie qui l'implémente. Cette solution est donc
 assez contraignante et ses performances sont assez médiocres d'après l'étude
 faite par M. Guthmuller lors de son stage \citep{MARION:Interception}: facteur
 de 7.5 pour le temps d'exécution d'une application avec cet outil. Cette perte
-de performance est due à la compilation faite en deux phases ainsi qu'au temps
+de performances est due à la compilation faite en deux phases ainsi qu'au temps
 nécessaire aux outils de Valgrind pour modifier ou rajouter du code à
 l'existant. Cela pourrait être acceptable, si Valgrind faisait de la traduction
 dynamique lors de la seconde phase de sa compilation, nous permettant ainsi
