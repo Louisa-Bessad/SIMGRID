@@ -198,9 +198,35 @@ Martin \textsc{Quinson} % Supervisor's Name
 \clearpage
 %\vfill
 
-%%\newpage
-%%\mbox{}
-%%\newpage
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+\setcounter{page}{1}
+\tableofcontents
+%\vfill
+\newpage
+%% \mbox{}
+%% \newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+\lstlistoflistings
+\newpage
+\thispagestyle{empty}
+\mbox{}
+\newpage
+
+%Abstract
+%\begin{abstract}
+ %TODO
+  %% Dans le cadre de ce stage nous allons nous intéresser aux applications ditribuées à large échelle et comment on peut les tester et évaluer leurs performances via une combinaison d'émulation et de simulation en utilisant SIMGRID et Simterpose qui sont deux projets européens. SIMGRID a été lancé en 1999 pour étudier des algorithmes d'ordonnancement sur des plateformes hétérogènes dans un environnement distribué et faciliter leur programmation. Il fournit les outils de base nécessaire à la simulation de ce type d'applications. Simterpose s'insère dans le projet SIMGRID afin de pouvoir étudier des applications complètes et pas uniquement leur modèle que l'on fournit habituellement en paramètre au simulateur. Le but est de faire de l'émulation en utilisant un simulateur que sera SIMGRID. Puisque nous nous intéressons aux applications distribuées notre émulateur doit pouvoir\textit{i)} exécuter un grand nombre d'instances d'une même application sur un même système afin de pouvoir debugguer, \textit{ii)} évaluer des applications ayant de nombreuses condition d'exécution (simple n\oe ud, réseau complet), \textit{iii)} collecter les informations concernant l'application pendant qu'elle s'exécute.
+%\end{abstract}
+%\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Définition des en-têtes et pied de pages
@@ -235,29 +261,6 @@ Martin \textsc{Quinson} % Supervisor's Name
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\tableofcontents
-%\vfill
-\newpage
-%% \mbox{}
-%% \newpage
-
-\listoffigures
-\newpage
-
-\listoftables
-\newpage
-
-\lstlistoflistings
-\newpage
-%% \mbox{}
-%% \newpage
-
-%Abstract
-%\begin{abstract}
- %TODO
-  %% Dans le cadre de ce stage nous allons nous intéresser aux applications ditribuées à large échelle et comment on peut les tester et évaluer leurs performances via une combinaison d'émulation et de simulation en utilisant SIMGRID et Simterpose qui sont deux projets européens. SIMGRID a été lancé en 1999 pour étudier des algorithmes d'ordonnancement sur des plateformes hétérogènes dans un environnement distribué et faciliter leur programmation. Il fournit les outils de base nécessaire à la simulation de ce type d'applications. Simterpose s'insère dans le projet SIMGRID afin de pouvoir étudier des applications complètes et pas uniquement leur modèle que l'on fournit habituellement en paramètre au simulateur. Le but est de faire de l'émulation en utilisant un simulateur que sera SIMGRID. Puisque nous nous intéressons aux applications distribuées notre émulateur doit pouvoir\textit{i)} exécuter un grand nombre d'instances d'une même application sur un même système afin de pouvoir debugguer, \textit{ii)} évaluer des applications ayant de nombreuses condition d'exécution (simple n\oe ud, réseau complet), \textit{iii)} collecter les informations concernant l'application pendant qu'elle s'exécute.
-%\end{abstract}
-%\newpage
 
 \input{src/0.0.Loria.tex}
 \newpage
